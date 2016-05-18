@@ -1,18 +1,46 @@
-
-
-body { background-color: #ccffff; color: black; }
-.nautical-compartment { padding: 0.2em 0.5em; }
-#nautical-ocean       { }
-#nautical-ship        { background-color: white; }
+/* ### Colours ### */
+body { background-color: #ddffff; color: black; }
+#nautical-vaka,
 .nautical-wrapper .nautical-compartment { background-color: white; }
-#nautical-ama         { padding: 1em 0 0 2em; min-height: 25em; }
-#nautical-ballast     { padding: 2em; min-width: 25em; min-height: 25em; }
+#nautical-bow,#nautical-bow a { color: #eee; }
 
+/* ### Borders ### */
+
+#nautical-hull, #nautical-ama .nautical-compartment {
+   border: 4px solid #333333;
+   border-top: 4px solid #888888;
+   border-left: 4px solid #888888;
+   box-shadow: 10px 10px 15px -5px #333333;
+   border-radius: 8px;
+}
+
+/* ### Dimensions ### */
+.nautical-compartment { padding: 0.2em 0.5em; }
+#nautical-regatta     { padding: 1em 0.1em 1em 0.1em; }
+#nautical-ama         { padding: 1em 0 0 2em; min-height: 25em; }
+#nautical-ballast     { padding: 2em; min-width: 50em; min-height: 25em; }
+
+/* ### Text ### */
+#nautical-bow {
+   text-align: center;
+}
+
+/* ### All the things ### */
+#nautical-cargo .project-list-box {
+   margin-left: 2em;
+}
+
+#nautical-cargo .project-list-box td {
+   white-space: nowrap;
+}
+
+
+
+/* ### Not needed ### */
 #nautical-lighthouse,
 #nautical-tug,
 #nautical-figurehead,
 #nautical-prow,
-#nautical-bow,
 #nautical-jib,
 #nautical-foremast,
 #nautical-port,

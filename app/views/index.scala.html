@@ -1,7 +1,63 @@
-@()(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project])(implicit webJarAssets: WebJarAssets, messages: Messages)
+
+@projectBox(title: String, projects: List[Project]) ={
+    @if(!projects.isEmpty){
+      <div class="well project-list-box col-xs-5 col-sm-5 col-xs-offset-0 col-sm-offset-0">
+         <h3>@title</h3>
+         <table class="table table-striped table-condensed">
+            <tbody>
+               @for( project <- projects){
+                  <tr>
+                     <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
+                     @project.urls.map { urls =>
+                        @urls.live.orElse(urls.project).map { url =>
+                           <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
+                        }
+                     }.orElse(Some("")).map{ link =>
+                        <td>@link</td>
+                     }
+                  </tr>
+               }
+            </tbody>
+         </table>
+      </div>
+   }
+}
 
 @main(Messages("application.title")) {
 
-   <h1>@Messages("application.header")</h1>
+   <div class="row">
 
+      @projectBox(Messages("projects.popular.title"), popularProjects)
+
+      @projectBox(Messages("projects.updated.title"), updatedProjects)
+
+   </div>
+
+   <div class="row">
+
+      @projectBox(Messages("projects.new.title"),     newProjects)
+
+      @projectBox(Messages("projects.random.title"),  randomProjects)
+
+   </div>
+
+
+   <div class="well search-box">
+
+      <p class="">
+         @projectsFound projects found
+      </p>
+
+      <div class="row">
+         <div class="col-xs-8 col-sm-8 col-sm-offset-1">
+            <div class="input-group">
+               <input type="text" class="form-control" placeholder="search for projects" maxlength="200" name="term" />
+               <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">search</button>
+               </span>
+            </div>
+         </div>
+      </div>
+   </div>
 }

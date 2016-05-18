@@ -1,2 +1,11 @@
 application.title=Dream Factory. Ideas, projects, applications
 application.header=Dream Factory
+
+projects.updated.title=Updated
+projects.new.title=Recent
+projects.popular.title=Popular
+projects.random.title=Random
+projects.empty=No projects found
+
+project.live.title=Live site
+project.project.title=Project site
