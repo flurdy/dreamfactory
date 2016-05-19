@@ -9,7 +9,7 @@ import util.Random
 case class Urls(project: Option[String] = None, live: Option[String] = None){
    def this(configuration: Configuration) = {
       this( project = configuration.getString("project"),
-            live    = configuration.getString("project") )
+            live    = configuration.getString("live") )
    }
 }
 
@@ -23,6 +23,7 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
 case class Tag(name: String)
 
 case class Project(title: String,
+                   description: Option[String] = None,
                    urls: Option[Urls] = None,
                    dates: Option[ProjectDates] = None,
                    tags: Set[Tag] = Set.empty)
@@ -59,7 +60,8 @@ trait ProjectLookup {
    private lazy val projects = for{
          projectsFound  <- configuration.getConfigList("dream.projects").toList
          projectConfig  <- projectsFound
-         title: String  <- projectConfig.getString("title").toList
+         title          <- projectConfig.getString("title").toList
+         description    =  projectConfig.getString("description")
       } yield {
          val urls: Option[Urls]         = projectConfig.getConfig("urls").map(new Urls(_))
          val dates:Option[ProjectDates] = projectConfig.getConfig("dates").map(new ProjectDates(_))
@@ -68,7 +70,8 @@ trait ProjectLookup {
             tagName    <- configTags
          } yield Tag(tagName) ).toSet
             // projectConfig.getStringList("tags").fold(List.empty)(t => t.toList.map(tt => Tag(tt)))
-         Project(title = title, urls = urls, dates = dates , tags = tags)
+         Project(title = title, description= description,
+                  urls = urls, dates = dates , tags = tags)
       }
 }
 

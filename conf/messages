@@ -7,5 +7,7 @@ projects.popular.title=Popular
 projects.random.title=Random
 projects.empty=No projects found
 
-project.live.title=Live site
-project.project.title=Project site
+project.links.live.title=Live site
+project.links.project.title=Project site
+project.dates.created.title=Created
+project.dates.updated.title=Updated

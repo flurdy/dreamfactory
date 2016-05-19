@@ -1,9 +1,9 @@
-@(title: String)(content: Html)(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(title: Option[String] = None)(content: Html)(implicit webJarAssets: WebJarAssets, messages: Messages)
 
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>@title</title>
+      <title>@title.getOrElse(Messages("application.title"))</title>
       <link rel="stylesheet" media="screen" href="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.css"))">
       <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/nautical.css")">
       <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/cargo.css")">
