@@ -20,6 +20,13 @@
    </tr>
 }
 
+@newsRow(news: News) = {
+   <tr>
+      <td class="col-sm-4 com-xs-4">@news.dateFormatted</td>
+      <td>@Html(news.description)</td>
+   </tr>
+}
+
 @main() {
 
 
@@ -96,6 +103,21 @@
                <li>@tag.name</li>
             }
          </ul>
+   </div>
+   }
+
+   @if(!project.news.isEmpty){
+   <div class="well">
+
+      <h4>News</h4>
+
+      <table class="table table-striped table-condensed">
+         <tbody>
+            @for(news <- project.news){
+               @newsRow(news)
+            }
+         </tbody>
+      </table>
    </div>
    }
 

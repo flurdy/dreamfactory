@@ -6,6 +6,8 @@ import javax.inject._
 import play.api.Configuration
 import scala.collection.JavaConversions._
 import util.Random
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 case class Urls(project: Option[String] = None, live: Option[String] = None){
    def this(configuration: Configuration) = {
@@ -33,12 +35,32 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
 
 case class Tag(name: String)
 
+case class News(date: DateTime, description: String) {
+   lazy val dateFormatted = News.startTimeFormatter.print(date)
+}
+
+trait NewsExtractor {
+   lazy val startTimeFormatter = DateTimeFormat.forPattern("yyyy-MMM-dd")
+   def extract(configuration: List[Configuration]): List[News] = {
+      ( for {
+               config      <- configuration
+               newsDate    <- config.getString("date")
+               date        =  new DateTime(newsDate)
+               description <- config.getString("description")
+            } yield News(date,description) )
+         .sortBy(_.date.toString)
+         .reverse
+   }
+}
+
+object News extends NewsExtractor
+
 case class Project(title: String,
                    description: Option[String] = None,
                    urls: Urls = Urls(),
                    dates: ProjectDates = ProjectDates(),
                    versions: Versions = Versions(),
-                   // news: List[News] = None,
+                   news: List[News] = List.empty,
                    tags: Set[Tag] = Set.empty )
 
 @ImplementedBy(classOf[ProjectRepostitory])
@@ -87,8 +109,10 @@ trait ProjectLookup {
             configTags <- projectConfig.getStringList("tags").toList
             tagName    <- configTags
          } yield Tag(tagName) ).toSet
+         val news: List[News] = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(l.toList) )
          Project(title = title, description= description,
-                  urls = urls, dates = dates , versions = versions, tags = tags)
+                  urls = urls, dates = dates , versions = versions,
+                  tags = tags, news = news)
       }
 }
 
