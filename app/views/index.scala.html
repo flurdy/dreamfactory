@@ -9,10 +9,8 @@
                @for( project <- projects){
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
-                     @project.urls.map { urls =>
-                        @urls.live.orElse(urls.project).map { url =>
-                           <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
-                        }
+                     @project.urls.live.orElse(project.urls.project).map { url =>
+                        <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
                      }.orElse(Some("")).map{ link =>
                         <td>@link</td>
                      }

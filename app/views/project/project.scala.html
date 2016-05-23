@@ -1,5 +1,11 @@
 @(project: Project)(implicit webJarAssets: WebJarAssets, messages: Messages)
 
+@versionsRow(title: String, version: String) = {
+   <tr>
+      <td class="col-sm-4 com-xs-4">@Messages(title)</td>
+      <td>@Html(version) </td>
+   </tr>
+}
 @dateRow(title: String, date: String) = {
    <tr>
       <td class="col-sm-4 com-xs-4">@Messages(title)</td>
@@ -26,53 +32,71 @@
       }
    </div>
 
+   @if(!project.urls.isEmpty){
    <div class="well">
 
-      <h4>Links</h4>
+      <h4>@Messages("project.links.title")</h4>
 
-      @for(urls <- project.urls){
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for(url <- urls.project){
-                  @urlRow("project.links.project.title", url)
-               }
-               @for(url <- urls.live){
-                  @urlRow("project.links.live.title", url)
-               }
-            </tbody>
-         </table>
-      }
+      <table class="table table-striped table-condensed">
+         <tbody>
+            @for(url <- project.urls.project){
+               @urlRow("project.links.project.title", url)
+            }
+            @for(url <- project.urls.live){
+               @urlRow("project.links.live.title", url)
+            }
+         </tbody>
+      </table>
    </div>
+   }
 
+   @if(!project.dates.isEmpty){
    <div class="well">
 
-      <h4>Dates</h4>
+      <h4>@Messages("project.dates.title")</h4>
 
-      @for(dates <- project.dates){
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for(date <- dates.created){
-                  @dateRow("project.dates.created.title", date)
-               }
-               @for(date <- dates.updated){
-                  @dateRow("project.dates.updated.title", date)
-               }
-            </tbody>
-         </table>
-      }
+      <table class="table table-striped table-condensed">
+         <tbody>
+            @for(date <- project.dates.created){
+               @dateRow("project.dates.created.title", date)
+            }
+            @for(date <- project.dates.updated){
+               @dateRow("project.dates.updated.title", date)
+            }
+         </tbody>
+      </table>
    </div>
+   }
 
+   @if(!project.versions.isEmpty){
+   <div class="well">
+
+      <h4>Versions</h4>
+
+      <table class="table table-striped table-condensed">
+         <tbody>
+            @for(version <- project.versions.live){
+               @versionsRow("project.versions.live.title", version)
+            }
+            @for(version <- project.versions.dev){
+               @versionsRow("project.versions.dev.title", version)
+            }
+         </tbody>
+      </table>
+   </div>
+   }
+
+   @if(!project.tags.isEmpty){
    <div class="well">
 
       <h4>Tags</h4>
 
-      @if(!project.tags.isEmpty){
          <ul class="list-inline">
             @for(tag <- project.tags){
                <li>@tag.name</li>
             }
          </ul>
-      }
    </div>
+   }
 
 }

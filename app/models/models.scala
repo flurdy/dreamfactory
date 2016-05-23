@@ -1,4 +1,5 @@
 package models
+
 import play.api.Play
 import com.google.inject.ImplementedBy
 import javax.inject._
@@ -11,6 +12,15 @@ case class Urls(project: Option[String] = None, live: Option[String] = None){
       this( project = configuration.getString("project"),
             live    = configuration.getString("live") )
    }
+   val isEmpty = project.orElse(live).isEmpty
+}
+
+case class Versions(dev: Option[String] = None, live: Option[String] = None){
+   def this(configuration: Configuration) = {
+      this( dev  = configuration.getString("dev"),
+            live = configuration.getString("live") )
+   }
+   val isEmpty = dev.orElse(live).isEmpty
 }
 
 case class ProjectDates(created: Option[String] = None, updated: Option[String] = None){
@@ -18,18 +28,22 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
       this( created = configuration.getString("created"),
             updated = configuration.getString("updated") )
    }
+   val isEmpty = created.orElse(updated).isEmpty
 }
 
 case class Tag(name: String)
 
 case class Project(title: String,
                    description: Option[String] = None,
-                   urls: Option[Urls] = None,
-                   dates: Option[ProjectDates] = None,
-                   tags: Set[Tag] = Set.empty)
+                   urls: Urls = Urls(),
+                   dates: ProjectDates = ProjectDates(),
+                   versions: Versions = Versions(),
+                   // news: List[News] = None,
+                   tags: Set[Tag] = Set.empty )
 
 @ImplementedBy(classOf[ProjectRepostitory])
 trait ProjectLookup {
+
    def configuration: Configuration
 
    def findPopularProjects(size: Int) =
@@ -38,14 +52,16 @@ trait ProjectLookup {
             _.tags.exists(
                t => t.name == "popular" ) ) )
          .take(size)
+
    def findUpdatedProjects(size: Int) =
-      projects.filter(_.dates.map(_.updated).isDefined)
-         .sortBy(_.dates.map(_.updated))
+      projects.filter(_.dates.updated.isDefined)
+         .sortBy(_.dates.updated)
          .reverse
          .take(size)
+
    def findNewestProjects(size: Int)  =
-      projects.filter(_.dates.map(_.created).isDefined)
-         .sortBy(_.dates.map(_.created))
+      projects.filter(_.dates.created.isDefined)
+         .sortBy(_.dates.created)
          .reverse
          .take(size)
 
@@ -55,23 +71,24 @@ trait ProjectLookup {
          projects.filter(_.title == projectName).headOption
 
    def findRandomProjects(size: Int)  = randomiseProjects(projects).take(size)
+
    private def randomiseProjects(someProjects: List[Project])  = Random.shuffle(someProjects)
 
    private lazy val projects = for{
-         projectsFound  <- configuration.getConfigList("dream.projects").toList
-         projectConfig  <- projectsFound
-         title          <- projectConfig.getString("title").toList
-         description    =  projectConfig.getString("description")
+         projectsFound <- configuration.getConfigList("dream.projects").toList
+         projectConfig <- projectsFound
+         title         <- projectConfig.getString("title").toList
+         description   =  projectConfig.getString("description")
       } yield {
-         val urls: Option[Urls]         = projectConfig.getConfig("urls").map(new Urls(_))
-         val dates:Option[ProjectDates] = projectConfig.getConfig("dates").map(new ProjectDates(_))
-         val tags: Set[Tag]         = ( for {
+         val urls: Urls          = projectConfig.getConfig("urls").fold( Urls() )( new Urls(_) )
+         val dates: ProjectDates = projectConfig.getConfig("dates").fold( ProjectDates() )(new ProjectDates(_))
+         val versions: Versions  = projectConfig.getConfig("versions").fold( Versions() )(new Versions(_))
+         val tags: Set[Tag] = ( for {
             configTags <- projectConfig.getStringList("tags").toList
             tagName    <- configTags
          } yield Tag(tagName) ).toSet
-            // projectConfig.getStringList("tags").fold(List.empty)(t => t.toList.map(tt => Tag(tt)))
          Project(title = title, description= description,
-                  urls = urls, dates = dates , tags = tags)
+                  urls = urls, dates = dates , versions = versions, tags = tags)
       }
 }
 
