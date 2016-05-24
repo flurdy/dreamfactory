@@ -18,3 +18,5 @@ project.dates.updated.title=Updated
 project.versions.title=Versions
 project.versions.live.title=Live
 project.versions.dev.title=In development
+
+project.list.tag=Projects with tags:

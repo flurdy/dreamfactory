@@ -1,6 +1,8 @@
-@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project])(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag])(implicit webJarAssets: WebJarAssets, messages: Messages)
 
-@projectBox(title: String, projects: List[Project]) ={
+@import helper._
+
+@projectBox(title: String, projects: List[Project]) = {
     @if(!projects.isEmpty){
       <div class="well project-list-box col-xs-5 col-sm-5 col-xs-offset-0 col-sm-offset-0">
          <h3>@title</h3>
@@ -48,14 +50,35 @@
       </p>
 
       <div class="row">
-         <div class="col-xs-8 col-sm-8 col-sm-offset-1">
-            <div class="input-group">
-               <input type="text" class="form-control" placeholder="search for projects" maxlength="200" name="term" />
-               <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">search</button>
-               </span>
+         @form(action=routes.ProjectController.findProjectsBySearch, 'method -> "GET"){
+            <div class="col-xs-8 col-sm-8 col-sm-offset-1">
+               <div class="input-group">
+                     <input type="text" class="form-control" placeholder="search for projects" maxlength="200" name="searchterm" />
+                     <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">search</button>
+                     </span>
+               </div>
             </div>
-         </div>
+         }
       </div>
    </div>
+
+
+   @if(!tags.isEmpty){
+      <div class="well">
+
+         <h4>Tags</h4>
+
+         <ul class="list-inline">
+            @for(tag <- tags){
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTag){
+                     <input type="hidden" name="tag" value="@{tag.name}" />
+                     <button type="submit">@{tag.name}</button>
+                  }
+               </li>
+            }
+         </ul>
+      </div>
+   }
 }

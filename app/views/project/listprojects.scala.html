@@ -1,0 +1,55 @@
+@(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty)(implicit webJarAssets: WebJarAssets, messages: Messages)
+
+@import helper._
+
+@main() {
+
+
+   @if(!projects.isEmpty){
+      <div class="well">
+         <h3></h3>
+
+
+         <p>
+            @Messages("project.list.tag")
+            @{tags.map(_.name).mkString(", ")}
+         </p>
+
+         <table class="table table-striped table-condensed">
+            <tbody>
+               @for( project <- projects){
+                  <tr>
+                     <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
+                     @project.urls.live.orElse(project.urls.project).map { url =>
+                        <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
+                     }.orElse(Some("")).map{ link =>
+                        <td>@link</td>
+                     }
+                  </tr>
+               }
+            </tbody>
+         </table>
+      </div>
+   }
+
+
+   @if(!subTags.isEmpty){
+      <div class="well">
+
+         <h4>Tags</h4>
+
+         <ul class="list-inline">
+            @for(tag <- subTags){
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTags){
+                     <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
+                     <input type="hidden" name="tag" value="@{tag.name}" />
+                     <button type="submit">@{tag.name}</button>
+                  }
+               </li>
+            }
+         </ul>
+      </div>
+   }
+
+}

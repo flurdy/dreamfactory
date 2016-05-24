@@ -35,6 +35,12 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
 
 case class Tag(name: String)
 
+trait TagExtractor {
+   def extract(configuration: List[String]) = configuration.map(Tag(_)).toSet
+}
+
+object Tag extends TagExtractor
+
 case class News(date: DateTime, description: String) {
    lazy val dateFormatted = News.startTimeFormatter.print(date)
 }
@@ -48,7 +54,7 @@ trait NewsExtractor {
                date        =  new DateTime(newsDate)
                description <- config.getString("description")
             } yield News(date,description) )
-         .sortBy(_.date.toString)
+         .sortBy(_.date.getMillis())
          .reverse
    }
 }
@@ -105,15 +111,37 @@ trait ProjectLookup {
          val urls: Urls          = projectConfig.getConfig("urls").fold( Urls() )( new Urls(_) )
          val dates: ProjectDates = projectConfig.getConfig("dates").fold( ProjectDates() )(new ProjectDates(_))
          val versions: Versions  = projectConfig.getConfig("versions").fold( Versions() )(new Versions(_))
-         val tags: Set[Tag] = ( for {
-            configTags <- projectConfig.getStringList("tags").toList
-            tagName    <- configTags
-         } yield Tag(tagName) ).toSet
-         val news: List[News] = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(l.toList) )
+         val tags: Set[Tag]      = projectConfig.getStringList("tags").fold[Set[Tag]]( Set.empty )( t => Tag.extract(t.toList) )
+         val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(l.toList) )
          Project(title = title, description= description,
                   urls = urls, dates = dates , versions = versions,
                   tags = tags, news = news)
       }
+
+   def findProjectsBySearch(searchTerm: String): List[Project] =
+      projects.filter{ p =>
+         p.title.toLowerCase.contains( searchTerm) || p.description.exists(_.toLowerCase.contains(searchTerm)) }
+
+   def findTags(size: Int): List[Tag] = findTagsInProjects(projects,size)
+
+   def findTagsInProjects(tagProjects: List[Project], size: Int): List[Tag] = {
+      ( for {
+         project <- tagProjects
+         tag     <- project.tags
+      } yield tag
+      ).groupBy(_.name)
+      .mapValues(_.size)
+      .toList
+      .sortBy{ case (_, tagCount) => tagCount }
+      .takeRight(size)
+      .reverse
+      .map{ case (name,_) => Tag(name) }
+   }
+
+   def findProjectsByTag(tag: Tag): List[Project] = projects.filter{ p => p.tags.exists(_.name == tag.name) }
+
+   def findProjectsByTags(tags: List[Tag]): List[Project] = projects.filter{ p => tags.toSet.subsetOf(p.tags) }
+
 }
 
 @Singleton

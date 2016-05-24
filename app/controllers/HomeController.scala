@@ -22,7 +22,8 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       val popularProjects = projectLookup.findPopularProjects(3)
       val randomProjects  = projectLookup.findRandomProjects(3)
       val projectsFound   = projectLookup.howManyProjects
-      Ok(views.html.index(projectsFound, updatedProjects, newProjects, popularProjects, randomProjects))
+      val tags            = projectLookup.findTags(10)
+      Ok(views.html.index(projectsFound, updatedProjects, newProjects, popularProjects, randomProjects, tags))
    }
 
 }
