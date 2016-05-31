@@ -1,10 +1,11 @@
-@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag])(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag])(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
 @import helper._
 
-@projectBox(title: String, projects: List[Project]) = {
+@projectBox(title: String, projects: List[Project], evenClass: String = "") = {
     @if(!projects.isEmpty){
-      <div class="well project-list-box col-xs-5 col-sm-5 col-xs-offset-0 col-sm-offset-0">
+      <div class="project-list-box col-xs-6 col-sm-6 @evenClass">
+      <div class="well">
          <h3>@title</h3>
          <table class="table table-striped table-condensed">
             <tbody>
@@ -21,6 +22,7 @@
             </tbody>
          </table>
       </div>
+      </div>
    }
 }
 
@@ -30,7 +32,7 @@
 
       @projectBox(Messages("projects.popular.title"), popularProjects)
 
-      @projectBox(Messages("projects.updated.title"), updatedProjects)
+      @projectBox(Messages("projects.updated.title"), updatedProjects, "project-list-box-even")
 
    </div>
 
@@ -38,12 +40,12 @@
 
       @projectBox(Messages("projects.new.title"),     newProjects)
 
-      @projectBox(Messages("projects.random.title"),  randomProjects)
+      @projectBox(Messages("projects.random.title"),  randomProjects, "project-list-box-even")
 
    </div>
 
 
-   <div class="well search-box">
+   <div class="well search-box row">
 
       <p class="">
          @projectsFound projects found
@@ -65,7 +67,7 @@
 
 
    @if(!tags.isEmpty){
-      <div class="well">
+      <div class="well row">
 
          <h4>Tags</h4>
 

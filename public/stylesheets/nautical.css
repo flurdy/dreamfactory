@@ -3,8 +3,8 @@
 root {  }
 html { height: 100%; }
 body { height: 95%; }
-.nautical-structure   { }
-.nautical-compartment { }
+.nautical-structure   {  }
+.nautical-compartment {  }
 
 #nautical-ocean      { display: table; width: 100%; height: 100%; margin: 0 auto; }
 #nautical-lighthouse { display: table-row; }
@@ -14,10 +14,10 @@ body { height: 95%; }
 #nautical-ship       { display: table-cell; }
 #nautical-vaka       { display: table-row; }
 #nautical-hull       { display: table-cell; }
-#nautical-keel       { display: table; }
-#nautical-innerhull  {  }
-#nautical-bulkhead   { display: table; }
-#nautical-ballast    {  }
+#nautical-keel       { display: table-row; }
+#nautical-innerhull  { display: table-cell; }
+#nautical-bulkhead   { display: table-cell; }
+#nautical-ballast    { display: table-cell; vertical-align: top; }
 #nautical-ama        { display: table-cell; }
 #nautical-net        { display: table-row; }
 #nautical-buoy       { display: table-row; }

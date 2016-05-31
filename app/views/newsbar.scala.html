@@ -1,0 +1,16 @@
+@(latestNews: List[News])
+
+
+<ul class="newsbar-list well">
+
+   @for(newsItem <- latestNews){
+      <li>
+         <div class="newsbar-date">@newsItem.dateFormatted:</div>
+         <div class="newsbar-project"><a href="">@newsItem.project</a>:</div>
+         <div class="newsbar-description">@newsItem.description</div>
+      </li>
+   }
+
+</ul>
+
+

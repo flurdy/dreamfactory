@@ -12,7 +12,7 @@ import models._
 @Singleton
 class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLookup: ProjectLookup, val configuration: Configuration)
       (implicit val webJarAssets: WebJarAssets)
-      extends Controller with WithWebJarAssets with I18nSupport {
+      extends Controller with WithWebJarAssets with WithNewsBar with I18nSupport {
 
    def showProject(projectName: String) = Action {
       projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.project(p)) )

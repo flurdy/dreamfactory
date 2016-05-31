@@ -1,5 +1,5 @@
 /* ### Colours ### */
-body { background-color: #ddffff; color: black; }
+body { background-color: #eeffff; color: black; }
 #nautical-vaka,
 .nautical-wrapper .nautical-compartment { background-color: white; }
 #nautical-bow,#nautical-bow a { color: #eee; }
@@ -18,7 +18,8 @@ body { background-color: #ddffff; color: black; }
 .nautical-compartment { padding: 0.2em 0.5em; }
 #nautical-regatta     { padding: 1em 0.1em 1em 0.1em; }
 #nautical-ama         { padding: 1em 0 0 2em; min-height: 25em; }
-#nautical-ballast     { padding: 2em; min-width: 50em; min-height: 25em; }
+#nautical-ballast     { padding: 2em; min-width: 50em; max-width: 80em; min-height: 25em; }
+#nautical-deck        { width: 11em; padding-top: 2em; padding-right: 1.3em; }
 
 /* ### Text ### */
 #nautical-bow {
@@ -27,13 +28,38 @@ body { background-color: #ddffff; color: black; }
 
 /* ### All the things ### */
 #nautical-cargo .project-list-box {
-   margin-left: 2em;
+   padding-left: 0;
+}
+#nautical-cargo .project-list-box-even {
+   float: right;
+   padding-right: 0;
 }
 
 #nautical-cargo .project-list-box td {
    white-space: nowrap;
 }
 
+#nautical-deck .newsbar-list {
+
+}
+#nautical-deck .newsbar-list li {
+   list-style: none;
+   border: 1px solid silver;
+   text-align: right;
+   margin: 0.5em 0.1em;
+   padding: 0.1em 0.3em;
+   font-size: 9pt;
+}
+#nautical-deck .newsbar-list li .newsbar-date {
+   float: left;
+}
+#nautical-deck .newsbar-list li .newsbar-project {
+   float: right;
+   padding-left: 0.1em;
+}
+#nautical-deck .newsbar-list li .newsbar-description {
+   clear: both;
+}
 
 
 /* ### Not needed ### */
@@ -45,7 +71,7 @@ body { background-color: #ddffff; color: black; }
 #nautical-foremast,
 #nautical-port,
 #nautical-hatch,
-#nautical-deck,
+/* #nautical-deck, */
 #nautical-starboard,
 #nautical-ama,
 #nautical-bridge,

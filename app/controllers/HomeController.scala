@@ -11,10 +11,17 @@ trait WithWebJarAssets {
    implicit def request2WebJarAssets(implicit request: RequestHeader): WebJarAssets = webJarAssets
 }
 
+trait WithNewsBar {
+
+   def projectLookup: ProjectLookup
+
+   implicit def latestNews: List[News] = projectLookup.findNews(10)
+}
+
 @Singleton
 class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup: ProjectLookup)
       (implicit val webJarAssets: WebJarAssets)
-      extends Controller with WithWebJarAssets with I18nSupport {
+      extends Controller with WithWebJarAssets with WithNewsBar with I18nSupport {
 
    def index = Action {
       val updatedProjects = projectLookup.findUpdatedProjects(3)

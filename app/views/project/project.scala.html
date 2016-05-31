@@ -1,4 +1,4 @@
-@(project: Project)(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(project: Project)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
 @versionsRow(title: String, version: String) = {
    <tr>

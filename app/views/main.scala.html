@@ -1,4 +1,4 @@
-@(title: Option[String] = None)(content: Html)(implicit webJarAssets: WebJarAssets, messages: Messages)
+@(title: Option[String] = None)(cargo: Html)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
       <script src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))" type="text/javascript"></script>
       <script type="text/javascript">
          function loader(){
-            window.setTimeout("window.location.reload()", 5000);
+           // window.setTimeout("window.location.reload()", 5000);
          }
       </script>
    </head>
@@ -47,12 +47,15 @@
                                  <div id="nautical-ballast" class="nautical-structure">
                                     <div id="nautical-cargo" class="nautical-compartment">
 
-@content
+
+                                       @cargo
 
 
                                    </div>
                                  </div>
-                                 <div id="nautical-deck" class="nautical-compartment"></div>
+                                 <div id="nautical-deck" class="nautical-compartment">
+                                    @newsbar(latestNews)
+                                 </div>
                               </div>
                               <div id="nautical-bridge" class="nautical-compartment"></div>
                            </div>

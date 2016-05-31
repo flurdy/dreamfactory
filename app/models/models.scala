@@ -41,19 +41,19 @@ trait TagExtractor {
 
 object Tag extends TagExtractor
 
-case class News(date: DateTime, description: String) {
+case class News(date: DateTime, project: String, description: String) {
    lazy val dateFormatted = News.startTimeFormatter.print(date)
 }
 
 trait NewsExtractor {
    lazy val startTimeFormatter = DateTimeFormat.forPattern("yyyy-MMM-dd")
-   def extract(configuration: List[Configuration]): List[News] = {
+   def extract(project: String, configuration: List[Configuration]): List[News] = {
       ( for {
                config      <- configuration
                newsDate    <- config.getString("date")
                date        =  new DateTime(newsDate)
                description <- config.getString("description")
-            } yield News(date,description) )
+            } yield News(date, project, description) )
          .sortBy(_.date.getMillis())
          .reverse
    }
@@ -103,7 +103,7 @@ trait ProjectLookup {
    private def randomiseProjects(someProjects: List[Project])  = Random.shuffle(someProjects)
 
    private lazy val projects = for{
-         projectsFound <- configuration.getConfigList("dream.projects").toList
+         projectsFound <- configuration.getConfigList("dreams.projects").toList
          projectConfig <- projectsFound
          title         <- projectConfig.getString("title").toList
          description   =  projectConfig.getString("description")
@@ -112,7 +112,7 @@ trait ProjectLookup {
          val dates: ProjectDates = projectConfig.getConfig("dates").fold( ProjectDates() )(new ProjectDates(_))
          val versions: Versions  = projectConfig.getConfig("versions").fold( Versions() )(new Versions(_))
          val tags: Set[Tag]      = projectConfig.getStringList("tags").fold[Set[Tag]]( Set.empty )( t => Tag.extract(t.toList) )
-         val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(l.toList) )
+         val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(title, l.toList) )
          Project(title = title, description= description,
                   urls = urls, dates = dates , versions = versions,
                   tags = tags, news = news)
@@ -141,6 +141,16 @@ trait ProjectLookup {
    def findProjectsByTag(tag: Tag): List[Project] = projects.filter{ p => p.tags.exists(_.name == tag.name) }
 
    def findProjectsByTags(tags: List[Tag]): List[Project] = projects.filter{ p => tags.toSet.subsetOf(p.tags) }
+
+   private lazy val allTheNews =
+      ( for {
+         project <- projects
+         news    <- project.news
+      } yield news
+      ).sortBy( n => n.date.getMillis )
+      .reverse
+
+   def findNews(size: Int) = allTheNews.take(size)
 
 }
 
