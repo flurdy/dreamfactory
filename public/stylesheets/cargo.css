@@ -59,6 +59,7 @@ body { background-color: #eeffff; color: black; }
 }
 #nautical-deck .newsbar-list li .newsbar-description {
    clear: both;
+   min-width: 15em;
 }
 
 

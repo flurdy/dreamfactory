@@ -74,24 +74,39 @@ trait ProjectLookup {
 
    def configuration: Configuration
 
-   def findPopularProjects(size: Int) =
-      randomiseProjects(
-         projects.filter(
-            _.tags.exists(
-               t => t.name == "popular" ) ) )
-         .take(size)
+   def fillWithOtherProjects(subsetOfProjects: List[Project], size: Int) = {
+      val fillProjects =
+         if(subsetOfProjects.size < size)
+            randomiseProjects(projects.diff(subsetOfProjects)).take(size-subsetOfProjects.size)
+         else Nil
+      subsetOfProjects ::: fillProjects
+   }
+
+   def findPopularProjects(size: Int): List[Project] = {
+      fillWithOtherProjects(
+         randomiseProjects(
+               projects.filter(
+                  _.tags.exists(
+                     t => t.name == "popular" ) ) )
+            .take(size),
+         size)
+   }
 
    def findUpdatedProjects(size: Int) =
-      projects.filter(_.dates.updated.isDefined)
-         .sortBy(_.dates.updated)
-         .reverse
-         .take(size)
+      fillWithOtherProjects(
+         projects.filter(_.dates.updated.isDefined)
+            .sortBy(_.dates.updated)
+            .reverse
+            .take(size),
+         size)
 
    def findNewestProjects(size: Int)  =
-      projects.filter(_.dates.created.isDefined)
-         .sortBy(_.dates.created)
-         .reverse
-         .take(size)
+      fillWithOtherProjects(
+         projects.filter(_.dates.created.isDefined)
+            .sortBy(_.dates.created)
+            .reverse
+            .take(size),
+         size)
 
    lazy val howManyProjects = projects.size
 
