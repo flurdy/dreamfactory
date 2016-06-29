@@ -1,4 +1,4 @@
-@(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
+@(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty, searchTerm: Option[String] = None)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
 @import helper._
 
@@ -11,8 +11,12 @@
 
 
          <p>
-            @Messages("project.list.tag")
-            @{tags.map(_.name).mkString(", ")}
+            @if(tags.isEmpty){
+               @Messages("project.list.search") @searchTerm
+            } else {
+               @Messages("project.list.tag")
+               @{tags.map(_.name).mkString(", ")}
+            }
          </p>
 
          <table class="table table-striped table-condensed">
@@ -21,7 +25,7 @@
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
                      @project.urls.live.orElse(project.urls.project).map { url =>
-                        <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
+                        <a href="@url.value">@url.curt(20)</a>
                      }.orElse(Some("")).map{ link =>
                         <td>@link</td>
                      }
@@ -51,5 +55,22 @@
          </ul>
       </div>
    }
+
+   <div class="well search-box row">
+
+      <div class="row">
+         @form(action=routes.ProjectController.findProjectsBySearch, 'method -> "GET"){
+            <div class="col-xs-8 col-sm-8 col-sm-offset-1">
+               <div class="input-group">
+                     <input type="text" class="form-control" placeholder="search for projects"
+                           maxlength="200" name="searchterm" @for(term <- searchTerm){ value="@term" } />
+                     <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">search</button>
+                     </span>
+               </div>
+            </div>
+         }
+      </div>
+   </div>
 
 }

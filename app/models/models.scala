@@ -8,11 +8,18 @@ import scala.collection.JavaConversions._
 import util.Random
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import java.net.URL
 
-case class Urls(project: Option[String] = None, live: Option[String] = None){
+case class Url(value: URL) {
+   def this(value: String) = this(new URL(value))
+   def naked = value.getHost() + Option(value.getPath()).getOrElse("") + Option(value.getQuery()).getOrElse("")
+   def curt(maxLength: Int)  = if(naked.length > maxLength) ".." + naked.takeRight(maxLength) else naked
+}
+
+case class Urls(project: Option[Url] = None, live: Option[Url] = None){
    def this(configuration: Configuration) = {
-      this( project = configuration.getString("project"),
-            live    = configuration.getString("live") )
+      this( project = configuration.getString("project").map(new Url(_)),
+            live    = configuration.getString("live"   ).map(new Url(_)) )
    }
    val isEmpty = project.orElse(live).isEmpty
 }

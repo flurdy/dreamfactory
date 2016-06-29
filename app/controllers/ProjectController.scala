@@ -23,7 +23,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
          formWithErrors => BadRequest("Invalid form"),
          searchTerm => {
             val projects = projectLookup.findProjectsBySearch(searchTerm)
-            Ok(views.html.project.listprojects(projects))
+            Ok(views.html.project.listprojects(projects=projects,searchTerm=Some(searchTerm)))
          }
       )
    }

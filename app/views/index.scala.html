@@ -13,7 +13,7 @@
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
                      @project.urls.live.orElse(project.urls.project).map { url =>
-                        <a href="@url">@if(url.length>20){...}@url.takeRight(20)</a>
+                        <a href="@url.value">@url.curt(20)</a>
                      }.orElse(Some("")).map{ link =>
                         <td>@link</td>
                      }
@@ -76,7 +76,7 @@
                <li>
                   @form(action=routes.ProjectController.findProjectsByTag){
                      <input type="hidden" name="tag" value="@{tag.name}" />
-                     <button type="submit">@{tag.name}</button>
+                     <button class="well well-sm" type="submit">@{tag.name}</button>
                   }
                </li>
             }

@@ -1,5 +1,7 @@
 @(project: Project)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
+@import helper._
+
 @versionsRow(title: String, version: String) = {
    <tr>
       <td class="col-sm-4 com-xs-4">@Messages(title)</td>
@@ -13,10 +15,10 @@
    </tr>
 }
 
-@urlRow(title: String, url: String) = {
+@urlRow(title: String, url: Url) = {
    <tr>
       <td class="col-sm-4 com-xs-4">@Messages(title)</td>
-      <td><a href="@url">@url</a></td>
+      <td><a href="@{url.value}">@{url.naked}</a></td>
    </tr>
 }
 
@@ -35,7 +37,7 @@
          @project.title
       </h3>
       @for(description <- project.description ){
-         <p>@description</p>
+         <p>@Html(description)</p>
       }
    </div>
 
@@ -100,7 +102,12 @@
 
          <ul class="list-inline">
             @for(tag <- project.tags){
-               <li>@tag.name</li>
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTag){
+                     <input type="hidden" name="tag" value="@{tag.name}" />
+                     <button class="well well-sm" type="submit">@{tag.name}</button>
+                  }
+               </li>
             }
          </ul>
    </div>
