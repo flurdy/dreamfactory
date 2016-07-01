@@ -140,6 +140,8 @@ trait ProjectLookup {
                   tags = tags, news = news)
       }
 
+   def findAllTheProjects(): List[Project] = projects
+
    def findProjectsBySearch(searchTerm: String): List[Project] =
       projects.filter{ p =>
          p.title.toLowerCase.contains( searchTerm) || p.description.exists(_.toLowerCase.contains(searchTerm)) }

@@ -12,7 +12,11 @@
 
          <p>
             @if(tags.isEmpty){
-               @Messages("project.list.search") @searchTerm
+               @if(!searchTerm.isDefined) {
+                  @Messages("project.list.all")
+               } else {
+                  @Messages("project.list.search") [ @searchTerm ]
+               }
             } else {
                @Messages("project.list.tag")
                @{tags.map(_.name).mkString(", ")}
@@ -23,7 +27,7 @@
             <tbody>
                @for( project <- projects){
                   <tr>
-                     <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
+                     <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
                      @project.urls.live.orElse(project.urls.project).map { url =>
                         <a href="@url.value">@url.curt(20)</a>
                      }.orElse(Some("")).map{ link =>

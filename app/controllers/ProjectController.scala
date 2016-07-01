@@ -22,13 +22,15 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),
          searchTerm => {
-            val projects = projectLookup.findProjectsBySearch(searchTerm)
-            Ok(views.html.project.listprojects(projects=projects,searchTerm=Some(searchTerm)))
+            val projects = if(searchTerm.trim.isEmpty) projectLookup.findAllTheProjects()
+                           else projectLookup.findProjectsBySearch(searchTerm)
+            val search = if(searchTerm.trim.isEmpty) None else Some(searchTerm)
+            Ok(views.html.project.listprojects(projects=projects,searchTerm=search))
          }
       )
    }
 
-   val searchForm = Form( single( "searchterm" -> nonEmptyText))
+   val searchForm = Form( single( "searchterm" -> text))
 
    def findProjectsByTag() = Action { implicit request =>
       tagForm.bindFromRequest.fold(

@@ -19,5 +19,6 @@ project.versions.title=Versions
 project.versions.live.title=Live
 project.versions.dev.title=In development
 
+project.list.all=All projects:
 project.list.tag=Projects with tags:
 project.list.search=Projects containing search term:
