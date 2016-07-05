@@ -48,11 +48,18 @@
 
       <table class="table table-striped table-condensed">
          <tbody>
-            @for(url <- project.urls.project){
+            @for(url <- project.urls.get("project")){
                @urlRow("project.links.project.title", url)
             }
-            @for(url <- project.urls.live){
+            @for(url <- project.urls.get("live")){
                @urlRow("project.links.live.title", url)
+            }
+            @for(key <- project.urls.others.keys){
+               @for(url <- project.urls.get(key)){
+                  @for(title <- url.title){
+                     @urlRow("project.links.${title}.title", url)
+                  }
+               }
             }
          </tbody>
       </table>

@@ -28,7 +28,7 @@
                @for( project <- projects){
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
-                     @project.urls.live.orElse(project.urls.project).map { url =>
+                     @project.urls.liveOrProject.map { url =>
                         <a href="@url.value">@url.curt(20)</a>
                      }.orElse(Some("")).map{ link =>
                         <td>@link</td>

@@ -15,7 +15,7 @@ trait WithNewsBar {
 
    def projectLookup: ProjectLookup
 
-   implicit def latestNews: List[News] = projectLookup.findNews(10)
+   implicit def latestNews: List[News] = projectLookup.findNews(15)
 }
 
 @Singleton

@@ -10,6 +10,15 @@ projects.empty=No projects found
 project.links.title=Links
 project.links.live.title=Live site
 project.links.project.title=Project site
+project.links.website.title=Website
+project.links.alternative.title=Alternative
+project.links.tasks.title=Tasks
+project.links.bugs.title=Bugs
+project.links.wiki.title=Wiki
+project.links.demo.title=Demo application
+project.links.ci.title=Continuous Integration
+project.links.build.title=Build Server
+project.links.info.title=Information
 
 project.dates.title=Dates
 project.dates.created.title=Created
