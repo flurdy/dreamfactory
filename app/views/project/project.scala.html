@@ -29,6 +29,19 @@
    </tr>
 }
 
+@characteristicRow( characteristicO: Option[ProjectCharacteristics.Characteristic], title: String) = {
+   @for(characteristic <- characteristicO) {
+      @characteristicRower(title, characteristic.name)
+   }
+}
+
+@characteristicRower(title: String, characteristic: String) = {
+   <tr>
+      <td class="col-sm-4 com-xs-4">@Messages(title)</td>
+      <td>@Html(Messages(title + "." + characteristic)) </td>
+   </tr>
+}
+
 @main() {
 
 
@@ -48,16 +61,16 @@
 
       <table class="table table-striped table-condensed">
          <tbody>
-            @for(url <- project.urls.get("project")){
+            @for(url <- project.urls.project){
                @urlRow("project.links.project.title", url)
             }
-            @for(url <- project.urls.get("live")){
+            @for(url <- project.urls.live){
                @urlRow("project.links.live.title", url)
             }
             @for(key <- project.urls.others.keys){
                @for(url <- project.urls.get(key)){
                   @for(title <- url.title){
-                     @urlRow("project.links.${title}.title", url)
+                     @urlRow(s"project.links.${title}.title", url)
                   }
                }
             }
@@ -87,7 +100,7 @@
    @if(!project.versions.isEmpty){
    <div class="well">
 
-      <h4>Versions</h4>
+      <h4>@Messages("project.versions.title")</h4>
 
       <table class="table table-striped table-condensed">
          <tbody>
@@ -97,6 +110,24 @@
             @for(version <- project.versions.dev){
                @versionsRow("project.versions.dev.title", version)
             }
+         </tbody>
+      </table>
+   </div>
+   }
+
+   @if(!project.characteristics.isEmpty){
+   <div class="well">
+
+      <h4>@Messages("project.characteristics.title")</h4>
+
+      <table class="table table-striped table-condensed">
+         <tbody>
+            @characteristicRow(project.characteristics.appeal,"project.characteristics.appeal")
+            @characteristicRow(project.characteristics.complexity,"project.characteristics.complexity")
+            @characteristicRow(project.characteristics.likelihood,"project.characteristics.likelihood")
+            @characteristicRow(project.characteristics.developmentStatus,"project.characteristics.status.development")
+            @characteristicRow(project.characteristics.releaseStatus,"project.characteristics.status.release")
+            @characteristicRow(project.characteristics.deployStatus,"project.characteristics.status.deploy")
          </tbody>
       </table>
    </div>

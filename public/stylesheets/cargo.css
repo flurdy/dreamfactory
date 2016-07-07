@@ -25,15 +25,16 @@ body {
 .nautical-compartment { padding: 0.2em 0.5em; }
 #nautical-regatta     { padding: 1em 1em 1em 1em; }
 #nautical-ama         { padding: 1em 0 0 2em; min-height: 25em; }
-#nautical-ballast     { padding: 2em; min-width: 50em; max-width: 80em; min-height: 25em; }
-#nautical-deck        { width: 11em; padding-top: 2em; padding-right: 1.3em; }
+#nautical-ballast     { padding: 0.5em 2em 2em 2em; min-width: 50em; max-width: 80em; min-height: 25em; }
+#nautical-deck        { width: 11em; padding-top: 0.5em; padding-right: 1.3em; }
 
 /* ### Text ### */
-#nautical-bow {
-   text-align: center;
-}
+#nautical-bow { text-align: center; }
 
 /* ### All the things ### */
+#nautical-bow h2 { display: none; }
+#nautical-bow img { height: 5em; margin: 2em 0 0 0;  }
+
 #nautical-cargo .project-list-box {
    padding-left: 0;
 }

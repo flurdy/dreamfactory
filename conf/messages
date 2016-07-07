@@ -31,3 +31,34 @@ project.versions.dev.title=In development
 project.list.all=All projects:
 project.list.tag=Projects with tags:
 project.list.search=Projects containing search term:
+
+project.characteristics.title=Characteristics
+
+project.characteristics.appeal=Appeal
+project.characteristics.appeal.keen=Keen
+project.characteristics.appeal.interested=Interested
+project.characteristics.appeal.low=Low
+
+project.characteristics.complexity=Complexity
+project.characteristics.complexity.difficult=Difficult
+project.characteristics.complexity.medium=Medium
+project.characteristics.complexity.easy=Easy
+
+project.characteristics.likelihood=Likelihood
+project.characteristics.likelihood.high=High
+project.characteristics.likelihood.possibly=Possibly
+project.characteristics.likelihood.unlikely=Unlikely
+
+project.characteristics.status=Status
+
+project.characteristics.status.development=Development status
+project.characteristics.status.development.alpha=&Alpha;lpha
+project.characteristics.status.development.beta=&Beta;eta
+
+project.characteristics.status.release=Release status
+project.characteristics.status.release.mature=Mature
+project.characteristics.status.release.beta=&Beta;eta release
+project.characteristics.status.release.released=Released
+
+project.characteristics.status.deploy=Deploy status
+project.characteristics.status.deploy.live=Live
