@@ -10,11 +10,6 @@
       <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon-flurdy.ico")">
       <script src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.min.js"))" type="text/javascript"></script>
       <script src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))" type="text/javascript"></script>
-      <script type="text/javascript">
-         function loader(){
-           // window.setTimeout("window.location.reload()", 5000);
-         }
-      </script>
    </head>
    <body onload="loader()">
       <div id="nautical-ocean" class="nautical-structure">
@@ -32,10 +27,7 @@
                      <div id="nautical-vaka" class="nautical-structure">
                         <div id="nautical-prow" class="nautical-compartment"></div>
                         <div id="nautical-bow" class="nautical-compartment">
-                           <header>
-                              <h2><a href="@routes.HomeController.index">@Messages("application.header")</a></h2>
-                              <a href="@routes.HomeController.index"><img src="@routes.Assets.versioned("images/dreamfactory.png")"/></a>
-                           </header>
+                           @bow()
                         </div>
                         <div id="nautical-lookout" class="nautical-compartment"></div>
                         <div id="nautical-keel" class="nautical-structure">
@@ -63,7 +55,9 @@
                            <div id="nautical-starboard" class="nautical-compartment"></div>
                         </div>
                         <div id="nautical-aft" class="nautical-compartment"></div>
-                        <div id="nautical-stern" class="nautical-compartment"></div>
+                        <div id="nautical-stern" class="nautical-compartment">
+                           <a href="http://flurdy.com"><img src="@routes.Assets.versioned("images/flurdy-small.png")"/></a>
+                        </div>
                      </div>
                   </div>
                   <div id="nautical-anchor" class="nautical-compartment"></div>

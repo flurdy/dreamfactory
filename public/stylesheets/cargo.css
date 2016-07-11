@@ -32,8 +32,9 @@ body {
 #nautical-bow { text-align: center; }
 
 /* ### All the things ### */
-#nautical-bow h2 { display: none; }
-#nautical-bow img { height: 5em; margin: 2em 0 0 0;  }
+#nautical-bow header h2 { display: none; }
+#nautical-bow header.unbranded img { height: 5em; margin: 2em 0 0 0;  }
+#nautical-bow header.branded img { height: 3em; margin: 2em 0 0 0;  }
 
 #nautical-cargo .project-list-box {
    padding-left: 0;
@@ -70,6 +71,12 @@ body {
    min-width: 15em;
 }
 
+#nautical-stern img {
+   height: 1.1em;
+   width: 4em;
+   padding: 0 0 0.2em 0.5em;
+}
+
 
 /* ### Not needed ### */
 #nautical-lighthouse,
@@ -85,6 +92,6 @@ body {
 #nautical-ama,
 #nautical-bridge,
 #nautical-aft,
-#nautical-stern,
+/*#nautical-stern,*/
 #nautical-net,
 #nautical-buoy { display: none; }

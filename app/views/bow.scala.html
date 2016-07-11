@@ -1,0 +1,16 @@
+@(branded: Boolean = true)(implicit messages: Messages)
+
+@if(branded){
+   <header class="branded">
+      <h2>
+         <a href="@routes.HomeController.index">@Messages("application.flurdy.header")</a>
+      </h2>
+      <a href="@routes.HomeController.index"><img src="@routes.Assets.versioned("images/codeatflurdy.png")"/></a>
+      <!-- <a href="@routes.HomeController.index"><img src="@routes.Assets.versioned("images/flurdy.png")"/></a> -->
+   </header>
+} else {
+   <header class="unbranded">
+      <h2><a href="@routes.HomeController.index">@Messages("application.header")</a></h2>
+      <a href="@routes.HomeController.index"><img src="@routes.Assets.versioned("images/dreamfactory.png")"/></a>
+   </header>
+}

@@ -1,6 +1,8 @@
 application.title=Dream Factory. Ideas, projects, applications
 application.header=Dream Factory
 
+application.flurdy.header="code @"
+
 projects.updated.title=Updated
 projects.new.title=Recent
 projects.popular.title=Popular
