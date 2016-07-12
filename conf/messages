@@ -64,3 +64,6 @@ project.characteristics.status.release.released=Released
 
 project.characteristics.status.deploy=Deploy status
 project.characteristics.status.deploy.live=Live
+
+project.license.title=License
+

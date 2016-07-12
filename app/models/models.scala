@@ -79,14 +79,18 @@ object News extends NewsExtractor
 
 object ProjectCharacteristics {
 
-   trait Characteristic {
-      def name: String
+   trait Characteristic extends EnumName {
       def alternatives: Set[String]
-      def names: Set[String] = alternatives + name
+      override val names: Set[String] = alternatives + name
+   }
+
+   trait EnumName {
+      def name: String
+      def names: Set[String] = Set(name)
       override def toString = name
    }
 
-   trait EnumParse[A <: Characteristic] {
+   trait EnumParse[A <: EnumName] {
       def apply(name: String, values: Set[A]): Option[A] = {
          val v = values.filter(_.names.exists(_.toLowerCase == name.toLowerCase)).headOption
          if(v.isEmpty) println(s"========== $name $v $values")
@@ -167,6 +171,22 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
                        .isEmpty
 }
 
+object Licenses {
+   sealed abstract class License(val name: String, val link: String) extends EnumName
+   object License      extends EnumParse[License]
+   case object Agpl3   extends License("AGPL v3", "https://opensource.org/licenses/agpl-3.0")
+   case object Apache2 extends License("Apache 2.0", "https://www.apache.org/licenses/LICENSE-2.0")
+   case object Respect extends License("Respect", "http://flurdy.com/docs/license/respect/0.3/")
+   case object Bsd     extends License("BSD", "https://opensource.org/licenses/BSD-3-Clause")
+   case object Mit     extends License("MIT", "https://opensource.org/licenses/MIT")
+   case object Gpl     extends License("GPL", "https://opensource.org/licenses/gpl-license")
+   case object Lgpl    extends License("LGPL", "https://opensource.org/licenses/lgpl-license")
+   case object CcSa    extends License("Creative Commons - Attribution ShareAlike", "https://creativecommons.org/licenses/by-sa/2.5/")
+   val licenses: Set[License] = Set(Agpl3, Apache2, Respect, Bsd, Mit, Gpl, Lgpl, CcSa)
+}
+
+import Licenses._
+
 case class Project(title: String,
                    description: Option[String] = None,
                    urls: Urls = Urls(),
@@ -174,6 +194,7 @@ case class Project(title: String,
                    versions: Versions = Versions(),
                    news: List[News] = List.empty,
                    tags: Set[Tag] = Set.empty,
+                   license: Option[License] = None,
                    characteristics: ProjectCharacteristics = new ProjectCharacteristics())
 
 @ImplementedBy(classOf[ProjectRepostitory])
@@ -236,8 +257,10 @@ trait ProjectLookup {
          val tags: Set[Tag]      = projectConfig.getStringList("tags").fold[Set[Tag]]( Set.empty )( t => Tag.extract(t.toList) )
          val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(title, l.toList) )
          val characteristics     = projectConfig.getConfig("characteristics").fold( new ProjectCharacteristics() )(new ProjectCharacteristics(_))
+         val license             = projectConfig.getString("license").flatMap( License( _, licenses))
+         println(s"Project $title license $license")
          Project(title = title, description= description,
-                  urls = urls, dates = dates , versions = versions,
+                  urls = urls, dates = dates , versions = versions, license = license,
                   tags = tags, news = news, characteristics = characteristics)
       }
 

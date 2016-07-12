@@ -115,6 +115,22 @@
    </div>
    }
 
+   @for(license <- project.license){
+   <div class="well">
+
+      <h4>@Messages("project.license.title")</h4>
+
+      <table class="table table-striped table-condensed">
+         <tbody>
+            <tr>
+               <td class="col-sm-4 com-xs-4">&nbsp;</td>
+               <td><a href="@{license.link}">@{license.name}</a></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   }
+
    @if(!project.characteristics.isEmpty){
    <div class="well">
 
