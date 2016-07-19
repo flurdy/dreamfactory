@@ -258,7 +258,6 @@ trait ProjectLookup {
          val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(title, l.toList) )
          val characteristics     = projectConfig.getConfig("characteristics").fold( new ProjectCharacteristics() )(new ProjectCharacteristics(_))
          val license             = projectConfig.getString("license").flatMap( License( _, licenses))
-         println(s"Project $title license $license")
          Project(title = title, description= description,
                   urls = urls, dates = dates , versions = versions, license = license,
                   tags = tags, news = news, characteristics = characteristics)

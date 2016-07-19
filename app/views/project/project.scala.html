@@ -42,10 +42,14 @@
    </tr>
 }
 
-@main() {
+@main(){
+
+   <li class="active">@Messages("breadcrumb.project")</li>
+
+} {
 
 
-   <div class="well">
+   <div class="well row">
       <h3>
          @Html(project.title)
       </h3>
@@ -55,7 +59,7 @@
    </div>
 
    @if(!project.urls.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>@Messages("project.links.title")</h4>
 
@@ -80,7 +84,7 @@
    }
 
    @if(!project.dates.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>@Messages("project.dates.title")</h4>
 
@@ -98,7 +102,7 @@
    }
 
    @if(!project.versions.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>@Messages("project.versions.title")</h4>
 
@@ -116,7 +120,7 @@
    }
 
    @for(license <- project.license){
-   <div class="well">
+   <div class="well row">
 
       <h4>@Messages("project.license.title")</h4>
 
@@ -132,7 +136,7 @@
    }
 
    @if(!project.characteristics.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>@Messages("project.characteristics.title")</h4>
 
@@ -150,7 +154,7 @@
    }
 
    @if(!project.tags.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>Tags</h4>
 
@@ -168,7 +172,7 @@
    }
 
    @if(!project.news.isEmpty){
-   <div class="well">
+   <div class="well row">
 
       <h4>News</h4>
 

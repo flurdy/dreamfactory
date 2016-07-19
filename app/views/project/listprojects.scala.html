@@ -2,13 +2,17 @@
 
 @import helper._
 
-@main() {
+@main(){
+
+   <li class="active">@Messages("breadcrumb.projectlist")</li>
+
+} {
 
 
    @if(!projects.isEmpty){
-      <div class="well">
-         <h3></h3>
+      <div class="well row">
 
+         <h3></h3>
 
          <p>
             @if(tags.isEmpty){
@@ -42,7 +46,7 @@
 
 
    @if(!subTags.isEmpty){
-      <div class="well">
+      <div class="well row">
 
          <h4>Tags</h4>
 
@@ -52,7 +56,7 @@
                   @form(action=routes.ProjectController.findProjectsByTags){
                      <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
                      <input type="hidden" name="tag" value="@{tag.name}" />
-                     <button type="submit">@{tag.name}</button>
+                     <button class="well well-sm" type="submit">@{tag.name}</button>
                   }
                </li>
             }

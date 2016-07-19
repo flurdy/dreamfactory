@@ -26,7 +26,7 @@
    }
 }
 
-@main() {
+@main(){ } {
 
    <div class="row">
 
@@ -47,15 +47,12 @@
 
    <div class="well search-box row">
 
-      <p class="">
-         @projectsFound projects found
-      </p>
-
       <div class="row">
          @form(action=routes.ProjectController.findProjectsBySearch, 'method -> "GET"){
             <div class="col-xs-8 col-sm-8 col-sm-offset-1">
                <div class="input-group">
-                     <input type="text" class="form-control" placeholder="search for projects" maxlength="200" name="searchterm" />
+                     <input type="text" class="form-control" placeholder="search amongst @projectsFound projects"
+                        maxlength="200" name="searchterm" />
                      <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">search</button>
                      </span>

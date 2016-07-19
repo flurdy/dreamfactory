@@ -1,5 +1,4 @@
-@(title: Option[String] = None)(cargo: Html)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
-
+@(title: Option[String] = None)(lookoutEntries: Html)(cargo: Html)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -29,7 +28,11 @@
                         <div id="nautical-bow" class="nautical-compartment">
                            @bow()
                         </div>
-                        <div id="nautical-lookout" class="nautical-compartment"></div>
+                        <div id="nautical-lookout" class="nautical-compartment">
+                           @if(!lookoutEntries.body.trim.isEmpty){
+                              @lookout(lookoutEntries)
+                           }
+                        </div>
                         <div id="nautical-keel" class="nautical-structure">
                            <div id="nautical-port" class="nautical-compartment"></div>
                            <div id="nautical-innerhull" class="nautical-structure">
@@ -39,25 +42,21 @@
                                  <div id="nautical-hatch" class="nautical-compartment"></div>
                                  <div id="nautical-ballast" class="nautical-structure">
                                     <div id="nautical-cargo" class="nautical-compartment">
-
-
                                        @cargo
-
-
                                    </div>
                                  </div>
                                  <div id="nautical-deck" class="nautical-compartment">
                                     @newsbar(latestNews)
                                  </div>
                               </div>
-                              <div id="nautical-bridge" class="nautical-compartment"></div>
+                              <div id="nautical-bridge" class="nautical-compartment">
+                                 @bridge()
+                              </div>
                            </div>
                            <div id="nautical-starboard" class="nautical-compartment"></div>
                         </div>
                         <div id="nautical-aft" class="nautical-compartment"></div>
-                        <div id="nautical-stern" class="nautical-compartment">
-                           <a href="http://flurdy.com"><img src="@routes.Assets.versioned("images/flurdy-small.png")"/></a>
-                        </div>
+                        <div id="nautical-stern" class="nautical-compartment"></div>
                      </div>
                   </div>
                   <div id="nautical-anchor" class="nautical-compartment"></div>

@@ -34,7 +34,21 @@ body {
 /* ### All the things ### */
 #nautical-bow header h2 { display: none; }
 #nautical-bow header.unbranded img { height: 5em; margin: 2em 0 0 0;  }
-#nautical-bow header.branded img { height: 3em; margin: 2em 0 0 0;  }
+#nautical-bow header.branded img { height: 3em; margin: 2em 14em 0 0;  }
+
+#nautical-lookout {  }
+#nautical-lookout .breadcrumb { margin-top: 1em; margin-bottom: 0; }
+#sssnautical-lookout .navbar { height: 1em; }
+#sssnautical-lookout .breadcrumb { height: 1em; padding-bottom: 0; }
+#sssnautical-lookout .navbar-brand img { height: 1em; }
+#nautical-lookout .breadcrumb > li + li.pull-right:before {
+   /*content: ""; */
+    padding: 0 5px;
+    color: #ccc;
+    content: "|\00a0";
+}
+#nautical-lookout .breadcrumb li.pull-right {  padding: 0 3em;  }
+#nautical-lookout .breadcrumb li.pull-right img { height: 1.3em; }
 
 #nautical-cargo .project-list-box {
    padding-left: 0;
@@ -71,12 +85,6 @@ body {
    min-width: 15em;
 }
 
-#nautical-stern img {
-   height: 1.1em;
-   width: 4em;
-   padding: 0 0 0.2em 0.5em;
-}
-
 
 /* ### Not needed ### */
 #nautical-lighthouse,
@@ -90,8 +98,8 @@ body {
 /* #nautical-deck, */
 #nautical-starboard,
 #nautical-ama,
-#nautical-bridge,
+/* #nautical-bridge, */
 #nautical-aft,
-/*#nautical-stern,*/
+#nautical-stern,
 #nautical-net,
 #nautical-buoy { display: none; }

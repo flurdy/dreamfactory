@@ -1,0 +1,11 @@
+@(entries: Html)(implicit messages: Messages)
+
+<div class="container-fluid">
+
+   <ol class="breadcrumb">
+      <li><a href="@routes.HomeController.index">@Messages("breadcrumb.home")</a></li>
+
+      @entries
+   </ol>
+
+</div>

@@ -67,3 +67,9 @@ project.characteristics.status.deploy.live=Live
 
 project.license.title=License
 
+breadcrumb.home=Home
+breadcrumb.project=project
+breadcrumb.projectlist=projects
+
+bridge.contact=Contact
+
