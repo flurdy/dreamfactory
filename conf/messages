@@ -8,6 +8,8 @@ projects.new.title=Recent
 projects.popular.title=Popular
 projects.random.title=Random
 projects.empty=No projects found
+projects.tags=Tags
+projects.characteristics=Characteristics
 
 project.links.title=Links
 project.links.live.title=Live site
