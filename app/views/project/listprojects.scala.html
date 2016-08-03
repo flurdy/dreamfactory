@@ -10,9 +10,7 @@
 } {
 
 
-   @if(!projects.isEmpty){
-      <div class="well row">
-
+   <div class="well row">
          <p>
 
            @(tags ,searchTerm, possibleCharacteristic) match {
@@ -34,29 +32,34 @@
            }
 
          </p>
-
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for( project <- projects){
-                  <tr>
-                     <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
-                     @project.urls.liveOrProject.map { url =>
-                        <a href="@url.value">@url.curt(40)</a>
-                     }.orElse(Some("")).map{ link =>
-                        <td>@link</td>
-                     }
-                  </tr>
-               }
-            </tbody>
-         </table>
-      </div>
-   }
+         
+         @if(!projects.isEmpty){
+           <table class="table table-striped table-condensed">
+              <tbody>
+                 @for( project <- projects){
+                    <tr>
+                       <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
+                       @project.urls.liveOrProject.map { url =>
+                          <a href="@url.value">@url.curt(40)</a>
+                       }.orElse(Some("")).map{ link =>
+                          <td>@link</td>
+                       }
+                    </tr>
+                 }
+              </tbody>
+           </table>
+       } else {
+          <p>
+            @Messages("projects.none-found")
+          </p>
+       }
+    </div>
 
 
    @if(!subTags.isEmpty){
       <div class="well row">
 
-         <h4>@Messages("tags")</h4>
+         <h4>@Messages("projects.tags")</h4>
 
          <ul class="list-inline">
             @for(tag <- subTags){

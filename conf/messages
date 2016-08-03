@@ -11,6 +11,7 @@ projects.random.title=Random
 projects.empty=No projects found
 projects.tags=Tags
 projects.characteristics=Characteristics
+projects.none-found=No projects found
 
 project.links.title=Links
 project.links.live.title=Live site

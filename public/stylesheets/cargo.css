@@ -51,6 +51,9 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-cargo .characteristic-list li { margin-bottom: 1em; }
 #nautical-cargo .characteristic-list .well { margin-bottom: 0; }
 
+#nautical-cargo #main-tags-accordion .panel-body { padding-bottom: 0; }
+#nautical-cargo #characteristics-accordion .panel-body { padding-bottom: 0; }
+
 #nautical-deck .newsbar-list li {
    list-style: none;
    border: 1px solid silver;

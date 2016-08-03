@@ -27,12 +27,20 @@
 }
 
 @characteristicsRow(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
-   <ul class="list-inline characteristic-list">
-      <li class="characteristic-title">
-         @Messages(s"project.characteristics.$characteristicType")
-      </li>
-      @characteristicsRowItem(characteristicType, characteristics)
-   </ul>
+   <div class="panel-group" id="characteristics-accordion" role="tablist" aria-multiselectable="true">
+      <div>
+        <div id="collapse-@{characteristicType.replace(".","-")}" class="" role="tabpanel" aria-labelledby="heading-@{characteristicType.replace(".","-")}">
+          <div class="panel-body">
+             <ul class="list-inline characteristic-list">
+                <li class="characteristic-title">
+                  @Messages(s"project.characteristics.$characteristicType")
+                </li>
+                @characteristicsRowItem(characteristicType, characteristics)
+             </ul>
+          </div>
+        </div>
+      </div>
+  </div>
 }
 
 @characteristicsRowItem(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
@@ -83,40 +91,67 @@
 
 
    @if(!tags.isEmpty){
-      <div class="well row">
-
-         <h4>@Messages("projects.tags")</h4>
-
-         <ul class="list-inline">
-            @for(tag <- tags){
-               <li>
-                  @form(action=routes.ProjectController.findProjectsByTag){
-                     <input type="hidden" name="tag" value="@{tag.name}" />
-                     <button class="well well-sm" type="submit">@{tag.name}</button>
+      <div class="well row" id="main-tags-accordion" role="tablist" aria-multiselectable="true">
+         <div class="panel-heading" role="tab" id="heading-tags">
+           <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#main-tags-accordion"
+                    href="#collapse-tags" aria-expanded="true"
+                    aria-controls="collapse-tags">
+                  @Messages("projects.tags")
+                  <span class="caret"></span>
+                </a>
+             </h4>
+          </div>
+          <div class="panel panel-default">
+            <div id="collapse-tags" class="panel-collapse collapse in"
+                  role="tabpanel" aria-labelledby="heading-tags">
+              <div class="panel-body">
+                 <ul class="list-inline">
+                  @for(tag <- tags){
+                     <li>
+                        @form(action=routes.ProjectController.findProjectsByTag){
+                           <input type="hidden" name="tag" value="@{tag.name}" />
+                           <button class="well well-sm" type="submit">@{tag.name}</button>
+                        }
+                     </li>
                   }
-               </li>
-            }
-         </ul>
-      </div>
+                </ul>
+             </div>
+           </div>
+        </div>
+     </div>
    }
 
    @if(!characteristics.isEmpty){
-      <div class="well row">
+      <div class="well row" id="main-characteristics-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-heading" role="tab" id="heading-characteristic">
+           <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#main-characteristics-accordion"
+                  href="#collapse-characteristic" aria-expanded="true"
+                  aria-controls="collapse-characteristic">
+                 @Messages("projects.characteristics")
+                 <span class="caret"></span>
+              </a>
+           </h4>
+        </div>
+        <div class="panel panel-default">
+           <div id="collapse-characteristic" class="panel-collapse collapse"
+                role="tabpanel" aria-labelledby="heading-characteristic">
 
-         <h4>@Messages("projects.characteristics")</h4>
+              @characteristicsRow("appeal", characteristics.appeals)
 
-         @characteristicsRow("appeal", characteristics.appeals)
+              @characteristicsRow("complexity", characteristics.complexities)
 
-         @characteristicsRow("complexity", characteristics.complexities)
+              @characteristicsRow("likelihood", characteristics.likelihoods)
 
-         @characteristicsRow("likelihood", characteristics.likelihoods)
+              @characteristicsRow("status.development", characteristics.developmentStatuses)
 
-         @characteristicsRow("status.development", characteristics.developmentStatuses)
+              @characteristicsRow("status.release", characteristics.releaseStatuses)
 
-         @characteristicsRow("status.release", characteristics.releaseStatuses)
+              @characteristicsRow("status.deploy", characteristics.deployStatuses)
 
-         @characteristicsRow("status.deploy", characteristics.deployStatuses)
-
-      </div>
+            </div>
+        </div>
+     </div>
    }
 }
