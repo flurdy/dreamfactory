@@ -115,7 +115,7 @@ object ProjectCharacteristics {
    case object Easy             extends Complexity("easy", Set("low"))
    val complexities: Set[Complexity] = Set(VeryComplex, Difficult, MediumComplex, Easy)
 
-   sealed abstract class Likelihood(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "likelyhood") extends Characteristic
+   sealed abstract class Likelihood(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "likelihood") extends Characteristic
    object Likelihood extends EnumParse[Likelihood]
    case object HiglyLikely      extends Likelihood("high")
    case object Possibly         extends Likelihood("possibly", Set("maybe"))
