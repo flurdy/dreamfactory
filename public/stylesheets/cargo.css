@@ -1,12 +1,5 @@
 /* ### Colours ### */
-body {
-   color: black;
-   /*background-color: #eeffff; */
-   background-color: rgb(170, 170, 170);
-   /* background-image: url("http://static1.grsites.com/images/fadestrip2.png");
-   background-position: left top;
-   background-repeat: repeat-x; */
-}
+body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-vaka,
 .nautical-wrapper .nautical-compartment { background-color: white; }
 #nautical-bow,#nautical-bow a { color: #000000; }
@@ -42,29 +35,22 @@ body {
 #sssnautical-lookout .breadcrumb { height: 1em; padding-bottom: 0; }
 #sssnautical-lookout .navbar-brand img { height: 1em; }
 #nautical-lookout .breadcrumb > li + li.pull-right:before {
-   /*content: ""; */
     padding: 0 5px;
     color: #ccc;
     content: "|\00a0";
 }
-#nautical-lookout .breadcrumb li.pull-right {  padding: 0 3em;  }
+#nautical-lookout .breadcrumb li.pull-right     { padding: 0 3em;  }
 #nautical-lookout .breadcrumb li.pull-right img { height: 1.3em; }
 
-#nautical-cargo .project-list-box {
-   padding-left: 0;
-}
-#nautical-cargo .project-list-box-even {
-   float: right;
-   padding-right: 0;
-}
+#nautical-cargo .project-list-box      { padding-left: 0; }
+#nautical-cargo .project-list-box-even { float: right; padding-right: 0; }
+#nautical-cargo .project-list-box td   { white-space: nowrap; }
 
-#nautical-cargo .project-list-box td {
-   white-space: nowrap;
-}
+#nautical-cargo ul.characteristic-list { margin-bottom: 0.5em;  }
+#nautical-cargo .characteristic-list li.characteristic-title { font-weight: bold; width: 8em; vertical-align: middle; }
+#nautical-cargo .characteristic-list li { margin-bottom: 1em; }
+#nautical-cargo .characteristic-list .well { margin-bottom: 0; }
 
-#nautical-deck .newsbar-list {
-
-}
 #nautical-deck .newsbar-list li {
    list-style: none;
    border: 1px solid silver;
@@ -73,18 +59,9 @@ body {
    padding: 0.1em 0.3em;
    font-size: 9pt;
 }
-#nautical-deck .newsbar-list li .newsbar-date {
-   float: left;
-}
-#nautical-deck .newsbar-list li .newsbar-project {
-   float: right;
-   padding-left: 0.1em;
-}
-#nautical-deck .newsbar-list li .newsbar-description {
-   clear: both;
-   min-width: 15em;
-}
-
+#nautical-deck .newsbar-list li .newsbar-date        { float: left; }
+#nautical-deck .newsbar-list li .newsbar-project     { float: right; padding-left: 0.1em; }
+#nautical-deck .newsbar-list li .newsbar-description { clear: both; min-width: 15em; }
 
 /* ### Not needed ### */
 #nautical-lighthouse,
@@ -103,3 +80,9 @@ body {
 #nautical-stern,
 #nautical-net,
 #nautical-buoy { display: none; }
+
+@media all and (max-width: 800px) {
+   #nautical-deck { display: none; }
+   #nautical-ballast { min-width: 20em; }
+   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 22em;  }
+}

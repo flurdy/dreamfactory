@@ -81,6 +81,7 @@ object ProjectCharacteristics {
 
    trait Characteristic extends EnumName {
       def alternatives: Set[String]
+      def parentName: String
       override val names: Set[String] = alternatives + name
    }
 
@@ -93,12 +94,12 @@ object ProjectCharacteristics {
    trait EnumParse[A <: EnumName] {
       def apply(name: String, values: Set[A]): Option[A] = {
          val v = values.filter(_.names.exists(_.toLowerCase == name.toLowerCase)).headOption
-         if(v.isEmpty) println(s"========== $name $v $values")
+        //  if(v.isEmpty) println(s"========== $name $v $values")
          v
       }
    }
 
-   sealed abstract class Appeal(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class Appeal(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "appeal") extends Characteristic
    object Appeal extends EnumParse[Appeal]
    case object Keen             extends Appeal("keen")
    case object Interested       extends Appeal("interested", Set("good"))
@@ -106,7 +107,7 @@ object ProjectCharacteristics {
    case object LowAppeal        extends Appeal("low")
    val appeals: Set[Appeal] = Set(Keen, Interested, MaybeAppeal, LowAppeal)
 
-   sealed abstract class Complexity(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class Complexity(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "complexity") extends Characteristic
    object Complexity extends EnumParse[Complexity]
    case object VeryComplex      extends Complexity("verydifficult", Set("veryhigh"))
    case object Difficult        extends Complexity("difficult", Set("high","hard"))
@@ -114,7 +115,7 @@ object ProjectCharacteristics {
    case object Easy             extends Complexity("easy", Set("low"))
    val complexities: Set[Complexity] = Set(VeryComplex, Difficult, MediumComplex, Easy)
 
-   sealed abstract class Likelihood(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class Likelihood(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "likelyhood") extends Characteristic
    object Likelihood extends EnumParse[Likelihood]
    case object HiglyLikely      extends Likelihood("high")
    case object Possibly         extends Likelihood("possibly", Set("maybe"))
@@ -122,7 +123,7 @@ object ProjectCharacteristics {
    case object Never            extends Likelihood("never")
    val likelihoods: Set[Likelihood] = Set(HiglyLikely, Possibly, Unlikely, Never)
 
-   sealed abstract class DevelopmentStatus(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class DevelopmentStatus(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "status.development") extends Characteristic
    object DevelopmentStatus extends EnumParse[DevelopmentStatus]
    case object Abandoned        extends DevelopmentStatus("abandoned",Set("cancelled","mothballed"))
    case object Alpha            extends DevelopmentStatus("alpha")
@@ -131,7 +132,7 @@ object ProjectCharacteristics {
    case object NotStarted       extends DevelopmentStatus("notstarted")
    val developmentStatuses: Set[DevelopmentStatus] = Set(Abandoned, Alpha, Beta, Completed, NotStarted)
 
-   sealed abstract class ReleaseStatus(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class ReleaseStatus(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "status.release") extends Characteristic
    object ReleaseStatus extends EnumParse[ReleaseStatus]
    case object Mature           extends ReleaseStatus("mature")
    case object Released         extends ReleaseStatus("released")
@@ -140,11 +141,34 @@ object ProjectCharacteristics {
    case object Mothballed       extends ReleaseStatus("mothballed")
    val releaseStatuses: Set[ReleaseStatus] = Set(Mature, Released, BetaRelease, NotReleased, Mothballed)
 
-   sealed abstract class DeployStatus(val name: String, val alternatives: Set[String] = Set.empty) extends Characteristic
+   sealed abstract class DeployStatus(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "status.deploy") extends Characteristic
    object DeployStatus extends EnumParse[DeployStatus]
    case object Live             extends DeployStatus("live", Set("demo"))
    case object Offline          extends DeployStatus("offline")
    val deployStatuses: Set[DeployStatus] = Set(Live, Offline)
+
+
+   case class CharacteristicPossibilities(appeals: Set[Appeal],
+                                          complexities: Set[Complexity],
+                                          likelihoods: Set[Likelihood],
+                                          developmentStatuses: Set[DevelopmentStatus],
+                                          releaseStatuses: Set[ReleaseStatus],
+                                          deployStatuses: Set[DeployStatus]){
+
+      val isEmpty = appeals.isEmpty && complexities.isEmpty &&
+                    likelihoods.isEmpty && developmentStatuses.isEmpty &&
+                    releaseStatuses.isEmpty && deployStatuses.isEmpty
+
+      def findCharacteristic(name: String) =
+        Appeal(name,appeals)
+          .orElse(Complexity(name, complexities))
+          .orElse(Likelihood(name, likelihoods))
+          .orElse(DevelopmentStatus(name, developmentStatuses))
+          .orElse(ReleaseStatus(name, releaseStatuses))
+          .orElse(DeployStatus(name, deployStatuses))
+   }
+
+   val characteristicPossibilities = CharacteristicPossibilities(appeals, complexities, likelihoods, developmentStatuses, releaseStatuses, deployStatuses)
 }
 
 import ProjectCharacteristics._
@@ -169,6 +193,12 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
                        .orElse(releaseStatus)
                        .orElse(deployStatus)
                        .isEmpty
+  val characteristics: List[Characteristic] = appeal.toList ::: complexity.toList :::
+                                                                likelihood.toList :::
+                                                                developmentStatus.toList :::
+                                                                releaseStatus.toList :::
+                                                                deployStatus.toList
+  def hasCharacteristic(characteristic: Characteristic) = characteristics.contains(characteristic)
 }
 
 object Licenses {
@@ -263,7 +293,7 @@ trait ProjectLookup {
                   tags = tags, news = news, characteristics = characteristics)
       }
 
-   def findAllTheProjects(): List[Project] = projects
+   val findAllTheProjects: List[Project] = projects
 
    def findProjectsBySearch(searchTerm: String): List[Project] =
       projects.filter{ p =>
@@ -286,6 +316,9 @@ trait ProjectLookup {
    }
 
    def findProjectsByTag(tag: Tag): List[Project] = projects.filter{ p => p.tags.exists(_.name == tag.name) }
+
+   def findProjectsByCharacteristic(characteristic: Characteristic): List[Project] =
+     projects.filter{ p => p.characteristics.hasCharacteristic(characteristic) }
 
    def findProjectsByTags(tags: List[Tag]): List[Project] = projects.filter{ p => tags.toSet.subsetOf(p.tags) }
 

@@ -1,4 +1,4 @@
-@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag])(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
 
 @import helper._
 
@@ -23,6 +23,25 @@
          </table>
       </div>
       </div>
+   }
+}
+
+@characteristicsRow(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
+   <ul class="list-inline characteristic-list">
+      <li class="characteristic-title">
+         @Messages(s"project.characteristics.$characteristicType")
+      </li>
+      @characteristicsRowItem(characteristicType, characteristics)
+   </ul>
+}
+
+@characteristicsRowItem(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
+   @for(characteristic <- characteristics){
+      <li>
+         <a href="@routes.ProjectController.findProjectsByCharacteristic(characteristicType,characteristic.name)" class="btn btn-default well well-sm" type="submit">
+            @Html(Messages(s"project.characteristics.$characteristicType.$characteristic"))
+         </a>
+      </li>
    }
 }
 
@@ -78,6 +97,26 @@
                </li>
             }
          </ul>
+      </div>
+   }
+
+   @if(!characteristics.isEmpty){
+      <div class="well row">
+
+         <h4>@Messages("projects.characteristics")</h4>
+
+         @characteristicsRow("appeal", characteristics.appeals)
+
+         @characteristicsRow("complexity", characteristics.complexities)
+
+         @characteristicsRow("likelihood", characteristics.likelihoods)
+
+         @characteristicsRow("status.development", characteristics.developmentStatuses)
+
+         @characteristicsRow("status.release", characteristics.releaseStatuses)
+
+         @characteristicsRow("status.deploy", characteristics.deployStatuses)
+
       </div>
    }
 }

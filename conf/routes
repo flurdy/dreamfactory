@@ -6,6 +6,7 @@ GET     /                           controllers.HomeController.index
 GET     /project/:projectName       controllers.ProjectController.showProject(projectName)
 GET     /projects/search            controllers.ProjectController.findProjectsBySearch()
 GET     /projects/tag               controllers.ProjectController.findProjectsByTag()
+GET     /projects/characteristic/type/:characteristicType/characteristic/:characteristic               controllers.ProjectController.findProjectsByCharacteristic(characteristicType: String, characteristic: String)
 GET     /projects/tags              controllers.ProjectController.findProjectsByTags()
 
 # Map static resources from the /public folder to the /assets URL path

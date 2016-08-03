@@ -22,7 +22,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),
          searchTerm => {
-            val projects = if(searchTerm.trim.isEmpty) projectLookup.findAllTheProjects()
+            val projects = if(searchTerm.trim.isEmpty) projectLookup.findAllTheProjects
                            else projectLookup.findProjectsBySearch(searchTerm)
             val search = if(searchTerm.trim.isEmpty) None else Some(searchTerm)
             Ok(views.html.project.listprojects(projects=projects,searchTerm=search))
@@ -57,6 +57,16 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
             Ok(views.html.project.listprojects(projects, tags = tags, subTags = subTags))
          }
       )
+   }
+
+   def findProjectsByCharacteristic(characteristicType: String, characteristic: String) =  Action { implicit request =>
+      val characteristicFound: Option[ProjectCharacteristics.Characteristic] =
+        ProjectCharacteristics.characteristicPossibilities.findCharacteristic(characteristic)
+      val projects: List[Project] = for{
+          c <-characteristicFound.toList
+          project <- projectLookup.findProjectsByCharacteristic(c)
+        } yield project
+      Ok(views.html.project.listprojects(projects=projects, possibleCharacteristic = characteristicFound))
    }
 
    val tagForm = Form( single( "tag" -> nonEmptyText) )
