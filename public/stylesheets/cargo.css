@@ -84,8 +84,8 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-net,
 #nautical-buoy { display: none; }
 
-@media all and (max-width: 800px) {
-   #nautical-deck { display: none; }
+@media all and (max-width: 900px) {
    #nautical-ballast { min-width: 20em; }
+   #nautical-deck { display: none; }
    #nautical-bow header.branded img { margin: 1em 0 0 0; width: 22em;  }
 }

@@ -1,4 +1,4 @@
-@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 

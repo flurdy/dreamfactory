@@ -1,5 +1,5 @@
 @(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty,
-  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News])
+  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 
@@ -32,7 +32,7 @@
            }
 
          </p>
-         
+
          @if(!projects.isEmpty){
            <table class="table table-striped table-condensed">
               <tbody>

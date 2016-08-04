@@ -19,10 +19,17 @@ trait WithNewsBar {
    implicit def latestNews: List[News] = projectLookup.findNews(18)
 }
 
+trait WithAnalytics {
+
+   def configuration: Configuration
+
+   implicit val analytics: Option[GoogleAnalytics] = GoogleAnalytics(configuration.getConfig("analytics.google"))
+}
+
 @Singleton
-class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup: ProjectLookup)
+class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup: ProjectLookup, val configuration: Configuration)
       (implicit val webJarAssets: WebJarAssets)
-      extends Controller with WithWebJarAssets with WithNewsBar with I18nSupport {
+      extends Controller with WithWebJarAssets with WithNewsBar with WithAnalytics with I18nSupport {
 
    def index = Action {
       val updatedProjects = projectLookup.findUpdatedProjects(5)
