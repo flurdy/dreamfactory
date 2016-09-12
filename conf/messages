@@ -1,11 +1,12 @@
 application.dream.title=Dream Factory. Ideas, projects, applications
 application.title=Code@flurdy: ideas, projects, applications with dreamfactory
 application.header=Dream Factory
-
 application.flurdy.header="code @ flurdy"
+application.description=Projects by <a href="http://flurdy.com">flurdy</a>. Projects that are just ideas. Projects that are being developed or abandoned. Projects that are finished and released.
 
-projects.updated.title=Updated
-projects.new.title=Recent
+projects.search.button=search
+projects.updated.title=Updated recently
+projects.new.title=Added recently
 projects.popular.title=Popular
 projects.random.title=Random
 projects.empty=No projects found

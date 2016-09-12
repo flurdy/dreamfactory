@@ -32,12 +32,12 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       extends Controller with WithWebJarAssets with WithNewsBar with WithAnalytics with I18nSupport {
 
    def index = Action {
-      val updatedProjects = projectLookup.findUpdatedProjects(5)
-      val newProjects     = projectLookup.findNewestProjects(5)
-      val popularProjects = projectLookup.findPopularProjects(5)
-      val randomProjects  = projectLookup.findRandomProjects(5)
+      val updatedProjects = projectLookup.findUpdatedProjects(6)
+      val newProjects     = projectLookup.findNewestProjects(6)
+      val popularProjects = projectLookup.findPopularProjects(6)
+      val randomProjects  = projectLookup.findRandomProjects(6)
       val projectsFound   = projectLookup.howManyProjects
-      val tags            = projectLookup.findTags(10)
+      val tags            = projectLookup.findTags(30)
       val characteristics = characteristicPossibilities
       Ok(views.html.index(projectsFound, updatedProjects, newProjects, popularProjects, randomProjects, tags, characteristics))
    }
