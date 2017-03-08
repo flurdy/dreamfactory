@@ -117,11 +117,11 @@ object ProjectCharacteristics {
 
    sealed abstract class Likelihood(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "likelihood") extends Characteristic
    object Likelihood extends EnumParse[Likelihood]
-   case object HiglyLikely      extends Likelihood("high")
+   case object HighlyLikely     extends Likelihood("high")
    case object Possibly         extends Likelihood("possibly", Set("maybe"))
    case object Unlikely         extends Likelihood("unlikely", Set("low","slight"))
    case object Never            extends Likelihood("never")
-   val likelihoods: Set[Likelihood] = Set(HiglyLikely, Possibly, Unlikely, Never)
+   val likelihoods: Set[Likelihood] = Set(HighlyLikely, Possibly, Unlikely, Never)
 
    sealed abstract class DevelopmentStatus(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "status.development") extends Characteristic
    object DevelopmentStatus extends EnumParse[DevelopmentStatus]
