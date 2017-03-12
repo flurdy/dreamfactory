@@ -1,26 +1,27 @@
-FROM java:openjdk-8u72-jdk-alpine
+FROM flurdy/play-framework:2.5.12-alpine
 
-MAINTAINER flurdy
+MAINTAINER Ivar Abrahamsen <@flurdy>
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV APPDIR /opt/app
+RUN mkdir -p /etc/app && \
+  mkdir -p $HOME/.sbt/0.13
 
-RUN apk update && apk add bash
+COPY conf /etc/app
+COPY conf/repositories $HOME/.sbt/
+COPY conf/local.sbt $HOME/.sbt/0.13/
+ADD . /opt/build/
 
-ENV APPLICATION dreamfactory
-ENV VERSION 1.0-SNAPSHOT
+WORKDIR /opt/build
+
+RUN /opt/activator/bin/activator clean stage && \
+    rm -f target/universal/stage/bin/*.bat && \
+    mv target/universal/stage/bin/* target/universal/stage/bin/app && \
+    mv target/universal /opt/app && \
+    ln -s /opt/app/stage/logs /var/log/app && \
+    rm -rf /opt/build && \
+    rm -rf /root/.ivy2
 
 WORKDIR /opt/app
 
-RUN mkdir -p /etc/opt/app && \
-  mkdir -p /opt/app && \
-  mkdir -p $HOME/.sbt/0.13
-
-COPY conf /etc/opt/app
-COPY conf/repositories $HOME/.sbt/
-COPY conf/local.sbt $HOME/.sbt/0.13/
-ADD target/universal /opt/app/target/universal
-
-ENTRYPOINT ["/opt/app/target/universal/stage/bin/dreamfactory"]
+ENTRYPOINT ["/opt/app/stage/bin/app"]
 
 EXPOSE 9000
