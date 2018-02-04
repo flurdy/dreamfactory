@@ -269,7 +269,7 @@ trait ProjectLookup {
    lazy val howManyProjects = projects.size
 
    def findProject(projectName: String): Option[Project] =
-         projects.filter(_.title == projectName).headOption
+         projects.filter(_.title.toLowerCase == projectName.toLowerCase).headOption
 
    def findRandomProjects(size: Int)  = randomiseProjects(projects).take(size)
 
