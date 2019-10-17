@@ -3,6 +3,7 @@ application.title=Code@flurdy: ideas, projects, applications with dreamfactory
 application.header=Dream Factory
 application.flurdy.header="code @ flurdy"
 application.description=Projects by <a href="http://flurdy.com">flurdy</a>. Projects that are just ideas. Projects that are being developed or abandoned. Projects that are finished and released.
+application.description.2=Any assistance is much appreciated. Any sponsorship is very much appreciated.
 
 projects.search.button=search
 projects.updated.title=Updated recently
@@ -82,9 +83,48 @@ project.characteristics.status.deploy.offline=Offline
 
 project.license.title=License
 
+project.contact.help=help/join
+project.contact.sponsor=sponsor
+project.contact.inquire=inquire
+
+project.contact.help.title = Help or Join
+project.contact.help.description = Assisting a project. If you can then any help will be appreciated. As a developer, artist, tester or just general feedback and ideas.
+project.contact.help.description.2 = If available, fork and have a look at the code. If live, try the site. And if you are serious please contact us for a chat on how you can help.
+project.contact.help.thanks = Thank you for any assistance.
+project.contact.help.project.details = Project details
+project.contact.help.details.project = Project
+project.contact.help.details.license = License
+project.contact.help.details.source = Code
+project.contact.help.details.live = Live site
+project.contact.help.details.contact = Contact details
+project.contact.help.sponsor.title = Sponsor
+project.contact.help.sponsor.description = Alternatively you can sponsor the development.
+
+project.contact.sponsor.title = Sponsor
+project.contact.sponsor.description = Sponsorship and donations to the development of this project is very much appreciated.
+project.contact.sponsor.description.2 = As a personal donation of a few quid, or corporate sponsorship, they are all welcome.
+project.contact.sponsor.description.3 = Any contributor has the option of becoming an official backer of the project.
+project.contact.sponsor.description.4 = Large enough corporate sponsorship may become main sponsor of the project.
+project.contact.sponsor.thanks = Thank you for your contribution.
+project.contact.sponsor.message.title = Send a message
+project.contact.sponsor.message.description = If you contribute, please also send a separate message to keep track (and thanks) of which contributor gave what. Don't be shy. Otherwise some contributions I have unforunately not noticed until much later, which I feel very embarrassed about.
+project.contact.sponsor.help.title = Help or join
+project.contact.sponsor.help.description = If in addition or instead you want to assist the project directly then that is very appreciated as well.
+project.contact.sponsor.method.title = Sponsor method
+project.contact.sponsor.method.bitcoin = Bitcoin address
+project.contact.sponsor.method.ethereum = Ethereum address
+project.contact.sponsor.method.bitcoin.address = 1NUbsHd25oeZSUhwaPdCQj9cBHVwxhhhn7
+project.contact.sponsor.method.ethereum.address = 0xB72baA7AA3C8E7bF184cF13EbE0cd4BC0192B2a0
+project.contact.sponsor.method.patreon = Patreon
+project.contact.sponsor.method.patreon.address = Coming soon
+project.contact.sponsor.method.other = Other alternatives
+project.contact.sponsor.method.paypal = Paypal
+
 breadcrumb.home=Home
 breadcrumb.project=project
 breadcrumb.projectlist=projects
+breadcrumb.project.help=help
+breadcrumb.project.sponsor=sponsor
 
 bridge.contact=Contact
 bridge.hire=Hire

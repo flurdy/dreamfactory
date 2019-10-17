@@ -212,7 +212,8 @@ object Licenses {
    case object Gpl     extends License("GPL", "https://opensource.org/licenses/gpl-license")
    case object Lgpl    extends License("LGPL", "https://opensource.org/licenses/lgpl-license")
    case object CcSa    extends License("Creative Commons - Attribution ShareAlike", "https://creativecommons.org/licenses/by-sa/2.5/")
-   val licenses: Set[License] = Set(Agpl3, Apache2, Respect, Bsd, Mit, Gpl, Lgpl, CcSa)
+   case object Proprietary extends License("Proprietary", "https://eray.uk")
+   val licenses: Set[License] = Set(Agpl3, Apache2, Respect, Bsd, Mit, Gpl, Lgpl, CcSa, Proprietary)
 }
 
 import Licenses._

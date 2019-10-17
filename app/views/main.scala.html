@@ -3,6 +3,7 @@
 <html lang="en">
    <head>
       <title>@title.getOrElse(Messages("application.title"))</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="@Messages("application.description")" />
       <link rel="stylesheet" media="screen" href="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.css"))">
       <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/nautical.css")">
@@ -12,7 +13,7 @@
       <script src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))" type="text/javascript"></script>
       @googleAnalytics(analytics)
    </head>
-   <body onload="loader()">
+   <body>
       <div id="nautical-ocean" class="nautical-structure">
          <div id="nautical-lighthouse" class="nautical-structure nautical-wrapper">
             <div class="nautical-compartment"></div>

@@ -16,7 +16,7 @@ trait WithNewsBar {
 
    def projectLookup: ProjectLookup
 
-   implicit def latestNews: List[News] = projectLookup.findNews(18)
+   implicit def latestNews: List[News] = projectLookup.findNews(22)
 }
 
 trait WithAnalytics {

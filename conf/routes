@@ -9,6 +9,8 @@ GET     /projects/tag               controllers.ProjectController.findProjectsBy
 GET     /projects/characteristic/type/:characteristicType/characteristic/:characteristic               controllers.ProjectController.findProjectsByCharacteristic(characteristicType: String, characteristic: String)
 GET     /projects/tags              controllers.ProjectController.findProjectsByTags()
 
+GET     /project/:projectName/help     controllers.ProjectController.showHelp(projectName)
+GET     /project/:projectName/sponsor  controllers.ProjectController.showSponsor(projectName)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)

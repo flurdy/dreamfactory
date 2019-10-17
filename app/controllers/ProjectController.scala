@@ -18,6 +18,14 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.project(p)) )
    }
 
+   def showHelp(projectName: String) = Action {
+      projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.help(p)) )
+   }
+
+   def showSponsor(projectName: String) = Action {
+      projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.sponsor(p)) )
+   }
+
    def findProjectsBySearch() = Action { implicit request =>
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),
