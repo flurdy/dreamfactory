@@ -121,4 +121,6 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
                                                                 releaseStatus.toList :::
                                                                 deployStatus.toList
   def hasCharacteristic(characteristic: Characteristic) = characteristics.contains(characteristic)
+
+  def isLive = deployStatus.contains(Live)
 }

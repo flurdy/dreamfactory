@@ -116,7 +116,6 @@ project.contact.sponsor.method.ethereum = Ethereum address
 project.contact.sponsor.method.bitcoin.address = 1NUbsHd25oeZSUhwaPdCQj9cBHVwxhhhn7
 project.contact.sponsor.method.ethereum.address = 0xB72baA7AA3C8E7bF184cF13EbE0cd4BC0192B2a0
 project.contact.sponsor.method.patreon = Patreon
-project.contact.sponsor.method.patreon.address = Coming soon
 project.contact.sponsor.method.other = Other alternatives
 project.contact.sponsor.method.paypal = Paypal
 

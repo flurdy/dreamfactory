@@ -53,6 +53,9 @@ body { color: black; background-color: rgb(170, 170, 170); }
 
 #nautical-cargo #main-tags-accordion .panel-body { padding-bottom: 0; }
 #nautical-cargo #characteristics-accordion .panel-body { padding-bottom: 0; }
+#nautical-cargo #collapse-characteristic { margin-top: 15px; }
+#nautical-cargo #characteristics-accordion { margin-bottom: 0; }
+#nautical-cargo #characteristics-accordion .panel-body { padding: 5px 15px 0 15px; }
 
 #nautical-deck .newsbar-list li {
    list-style: none;
@@ -66,15 +69,11 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-deck .newsbar-list li .newsbar-project     { float: right; padding-left: 0.1em; }
 #nautical-deck .newsbar-list li .newsbar-description { clear: both; min-width: 15em; }
 
-#nautical-bridge img {
-   height: 20px;
-}
-#nautical-bridge .eray-logo img {
-   height: 25px;
-}
-#nautical-bridge .eray-logo a {
-   padding: 8px 20px;
-}
+#nautical-bridge img { height: 20px; }
+#nautical-bridge .eray-logo img { height: 25px; }
+#nautical-bridge .eray-logo a { padding: 8px 20px; }
+#nautical-bridge .patreon-button a { padding: 8px 20px; }
+#nautical-bridge .patreon-button img { height: 25px; }
 
 /* ### Not needed ### */
 #nautical-lighthouse,

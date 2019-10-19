@@ -12,10 +12,23 @@
                @for( project <- projects){
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
-                     @project.urls.liveOrProject.map { url =>
-                        <a href="@url.value">@url.curt(25)</a>
-                     }.orElse(Some("")).map{ link =>
-                        <td>@link</td>
+                     @project.urls.live match {
+                        case Some(url) if project.characteristics.isLive => {
+                           <td><a href="@url.value">@url.curt(25)</a></td>
+                        }
+                        case Some(url) => {
+                           <td><s title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></s></td>
+                        }
+                        case None => {
+                           @project.urls.project match {
+                              case Some(url) => {
+                                 <td><a href="@url.value">@url.curt(25)</a></td>
+                              }
+                              case None => {
+                                 <td></td>
+                              }
+                           }
+                        }
                      }
                   </tr>
                }
@@ -146,7 +159,7 @@
            </h4>
         </div>
         <div class="panel panel-default">
-           <div id="collapse-characteristic" class="panel-collapse collapse"
+           <div id="collapse-characteristic" class="panel-collapse collapse in"
                 role="tabpanel" aria-labelledby="heading-characteristic">
 
               @characteristicsRow("appeal", characteristics.appeals)
