@@ -5,10 +5,6 @@ import com.google.inject.ImplementedBy
 import javax.inject._
 import play.api.Configuration
 import scala.collection.JavaConversions._
-// import util.Random
-// import org.joda.time.DateTime
-// import org.joda.time.format.DateTimeFormat
-// import java.net.URL
 
 
 import EnumModel._
@@ -81,13 +77,16 @@ object ProjectCharacteristics {
                     likelihoods.isEmpty && developmentStatuses.isEmpty &&
                     releaseStatuses.isEmpty && deployStatuses.isEmpty
 
-      def findCharacteristic(name: String) =
-        Appeal(name,appeals)
-          .orElse(Complexity(name, complexities))
-          .orElse(Likelihood(name, likelihoods))
-          .orElse(DevelopmentStatus(name, developmentStatuses))
-          .orElse(ReleaseStatus(name, releaseStatuses))
-          .orElse(DeployStatus(name, deployStatuses))
+      def findCharacteristic(characteristicType: String, name: String) =
+        characteristicType match {
+           case "appeal"             => Appeal(name,appeals)
+           case "complexity"         => Complexity(name, complexities)
+           case "likelihood"         => Likelihood(name, likelihoods)
+           case "status.development" => DevelopmentStatus(name, developmentStatuses)
+           case "status.release"     => ReleaseStatus(name, releaseStatuses)
+           case "status.deploy"      => DeployStatus(name, deployStatuses)
+           case _ => None
+        }
    }
 
    val characteristicPossibilities = CharacteristicPossibilities(appeals, complexities, likelihoods, developmentStatuses, releaseStatuses, deployStatuses)

@@ -24,7 +24,7 @@
              case (_, _, Some(characteristic)) => {
                  @Messages("project.list.characteristic")
                  @Messages("project.characteristics." + characteristic.parentName) -
-                 @Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name)
+                 @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))
              }
              case _ => {
                @Messages("project.list.all")

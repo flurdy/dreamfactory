@@ -69,7 +69,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
 
    def findProjectsByCharacteristic(characteristicType: String, characteristic: String) =  Action { implicit request =>
       val characteristicFound: Option[ProjectCharacteristics.Characteristic] =
-        ProjectCharacteristics.characteristicPossibilities.findCharacteristic(characteristic)
+        ProjectCharacteristics.characteristicPossibilities.findCharacteristic(characteristicType, characteristic)
       val projects: List[Project] = for{
           c <-characteristicFound.toList
           project <- projectLookup.findProjectsByCharacteristic(c)
