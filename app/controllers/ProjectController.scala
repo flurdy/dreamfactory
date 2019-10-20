@@ -30,8 +30,8 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),
          searchTerm => {
-            val projects = if(searchTerm.trim.isEmpty) projectLookup.findAllTheProjects
-                           else projectLookup.findProjectsBySearch(searchTerm)
+            val projects = if(searchTerm.trim.isEmpty) projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
+                           else projectLookup.findProjectsBySearch(searchTerm).sortBy(_.title.toLowerCase)
             val search = if(searchTerm.trim.isEmpty) None else Some(searchTerm)
             Ok(views.html.project.listprojects(projects=projects,searchTerm=search))
          }
@@ -45,7 +45,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
          formWithErrors => BadRequest("Invalid form"),
          tagName => {
             val tag = Tag(tagName)
-            val projects = projectLookup.findProjectsByTag(tag)
+            val projects = projectLookup.findProjectsByTag(tag).sortBy(_.title.toLowerCase)
             val subTags  = projectLookup.findTagsInProjects(projects,11).filter( _.name != tag.name).take(10)
             Ok(views.html.project.listprojects(projects, tags = List(tag), subTags = subTags))
          }
@@ -58,7 +58,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
          tagsData => {
             val tag  = Tag(tagsData._2)
             val tags = tag :: (tagsData._1.split(",").map(Tag(_)).toList)
-            val projects = projectLookup.findProjectsByTags(tags)
+            val projects = projectLookup.findProjectsByTags(tags).sortBy(_.title.toLowerCase)
             val subTags  = projectLookup.findTagsInProjects(projects,30)
                                         .filter( t => !tags.exists( tt => t.name == tt.name) )
                                         .take(10)
@@ -72,7 +72,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
         ProjectCharacteristics.characteristicPossibilities.findCharacteristic(characteristicType, characteristic)
       val projects: List[Project] = for{
           c <-characteristicFound.toList
-          project <- projectLookup.findProjectsByCharacteristic(c)
+          project <- projectLookup.findProjectsByCharacteristic(c).sortBy(_.title.toLowerCase)
         } yield project
       Ok(views.html.project.listprojects(projects=projects, possibleCharacteristic = characteristicFound))
    }
