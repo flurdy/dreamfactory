@@ -5,33 +5,11 @@ import com.google.inject.ImplementedBy
 import javax.inject._
 import play.api.Configuration
 import scala.collection.JavaConversions._
-import util.Random
+// import util.Random
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.net.URL
+// import java.net.URL
 
-case class Url(title: Option[String], value: URL) {
-   def this(value: String) = this(None, new URL(value))
-   def this(title: String, value: String) = this(Some(title), new URL(value))
-   def naked = value.getHost() + Option(value.getPath()).getOrElse("") + Option(value.getQuery()).getOrElse("")
-   def curt(maxLength: Int)  = if(naked.length > maxLength) ".." + naked.takeRight(maxLength) else naked
-}
-
-case class Urls(values: Map[String,Url] = Map.empty){
-   def this(configuration: Configuration) =
-      this(
-         ( for{
-               key <- configuration.keys
-               value: String <- configuration.getString(key).toSet
-             } yield (key,new Url(key, value))
-         ).toMap )
-   def project = get("project")
-   def live = get("live")
-   def get(key: String) = values.get(key)
-   val others = values.filter{ case (key,_) => !Set("project","live").contains(key) }
-   val liveOrProject = get("live").orElse(get("project"))
-   val isEmpty = liveOrProject.isEmpty
-}
 
 case class Versions(dev: Option[String] = None, live: Option[String] = None){
    def this(configuration: Configuration) = {
@@ -95,23 +73,6 @@ object EnumModel {
 
 }
 
-import EnumModel._
-
-object Licenses {
-   sealed abstract class License(val name: String, val link: String) extends EnumName
-   object License      extends EnumParse[License]
-   case object Agpl3   extends License("AGPL v3", "https://opensource.org/licenses/agpl-3.0")
-   case object Apache2 extends License("Apache 2.0", "https://www.apache.org/licenses/LICENSE-2.0")
-   case object Respect extends License("Respect", "http://flurdy.com/docs/license/respect/0.3/")
-   case object Bsd     extends License("BSD", "https://opensource.org/licenses/BSD-3-Clause")
-   case object Mit     extends License("MIT", "https://opensource.org/licenses/MIT")
-   case object Gpl     extends License("GPL", "https://opensource.org/licenses/gpl-license")
-   case object Lgpl    extends License("LGPL", "https://opensource.org/licenses/lgpl-license")
-   case object CcSa    extends License("Creative Commons - Attribution ShareAlike", "https://creativecommons.org/licenses/by-sa/2.5/")
-   case object Proprietary extends License("Proprietary", "https://eray.uk")
-   val licenses: Set[License] = Set(Agpl3, Apache2, Respect, Bsd, Mit, Gpl, Lgpl, CcSa, Proprietary)
-}
-
 import Licenses._
 
 case class Project(title: String,
@@ -122,4 +83,11 @@ case class Project(title: String,
                    news: List[News] = List.empty,
                    tags: Set[Tag] = Set.empty,
                    license: Option[License] = None,
-                   characteristics: ProjectCharacteristics = new ProjectCharacteristics())
+                   characteristics: ProjectCharacteristics = new ProjectCharacteristics()){
+   val isLive = urls.hasLive && characteristics.isLive
+   val isApp = tags.contains(Tag("mobile"))
+   val isAnIdea = tags.contains(Tag("idea"))
+   val isOpenSource = license.exists(_.isOpenSource)
+   val isDead = (characteristics.isMothballed || characteristics.isNotReleased) && (characteristics.isAbandoned || characteristics.isNotStarted)
+   val isCommercial = tags.contains(Tag("commercial"))
+}

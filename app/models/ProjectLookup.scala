@@ -61,7 +61,10 @@ trait ProjectLookup {
    def findProject(projectName: String): Option[Project] =
          projects.filter(_.title.toLowerCase == projectName.toLowerCase).headOption
 
-   def findRandomProjects(size: Int)  = randomiseProjects(projects).take(size)
+   def findRandomProjects(size: Int, excludeProjects: Set[Project] = Set())  = {
+      val includedProjects = projects.toSet -- excludeProjects
+      randomiseProjects(includedProjects.toList).take(size)
+   }
 
    private def randomiseProjects(someProjects: List[Project])  = Random.shuffle(someProjects)
 

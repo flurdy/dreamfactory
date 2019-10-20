@@ -121,5 +121,9 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
                                                                 deployStatus.toList
   def hasCharacteristic(characteristic: Characteristic) = characteristics.contains(characteristic)
 
-  def isLive = deployStatus.contains(Live)
+  val isLive = deployStatus.contains(Live)
+  val isMothballed = releaseStatus.contains(Mothballed)
+  val isAbandoned = developmentStatus.contains(Abandoned)
+  val isNotStarted = developmentStatus.contains(NotStarted)
+  val isNotReleased = releaseStatus.contains(NotReleased)
 }

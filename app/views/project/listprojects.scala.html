@@ -34,7 +34,7 @@
          </p>
 
          @if(!projects.isEmpty){
-           <table class="table table-striped table-condensed">
+           <table class="table table-striped table-condensed projectlist">
               <tbody>
                  @for( project <- projects){
                     <tr>
@@ -44,6 +44,36 @@
                        }.orElse(Some("")).map{ link =>
                           <td>@link</td>
                        }
+                        <td class="projectlist-properties">
+                           @if(project.isLive){
+                              <i class="fas fa-heartbeat" title="project is live"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.urls.hasProject){
+                              <i class="fas fa-code" title="project's code is available"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isApp){
+                              <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isAnIdea){
+                              <i class="fas fa-bulb" title="project is only an idea"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isDead){
+                              <i class="fas fa-cross" title="project is mothballed"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isCommercial){
+                              <i class="fas  fa-dollar-sign" title="project is commercial"></i>
+                           }
+                        </td>
                     </tr>
                  }
               </tbody>

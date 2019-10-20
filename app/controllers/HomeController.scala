@@ -35,7 +35,7 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       val updatedProjects = projectLookup.findUpdatedProjects(6)
       val newProjects     = projectLookup.findNewestProjects(8)
       val popularProjects = projectLookup.findPopularProjects(6)
-      val randomProjects  = projectLookup.findRandomProjects(8)
+      val randomProjects  = projectLookup.findRandomProjects(8, updatedProjects.toSet ++ newProjects ++ popularProjects)
       val projectsFound   = projectLookup.howManyProjects
       val tags            = projectLookup.findTags(30)
       val characteristics = characteristicPossibilities
