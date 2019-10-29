@@ -39,14 +39,28 @@
                  @for( project <- projects){
                     <tr>
                        <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
-                       @project.urls.liveOrProject.map { url =>
-                          <a href="@url.value">@url.curt(40)</a>
-                       }.orElse(Some("")).map{ link =>
-                          <td>@link</td>
-                       }
+                        @(project.urls.live,project.urls.project) match {
+                           case (Some(url), _) if project.characteristics.isLive => {
+                              <td><a href="@url.value">@url.curt(25)</a></td>
+                           }
+                           case (_, Some(url)) => {
+                            <td><em><a href="@url.value">@url.curt(25)</a></em></td>
+                           }
+                           case (Some(url), _) => {
+                             <td><s title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></s></td>
+                           }
+                           case (None, None) => {
+                             <td></td>
+                           }
+                        }
                         <td class="projectlist-properties">
                            @if(project.isLive){
                               <i class="fas fa-heartbeat" title="project is live"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isAnIdea){
+                              <i class="far fa-lightbulb" title="project is only an idea"></i>
                            }
                         </td>
                         <td class="projectlist-properties">
@@ -60,13 +74,8 @@
                            }
                         </td>
                         <td class="projectlist-properties">
-                           @if(project.isAnIdea){
-                              <i class="fas fa-bulb" title="project is only an idea"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
                            @if(project.isDead){
-                              <i class="fas fa-cross" title="project is mothballed"></i>
+                              <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
                            }
                         </td>
                         <td class="projectlist-properties">

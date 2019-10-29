@@ -23,7 +23,8 @@ object ProjectCharacteristics {
    case object Interested       extends Appeal("interested", Set("good"))
    case object MaybeAppeal      extends Appeal("maybe")
    case object LowAppeal        extends Appeal("low")
-   val appeals: Set[Appeal] = Set(Keen, Interested, MaybeAppeal, LowAppeal)
+   case object NoAppeal        extends Appeal("none")
+   val appeals: Set[Appeal] = Set(Keen, Interested, MaybeAppeal, LowAppeal, NoAppeal)
 
    sealed abstract class Complexity(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "complexity") extends Characteristic
    object Complexity extends EnumParse[Complexity]
@@ -124,6 +125,8 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
   val isLive = deployStatus.contains(Live)
   val isMothballed = releaseStatus.contains(Mothballed)
   val isAbandoned = developmentStatus.contains(Abandoned)
-  val isNotStarted = developmentStatus.contains(NotStarted)
-  val isNotReleased = releaseStatus.contains(NotReleased)
+  val isNotStarted = developmentStatus.contains(NotStarted) || developmentStatus.isEmpty
+  val isNotReleased = releaseStatus.contains(NotReleased) || releaseStatus.isEmpty
+  val isUnlikely = likelihood.contains(Unlikely) || likelihood.contains(Never)
+  val isUnappealing = appeal.contains(LowAppeal) || appeal.contains(NoAppeal)
 }

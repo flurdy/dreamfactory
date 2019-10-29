@@ -26,6 +26,10 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.sponsor(p)) )
    }
 
+   def findAllProjects() = Action { implicit request =>
+      val projects = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
+      Ok(views.html.project.listprojects( projects, searchTerm = None))
+   }
    def findProjectsBySearch() = Action { implicit request =>
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),

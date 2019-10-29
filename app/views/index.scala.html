@@ -12,27 +12,28 @@
                @for( project <- projects){
                   <tr>
                      <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
-                     @project.urls.live match {
-                        case Some(url) if project.characteristics.isLive => {
+                     @(project.urls.live,project.urls.project) match {
+                        case (Some(url), _) if project.characteristics.isLive => {
                            <td><a href="@url.value">@url.curt(25)</a></td>
                         }
-                        case Some(url) => {
+                        case (_, Some(url)) => {
+                           <td><em><a href="@url.value">@url.curt(25)</a></em></td>
+                        }
+                        case (Some(url), _) => {
                            <td><s title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></s></td>
                         }
-                        case None => {
-                           @project.urls.project match {
-                              case Some(url) => {
-                                 <td><a href="@url.value">@url.curt(25)</a></td>
-                              }
-                              case None => {
-                                 <td></td>
-                              }
-                           }
+                        case (None, None) => {
+                           <td></td>
                         }
                      }
                      <td class="projectlist-properties">
                         @if(project.isLive){
                            <i class="fas fa-heartbeat" title="project is live"></i>
+                        }
+                     </td>
+                     <td class="projectlist-properties">
+                        @if(project.isAnIdea){
+                           <i class="far fa-lightbulb" title="project is only an idea"></i>
                         }
                      </td>
                      <td class="projectlist-properties">
@@ -43,11 +44,6 @@
                      <td class="projectlist-properties">
                         @if(project.isApp){
                            <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isAnIdea){
-                           <i class="fas fa-bulb" title="project is only an idea"></i>
                         }
                      </td>
                      <td class="projectlist-properties">
@@ -129,14 +125,19 @@
    <div class="well search-box row">
 
       <div class="row">
-         @form(action=routes.ProjectController.findProjectsBySearch, 'method -> "GET"){
+         @form(action=routes.ProjectController.findProjectsBySearch, 'class -> "form-line", 'method -> "GET"){
             <div class="col-xs-8 col-sm-8 col-sm-offset-1">
-               <div class="input-group">
-                     <input type="text" class="form-control" placeholder="search amongst @projectsFound projects"
-                        maxlength="200" name="searchterm" />
-                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">@Messages("projects.search.button")</button>
-                     </span>
+               <div class="form-group">
+                  <div class="input-group">
+                        <input type="text" class="form-control" placeholder="search amongst @projectsFound projects"
+                           maxlength="200" name="searchterm" />
+                        <span class="input-group-btn">
+                           <button class="btn btn-default" type="submit">@Messages("projects.search.button")</button>
+                        </span>
+                        <span class="input-group-btn">
+                           <a href="@routes.ProjectController.findAllProjects" class="btn btn-default">@Messages("projects.search.all")</a>
+                        </span>
+                  </div>
                </div>
             </div>
          }

@@ -87,7 +87,8 @@ case class Project(title: String,
    val isLive = urls.hasLive && characteristics.isLive
    val isApp = tags.contains(Tag("mobile"))
    val isAnIdea = tags.contains(Tag("idea"))
-   val isOpenSource = license.exists(_.isOpenSource)
-   val isDead = (characteristics.isMothballed || characteristics.isNotReleased) && (characteristics.isAbandoned || characteristics.isNotStarted)
    val isCommercial = tags.contains(Tag("commercial"))
+   val isUnlikely = characteristics.isUnlikely
+   val isUnappealing = characteristics.isUnappealing
+   lazy val isDead = (characteristics.isMothballed || characteristics.isNotReleased) && (characteristics.isAbandoned || characteristics.isNotStarted) && (!isAnIdea) //  || isUnlikely || isUnappealing)
 }
