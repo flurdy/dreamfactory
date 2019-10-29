@@ -29,6 +29,8 @@ project.links.demo.title=Demo application
 project.links.ci.title=Continuous Integration
 project.links.build.title=Build Server
 project.links.info.title=Information
+project.links.binary.title=Binary
+project.links.other.title=Other site
 
 project.dates.title=Dates
 project.dates.created.title=Created

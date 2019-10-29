@@ -109,4 +109,5 @@ case class Project(title: String,
    lazy val isRecentlyUpdated = dates.isRecentlyUpdated || isNewsRecent
    lazy val isRecentlyAdded = dates.isRecentlyCreated
    val link = encoded.getOrElse(title)
+   def isProject(projectName: String) = encoded.map(_.toLowerCase).contains( projectName.toLowerCase ) || title.toLowerCase == projectName.toLowerCase
 }

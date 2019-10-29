@@ -38,7 +38,7 @@
               <tbody>
                  @for( project <- projects){
                     <tr>
-                       <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
+                       <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
                         @(project.urls.live,project.urls.project) match {
                            case (Some(url), _) if project.characteristics.isLive => {
                               <td><a href="@url.value">@url.curt(25)</a></td>

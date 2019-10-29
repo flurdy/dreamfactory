@@ -38,7 +38,7 @@
          <tbody>
             <tr>
                <td class="col-sm-4 com-xs-4">@Messages("project.contact.help.details.project")</td>
-               <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
+               <td><a href="@routes.ProjectController.showProject(project.link)">@project.title</a></td>
             </tr>
             @for(license <- project.license){
                <tr>
@@ -123,7 +123,7 @@
       </p>
 
       <div class="col-xs-12 col-sm-3">
-         <a href="@routes.ProjectController.showHelp(project.title)" class="btn btn-info btn-block">@Messages("project.contact.help")</a>
+         <a href="@routes.ProjectController.showHelp(project.link)" class="btn btn-info btn-block">@Messages("project.contact.help")</a>
       </div>
 
    </div>
