@@ -57,6 +57,11 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-cargo #characteristics-accordion { margin-bottom: 0; }
 #nautical-cargo #characteristics-accordion .panel-body { padding: 5px 15px 0 15px; }
 
+#nautical-cargo .wilted { font-style: italic; }
+#nautical-cargo .mothballed { font-style: italic; text-decoration: line-through; }
+#nautical-cargo .link-project a { font-style: italic; }
+#nautical-cargo .link-notlive { font-style: italic; color: #999; }
+
 #nautical-deck .newsbar-list li {
    list-style: none;
    border: 1px solid silver;
@@ -101,9 +106,10 @@ body { color: black; background-color: rgb(170, 170, 170); }
 }
 @media all and (max-width: 900px) {
    #nautical-ballast { min-width: 20em; }
-   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 22em;  }
+   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 22em;  height: 2em;  }
    #nautical-cargo .projectlist td.projectlist-properties { display: none; }
 }
 @media all and (max-width: 700px) {
    #nautical-cargo .project-list-box-even { clear: left; }
+   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 18em; height: 1.6em;  }
 }

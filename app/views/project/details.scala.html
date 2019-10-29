@@ -41,9 +41,9 @@
       <td><a href="@routes.ProjectController.findProjectsByCharacteristic(title,characteristic.name)" class="" type="submit">@Html(Messages(s"project.characteristics.${title}.${characteristic}"))</a></td>
 }
 
-@main(){
+@projectShell(project){
 
-   <li class="active"><a href="@routes.ProjectController.findAllProjects">@Messages("breadcrumb.projectlist")</a></li>
+   <!-- <li class="active">@Messages("breadcrumb.project.details")</li> -->
    <li class="active">@Messages("breadcrumb.project")</li>
 
 } {

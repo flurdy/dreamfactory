@@ -2,9 +2,9 @@
 
 @import helper._
 
-@main(){
+@projectShell(project){
 
-   <li><a href="@routes.ProjectController.showProject(project.title)">@Messages("breadcrumb.project")</a></li>
+   <li><a href="@routes.ProjectController.showProject(project.link)">@Messages("breadcrumb.project")</a></li>
    <li class="active">@Messages("breadcrumb.project.help")</li>
 
 } {
@@ -32,7 +32,7 @@
          <tbody>
             <tr>
                <td class="col-sm-4 com-xs-4">@Messages("project.contact.help.details.project")</td>
-               <td><a href="@routes.ProjectController.showProject(project.title)">@project.title</a></td>
+               <td><a href="@routes.ProjectController.showProject(project.link)">@project.title</a></td>
             </tr>
             @for(license <- project.license){
                <tr>
@@ -69,7 +69,7 @@
       </p>
 
       <div class="col-xs-12 col-sm-3">
-         <a href="@routes.ProjectController.showSponsor(project.title)" class="btn btn-info btn-block">@Messages("project.contact.sponsor")</a>
+         <a href="@routes.ProjectController.showSponsor(project.link)" class="btn btn-info btn-block">@Messages("project.contact.sponsor")</a>
       </div>
 
    </div>

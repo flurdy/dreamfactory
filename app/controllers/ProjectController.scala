@@ -15,7 +15,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       extends Controller with WithWebJarAssets with WithNewsBar with WithAnalytics with I18nSupport {
 
    def showProject(projectName: String) = Action {
-      projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.project(p)) )
+      projectLookup.findProject(projectName).fold[Result](NotFound("404"))( p => Ok(views.html.project.details(p)) )
    }
 
    def showHelp(projectName: String) = Action {
@@ -30,6 +30,7 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       val projects = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
       Ok(views.html.project.listprojects( projects, searchTerm = None))
    }
+
    def findProjectsBySearch() = Action { implicit request =>
       searchForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),

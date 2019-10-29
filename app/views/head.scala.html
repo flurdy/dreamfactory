@@ -1,0 +1,20 @@
+@(title: Option[String] = None)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+
+<title>@title.getOrElse(Messages("application.title"))</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="@Messages("application.description")" />
+<link rel="stylesheet" media="screen" href="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.css"))">
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/nautical.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/cargo.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon-flurdy.ico")">
+<script src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.min.js"))" type="text/javascript"></script>
+<script src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))" type="text/javascript"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/solid.css"
+   integrity="sha384-doPVn+s3XZuxfJLS7K1E+sUl25XMZtTVb3O46RyV3JDU2ehfc0Aks4z0ufFpA2WC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/regular.css"
+   integrity="sha384-zgXo5aJZxI4cJSgWSRtbv7q4JB6PzrmOTAWiZt2CqN25ifeKsCuQZ/pUNoPgjcTb" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/brands.css"
+   integrity="sha384-tft2+pObMD7rYFMZlLUziw/8QrQeKHU4GYYvA5jVaggC74ZrYdTASheA2vckPcX5" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/fontawesome.css"
+   integrity="sha384-+pqJl+lfXqeZZHwVRNTbv2+eicpo+1TR/AEzHYYDKfAits/WRK21xLOwzOxZzJEZ" crossorigin="anonymous">
+@googleAnalytics(analytics)

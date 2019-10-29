@@ -6,10 +6,6 @@ import javax.inject._
 import play.api.{Configuration,Environment}
 import scala.collection.JavaConversions._
 import util.Random
-// import scala.tools.nsc.io.Path
-// import org.joda.time.DateTime
-// import org.joda.time.format.DateTimeFormat
-// import java.net.URL
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.io.FilenameUtils
 
@@ -40,21 +36,34 @@ trait ProjectLookup {
          size)
    }
 
-   def findUpdatedProjects(size: Int) =
-      fillWithOtherProjects(
-         projects.filter(_.dates.updated.isDefined)
-            .sortBy(_.dates.updated)
-            .reverse
-            .take(size),
-         size)
+   private def lookupUpdatedProjects(excludeProjects: Set[Project] = Set()): List[Project] =
+      (projects.filter(_.dates.hasDate).toSet -- excludeProjects)
+         .toList
+         .filter(_.dates.hasDate)
+         .sortBy(_.dates.newestDate.get.getMillis)
+         .reverse
 
-   def findNewestProjects(size: Int)  =
-      fillWithOtherProjects(
+   def findUpdatedProjects(size: Int, newProjects: List[Project] = List()) = {
+      val allUpdatedProjects = lookupUpdatedProjects()
+      val filteredUpdatedProjects = lookupUpdatedProjects(newProjects.toSet)
+      randomiseProjects(
+         if(filteredUpdatedProjects.size < size)
+            (filteredUpdatedProjects ::: allUpdatedProjects.take(size - filteredUpdatedProjects.size))
+               .filter(_.dates.hasDate)
+               .sortBy(_.dates.newestDate.get.getMillis)
+               .reverse
+         else
+             filteredUpdatedProjects.take(size)
+      )
+   }
+
+   private def newestProjects =
          projects.filter(_.dates.created.isDefined)
             .sortBy(_.dates.created)
             .reverse
-            .take(size),
-         size)
+
+   def findNewestProjects(size: Int)  =
+      fillWithOtherProjects( newestProjects.take(size), size)
 
    lazy val howManyProjects = projects.size
 
@@ -97,7 +106,8 @@ trait ProjectLookup {
          val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(title, l.toList) )
          val characteristics     = projectConfig.getConfig("characteristics").fold( new ProjectCharacteristics() )(new ProjectCharacteristics(_))
          val license             = projectConfig.getString("license").flatMap( License( _, licenses))
-         Project(title = title, description= description,
+         val encoded             = projectConfig.getString("encoded")
+         Project(title = title, encoded = encoded, description = description,
                   urls = urls, dates = dates , versions = versions, license = license,
                   tags = tags, news = news, characteristics = characteristics)
       }

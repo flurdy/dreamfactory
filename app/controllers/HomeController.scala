@@ -31,11 +31,14 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       (implicit val webJarAssets: WebJarAssets)
       extends Controller with WithWebJarAssets with WithNewsBar with WithAnalytics with I18nSupport {
 
+   private val topRowEntries = 7
+   private val secondRowEntries = 8
+
    def index = Action {
-      val updatedProjects = projectLookup.findUpdatedProjects(6)
-      val newProjects     = projectLookup.findNewestProjects(8)
-      val popularProjects = projectLookup.findPopularProjects(6)
-      val randomProjects  = projectLookup.findRandomProjects(8, updatedProjects.toSet ++ newProjects ++ popularProjects)
+      val newProjects     = projectLookup.findNewestProjects(topRowEntries)
+      val updatedProjects = projectLookup.findUpdatedProjects(secondRowEntries, newProjects)
+      val popularProjects = projectLookup.findPopularProjects(topRowEntries)
+      val randomProjects  = projectLookup.findRandomProjects(secondRowEntries, updatedProjects.toSet ++ newProjects ++ popularProjects)
       val projectsFound   = projectLookup.howManyProjects
       val tags            = projectLookup.findTags(30)
       val characteristics = characteristicPossibilities

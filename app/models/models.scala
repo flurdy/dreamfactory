@@ -30,6 +30,8 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
    }
    private val dates = (created.toList ::: updated.toList).map(toDate)
    val isEmpty = created.orElse(updated).isEmpty
+   val hasDate = !isEmpty
+   lazy val newestDate = dates.sortBy(_.getMillis).reverse.headOption
    val isStale = !dates.filter(isDateStale).isEmpty
    val isStaleOrUndated = isStale || isEmpty
    val isRecentlyUpdated = !dates.filter(isDateRecent).isEmpty
@@ -84,6 +86,7 @@ object EnumModel {
 import Licenses._
 
 case class Project(title: String,
+                   encoded: Option[String],
                    description: Option[String] = None,
                    urls: Urls = Urls(),
                    dates: ProjectDates = ProjectDates(),
@@ -99,10 +102,11 @@ case class Project(title: String,
    val isPopular = tags.contains(Tag("popular"))
    val isUnlikely = characteristics.isUnlikely
    val isUnappealing = characteristics.isUnappealing
-   lazy val isDead = characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned && !isAnIdea
+   lazy val isDead = characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned && !isAnIdea && !isRecentlyUpdated && !isRecentlyAdded
    lazy val isNewsStale = !news.map(_.isStale).exists(_ == false)
    lazy val isStale = dates.isStaleOrUndated && isNewsStale && characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned
    lazy val isNewsRecent = !news.filter(_.isRecent).isEmpty
    lazy val isRecentlyUpdated = dates.isRecentlyUpdated || isNewsRecent
    lazy val isRecentlyAdded = dates.isRecentlyCreated
+   val link = encoded.getOrElse(title)
 }

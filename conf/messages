@@ -1,5 +1,6 @@
 application.dream.title=Dream Factory. Ideas, projects, applications
-application.title=Code@flurdy: ideas, projects, applications with dreamfactory
+application.title=Code @ flurdy: ideas, projects, applications with dreamfactory
+application.title.short=code @ flurdy
 application.header=Dream Factory
 application.flurdy.header="code @ flurdy"
 application.description=Projects by <a href="http://flurdy.com">flurdy</a>. Projects that are just ideas. Projects that are being developed or abandoned. Projects that are finished and released. Projects that have been revived or pivoted.
@@ -49,6 +50,7 @@ project.characteristics.appeal.keen=Keen
 project.characteristics.appeal.interested=Interested
 project.characteristics.appeal.maybe=Maybe
 project.characteristics.appeal.low=Low
+project.characteristics.appeal.none=None
 
 project.characteristics.complexity=Complexity
 project.characteristics.complexity.verydifficult=Very Difficult
@@ -125,6 +127,7 @@ breadcrumb.project=project
 breadcrumb.projectlist=projects
 breadcrumb.project.help=help
 breadcrumb.project.sponsor=sponsor
+breadcrumb.project.details=details
 
 bridge.contact=Contact
 bridge.hire=Hire

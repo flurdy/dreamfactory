@@ -38,16 +38,16 @@
               <tbody>
                  @for( project <- projects){
                     <tr>
-                       <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
+                       <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
                         @(project.urls.live,project.urls.project) match {
                            case (Some(url), _) if project.characteristics.isLive => {
                               <td><a href="@url.value">@url.curt(25)</a></td>
                            }
                            case (_, Some(url)) => {
-                            <td><em><a href="@url.value">@url.curt(25)</a></em></td>
+                            <td class="link-project"><a href="@url.value">@url.curt(25)</a></td>
                            }
                            case (Some(url), _) => {
-                             <td><s title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></s></td>
+                             <td class="link-notlive" title="Not live at the moment">@url.curt(25)</td>
                            }
                            case (None, None) => {
                              <td></td>
@@ -59,8 +59,28 @@
                            }
                         </td>
                         <td class="projectlist-properties">
+                           @if(project.isDead){
+                              <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isRecentlyAdded){
+                              <i class="fas fa-plus-circle" title="project has been recently added"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isRecentlyUpdated && !project.isRecentlyAdded){
+                              <i class="fas fa-seedling" title="project is recently updated"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isStale && !project.isDead){
+                              <i class="far fa-clock" title="project is stale or untouched for a long time"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
                            @if(project.isLive){
-                              <i class="far fa-heartbeat" title="project is live"></i>
+                              <i class="fas fa-heartbeat" title="project is live"></i>
                            }
                         </td>
                         <td class="projectlist-properties">
@@ -78,31 +98,11 @@
                               <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
                            }
                         </td>
-                        <td class="projectlist-properties">
-                           @if(project.isDead){
-                              <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
-                           }
-                        </td>
                         <!-- <td class="projectlist-properties">
                            @if(project.isUnlikely || project.isUnappealing){
                               <i class="far fa-meh" title="project is not likely to happen"></i>
                            }
                         </td> -->
-                        <td class="projectlist-properties">
-                           @if(project.isRecentlyAdded){
-                              <i class="fas fa-plus-circle" title="project has been recently added"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isRecentlyUpdated && !project.isRecentlyAdded){
-                              <i class="fas fa-seedling" title="project is recently updated"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isStale){
-                              <i class="far fa-clock" title="project is stale or untouched for a long time"></i>
-                           }
-                        </td>
                         <td class="projectlist-properties">
                            @if(project.isCommercial){
                               <i class="fas  fa-dollar-sign" title="project is commercial"></i>

@@ -11,16 +11,16 @@
             <tbody>
                @for( project <- projects){
                   <tr>
-                     <td><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
+                     <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.title)">@Html(project.title)</a></td>
                      @(project.urls.live,project.urls.project) match {
                         case (Some(url), _) if project.characteristics.isLive => {
                            <td><a href="@url.value">@url.curt(25)</a></td>
                         }
                         case (_, Some(url)) => {
-                           <td><em><a href="@url.value">@url.curt(25)</a></em></td>
+                           <td class="link-project"><a href="@url.value">@url.curt(25)</a></td>
                         }
                         case (Some(url), _) => {
-                           <td><s title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></s></td>
+                           <td class="link-notlive" title="Not live at the moment">@url.curt(25)</td>
                         }
                         case (None, None) => {
                            <td></td>
@@ -51,16 +51,11 @@
                            <i class="fas fa-cross" title="project is mothballed"></i>
                         }
                      </td>
-                     <!-- <td class="projectlist-properties">
-                        @if(project.isUnlikely || project.isUnappealing){
-                           <i class="far fa-meh" title="project is not likely to happen"></i>
-                        }
-                     </td> -->
-                     <!-- <td class="projectlist-properties">
-                        @if(project.isStale){
+                     <td class="projectlist-properties">
+                        @if(project.isStale && !project.isDead){
                            <i class="far fa-clock" title="project is stale"></i>
                         }
-                     </td> -->
+                     </td>
                      <td class="projectlist-properties">
                         @if(project.isCommercial){
                            <i class="fas  fa-dollar-sign" title="project is commercial"></i>
@@ -119,15 +114,15 @@
 
       @projectBox(Messages("projects.popular.title"), popularProjects)
 
-      @projectBox(Messages("projects.updated.title"), updatedProjects, "project-list-box-even")
+      @projectBox(Messages("projects.new.title"), newProjects, "project-list-box-even")
 
    </div>
 
    <div class="row">
 
-      @projectBox(Messages("projects.new.title"),     newProjects)
+      @projectBox(Messages("projects.updated.title"), updatedProjects)
 
-      @projectBox(Messages("projects.random.title"),  randomProjects, "project-list-box-even")
+      @projectBox(Messages("projects.random.title"), randomProjects, "project-list-box-even")
 
    </div>
 

@@ -2,9 +2,9 @@
 
 @import helper._
 
-@main(){
+@projectShell(project){
 
-   <li><a href="@routes.ProjectController.showProject(project.title)">@Messages("breadcrumb.project")</a></li>
+   <li class=""><a href="@routes.ProjectController.showProject(project.link)">@Messages("breadcrumb.project")</a></li>
    <li class="active">@Messages("breadcrumb.project.sponsor")</li>
 
 } {
