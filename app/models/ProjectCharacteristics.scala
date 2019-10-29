@@ -123,10 +123,12 @@ case class ProjectCharacteristics( appeal:            Option[Appeal],
   def hasCharacteristic(characteristic: Characteristic) = characteristics.contains(characteristic)
 
   val isLive = deployStatus.contains(Live)
-  val isMothballed = releaseStatus.contains(Mothballed)
   val isAbandoned = developmentStatus.contains(Abandoned)
   val isNotStarted = developmentStatus.contains(NotStarted) || developmentStatus.isEmpty
+  val isNotStartedOrAbandoned = isNotStarted || isAbandoned
+  val isMothballed = releaseStatus.contains(Mothballed)
   val isNotReleased = releaseStatus.contains(NotReleased) || releaseStatus.isEmpty
+  val isNotReleasedOrMothballed = isNotReleased || isMothballed
   val isUnlikely = likelihood.contains(Unlikely) || likelihood.contains(Never)
   val isUnappealing = appeal.contains(LowAppeal) || appeal.contains(NoAppeal)
 }

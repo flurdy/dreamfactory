@@ -43,10 +43,10 @@
 
 @main(){
 
+   <li class="active"><a href="@routes.ProjectController.findAllProjects">@Messages("breadcrumb.projectlist")</a></li>
    <li class="active">@Messages("breadcrumb.project")</li>
 
 } {
-
 
    <div class="well row">
       <h3>
@@ -55,6 +55,41 @@
       @for(description <- project.description ){
          <p>@Html(description)</p>
       }
+      <div class="project-properties">
+         @if(project.isPopular){
+            <i class="far fa-star" title="project is popular"></i>
+         }
+         @if(project.isLive){
+          <i class="fas fa-heartbeat" title="project is live"></i>
+         }
+         @if(project.isAnIdea){
+          <i class="far fa-lightbulb" title="project is only an idea"></i>
+         }
+         @if(project.urls.hasProject){
+            <i class="fas fa-code" title="project's code is available"></i>
+         }
+         @if(project.isApp){
+           <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
+         }
+         @if(project.isDead){
+           <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
+         }
+         @if(project.isUnlikely || project.isUnappealing){
+           <i class="far fa-meh" title="project is not likely to happen"></i>
+         }
+         @if(project.isRecentlyAdded){
+            <i class="fas fa-plus-circle" title="project has been recently added"></i>
+         }
+         @if(project.isRecentlyUpdated && !project.isRecentlyAdded){
+            <i class="fas fa-seedling" title="project is recently updated"></i>
+         }
+         @if(project.isStale){
+           <i class="far fa-clock" title="project is stale or untouched for a long time"></i>
+         }
+         @if(project.isCommercial){
+           <i class="fas  fa-dollar-sign" title="project is commercial"></i>
+         }
+      </div>
    </div>
 
    @if(!project.urls.isEmpty){

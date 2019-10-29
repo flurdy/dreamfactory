@@ -54,8 +54,13 @@
                            }
                         }
                         <td class="projectlist-properties">
+                           @if(project.isPopular){
+                              <i class="far fa-star" title="project is popular"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
                            @if(project.isLive){
-                              <i class="fas fa-heartbeat" title="project is live"></i>
+                              <i class="far fa-heartbeat" title="project is live"></i>
                            }
                         </td>
                         <td class="projectlist-properties">
@@ -76,6 +81,26 @@
                         <td class="projectlist-properties">
                            @if(project.isDead){
                               <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
+                           }
+                        </td>
+                        <!-- <td class="projectlist-properties">
+                           @if(project.isUnlikely || project.isUnappealing){
+                              <i class="far fa-meh" title="project is not likely to happen"></i>
+                           }
+                        </td> -->
+                        <td class="projectlist-properties">
+                           @if(project.isRecentlyAdded){
+                              <i class="fas fa-plus-circle" title="project has been recently added"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isRecentlyUpdated && !project.isRecentlyAdded){
+                              <i class="fas fa-seedling" title="project is recently updated"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isStale){
+                              <i class="far fa-clock" title="project is stale or untouched for a long time"></i>
                            }
                         </td>
                         <td class="projectlist-properties">
