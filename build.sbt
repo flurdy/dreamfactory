@@ -1,6 +1,6 @@
 name := """dreamfactory"""
 
-version := "1.4.3-SNAPSHOT"
+version := "1.4.4-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 

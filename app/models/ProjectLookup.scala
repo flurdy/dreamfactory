@@ -104,12 +104,13 @@ trait ProjectLookup {
          val versions: Versions  = projectConfig.getConfig("versions").fold( Versions() )(new Versions(_))
          val tags: Set[Tag]      = projectConfig.getStringList("tags").fold[Set[Tag]]( Set.empty )( t => Tag.extract(t.toList) )
          val news: List[News]    = projectConfig.getConfigList("news").fold[List[News]]( List.empty )( l => News.extract(title, l.toList) )
+         val comments: List[Comment] = projectConfig.getConfigList("comments").fold[List[Comment]]( List.empty )( l => Comment.extract(title, l.toList) )
          val characteristics     = projectConfig.getConfig("characteristics").fold( new ProjectCharacteristics() )(new ProjectCharacteristics(_))
          val license             = projectConfig.getString("license").flatMap( License( _, licenses))
          val encoded             = projectConfig.getString("encoded")
          Project(title = title, encoded = encoded, description = description,
                   urls = urls, dates = dates , versions = versions, license = license,
-                  tags = tags, news = news, characteristics = characteristics)
+                  tags = tags, news = news, comments = comments, characteristics = characteristics)
       }
 
    val findAllTheProjects: List[Project] = projects

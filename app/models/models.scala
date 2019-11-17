@@ -68,6 +68,29 @@ trait NewsExtractor {
 
 object News extends NewsExtractor
 
+
+case class Comment(date: DateTime, comment: String) extends DateComparator {
+   lazy val dateFormatted = News.startTimeFormatter.print(date)
+   def isStale = isDateStale(date)
+   val isRecent = isDateRecent(date)
+}
+
+trait CommentExtractor {
+   lazy val startTimeFormatter = DateTimeFormat.forPattern("yyyy-MMM-dd")
+   def extract(project: String, configuration: List[Configuration]): List[Comment] = {
+      ( for {
+               config      <- configuration
+               commentDate <- config.getString("date")
+               date        =  new DateTime(commentDate)
+               comment     <- config.getString("comment")
+            } yield Comment(date, comment) )
+         .sortBy(_.date.getMillis())
+         .reverse
+   }
+}
+
+object Comment extends CommentExtractor
+
 object EnumModel {
 
    trait EnumName {
@@ -92,6 +115,7 @@ case class Project(title: String,
                    dates: ProjectDates = ProjectDates(),
                    versions: Versions = Versions(),
                    news: List[News] = List.empty,
+                   comments: List[Comment] = List.empty,
                    tags: Set[Tag] = Set.empty,
                    license: Option[License] = None,
                    characteristics: ProjectCharacteristics = new ProjectCharacteristics()) {
