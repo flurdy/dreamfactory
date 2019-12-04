@@ -32,7 +32,7 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       extends Controller with WithWebJarAssets with WithNewsBar with WithAnalytics with I18nSupport {
 
    private val topRowEntries = 7
-   private val secondRowEntries = 8
+   private val secondRowEntries = 10
 
    def index = Action {
       val newProjects     = projectLookup.findNewestProjects(topRowEntries)

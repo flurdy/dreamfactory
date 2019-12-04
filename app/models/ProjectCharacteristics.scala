@@ -62,7 +62,7 @@ object ProjectCharacteristics {
 
    sealed abstract class DeployStatus(val name: String, val alternatives: Set[String] = Set.empty, val parentName: String = "status.deploy") extends Characteristic
    object DeployStatus extends EnumParse[DeployStatus]
-   case object Live             extends DeployStatus("live", Set("demo"))
+   case object Live             extends DeployStatus("live", Set("demo","online"))
    case object Offline          extends DeployStatus("offline")
    val deployStatuses: Set[DeployStatus] = Set(Live, Offline)
 
