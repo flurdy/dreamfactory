@@ -18,7 +18,11 @@ You can host this for your own project dreams.
 
 will launch the application.
 
+### Docker
+
 Also includes a Dockerfile to build and run using Docker.
+
+`docker run -ti --rm -P flurdy/dreamfactory:latest`
 
 
 ## Live
