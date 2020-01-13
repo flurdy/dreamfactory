@@ -9,6 +9,8 @@ GET     /projects/search            controllers.ProjectController.findProjectsBy
 GET     /projects/tag               controllers.ProjectController.findProjectsByTag()
 GET     /projects/characteristic/type/:characteristicType/characteristic/:characteristic               controllers.ProjectController.findProjectsByCharacteristic(characteristicType: String, characteristic: String)
 GET     /projects/tags              controllers.ProjectController.findProjectsByTags()
+GET     /projects/technologies      controllers.ProjectController.findProjectsByTechnologies()
+GET     /projects/tech              controllers.ProjectController.findProjectsByTech()
 
 GET     /project/:projectName/help     controllers.ProjectController.showHelp(projectName)
 GET     /project/:projectName/sponsor  controllers.ProjectController.showSponsor(projectName)

@@ -14,6 +14,7 @@ projects.popular.title=Popular
 projects.random.title=Random
 projects.empty=No projects found
 projects.tags=Tags
+projects.technologies=Technologies
 projects.characteristics=Characteristics
 projects.none-found=No projects found
 

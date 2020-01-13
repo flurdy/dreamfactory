@@ -1,4 +1,5 @@
-@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project], tags: List[Tag], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+@(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project],
+tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 
@@ -172,6 +173,39 @@
                         @form(action=routes.ProjectController.findProjectsByTag){
                            <input type="hidden" name="tag" value="@{tag.name}" />
                            <button class="well well-sm" type="submit">@{tag.name}</button>
+                        }
+                     </li>
+                  }
+                </ul>
+             </div>
+           </div>
+        </div>
+     </div>
+   }
+
+
+   @if(!technologies.isEmpty){
+      <div class="well row" id="main-tech-accordion" role="tablist" aria-multiselectable="true">
+         <div class="panel-heading" role="tab" id="heading-ye==tech">
+           <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#main-tech-accordion"
+                    href="#collapse-tech" aria-expanded="true"
+                    aria-controls="collapse-tech">
+                  @Messages("projects.technologies")
+                  <span class="caret"></span>
+                </a>
+             </h4>
+          </div>
+          <div class="panel panel-default">
+            <div id="collapse-tech" class="panel-collapse collapse in"
+                  role="tabpanel" aria-labelledby="heading-tech">
+              <div class="panel-body">
+                 <ul class="list-inline">
+                  @for(tech <- technologies){
+                     <li>
+                        @form(action=routes.ProjectController.findProjectsByTech){
+                           <input type="hidden" name="tech" value="@{tech.name}" />
+                           <button class="well well-sm" type="submit">@{tech.name}</button>
                         }
                      </li>
                   }

@@ -41,8 +41,9 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
       val randomProjects  = projectLookup.findRandomProjects(secondRowEntries, updatedProjects.toSet ++ newProjects ++ popularProjects)
       val projectsFound   = projectLookup.howManyProjects
       val tags            = projectLookup.findTags(30)
+      val tech            = projectLookup.findTechnologies(30)
       val characteristics = characteristicPossibilities
-      Ok(views.html.index(projectsFound, updatedProjects, newProjects, popularProjects, randomProjects, tags, characteristics))
+      Ok(views.html.index(projectsFound, updatedProjects, newProjects, popularProjects, randomProjects, tags, tech, characteristics))
    }
 
 }

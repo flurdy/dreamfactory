@@ -57,6 +57,18 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
       )
    }
 
+   def findProjectsByTech() = Action { implicit request =>
+      techForm.bindFromRequest.fold(
+         formWithErrors => BadRequest("Invalid form"),
+         techName => {
+            val tech = Technology(techName)
+            val projects = projectLookup.findProjectsByTech(tech).sortBy(_.title.toLowerCase)
+            val subTech  = projectLookup.findTechnologiesInProjects(projects,11).filter( _.name != tech.name).take(10)
+            Ok(views.html.project.listprojects(projects, technologies = List(tech), subTech = subTech))
+         }
+      )
+   }
+
    def findProjectsByTags() = Action { implicit request =>
       tagsForm.bindFromRequest.fold(
          formWithErrors => BadRequest("Invalid form"),
@@ -68,6 +80,21 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
                                         .filter( t => !tags.exists( tt => t.name == tt.name) )
                                         .take(10)
             Ok(views.html.project.listprojects(projects, tags = tags, subTags = subTags))
+         }
+      )
+   }
+
+   def findProjectsByTechnologies() = Action { implicit request =>
+      technologiesForm.bindFromRequest.fold(
+         formWithErrors => BadRequest("Invalid form"),
+         techData => {
+            val tech  = Technology(techData._2)
+            val technologies = tech :: (techData._1.split(",").map(Technology(_)).toList)
+            val projects = projectLookup.findProjectsByTechnologies(technologies).sortBy(_.title.toLowerCase)
+            val subTech  = projectLookup.findTechnologiesInProjects(projects,30)
+                                        .filter( t => !technologies.exists( tt => t.name == tt.name) )
+                                        .take(10)
+            Ok(views.html.project.listprojects(projects, technologies = technologies, subTech  = subTech))
          }
       )
    }
@@ -84,9 +111,16 @@ class ProjectController @Inject() (val messagesApi: MessagesApi, val projectLook
 
    val tagForm = Form( single( "tag" -> nonEmptyText) )
 
+   val techForm = Form( single( "tech" -> nonEmptyText) )
+
    val tagsForm = Form( tuple(
       "tags" -> nonEmptyText,
       "tag"  -> nonEmptyText
+   ))
+
+   val technologiesForm = Form( tuple(
+      "technologies" -> nonEmptyText,
+      "tech"  -> nonEmptyText
    ))
 
 }

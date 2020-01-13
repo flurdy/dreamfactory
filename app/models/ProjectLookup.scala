@@ -108,9 +108,10 @@ trait ProjectLookup {
          val characteristics     = projectConfig.getConfig("characteristics").fold( new ProjectCharacteristics() )(new ProjectCharacteristics(_))
          val license             = projectConfig.getString("license").flatMap( License( _, licenses))
          val encoded             = projectConfig.getString("encoded")
+         val tech: Set[Technology] = projectConfig.getStringList("tech").fold[Set[Technology]]( Set.empty )( t => Technology.extract(t.toList) )
          Project(title = title, encoded = encoded, description = description,
                   urls = urls, dates = dates , versions = versions, license = license,
-                  tags = tags, news = news, comments = comments, characteristics = characteristics)
+                  tags = tags, tech  = tech, news = news, comments = comments, characteristics = characteristics)
       }
 
    val findAllTheProjects: List[Project] = projects
@@ -120,6 +121,8 @@ trait ProjectLookup {
          p.title.toLowerCase.contains( searchTerm) || p.description.exists(_.toLowerCase.contains(searchTerm)) }
 
    def findTags(size: Int): List[Tag] = findTagsInProjects(projects,size)
+
+   def findTechnologies(size: Int): List[Technology] = findTechnologiesInProjects(projects,size)
 
    def findTagsInProjects(tagProjects: List[Project], size: Int): List[Tag] = {
       ( for {
@@ -135,12 +138,30 @@ trait ProjectLookup {
       .map{ case (name,_) => Tag(name) }
    }
 
-   def findProjectsByTag(tag: Tag): List[Project] = projects.filter{ p => p.tags.exists(_.name == tag.name) }
+   def findTechnologiesInProjects(techProjects: List[Project], size: Int): List[Technology] = {
+      ( for {
+         project <- techProjects
+         tech    <- project.tech
+      } yield tech
+      ).groupBy(_.name)
+      .mapValues(_.size)
+      .toList
+      .sortBy{ case (_, count) => count }
+      .takeRight(size)
+      .reverse
+      .map{ case (name,_) => Technology(name.toLowerCase) }
+   }
+
+   def findProjectsByTag(tag: Tag): List[Project] = projects.filter{ p => p.tags.exists(_.name.toLowerCase == tag.name.toLowerCase) }
+
+   def findProjectsByTech(tech: Technology): List[Project] = projects.filter{ p => p.tech.exists(_.name.toLowerCase == tech.name.toLowerCase) }
 
    def findProjectsByCharacteristic(characteristic: Characteristic): List[Project] =
      projects.filter{ p => p.characteristics.hasCharacteristic(characteristic) }
 
    def findProjectsByTags(tags: List[Tag]): List[Project] = projects.filter{ p => tags.toSet.subsetOf(p.tags) }
+
+   def findProjectsByTechnologies(tech: List[Technology]): List[Project] = projects.filter{ p => tech.toSet.subsetOf(p.tech) }
 
    private lazy val allTheNews =
       ( for {

@@ -41,10 +41,18 @@ case class ProjectDates(created: Option[String] = None, updated: Option[String] 
 case class Tag(name: String)
 
 trait TagExtractor {
-   def extract(configuration: List[String]) = configuration.map(Tag(_)).toSet
+   def extract(configuration: List[String]) = configuration.map(_.toLowerCase).map(Tag(_)).toSet
 }
 
 object Tag extends TagExtractor
+
+case class Technology(name: String)
+
+trait TechnologyExtractor {
+   def extract(configuration: List[String]) = configuration.map(_.toLowerCase).map(Technology(_)).toSet
+}
+
+object Technology extends TechnologyExtractor
 
 case class News(date: DateTime, project: String, description: String) extends DateComparator {
    lazy val dateFormatted = News.startTimeFormatter.print(date)
@@ -104,34 +112,4 @@ object EnumModel {
          values.filter(_.names.exists(_.toLowerCase == name.toLowerCase)).headOption
    }
 
-}
-
-import Licenses._
-
-case class Project(title: String,
-                   encoded: Option[String],
-                   description: Option[String] = None,
-                   urls: Urls = Urls(),
-                   dates: ProjectDates = ProjectDates(),
-                   versions: Versions = Versions(),
-                   news: List[News] = List.empty,
-                   comments: List[Comment] = List.empty,
-                   tags: Set[Tag] = Set.empty,
-                   license: Option[License] = None,
-                   characteristics: ProjectCharacteristics = new ProjectCharacteristics()) {
-   val isLive = urls.hasLive && characteristics.isLive
-   val isApp = tags.contains(Tag("mobile"))
-   val isAnIdea = tags.contains(Tag("idea"))
-   val isCommercial = tags.contains(Tag("commercial"))
-   val isPopular = tags.contains(Tag("popular"))
-   val isUnlikely = characteristics.isUnlikely
-   val isUnappealing = characteristics.isUnappealing
-   lazy val isDead = characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned && !isAnIdea && !isRecentlyUpdated && !isRecentlyAdded
-   lazy val isNewsStale = !news.map(_.isStale).exists(_ == false)
-   lazy val isStale = dates.isStaleOrUndated && isNewsStale && characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned
-   lazy val isNewsRecent = !news.filter(_.isRecent).isEmpty
-   lazy val isRecentlyUpdated = dates.isRecentlyUpdated || isNewsRecent
-   lazy val isRecentlyAdded = dates.isRecentlyCreated
-   val link = encoded.getOrElse(title)
-   def isProject(projectName: String) = encoded.map(_.toLowerCase).contains( projectName.toLowerCase ) || title.toLowerCase == projectName.toLowerCase
 }

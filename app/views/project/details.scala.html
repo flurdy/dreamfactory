@@ -212,6 +212,24 @@
    </div>
    }
 
+   @if(!project.tech.isEmpty){
+   <div class="well row">
+
+      <h4>Technologies</h4>
+
+         <ul class="list-inline">
+            @for(tech <- project.tech){
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTech){
+                     <input type="hidden" name="tech" value="@{tech.name}" />
+                     <button class="well well-sm" type="submit">@{tech.name}</button>
+                  }
+               </li>
+            }
+         </ul>
+   </div>
+   }
+
    @if(!project.news.isEmpty){
       <div class="well row">
 
