@@ -45,16 +45,15 @@ trait ProjectLookup {
 
    def findUpdatedProjects(size: Int, newProjects: List[Project] = List()) = {
       val allUpdatedProjects = lookupUpdatedProjects()
-      val filteredUpdatedProjects = lookupUpdatedProjects(newProjects.toSet)
-      randomiseProjects(
-         if(filteredUpdatedProjects.size < size)
-            (filteredUpdatedProjects ::: allUpdatedProjects.take(size - filteredUpdatedProjects.size))
-               .filter(_.dates.hasDate)
-               .sortBy(_.dates.newestDate.get.getMillis)
-               .reverse
-         else
-             filteredUpdatedProjects.take(size)
-      )
+      val nonIdeas = newProjects.filter( n => n.isAnIdea || n.characteristics.isNotStarted)
+      val filteredUpdatedProjects = lookupUpdatedProjects(nonIdeas.toSet)
+      if(filteredUpdatedProjects.size < size)
+         (filteredUpdatedProjects ::: allUpdatedProjects.take(size - filteredUpdatedProjects.size))
+            .filter(_.dates.hasDate)
+            .sortBy(_.dates.newestDate.get.getMillis)
+            .reverse
+      else
+            filteredUpdatedProjects.take(size)
    }
 
    private def newestProjects =

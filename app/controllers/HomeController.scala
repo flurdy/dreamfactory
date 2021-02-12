@@ -35,8 +35,8 @@ class HomeController @Inject() (val messagesApi: MessagesApi, val projectLookup:
    private val secondRowEntries = 10
 
    def index = Action {
-      val newProjects     = projectLookup.findNewestProjects(topRowEntries)
-      val updatedProjects = projectLookup.findUpdatedProjects(secondRowEntries, newProjects)
+      val newProjects     = projectLookup.findNewestProjects(secondRowEntries)
+      val updatedProjects = projectLookup.findUpdatedProjects(topRowEntries, newProjects)
       val popularProjects = projectLookup.findPopularProjects(topRowEntries)
       val randomProjects  = projectLookup.findRandomProjects(secondRowEntries, updatedProjects.toSet ++ newProjects ++ popularProjects)
       val projectsFound   = projectLookup.howManyProjects

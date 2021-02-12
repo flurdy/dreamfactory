@@ -1,10 +1,10 @@
 name := """dreamfactory"""
 
-version := "1.4.6-SNAPSHOT"
+version := "1.4.7-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.11"
+scalaVersion := "2.11.12"
 
 libraryDependencies ++= Seq(
   jdbc,
