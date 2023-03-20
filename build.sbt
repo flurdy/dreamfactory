@@ -1,20 +1,21 @@
 name := """dreamfactory"""
 
-version := "1.4.7-SNAPSHOT"
+version := "1.5.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.12"
+resolvers += ("Local Maven Repository" at s"file:///${Path.userHome.absolutePath}/.m2/repository")
+
+scalaVersion                   := "2.13.10"
+addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
 
 libraryDependencies ++= Seq(
-  jdbc,
-  cache,
-  ws,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-  "org.webjars" %% "webjars-play" % "2.5.0",
-  "org.webjars" %  "bootstrap"    % "3.3.6",
-  "org.webjars" %  "jquery"       % "2.2.3",
-  "commons-io"  %  "commons-io"   % "2.5"
+  guice,
+  //   jdbc,
+//   cache,
+//   ws,
+  "org.webjars" %% "webjars-play" % "2.8.18",
+  "org.webjars"  % "bootstrap"    % "3.3.6",
+  "org.webjars"  % "jquery"       % "2.2.3",
+  "commons-io"   % "commons-io"   % "2.5"
 )
-
-// resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
