@@ -9,3 +9,5 @@ target
 /.metals
 /kube
 /.vscode
+
+.envrc
