@@ -1,6 +1,6 @@
 @(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty,
   technologies: List[Technology] = List.empty, subTech: List[Technology] = List.empty,
-  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 
@@ -129,7 +129,7 @@
          <ul class="list-inline">
             @for(tag <- subTags){
                <li>
-                  @form(action=routes.ProjectController.findProjectsByTags){
+                  @form(action=routes.ProjectController.findProjectsByTags()){
                      <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
                      <input type="hidden" name="tag" value="@{tag.name}" />
                      <button class="well well-sm" type="submit">@{tag.name}</button>
@@ -143,7 +143,7 @@
    <div class="well search-box row">
 
       <div class="row">
-         @form(action=routes.ProjectController.findProjectsBySearch, 'method -> "GET"){
+         @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("method") -> "GET"){
             <div class="col-xs-8 col-sm-8 col-sm-offset-1">
                <div class="input-group">
                      <input type="text" class="form-control" placeholder="search for projects"

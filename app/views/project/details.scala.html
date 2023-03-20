@@ -1,4 +1,4 @@
-@(project: Project)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+@(project: Project)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 
@@ -202,7 +202,7 @@
          <ul class="list-inline">
             @for(tag <- project.tags){
                <li>
-                  @form(action=routes.ProjectController.findProjectsByTag){
+                  @form(action=routes.ProjectController.findProjectsByTag()){
                      <input type="hidden" name="tag" value="@{tag.name}" />
                      <button class="well well-sm" type="submit">@{tag.name}</button>
                   }
@@ -220,7 +220,7 @@
          <ul class="list-inline">
             @for(tech <- project.tech){
                <li>
-                  @form(action=routes.ProjectController.findProjectsByTech){
+                  @form(action=routes.ProjectController.findProjectsByTech()){
                      <input type="hidden" name="tech" value="@{tech.name}" />
                      <button class="well well-sm" type="submit">@{tech.name}</button>
                   }

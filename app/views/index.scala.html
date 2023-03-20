@@ -1,5 +1,5 @@
 @(projectsFound: Int, updatedProjects: List[Project], newProjects: List[Project], popularProjects: List[Project], randomProjects: List[Project],
-tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharacteristics.CharacteristicPossibilities)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
 
@@ -131,7 +131,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
    <div class="well search-box row">
 
       <div class="row">
-         @form(action=routes.ProjectController.findProjectsBySearch, 'class -> "form-line", 'method -> "GET"){
+         @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
             <div class="col-xs-8 col-sm-8 col-sm-offset-1">
                <div class="form-group">
                   <div class="input-group">
@@ -141,7 +141,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
                            <button class="btn btn-default" type="submit">@Messages("projects.search.button")</button>
                         </span>
                         <span class="input-group-btn">
-                           <a href="@routes.ProjectController.findAllProjects" class="btn btn-default">@Messages("projects.search.all")</a>
+                           <a href="@routes.ProjectController.findAllProjects()" class="btn btn-default">@Messages("projects.search.all")</a>
                         </span>
                   </div>
                </div>
@@ -170,7 +170,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
                  <ul class="list-inline">
                   @for(tag <- tags){
                      <li>
-                        @form(action=routes.ProjectController.findProjectsByTag){
+                        @form(action=routes.ProjectController.findProjectsByTag()){
                            <input type="hidden" name="tag" value="@{tag.name}" />
                            <button class="well well-sm" type="submit">@{tag.name}</button>
                         }
@@ -203,7 +203,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
                  <ul class="list-inline">
                   @for(tech <- technologies){
                      <li>
-                        @form(action=routes.ProjectController.findProjectsByTech){
+                        @form(action=routes.ProjectController.findProjectsByTech()){
                            <input type="hidden" name="tech" value="@{tech.name}" />
                            <button class="well well-sm" type="submit">@{tech.name}</button>
                         }

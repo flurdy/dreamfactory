@@ -1,4 +1,4 @@
-@(title: Option[String] = None)(lookoutEntries: Html)(cargo: Html)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+@(title: Option[String] = None)(lookoutEntries: Html)(cargo: Html)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 <!DOCTYPE html>
 <html lang="en">
    <head>

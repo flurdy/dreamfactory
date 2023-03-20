@@ -1,8 +1,8 @@
-@(project: Project, title: Option[String] = None)(lookoutEntries: Html)(cargo: Html)(implicit webJarAssets: WebJarAssets, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+@(project: Project, title: Option[String] = None)(lookoutEntries: Html)(cargo: Html)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @main(title = Some(s"${project.title} | ${Messages("application.title.short")}")){
 
-   <li class=""><a href="@routes.ProjectController.findAllProjects">@Messages("breadcrumb.projectlist")</a></li>
+   <li class=""><a href="@routes.ProjectController.findAllProjects()">@Messages("breadcrumb.projectlist")</a></li>
 
    @lookoutEntries
 
