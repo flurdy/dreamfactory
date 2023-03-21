@@ -1,7 +1,7 @@
 FROM sbtscala/scala-sbt:openjdk-11.0.16_1.7.3_2.13.10
 
-RUN sbt test/compile
-RUN sbt test/test
+RUN sbt compile
+RUN sbt test
 RUN sbt stage
 RUN sbt dist
 RUN rm -f target/universal/stage/bin/*.bat && \
