@@ -1,0 +1,29 @@
+steps:
+  - name: gcr.io/cloud-builders/git
+    args: ["fetch", "--unshallow"]
+  - name: gcr.io/cloud-builders/git
+    entrypoint: /bin/bash
+    args:
+      [
+        "-c",
+        "echo ${_MAJOR}.${_MINOR}.$(git rev-list --count ${BRANCH_NAME}) > ${_VERSION_FILE}",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: /bin/bash
+    args:
+      [
+        "-c",
+        "docker build --cache-from ${_IMAGE}:latest -t ${_IMAGE}:latest -t ${_IMAGE}:${SHORT_SHA} -t ${_IMAGE}:$(cat ${_VERSION_FILE}) .",
+      ]
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: /bin/bash
+    args: ["-c", "docker push ${_IMAGE}:$(cat ${_VERSION_FILE})"]
+images: ["${_IMAGE}:latest", "${_IMAGE}:${SHORT_SHA}"]
+
+substitutions:
+  _IMAGE: "gcr.io/${PROJECT_ID}/${_REPO_PREFIX}/${_REPO_PROJECT}"
+  _VERSION_FILE: "./commits-version.txt"
+  # _MAJOR - set in Trigger
+  # _MINOR - set in Trigger
+  # _REPO_PREFIX - set in Trigger
+  # _REPO_PROJECT - set in Trigger

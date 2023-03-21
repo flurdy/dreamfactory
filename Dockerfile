@@ -1,27 +1,27 @@
-FROM flurdy/play-framework:2.5.12-alpine
+FROM sbtscala/scala-sbt:eclipse-temurin-jammy-11.0.17_8_1.8.2_2.13.10
 
-MAINTAINER Ivar Abrahamsen <@flurdy>
+RUN sbt test:compile
+RUN sbt test:test
+RUN sbt stage
+RUN sbt dist
+RUN rm -f target/universal/stage/bin/*.bat && \
+   mv target/universal/stage/bin/* target/universal/stage/bin/app
 
-RUN mkdir -p /etc/app && \
-  mkdir -p $HOME/.sbt/0.13
 
-COPY conf /etc/app
-COPY conf/repositories $HOME/.sbt/
-COPY conf/local.sbt $HOME/.sbt/0.13/
-ADD . /opt/build/
+FROM eclipse-temurin:11.0.18_10-jre-alpine
 
-WORKDIR /opt/build
+RUN apk update && apk add bash && rm -rf /var/cache/apk/*
 
-RUN /opt/activator/bin/activator clean stage && \
-    rm -f target/universal/stage/bin/*.bat && \
-    mv target/universal/stage/bin/* target/universal/stage/bin/app && \
-    mv target/universal /opt/app && \
-    ln -s /opt/app/stage/logs /var/log/app && \
-    rm -rf /opt/build && \
-    rm -rf /root/.ivy2
+RUN mkdir -p /etc/opt/app && \
+   mkdir -p /opt/app && \
+   mkdir -p $HOME/.sbt/1.0
 
 WORKDIR /opt/app
 
-ENTRYPOINT ["/opt/app/stage/bin/app"]
+COPY conf /etc/opt/app
+ADD target/universal /opt/app/target/universal
+RUN ln -s /opt/app/stage/logs /var/log/app
+
+ENTRYPOINT ["/opt/app/target/universal/stage/bin/app"]
 
 EXPOSE 9000
