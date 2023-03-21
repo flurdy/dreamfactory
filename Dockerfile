@@ -1,11 +1,19 @@
 FROM sbtscala/scala-sbt:openjdk-11.0.16_1.7.3_2.13.10
 
-RUN sbt compile
-RUN sbt test
-RUN sbt stage
-RUN sbt dist
+ADD . /opt/build/
+
+WORKDIR /opt/build
+
+RUN sbt clean compile test stage dist
+
 RUN rm -f target/universal/stage/bin/*.bat && \
    mv target/universal/stage/bin/* target/universal/stage/bin/app
+
+RUN rm -rf /opt/build && \
+   rm -rf /root/.ivy2 && \
+   rm -rf /root/.m2
+
+WORKDIR /opt/app
 
 
 FROM eclipse-temurin:11.0.18_10-jre-alpine
@@ -20,7 +28,7 @@ WORKDIR /opt/app
 
 COPY conf /etc/opt/app
 ADD target/universal /opt/app/target/universal
-RUN ln -s /opt/app/stage/logs /var/log/app
+RUN ln -s /opt/app/target/universal/stage/logs /var/log/app
 
 ENTRYPOINT ["/opt/app/target/universal/stage/bin/app"]
 

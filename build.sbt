@@ -2,6 +2,8 @@ name := """dreamfactory"""
 
 version := "1.5.0-SNAPSHOT"
 
+maintainer := "ivar+sbt@flurdy.com"
+
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 resolvers += ("Local Maven Repository" at s"file:///${Path.userHome.absolutePath}/.m2/repository")
