@@ -1,7 +1,7 @@
-FROM sbtscala/scala-sbt:eclipse-temurin-jammy-11.0.17_8_1.8.2_2.13.10
+FROM sbtscala/scala-sbt:openjdk-11.0.16_1.7.3_2.13.10
 
-RUN sbt test:compile
-RUN sbt test:test
+RUN sbt test/compile
+RUN sbt test/test
 RUN sbt stage
 RUN sbt dist
 RUN rm -f target/universal/stage/bin/*.bat && \
