@@ -39,16 +39,29 @@
               <tbody>
                  @for( project <- projects){
                     <tr>
-                       <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
+
+                      @if(project.isDead){
+                        <td class="mothballed">
+                      } else if(project.isStale){
+                         <td class="wilted">
+                      } else if(project.isLive || project.isRecentlyUpdated || project.isRecentlyAdded || project.isPopular ){
+                        <td class="alive">
+                      } else {
+                        <td>
+                      }
+                        <a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
                         @(project.urls.live,project.urls.project) match {
-                           case (Some(url), _) if project.characteristics.isLive => {
+                           case (Some(url), _) if project.isLive => {
                               <td><a href="@url.value">@url.curt(25)</a></td>
                            }
-                           case (_, Some(url)) => {
+                           case (_, Some(url)) if project.characteristics.isNotAbandoned => {
                             <td class="link-project"><a href="@url.value">@url.curt(25)</a></td>
                            }
                            case (Some(url), _) => {
-                             <td class="link-notlive" title="Not live at the moment">@url.curt(25)</td>
+                              <td class="link-notlive" title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></td>
+                           }
+                           case (_, Some(url)) => {
+                              <td class="link-notlive" title="Development abandoned"><a href="@url.value">@url.curt(25)</a></td>
                            }
                            case (None, None) => {
                              <td></td>

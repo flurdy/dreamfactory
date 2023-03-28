@@ -58,9 +58,17 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-cargo #characteristics-accordion .panel-body { padding: 5px 15px 0 15px; }
 
 #nautical-cargo .wilted { font-style: italic; }
-#nautical-cargo .mothballed { font-style: italic; text-decoration: line-through; }
+#nautical-cargo .mothballed { font-style: italic; }
+#nautical-cargo .alive { font-weight: bold; }
+/* #nautical-cargo .mothballed { text-decoration: line-through; } */
+/* #nautical-cargo .wilted a, 
+#nautical-cargo .wilted a:visited { color: #666666; }
+#nautical-cargo .mothballed a, 
+#nautical-cargo .mothballed a:visited { color: #666666; } */
 #nautical-cargo .link-project a { font-style: italic; }
 #nautical-cargo .link-notlive { font-style: italic; color: #999; }
+#nautical-cargo .link-notlive a,
+#nautical-cargo .link-notlive a:visited { color: #999; }
 
 #nautical-deck .newsbar-list li {
    list-style: none;

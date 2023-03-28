@@ -163,6 +163,7 @@ case class ProjectCharacteristics(
 
   val isLive                    = deployStatus.contains(Live)
   val isAbandoned               = developmentStatus.contains(Abandoned)
+  val isNotAbandoned            = !isAbandoned
   val isNotStarted              = developmentStatus.contains(NotStarted) || developmentStatus.isEmpty
   val isNotStartedOrAbandoned   = isNotStarted || isAbandoned
   val isMothballed              = releaseStatus.contains(Mothballed)

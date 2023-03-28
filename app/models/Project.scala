@@ -33,10 +33,17 @@ case class Project(
   val isUnlikely                     = characteristics.isUnlikely
   val isUnappealing                  = characteristics.isUnappealing
   lazy val isDead                    =
-    characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned && !isAnIdea && !isRecentlyUpdated && !isRecentlyAdded
+    characteristics.isNotReleasedOrMothballed &&
+      characteristics.isNotStartedOrAbandoned &&
+      !isAnIdea &&
+      !isRecentlyUpdated &&
+      !isRecentlyAdded
   lazy val isNewsStale               = !news.map(_.isStale).exists(_ == false)
   lazy val isStale                   =
-    dates.isStaleOrUndated && isNewsStale && characteristics.isNotReleasedOrMothballed && characteristics.isNotStartedOrAbandoned
+    dates.isStaleOrUndated &&
+      isNewsStale &&
+      characteristics.isNotReleasedOrMothballed &&
+      characteristics.isNotStartedOrAbandoned
   lazy val isNewsRecent              = !news.filter(_.isRecent).isEmpty
   lazy val isRecentlyUpdated         = dates.isRecentlyUpdated || isNewsRecent
   lazy val isRecentlyAdded           = dates.isRecentlyCreated
