@@ -70,6 +70,18 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-cargo .link-notlive a,
 #nautical-cargo .link-notlive a:visited { color: #999; }
 
+#nautical-cargo .properties-filter th { font-weight: normal; }
+#nautical-cargo .properties-filter .properties-filter-include td i,
+#nautical-cargo .properties-filter .properties-filter-exclude td i { color: #bbb; }
+#nautical-cargo .properties-filter .properties-filter-include .included i { color: #337ab7; }
+#nautical-cargo .properties-filter .properties-filter-exclude .excluded i { color: #932a27; }
+
+#nautical-cargo .properties-filter input[type="radio"] { display: none; }
+#nautical-cargo .properties-filter label:hover,
+#nautical-cargo .properties-filter label:active { cursor: pointer; }
+#nautical-cargo .properties-filter .properties-filter-include input[type="radio"]:checked + label i { color: #337ab7; }
+#nautical-cargo .properties-filter .properties-filter-exclude input[type="radio"]:checked + label i { color: #932a27; }
+
 #nautical-deck .newsbar-list li {
    list-style: none;
    border: 1px solid silver;

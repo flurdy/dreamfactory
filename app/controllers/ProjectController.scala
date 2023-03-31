@@ -38,8 +38,16 @@ class ProjectController @Inject() (
   }
 
   def findAllProjects() = Action { implicit request =>
-    val projects = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
-    Ok(views.html.project.listprojects(projects, searchTerm = None))
+    filtersForm
+      .bindFromRequest()
+      .fold(
+        formWithErrors => BadRequest("Invalid form"),
+        filters => {
+          val projects         = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
+          val filteredProjects = filterProjects(projects, filters)
+          Ok(views.html.project.listprojects(filteredProjects, searchTerm = None, filterProperties = filters))
+        }
+      )
   }
 
   def findProjectsBySearch() = Action { implicit request: MessagesRequest[AnyContent] =>
@@ -59,16 +67,34 @@ class ProjectController @Inject() (
 
   val searchForm = Form(single("searchterm" -> text))
 
+  private def filterProject(project: Project, filters: Option[ProjectFilters]) =
+    filters match {
+      case Some(f) => f.filter(project)
+      case None    => Some(project)
+    }
+
+  private def filterProjects(projects: List[Project], filters: Option[ProjectFilters]) =
+    projects.filter(p => filterProject(p, filters).isDefined)
+
   def findProjectsByTag() = Action { implicit request: MessagesRequest[AnyContent] =>
     tagForm
       .bindFromRequest()
       .fold(
         formWithErrors => BadRequest("Invalid form"),
         tagName => {
-          val tag      = Tag(tagName)
+          val tag      = Tag(tagName._1)
           val projects = projectLookup.findProjectsByTag(tag).sortBy(_.title.toLowerCase)
           val subTags  = projectLookup.findTagsInProjects(projects, 11).filter(_.name != tag.name).take(10)
-          Ok(views.html.project.listprojects(projects, tags = List(tag), subTags = subTags))
+          val filteredProjects = filterProjects(projects, tagName._2)
+          Ok(
+            views.html.project
+              .listprojects(
+                filteredProjects,
+                tags = List(tag),
+                subTags = subTags,
+                filterProperties = tagName._2
+              )
+          )
         }
       )
   }
@@ -79,11 +105,19 @@ class ProjectController @Inject() (
       .fold(
         formWithErrors => BadRequest("Invalid form"),
         techName => {
-          val tech     = Technology(techName)
-          val projects = projectLookup.findProjectsByTech(tech).sortBy(_.title.toLowerCase)
-          val subTech  =
+          val tech             = Technology(techName._1)
+          val projects         = projectLookup.findProjectsByTech(tech).sortBy(_.title.toLowerCase)
+          val subTech          =
             projectLookup.findTechnologiesInProjects(projects, 11).filter(_.name != tech.name).take(10)
-          Ok(views.html.project.listprojects(projects, technologies = List(tech), subTech = subTech))
+          val filteredProjects = filterProjects(projects, techName._2)
+          Ok(
+            views.html.project.listprojects(
+              filteredProjects,
+              technologies = List(tech),
+              subTech = subTech,
+              filterProperties = techName._2
+            )
+          )
         }
       )
   }
@@ -92,16 +126,23 @@ class ProjectController @Inject() (
     tagsForm
       .bindFromRequest()
       .fold(
-        formWithErrors => BadRequest("Invalid form"),
+        formWithErrors => {
+          logger.warn(s"Invalid form: ${formWithErrors.errors}")
+          BadRequest("Invalid form")
+        },
         tagsData => {
-          val tag      = Tag(tagsData._2)
-          val tags     = tag :: (tagsData._1.split(",").map(Tag(_)).toList)
-          val projects = projectLookup.findProjectsByTags(tags).sortBy(_.title.toLowerCase)
-          val subTags  = projectLookup
+          val tag              = Tag(tagsData._2)
+          val tags             = tag :: (tagsData._1.split(",").map(Tag(_)).toList)
+          val projects         = projectLookup.findProjectsByTags(tags).sortBy(_.title.toLowerCase)
+          val subTags          = projectLookup
             .findTagsInProjects(projects, 30)
             .filter(t => !tags.exists(tt => t.name == tt.name))
             .take(10)
-          Ok(views.html.project.listprojects(projects, tags = tags, subTags = subTags))
+          val filteredProjects = filterProjects(projects, tagsData._3)
+          Ok(
+            views.html.project
+              .listprojects(filteredProjects, tags = tags, subTags = subTags, filterProperties = tagsData._3)
+          )
         }
       )
   }
@@ -119,41 +160,92 @@ class ProjectController @Inject() (
             .findTechnologiesInProjects(projects, 30)
             .filter(t => !technologies.exists(tt => t.name == tt.name))
             .take(10)
-          Ok(views.html.project.listprojects(projects, technologies = technologies, subTech = subTech))
+          val filteredProjects = filterProjects(projects, techData._3)
+          Ok(
+            views.html.project.listprojects(
+              filteredProjects,
+              technologies = technologies,
+              subTech = subTech,
+              filterProperties = techData._3
+            )
+          )
         }
       )
   }
 
   def findProjectsByCharacteristic(characteristicType: String, characteristic: String) = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      val characteristicFound: Option[ProjectCharacteristics.Characteristic] =
-        ProjectCharacteristics.characteristicPossibilities.findCharacteristic(
-          characteristicType,
-          characteristic
+      filtersForm
+        .bindFromRequest()
+        .fold(
+          formWithErrors => BadRequest("Invalid form"),
+          filters => {
+            val characteristicFound: Option[ProjectCharacteristics.Characteristic] =
+              ProjectCharacteristics.characteristicPossibilities.findCharacteristic(
+                characteristicType,
+                characteristic
+              )
+            val projects: List[Project]                                            = for {
+              c       <- characteristicFound.toList
+              project <- projectLookup.findProjectsByCharacteristic(c).sortBy(_.title.toLowerCase)
+              filteredProjects = filterProject(project, filters)
+            } yield project
+            Ok(
+              views.html.project
+                .listprojects(
+                  projects = projects,
+                  possibleCharacteristic = characteristicFound,
+                  filterProperties = filters
+                )
+            )
+          }
         )
-      val projects: List[Project]                                            = for {
-        c       <- characteristicFound.toList
-        project <- projectLookup.findProjectsByCharacteristic(c).sortBy(_.title.toLowerCase)
-      } yield project
-      Ok(views.html.project.listprojects(projects = projects, possibleCharacteristic = characteristicFound))
   }
 
-  val tagForm = Form(single("tag" -> nonEmptyText))
+  val filterMapping =
+    mapping(
+      "popular"    -> optional(text),
+      "dead"       -> optional(text),
+      "recent"     -> optional(text),
+      "updated"    -> optional(text),
+      "stale"      -> optional(text),
+      "live"       -> optional(text),
+      "idea"       -> optional(text),
+      "code"       -> optional(text),
+      "mobile"     -> optional(text),
+      "commercial" -> optional(text)
+    )(ProjectFilters.apply)(ProjectFilters.unapply)
 
-  val techForm = Form(single("tech" -> nonEmptyText))
+  val tagForm = Form(
+    tuple(
+      "tag"    -> nonEmptyText,
+      "filter" -> optional(filterMapping)
+    )
+  )
+
+  val techForm = Form(
+    tuple(
+      "tech"   -> nonEmptyText,
+      "filter" -> optional(filterMapping)
+    )
+  )
 
   val tagsForm = Form(
     tuple(
-      "tags" -> nonEmptyText,
-      "tag"  -> nonEmptyText
+      "tags"   -> nonEmptyText,
+      "tag"    -> nonEmptyText,
+      "filter" -> optional(filterMapping)
     )
   )
 
   val technologiesForm = Form(
     tuple(
       "technologies" -> nonEmptyText,
-      "tech"         -> nonEmptyText
+      "tech"         -> nonEmptyText,
+      "filter"       -> optional(filterMapping)
     )
   )
+
+  val filtersForm = Form(single("filter" -> optional(filterMapping)))
 
 }

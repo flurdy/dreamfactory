@@ -1,0 +1,52 @@
+@(filterProperties: Option[ProjectFilters])(implicit messages: Messages)
+
+@import helper._
+
+@propertyRadio(name: String, property: String, icon: String, title: String, value: String, checked: Option[Boolean]) = {
+   <td>
+      <input type="radio" id="filter_@property" name="filter.@name" value="@value"
+      @if(checked.contains(true)){checked="checked"} onchange="this.form.submit();"/>
+      <label for="filter_@property">
+         <i class="@icon" title="@title"></i>
+      </label>
+   </td>
+}
+
+@requiredPropertyRadio(property: String, icon: String, title: String, required: Option[Boolean]) = {
+   @propertyRadio(property, property, icon, title, "require", required)
+}
+
+@excludePropertyRadio(property: String, icon: String, title: String, excluded: Option[Boolean]) = {
+   @propertyRadio(property, s"${property}_exclude", icon, title, "exclude", excluded)
+}
+
+<table class="table table-condensed properties-filter">
+   <tbody>
+      <tr class="properties-filter-include">
+         <th>@Messages("projects.properties.include")</th>
+         @requiredPropertyRadio("popular", "far fa-star", "only popular projects", filterProperties.map(_.requirePopular))
+         @requiredPropertyRadio("dead", "fas fa-cross", "only mothballed or currently unlikely projects", filterProperties.map(_.requireDead))
+         @requiredPropertyRadio("recent", "fas fa-plus-circle", "only recently added projects", filterProperties.map(_.requireRecent))
+         @requiredPropertyRadio("updated", "fas fa-seedling", "only recently updated projects", filterProperties.map(_.requireUpdated))
+         @requiredPropertyRadio("stale", "far fa-clock", "only stale or untouched for a long time projects", filterProperties.map(_.requireStale))
+         @requiredPropertyRadio("live", "fas fa-heartbeat", "only live projects", filterProperties.map(_.requireLive))
+         @requiredPropertyRadio("idea", "far fa-lightbulb", "only projects that are only an idea", filterProperties.map(_.requireIdea))
+         @requiredPropertyRadio("code", "fas fa-code", "only projects that have their code available", filterProperties.map(_.requireCode))
+         @requiredPropertyRadio("mobile", "fas fa-mobile-alt", "only mobile app projects", filterProperties.map(_.requireMobile))
+         @requiredPropertyRadio("commercial", "fas fa-dollar-sign", "only commercial projects", filterProperties.map(_.requireCommercial))
+      </tr>
+      <tr class="properties-filter-exclude">
+         <th>@Messages("projects.properties.exclude")</th>
+         @excludePropertyRadio("popular", "far fa-star", "no popular projects", filterProperties.map(_.excludePopular))
+         @excludePropertyRadio("dead", "fas fa-cross", "no mothballed nor currently unlikely projects", filterProperties.map(_.excludeDead))
+         @excludePropertyRadio("recent", "fas fa-plus-circle", "no recently added projects", filterProperties.map(_.excludeRecent))
+         @excludePropertyRadio("updated", "fas fa-seedling", "no recently updated projects", filterProperties.map(_.excludeUpdated))
+         @excludePropertyRadio("stale", "far fa-clock", " no stale nor untouched for a long time projects", filterProperties.map(_.excludeStale))
+         @excludePropertyRadio("live", "fas fa-heartbeat", "no live projects", filterProperties.map(_.excludeLive))
+         @excludePropertyRadio("idea", "far fa-lightbulb", "no projects that are only an idea", filterProperties.map(_.excludeIdea))
+         @excludePropertyRadio("code", "fas fa-code", "no projects that have their code available", filterProperties.map(_.excludeCode))
+         @excludePropertyRadio("mobile", "fas fa-mobile-alt", "no mobile app projects", filterProperties.map(_.excludeMobile))
+         @excludePropertyRadio("commercial", "fas fa-dollar-sign", "no commercial projects", filterProperties.map(_.excludeCommercial))
+      </tr>
+   </tbody>
+</table>

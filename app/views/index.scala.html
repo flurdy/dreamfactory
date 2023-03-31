@@ -132,7 +132,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 
       <div class="row">
          @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-            <div class="col-xs-8 col-sm-8 col-sm-offset-1">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-1">
                <div class="form-group">
                   <div class="input-group">
                         <input type="text" class="form-control" placeholder="search amongst @projectsFound projects"
@@ -186,7 +186,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 
    @if(!technologies.isEmpty){
       <div class="well row" id="main-tech-accordion" role="tablist" aria-multiselectable="true">
-         <div class="panel-heading" role="tab" id="heading-ye==tech">
+         <div class="panel-heading" role="tab" id="heading-tech">
            <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#main-tech-accordion"
                     href="#collapse-tech" aria-expanded="true"

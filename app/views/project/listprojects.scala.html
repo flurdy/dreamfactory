@@ -1,8 +1,21 @@
 @(projects: List[Project], tags: List[Tag] = List.empty, subTags: List[Tag] = List.empty,
   technologies: List[Technology] = List.empty, subTech: List[Technology] = List.empty,
-  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
+  searchTerm: Option[String] = None, possibleCharacteristic: Option[ProjectCharacteristics.Characteristic] = None,
+  filterProperties: Option[ProjectFilters] = None)(implicit webJarsUtil: org.webjars.play.WebJarsUtil, messages: Messages, latestNews: List[News], analytics: Option[GoogleAnalytics])
 
 @import helper._
+
+
+@propertiesFilterButtons() = {
+   <div class="row">
+      <div class="form-group">
+         <div class="input-group col-xs-12 col-sm-2 pull-right">
+            <button class="btn btn-default col-xs-12 col-sm-8" type="button" onclick="resetFilter(this.form)">@Messages("projects.properties.filter.reset")</button>
+            <!-- <button class="btn btn-default col-xs-12 col-sm-5 col-sm-offset-1" type="submit">@Messages("projects.properties.filter.filter")</button> -->
+         </div>
+      </div>
+   </div>
+}
 
 @main(){
 
@@ -88,7 +101,7 @@
                            }
                         </td>
                         <td class="projectlist-properties">
-                           @if(project.isStale && !project.isDead){
+                           @if(project.isStaleNotDead){
                               <i class="far fa-clock" title="project is stale or untouched for a long time"></i>
                            }
                         </td>
@@ -133,6 +146,67 @@
        }
     </div>
 
+   <div class="well row" id="filter-accordion" role="tablist" aria-multiselectable="true">
+
+      <div class="panel-heading" role="tab" id="heading-filter">
+         <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#main-tech-accordion"
+               href="#collapse-tech" aria-expanded="true"
+               aria-controls="collapse-tech">
+               @Messages("projects.properties.filter")
+               <span class="caret"></span>
+            </a>
+         </h4>
+      </div>
+      <div class="panel panel-default">
+        <div id="collapse-filter" class="panel-collapse collapse in"
+              role="tabpanel" aria-labelledby="heading-filter">
+          <div class="panel-body">
+
+      @if(tags.size == 1){
+         @form(action=routes.ProjectController.findProjectsByTag(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+            <input type="hidden" name="tag" value="@{tags.take(1).map(_.name).mkString(",")}"/>
+            @propertiesFilter(filterProperties)
+            @propertiesFilterButtons()
+         }
+      } else if(tags.size > 1){
+         @form(action=routes.ProjectController.findProjectsByTags(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+            <input type="hidden" name="tag" value="@{tags.take(1).map(_.name).mkString(",")}"/>
+            <input type="hidden" name="tags" value="@{tags.drop(1).map(_.name).mkString(",")}"/>
+            @propertiesFilter(filterProperties)
+            @propertiesFilterButtons()
+         }
+      } else if(!technologies.isEmpty){
+         @form(action=routes.ProjectController.findProjectsByTech(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+            <input type="hidden" name="tech" value="@{technologies.take(1).map(_.name).mkString(", ")}"/>
+             @propertiesFilter(filterProperties)
+             @propertiesFilterButtons()
+         }
+      } else if(!possibleCharacteristic.isEmpty){
+          @for(characteristic <- possibleCharacteristic){
+             @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName,characteristic.name), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+                @propertiesFilter(filterProperties)
+                @propertiesFilterButtons()
+             }
+          }
+      } else if(!searchTerm.isEmpty){
+         @for(searchTermValue <- searchTerm){
+            @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+               <input type="hidden" name="searchterm" value="@searchTermValue"/>
+               @propertiesFilter(filterProperties)
+               @propertiesFilterButtons()
+            }
+         }
+      } else {
+       @form(action=routes.ProjectController.findAllProjects(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
+          @propertiesFilter(filterProperties)
+          @propertiesFilterButtons()
+       }
+      }
+   </div>
+   </div>
+   </div>
+   </div>
 
    @if(!subTags.isEmpty){
       <div class="well row">
@@ -157,7 +231,7 @@
 
       <div class="row">
          @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("method") -> "GET"){
-            <div class="col-xs-8 col-sm-8 col-sm-offset-1">
+            <div class="col-xs-8 col-sm-8 ">
                <div class="input-group">
                      <input type="text" class="form-control" placeholder="search for projects"
                            maxlength="200" name="searchterm" @for(term <- searchTerm){ value="@term" } />
@@ -169,5 +243,7 @@
          }
       </div>
    </div>
+
+   <script src="@routes.Assets.versioned("javascript/filter.js")"></script>
 
 }

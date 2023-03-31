@@ -44,9 +44,12 @@ case class Project(
       isNewsStale &&
       characteristics.isNotReleasedOrMothballed &&
       characteristics.isNotStartedOrAbandoned
+  lazy val isStaleNotDead            = isStale && !isDead
   lazy val isNewsRecent              = !news.filter(_.isRecent).isEmpty
   lazy val isRecentlyUpdated         = dates.isRecentlyUpdated || isNewsRecent
   lazy val isRecentlyAdded           = dates.isRecentlyCreated
+  lazy val isRecentlyUpdatedNotAdded = isRecentlyUpdated && !isRecentlyAdded
+  lazy val hasCodeAvailable          = urls.hasProject
   val link                           = encoded.getOrElse(title)
   def isProject(projectName: String) = encoded
     .map(_.toLowerCase)
