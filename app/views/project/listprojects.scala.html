@@ -17,6 +17,36 @@
    </div>
 }
 
+@filterInputsForTags() = {
+   @for(filterValue <- filterProperties.flatMap(_.popular)){
+      <input type="hidden" name="filter.popular" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.recent)){
+      <input type="hidden" name="filter.recent" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.updated)){
+      <input type="hidden" name="filter.updated" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.stale)){
+      <input type="hidden" name="filter.stale" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.live)){
+      <input type="hidden" name="filter.live" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.idea)){
+      <input type="hidden" name="filter.idea" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.code)){
+      <input type="hidden" name="filter.code" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.mobile)){
+      <input type="hidden" name="filter.mobile" value="@filterValue"/>
+   }
+   @for(filterValue <- filterProperties.flatMap(_.commercial)){
+      <input type="hidden" name="filter.commercial" value="@filterValue"/>
+   }
+}
+
 @main(){
 
    <li class="active">@Messages("breadcrumb.projectlist")</li>
@@ -150,9 +180,9 @@
 
       <div class="panel-heading" role="tab" id="heading-filter">
          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#main-tech-accordion"
-               href="#collapse-tech" aria-expanded="true"
-               aria-controls="collapse-tech">
+            <a role="button" data-toggle="collapse" data-parent="#main-filter-accordion"
+               href="#collapse-filter" aria-expanded="true"
+               aria-controls="collapse-filter">
                @Messages("projects.properties.filter")
                <span class="caret"></span>
             </a>
@@ -203,9 +233,9 @@
           @propertiesFilterButtons()
        }
       }
-   </div>
-   </div>
-   </div>
+         </div>
+       </div>
+     </div>
    </div>
 
    @if(!subTags.isEmpty){
@@ -215,13 +245,24 @@
 
          <ul class="list-inline">
             @for(tag <- subTags){
-               <li>
-                  @form(action=routes.ProjectController.findProjectsByTags()){
-                     <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
-                     <input type="hidden" name="tag" value="@{tag.name}" />
-                     <button class="well well-sm" type="submit">@{tag.name}</button>
-                  }
-               </li>
+               @if(tags.isEmpty){
+                  <li>
+                     @form(action=routes.ProjectController.findProjectsByTag()){
+                        <input type="hidden" name="tag" value="@{tag.name}" />
+                        @filterInputsForTags()
+                        <button class="well well-sm" type="submit">@{tag.name}</button>
+                     }
+                  </li>
+               } else {
+                  <li>
+                     @form(action=routes.ProjectController.findProjectsByTags()){
+                        <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
+                        <input type="hidden" name="tag" value="@{tag.name}" />
+                        @filterInputsForTags()
+                        <button class="well well-sm" type="submit">@{tag.name}</button>
+                     }
+                  </li>
+               }
             }
          </ul>
       </div>

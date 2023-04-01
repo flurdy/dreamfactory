@@ -17,6 +17,7 @@ projects.tags=Tags
 projects.technologies=Technologies
 projects.characteristics=Characteristics
 projects.none-found=No projects found
+projects.index.filter=Properties Filter
 projects.properties.filter=Properties Filter
 projects.properties.include=Include
 projects.properties.exclude=Exclude

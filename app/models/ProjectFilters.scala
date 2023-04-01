@@ -78,6 +78,20 @@ case class ProjectFilters(
       _ <- filterCommercial(project)
     } yield project
 
+  def propertyValue(propertyFilter: String): Option[String] =
+    propertyFilter match {
+      case "popular"    => popular
+      case "dead"       => dead
+      case "recent"     => recent
+      case "updated"    => updated
+      case "stale"      => stale
+      case "live"       => live
+      case "idea"       => idea
+      case "code"       => code
+      case "mobile"     => mobile
+      case "commercial" => commercial
+      case _            => None
+    }
 }
 
 object ProjectFilters {}

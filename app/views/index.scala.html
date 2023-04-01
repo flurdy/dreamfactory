@@ -98,6 +98,15 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
    }
 }
 
+@propertyFilterButton(propertyName: String, icon: String, title: String) = {
+   <li>
+      @form(action=routes.ProjectController.findAllProjects()){
+         <input type="hidden" name="filter.@propertyName" value="require" />
+         <button class="well well-sm" type="submit"><i class="@icon" title="@title"></i></button>
+      }
+   </li>
+}
+
 @main(){ } {
 
    <div class="row">
@@ -150,6 +159,39 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
       </div>
    </div>
 
+   @if(!tags.isEmpty){
+      <div class="well row" id="main-filter-accordion" role="tablist" aria-multiselectable="true">
+         <div class="panel-heading" role="tab" id="heading-filter">
+           <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#main-filter-accordion"
+                    href="#collapse-filter" aria-expanded="true"
+                    aria-controls="collapse-filter">
+                  @Messages("projects.index.filter")
+                  <span class="caret"></span>
+                </a>
+             </h4>
+          </div>
+          <div class="panel panel-default">
+            <div id="collapse-filter" class="panel-collapse collapse in"
+                  role="tabpanel" aria-labelledby="heading-filter">
+              <div class="panel-body">
+                 <ul class="list-inline">
+                  @propertyFilterButton("popular", "far fa-star", "only popular projects")
+                  @propertyFilterButton("dead", "fas fa-cross", "only mothballed or currently unlikely projects")
+                  @propertyFilterButton("recent", "fas fa-plus-circle", "only recently added projects")
+                  @propertyFilterButton("updated", "fas fa-seedling", "only recently updated projects")
+                  @propertyFilterButton("stale", "far fa-clock", "only stale or untouched for a long time projects")
+                  @propertyFilterButton("live", "fas fa-heartbeat", "only live projects")
+                  @propertyFilterButton("idea", "far fa-lightbulb", "only projects that are only an idea")
+                  @propertyFilterButton("code", "fas fa-code", "only projects that have their code available")
+                  @propertyFilterButton("mobile", "fas fa-mobile-alt", "only mobile app projects")
+                  @propertyFilterButton("commercial", "fas fa-dollar-sign", "only commercial projects")
+                </ul>
+             </div>
+           </div>
+        </div>
+     </div>
+   }
 
    @if(!tags.isEmpty){
       <div class="well row" id="main-tags-accordion" role="tablist" aria-multiselectable="true">

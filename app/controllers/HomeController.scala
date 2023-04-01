@@ -44,6 +44,7 @@ class HomeController @Inject() (
 
   private val topRowEntries    = 7
   private val secondRowEntries = 10
+  private val ignoredTags      = Set("idea", "live", "popular")
 
   def index = Action { implicit request: MessagesRequest[AnyContent] =>
     val newProjects     = projectLookup.findNewestProjects(secondRowEntries)
@@ -54,7 +55,7 @@ class HomeController @Inject() (
       updatedProjects.toSet ++ newProjects ++ popularProjects
     )
     val projectsFound   = projectLookup.howManyProjects
-    val tags            = projectLookup.findTags(30)
+    val tags            = projectLookup.findTags(30).filterNot(t => ignoredTags.contains(t.name.toLowerCase))
     val tech            = projectLookup.findTechnologies(30)
     val characteristics = characteristicPossibilities
     Ok(

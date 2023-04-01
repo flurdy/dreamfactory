@@ -57,6 +57,12 @@ body { color: black; background-color: rgb(170, 170, 170); }
 #nautical-cargo #characteristics-accordion { margin-bottom: 0; }
 #nautical-cargo #characteristics-accordion .panel-body { padding: 5px 15px 0 15px; }
 
+#nautical-cargo #main-filter-accordion li button i,
+#nautical-cargo #main-filter-accordion li button i { color: #999; }
+#nautical-cargo #main-filter-accordion ul { margin-bottom: 0; }
+#nautical-cargo #main-filter-accordion li button { margin: 5px 0; }
+#nautical-cargo #main-filter-accordion .panel-body { padding: 5px 15px; }
+
 #nautical-cargo .wilted { font-style: italic; }
 #nautical-cargo .mothballed { font-style: italic; }
 #nautical-cargo .alive { font-weight: bold; }

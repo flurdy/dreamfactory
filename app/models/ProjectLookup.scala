@@ -18,6 +18,7 @@ trait ProjectLookup {
 
   def configuration: Configuration
   def environment: Environment
+  private val ignoredTags = Set("idea", "live", "popular")
 
   def fillWithOtherProjects(subsetOfProjects: List[Project], size: Int) = {
     val fillProjects =
@@ -152,6 +153,7 @@ trait ProjectLookup {
       project <- tagProjects
       tag     <- project.tags
     } yield tag)
+      .filterNot(t => ignoredTags.contains(t.name.toLowerCase))
       .groupBy(_.name)
       .view
       .mapValues(_.size)

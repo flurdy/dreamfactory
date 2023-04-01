@@ -45,7 +45,15 @@ class ProjectController @Inject() (
         filters => {
           val projects         = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
           val filteredProjects = filterProjects(projects, filters)
-          Ok(views.html.project.listprojects(filteredProjects, searchTerm = None, filterProperties = filters))
+          val subTags          = projectLookup.findTagsInProjects(projects, 11).take(10)
+          Ok(
+            views.html.project.listprojects(
+              filteredProjects,
+              searchTerm = None,
+              subTags = subTags,
+              filterProperties = filters
+            )
+          )
         }
       )
   }
