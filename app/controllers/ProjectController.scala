@@ -214,6 +214,7 @@ class ProjectController @Inject() (
     mapping(
       "popular"    -> optional(text),
       "dead"       -> optional(text),
+      "unlikely"   -> optional(text),
       "recent"     -> optional(text),
       "updated"    -> optional(text),
       "stale"      -> optional(text),

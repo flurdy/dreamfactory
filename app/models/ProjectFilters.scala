@@ -5,6 +5,7 @@ import play.api.Logging
 case class ProjectFilters(
     popular: Option[String],
     dead: Option[String],
+    unlikely: Option[String],
     recent: Option[String],
     updated: Option[String],
     stale: Option[String],
@@ -29,6 +30,7 @@ case class ProjectFilters(
 
   val requirePopular    = requireProperty(popular)
   val requireDead       = requireProperty(dead)
+  val requireUnlikely   = requireProperty(unlikely)
   val requireRecent     = requireProperty(recent)
   val requireUpdated    = requireProperty(updated)
   val requireStale      = requireProperty(stale)
@@ -40,6 +42,7 @@ case class ProjectFilters(
 
   val excludePopular    = excludeProperty(popular)
   val excludeDead       = excludeProperty(dead)
+  val excludeUnlikely   = excludeProperty(unlikely)
   val excludeRecent     = excludeProperty(recent)
   val excludeUpdated    = excludeProperty(updated)
   val excludeStale      = excludeProperty(stale)
@@ -50,9 +53,11 @@ case class ProjectFilters(
   val excludeCommercial = excludeProperty(commercial)
 
   def filterPopular(project: Project): Option[Project] = filterProperty(project, project.isPopular, popular)
-  def filterDead(project: Project): Option[Project]    =
+  def filterDead(project: Project): Option[Project]     =
     filterProperty(project, project.isDead, dead)
-  def filterUpdated(project: Project): Option[Project] =
+  def filterUnlikely(project: Project): Option[Project] =
+    filterProperty(project, project.isUnlikely || project.isUnappealing, unlikely)
+  def filterUpdated(project: Project): Option[Project]  =
     filterProperty(project, project.isRecentlyUpdatedNotAdded, updated)
   def filterRecent(project: Project): Option[Project]  =
     filterProperty(project, project.isRecentlyAdded, recent)
@@ -68,6 +73,7 @@ case class ProjectFilters(
     for {
       _ <- filterPopular(project)
       _ <- filterDead(project)
+      _ <- filterUnlikely(project)
       _ <- filterUpdated(project)
       _ <- filterRecent(project)
       _ <- filterStale(project)
@@ -82,6 +88,7 @@ case class ProjectFilters(
     propertyFilter match {
       case "popular"    => popular
       case "dead"       => dead
+      case "unlikely"   => unlikely
       case "recent"     => recent
       case "updated"    => updated
       case "stale"      => stale

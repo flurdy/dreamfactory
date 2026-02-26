@@ -25,7 +25,8 @@
       <tr class="properties-filter-include">
          <th>@Messages("projects.properties.include")</th>
          @requiredPropertyRadio("popular", "far fa-star", "only popular projects", filterProperties.map(_.requirePopular))
-         @requiredPropertyRadio("dead", "fas fa-cross", "only mothballed or currently unlikely projects", filterProperties.map(_.requireDead))
+         @requiredPropertyRadio("dead", "fas fa-cross", "only mothballed or abandoned projects", filterProperties.map(_.requireDead))
+         @requiredPropertyRadio("unlikely", "far fa-frown", "only unlikely or unappealing projects", filterProperties.map(_.requireUnlikely))
          @requiredPropertyRadio("recent", "fas fa-plus-circle", "only recently added projects", filterProperties.map(_.requireRecent))
          @requiredPropertyRadio("updated", "fas fa-seedling", "only recently updated projects", filterProperties.map(_.requireUpdated))
          @requiredPropertyRadio("stale", "far fa-clock", "only stale or untouched for a long time projects", filterProperties.map(_.requireStale))
@@ -38,7 +39,8 @@
       <tr class="properties-filter-exclude">
          <th>@Messages("projects.properties.exclude")</th>
          @excludePropertyRadio("popular", "far fa-star", "no popular projects", filterProperties.map(_.excludePopular))
-         @excludePropertyRadio("dead", "fas fa-cross", "no mothballed nor currently unlikely projects", filterProperties.map(_.excludeDead))
+         @excludePropertyRadio("dead", "fas fa-cross", "no mothballed nor abandoned projects", filterProperties.map(_.excludeDead))
+         @excludePropertyRadio("unlikely", "far fa-frown", "no unlikely nor unappealing projects", filterProperties.map(_.excludeUnlikely))
          @excludePropertyRadio("recent", "fas fa-plus-circle", "no recently added projects", filterProperties.map(_.excludeRecent))
          @excludePropertyRadio("updated", "fas fa-seedling", "no recently updated projects", filterProperties.map(_.excludeUpdated))
          @excludePropertyRadio("stale", "far fa-clock", " no stale nor untouched for a long time projects", filterProperties.map(_.excludeStale))

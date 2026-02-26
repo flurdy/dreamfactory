@@ -117,7 +117,12 @@
                         </td>
                         <td class="projectlist-properties">
                            @if(project.isDead){
-                              <i class="fas fa-cross" title="project is mothballed or currently unlikely"></i>
+                              <i class="fas fa-cross" title="project is mothballed or abandoned"></i>
+                           }
+                        </td>
+                        <td class="projectlist-properties">
+                           @if(project.isUnlikely || project.isUnappealing){
+                              <i class="far fa-frown" title="project is not likely to happen"></i>
                            }
                         </td>
                         <td class="projectlist-properties">
@@ -155,11 +160,6 @@
                               <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
                            }
                         </td>
-                        <!-- <td class="projectlist-properties">
-                           @if(project.isUnlikely || project.isUnappealing){
-                              <i class="far fa-meh" title="project is not likely to happen"></i>
-                           }
-                        </td> -->
                         <td class="projectlist-properties">
                            @if(project.isCommercial){
                               <i class="fas  fa-dollar-sign" title="project is commercial"></i>
