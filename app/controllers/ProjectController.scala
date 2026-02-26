@@ -45,7 +45,7 @@ class ProjectController @Inject() (
         filters => {
           val projects         = projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
           val filteredProjects = filterProjects(projects, filters)
-          val subTags          = projectLookup.findTagsInProjects(projects, 11).take(10)
+          val subTags          = projectLookup.findTagsInProjects(filteredProjects, 50)
           Ok(
             views.html.project.listprojects(
               filteredProjects,
@@ -92,8 +92,8 @@ class ProjectController @Inject() (
         tagName => {
           val tag      = Tag(tagName._1)
           val projects = projectLookup.findProjectsByTag(tag).sortBy(_.title.toLowerCase)
-          val subTags  = projectLookup.findTagsInProjects(projects, 11).filter(_.name != tag.name).take(10)
           val filteredProjects = filterProjects(projects, tagName._2)
+          val subTags  = projectLookup.findTagsInProjects(filteredProjects, 50).filter(_.name != tag.name)
           Ok(
             views.html.project
               .listprojects(
@@ -142,11 +142,10 @@ class ProjectController @Inject() (
           val tag              = Tag(tagsData._2)
           val tags             = tag :: (tagsData._1.split(",").map(Tag(_)).toList)
           val projects         = projectLookup.findProjectsByTags(tags).sortBy(_.title.toLowerCase)
-          val subTags          = projectLookup
-            .findTagsInProjects(projects, 30)
-            .filter(t => !tags.exists(tt => t.name == tt.name))
-            .take(10)
           val filteredProjects = filterProjects(projects, tagsData._3)
+          val subTags          = projectLookup
+            .findTagsInProjects(filteredProjects, 50)
+            .filter(t => !tags.exists(tt => t.name == tt.name))
           Ok(
             views.html.project
               .listprojects(filteredProjects, tags = tags, subTags = subTags, filterProperties = tagsData._3)
