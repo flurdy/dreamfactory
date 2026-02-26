@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sbt compile)",
+      "Bash(sbt clean compile)",
+      "Bash(bd sync)"
+    ]
+  }
+}
