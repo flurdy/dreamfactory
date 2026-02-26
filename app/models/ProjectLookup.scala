@@ -71,7 +71,11 @@ trait ProjectLookup {
 
   def findRandomProjects(size: Int, excludeProjects: Set[Project] = Set()) = {
     val includedProjects = projects.toSet -- excludeProjects
-    randomiseProjects(includedProjects.toList).take(size)
+    val healthy          = includedProjects.filterNot(p => p.isDead || p.isUnlikely || p.isUnappealing || p.isStale)
+    val healthySize      = (size * 2 + 2) / 3 // 2/3 rounded up (e.g. 6 of 10, 4 of 6)
+    val preferred        = randomiseProjects(healthy.toList).take(healthySize)
+    val remaining        = randomiseProjects((includedProjects -- preferred.toSet).toList).take(size - preferred.size)
+    preferred ::: remaining
   }
 
   private def randomiseProjects(someProjects: List[Project]) = Random.shuffle(someProjects)

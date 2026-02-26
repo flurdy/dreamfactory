@@ -10,7 +10,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 trait DateComparator {
-  def isDateStale(date: DateTime)  = DateTime.now.minusYears(5).isAfter(date)
+  def isDateStale(date: DateTime)  = DateTime.now.minusYears(8).isAfter(date)
   def isDateRecent(date: DateTime) = DateTime.now.minusYears(3).isBefore(date)
   def toDate(date: String)         = new DateTime(date)
 }

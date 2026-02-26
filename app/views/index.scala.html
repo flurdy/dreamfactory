@@ -12,7 +12,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
             <tbody>
                @for( project <- projects){
                   <tr>
-                     <td class="@if(project.isDead || project.isStale){wilted}"><a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
+                     <td class="@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){wilted}"><a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
                      @(project.urls.live,project.urls.project) match {
                         case (Some(url), _) if project.characteristics.isLive => {
                            <td><a href="@url.value">@url.curt(25)</a></td>
@@ -53,8 +53,13 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
                         }
                      </td>
                      <td class="projectlist-properties">
+                        @if(project.isUnlikely || project.isUnappealing){
+                           <i class="far fa-frown" title="project is not likely to happen"></i>
+                        }
+                     </td>
+                     <td class="projectlist-properties">
                         @if(project.isStale && !project.isDead){
-                           <i class="far fa-clock" title="project is stale"></i>
+                           <i class="fas fa-hourglass-half" title="project is stale"></i>
                         }
                      </td>
                      <td class="projectlist-properties">
@@ -181,7 +186,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
                   @propertyFilterButton("unlikely", "far fa-frown", "only unlikely or unappealing projects")
                   @propertyFilterButton("recent", "fas fa-plus-circle", "only recently added projects")
                   @propertyFilterButton("updated", "fas fa-seedling", "only recently updated projects")
-                  @propertyFilterButton("stale", "far fa-clock", "only stale or untouched for a long time projects")
+                  @propertyFilterButton("stale", "fas fa-hourglass-half", "only stale or untouched for a long time projects")
                   @propertyFilterButton("live", "fas fa-heartbeat", "only live projects")
                   @propertyFilterButton("idea", "far fa-lightbulb", "only projects that are only an idea")
                   @propertyFilterButton("code", "fas fa-code", "only projects that have their code available")
