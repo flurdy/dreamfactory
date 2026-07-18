@@ -377,6 +377,102 @@
    margin: 0 0 var(--df-space-3);
 }
 
+.project-hero h2,
+.support-intro h2,
+.detail-section h3 {
+   margin: 0 0 var(--df-space-3);
+}
+
+.project-hero p,
+.support-intro p,
+.detail-section > p {
+   max-width: 70rem;
+}
+
+.project-hero .project-statuses {
+   margin-top: var(--df-space-3);
+}
+
+.detail-list {
+   margin: 0;
+}
+
+.detail-row {
+   display: grid;
+   grid-template-columns: minmax(10rem, 0.4fr) minmax(0, 1fr);
+   gap: var(--df-space-3);
+   min-width: 0;
+   padding: 0.65rem 0.35rem;
+   border-top: 1px solid #dddddd;
+}
+
+.detail-row:nth-child(even) {
+   background: rgba(255, 255, 255, 0.5);
+}
+
+.detail-row dt,
+.detail-row dd {
+   min-width: 0;
+   margin: 0;
+   overflow-wrap: anywhere;
+}
+
+.detail-row code {
+   display: inline-block;
+   max-width: 100%;
+   color: #444444;
+   font-size: 0.875rem;
+   white-space: normal;
+   overflow-wrap: anywhere;
+   background: #eeeeee;
+}
+
+.timeline-list .detail-row dt {
+   color: var(--df-muted);
+   font-weight: 500;
+}
+
+.action-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.action-list li {
+   flex: 1 1 11rem;
+   max-width: 16rem;
+}
+
+.action-list .btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   white-space: normal;
+}
+
+.paypal-form {
+   display: inline-flex;
+   align-items: center;
+   min-height: 2.75rem;
+   margin: 0;
+}
+
+.paypal-button {
+   min-width: 9rem;
+   min-height: 2.75rem;
+   object-fit: contain;
+}
+
+.payment-tracker {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+}
+
 #nautical-cargo .wilted,
 #nautical-cargo .mothballed {
    font-style: italic;
@@ -573,6 +669,20 @@
    .results-count {
       display: block;
       margin-top: var(--df-space-1);
+   }
+
+   .detail-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.2rem;
+   }
+
+   .detail-row dt {
+      color: var(--df-muted);
+      font-size: 0.8125rem;
+   }
+
+   .action-list li {
+      max-width: none;
    }
 
    #nautical-bridge .bridge-links a {

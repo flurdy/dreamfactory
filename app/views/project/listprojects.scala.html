@@ -117,35 +117,35 @@
          <summary>@Messages("projects.properties.filter")</summary>
          <div class="filter-section-body">
             @if(tags.size == 1){
-               @form(action=routes.ProjectController.findProjectsByTag(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+               @form(action=routes.ProjectController.findProjectsByTag(), Symbol("class") -> "properties-filter-form"){
                   <input type="hidden" name="tag" value="@tags.head.name" />
                   @filterFields()
                }
             } else if(tags.size > 1){
-               @form(action=routes.ProjectController.findProjectsByTags(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+               @form(action=routes.ProjectController.findProjectsByTags(), Symbol("class") -> "properties-filter-form"){
                   <input type="hidden" name="tag" value="@tags.head.name" />
                   <input type="hidden" name="tags" value="@tags.tail.map(_.name).mkString(",")" />
                   @filterFields()
                }
             } else if(technologies.size == 1){
-               @form(action=routes.ProjectController.findProjectsByTech(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+               @form(action=routes.ProjectController.findProjectsByTech(), Symbol("class") -> "properties-filter-form"){
                   <input type="hidden" name="tech" value="@technologies.head.name" />
                   @filterFields()
                }
             } else if(technologies.size > 1){
-               @form(action=routes.ProjectController.findProjectsByTechnologies(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+               @form(action=routes.ProjectController.findProjectsByTechnologies(), Symbol("class") -> "properties-filter-form"){
                   <input type="hidden" name="tech" value="@technologies.head.name" />
                   <input type="hidden" name="technologies" value="@technologies.tail.map(_.name).mkString(",")" />
                   @filterFields()
                }
             } else if(possibleCharacteristic.nonEmpty){
                @for(characteristic <- possibleCharacteristic){
-                  @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName, characteristic.name), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName, characteristic.name), Symbol("class") -> "properties-filter-form"){
                      @filterFields()
                   }
                }
             } else {
-               @form(action=routes.ProjectController.findAllProjects(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+               @form(action=routes.ProjectController.findAllProjects(), Symbol("class") -> "properties-filter-form"){
                   @filterFields()
                }
             }
@@ -160,13 +160,13 @@
             @for(tag <- subTags){
                <li>
                   @if(tags.isEmpty){
-                     @form(action=routes.ProjectController.findProjectsByTag(), Symbol("method") -> "GET"){
+                     @form(action=routes.ProjectController.findProjectsByTag()){
                         <input type="hidden" name="tag" value="@tag.name" />
                         @filterInputsForContext()
                         <button class="chip" type="submit">@tag.name</button>
                      }
                   } else {
-                     @form(action=routes.ProjectController.findProjectsByTags(), Symbol("method") -> "GET"){
+                     @form(action=routes.ProjectController.findProjectsByTags()){
                         <input type="hidden" name="tags" value="@tags.map(_.name).mkString(",")" />
                         <input type="hidden" name="tag" value="@tag.name" />
                         @filterInputsForContext()
@@ -186,13 +186,13 @@
             @for(technology <- subTech){
                <li>
                   @if(technologies.isEmpty){
-                     @form(action=routes.ProjectController.findProjectsByTech(), Symbol("method") -> "GET"){
+                     @form(action=routes.ProjectController.findProjectsByTech()){
                         <input type="hidden" name="tech" value="@technology.name" />
                         @filterInputsForContext()
                         <button class="chip" type="submit">@technology.name</button>
                      }
                   } else {
-                     @form(action=routes.ProjectController.findProjectsByTechnologies(), Symbol("method") -> "GET"){
+                     @form(action=routes.ProjectController.findProjectsByTechnologies()){
                         <input type="hidden" name="technologies" value="@technologies.map(_.name).mkString(",")" />
                         <input type="hidden" name="tech" value="@technology.name" />
                         @filterInputsForContext()
@@ -207,7 +207,7 @@
 
    <section class="surface search-box" aria-labelledby="list-search-heading">
       <h2 id="list-search-heading" class="sr-only">@Messages("projects.search.button")</h2>
-      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form", Symbol("method") -> "GET"){
+      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form"){
          <label class="sr-only" for="list-search">@Messages("projects.search.button")</label>
          <input id="list-search" type="search" class="form-control" placeholder="search for projects"
             maxlength="200" name="searchterm" @for(term <- searchTerm){value="@term"} />

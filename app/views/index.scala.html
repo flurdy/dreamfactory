@@ -37,7 +37,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 
 @propertyFilterButton(propertyName: String, icon: String, label: String) = {
    <li>
-      @form(action=routes.ProjectController.findAllProjects(), Symbol("method") -> "GET"){
+      @form(action=routes.ProjectController.findAllProjects()){
          <input type="hidden" name="filter.@propertyName" value="require" />
          <button class="filter-shortcut" type="submit">
             <i class="@icon" aria-hidden="true"></i>
@@ -81,7 +81,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 
    <section class="surface search-box" aria-labelledby="home-search-heading">
       <h2 id="home-search-heading" class="sr-only">@Messages("projects.search.button")</h2>
-      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form", Symbol("method") -> "GET"){
+      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form"){
          <label class="sr-only" for="home-search">@Messages("projects.search.button")</label>
          <input id="home-search" type="search" class="form-control" placeholder="search amongst @projectsFound projects"
             maxlength="200" name="searchterm" />
@@ -113,7 +113,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
          <ul class="chip-list">
             @for(tag <- tags){
                <li>
-                  @form(action=routes.ProjectController.findProjectsByTag(), Symbol("method") -> "GET"){
+                  @form(action=routes.ProjectController.findProjectsByTag()){
                      <input type="hidden" name="tag" value="@tag.name" />
                      <button class="chip" type="submit">@tag.name</button>
                   }
@@ -129,7 +129,7 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
          <ul class="chip-list">
             @for(technology <- technologies){
                <li>
-                  @form(action=routes.ProjectController.findProjectsByTech(), Symbol("method") -> "GET"){
+                  @form(action=routes.ProjectController.findProjectsByTech()){
                      <input type="hidden" name="tech" value="@technology.name" />
                      <button class="chip" type="submit">@technology.name</button>
                   }

@@ -108,6 +108,12 @@ project.characteristics.status.deploy.live=Live
 project.characteristics.status.deploy.offline=Offline
 
 project.license.title=License
+project.license.type=Type
+project.tags.title=Tags
+project.technologies.title=Technologies
+project.news.title=News
+project.comments.title=Comments
+project.contact.title=Contact
 
 project.contact.help=help/join
 project.contact.sponsor=sponsor

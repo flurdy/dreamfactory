@@ -8,7 +8,7 @@
    --df-border: #c9c9c9;
    --df-hull-border-dark: #333333;
    --df-hull-border-light: #666666;
-   --df-link: #2878bd;
+   --df-link: #2673b4;
    --df-link-hover: #155a96;
    --df-focus: #0d6fb8;
    --df-radius: 0.5rem;
@@ -139,9 +139,18 @@ summary:focus-visible,
 
 #nautical-anchor {
    padding: 0 var(--df-space-4) var(--df-space-3);
-   color: var(--df-muted);
+   color: #333333;
    font-size: 0.8125rem;
    text-align: right;
+}
+
+#nautical-anchor a {
+   color: #0f3b61;
+}
+
+#nautical-anchor a:hover,
+#nautical-anchor a:focus {
+   color: #082b47;
 }
 
 #nautical-lighthouse,

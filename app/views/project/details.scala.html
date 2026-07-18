@@ -2,76 +2,69 @@
 
 @import helper._
 
-@versionsRow(title: String, version: String) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@Messages(title)</td>
-      <td>@Html(version) </td>
-   </tr>
+@versionRow(title: String, version: String) = {
+   <div class="detail-row">
+      <dt>@Messages(title)</dt>
+      <dd>@Html(version)</dd>
+   </div>
 }
+
 @dateRow(title: String, date: String) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@Messages(title)</td>
-      <td>@date</td>
-   </tr>
+   <div class="detail-row">
+      <dt>@Messages(title)</dt>
+      <dd>@date</dd>
+   </div>
 }
 
 @urlRow(title: String, url: Url) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@Messages(title)</td>
-      <td><a href="@{url.value}">@{url.naked}</a></td>
-   </tr>
+   <div class="detail-row">
+      <dt>@Messages(title)</dt>
+      <dd><a href="@url.value">@url.naked</a></dd>
+   </div>
 }
 
 @newsRow(news: News) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@news.dateFormatted</td>
-      <td>@Html(news.description)</td>
-   </tr>
+   <div class="detail-row">
+      <dt>@news.dateFormatted</dt>
+      <dd>@Html(news.description)</dd>
+   </div>
 }
 
 @commentRow(comment: Comment) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@comment.dateFormatted</td>
-      <td>@Html(comment.comment)</td>
-   </tr>
+   <div class="detail-row">
+      <dt>@comment.dateFormatted</dt>
+      <dd>@Html(comment.comment)</dd>
+   </div>
 }
 
-@characteristicRow( characteristicO: Option[ProjectCharacteristics.Characteristic], title: String) = {
-   @for(characteristic <- characteristicO) {
-      @characteristicRower(title, characteristic)
+@characteristicRow(characteristicOption: Option[ProjectCharacteristics.Characteristic], title: String) = {
+   @for(characteristic <- characteristicOption){
+      <div class="detail-row">
+         <dt>@Messages(s"project.characteristics.$title")</dt>
+         <dd>
+            <a href="@routes.ProjectController.findProjectsByCharacteristic(title, characteristic.name)">
+               @Html(Messages(s"project.characteristics.$title.$characteristic"))
+            </a>
+         </dd>
+      </div>
    }
 }
 
-@characteristicRower(title: String, characteristic: ProjectCharacteristics.Characteristic) = {
-   <tr>
-      <td class="col-sm-4 com-xs-4">@Messages(s"project.characteristics.${title}")</td>
-      <td><a href="@routes.ProjectController.findProjectsByCharacteristic(title,characteristic.name)" class="" type="submit">@Html(Messages(s"project.characteristics.${title}.${characteristic}"))</a></td>
-}
-
 @projectShell(project){
-
-   <!-- <li class="active">@Messages("breadcrumb.project.details")</li> -->
    <li class="active">@Messages("breadcrumb.project")</li>
-
 } {
-
-   <div class="well row">
-      <h3>
-         @Html(project.title)
-      </h3>
-      @for(description <- project.description ){
+   <section class="surface project-hero">
+      <h2>@Html(project.title)</h2>
+      @for(description <- project.description){
          <p>@Html(description)</p>
       }
       @views.html.project.statuses(project)
-   </div>
+   </section>
 
    @if(!project.urls.isEmpty){
-   <div class="well row">
-
-      <h4>@Messages("project.links.title")</h4>
-
-      <table class="table table-striped table-condensed">
-         <tbody>
+      <section class="surface detail-section">
+         <h3>@Messages("project.links.title")</h3>
+         <dl class="detail-list">
             @for(url <- project.urls.project){
                @urlRow("project.links.project.title", url)
             }
@@ -81,167 +74,128 @@
             @for(key <- project.urls.others.keys){
                @for(url <- project.urls.get(key)){
                   @for(title <- url.title){
-                     @urlRow(s"project.links.${title}.title", url)
+                     @urlRow(s"project.links.$title.title", url)
                   }
                }
             }
-         </tbody>
-      </table>
-   </div>
+         </dl>
+      </section>
    }
 
    @if(!project.dates.isEmpty){
-   <div class="well row">
-
-      <h4>@Messages("project.dates.title")</h4>
-
-      <table class="table table-striped table-condensed">
-         <tbody>
+      <section class="surface detail-section">
+         <h3>@Messages("project.dates.title")</h3>
+         <dl class="detail-list">
             @for(date <- project.dates.created){
                @dateRow("project.dates.created.title", date)
             }
             @for(date <- project.dates.updated){
                @dateRow("project.dates.updated.title", date)
             }
-         </tbody>
-      </table>
-   </div>
+         </dl>
+      </section>
    }
 
    @if(!project.versions.isEmpty){
-   <div class="well row">
-
-      <h4>@Messages("project.versions.title")</h4>
-
-      <table class="table table-striped table-condensed">
-         <tbody>
+      <section class="surface detail-section">
+         <h3>@Messages("project.versions.title")</h3>
+         <dl class="detail-list">
             @for(version <- project.versions.live){
-               @versionsRow("project.versions.live.title", version)
+               @versionRow("project.versions.live.title", version)
             }
             @for(version <- project.versions.dev){
-               @versionsRow("project.versions.dev.title", version)
+               @versionRow("project.versions.dev.title", version)
             }
-         </tbody>
-      </table>
-   </div>
+         </dl>
+      </section>
    }
 
    @for(license <- project.license){
-   <div class="well row">
-
-      <h4>@Messages("project.license.title")</h4>
-
-      <table class="table table-striped table-condensed">
-         <tbody>
-            <tr>
-               <td class="col-sm-4 com-xs-4">&nbsp;</td>
-               <td><a href="@{license.link}">@{license.name}</a></td>
-            </tr>
-         </tbody>
-      </table>
-   </div>
+      <section class="surface detail-section">
+         <h3>@Messages("project.license.title")</h3>
+         <dl class="detail-list">
+            <div class="detail-row">
+               <dt>@Messages("project.license.type")</dt>
+               <dd><a href="@license.link">@license.name</a></dd>
+            </div>
+         </dl>
+      </section>
    }
 
    @if(!project.characteristics.isEmpty){
-   <div class="well row">
-
-      <h4>@Messages("project.characteristics.title")</h4>
-
-      <table class="table table-striped table-condensed">
-         <tbody>
-            @characteristicRow(project.characteristics.appeal,"appeal")
-            @characteristicRow(project.characteristics.complexity,"complexity")
-            @characteristicRow(project.characteristics.likelihood,"likelihood")
-            @characteristicRow(project.characteristics.developmentStatus,"status.development")
-            @characteristicRow(project.characteristics.releaseStatus,"status.release")
-            @characteristicRow(project.characteristics.deployStatus,"status.deploy")
-         </tbody>
-      </table>
-   </div>
+      <section class="surface detail-section">
+         <h3>@Messages("project.characteristics.title")</h3>
+         <dl class="detail-list">
+            @characteristicRow(project.characteristics.appeal, "appeal")
+            @characteristicRow(project.characteristics.complexity, "complexity")
+            @characteristicRow(project.characteristics.likelihood, "likelihood")
+            @characteristicRow(project.characteristics.developmentStatus, "status.development")
+            @characteristicRow(project.characteristics.releaseStatus, "status.release")
+            @characteristicRow(project.characteristics.deployStatus, "status.deploy")
+         </dl>
+      </section>
    }
 
-   @if(!project.tags.isEmpty){
-   <div class="well row">
-
-      <h4>Tags</h4>
-
-         <ul class="list-inline">
+   @if(project.tags.nonEmpty){
+      <section class="surface detail-section">
+         <h3>@Messages("project.tags.title")</h3>
+         <ul class="chip-list">
             @for(tag <- project.tags){
                <li>
                   @form(action=routes.ProjectController.findProjectsByTag()){
-                     <input type="hidden" name="tag" value="@{tag.name}" />
-                     <button class="well well-sm" type="submit">@{tag.name}</button>
+                     <input type="hidden" name="tag" value="@tag.name" />
+                     <button class="chip" type="submit">@tag.name</button>
                   }
                </li>
             }
          </ul>
-   </div>
+      </section>
    }
 
-   @if(!project.tech.isEmpty){
-   <div class="well row">
-
-      <h4>Technologies</h4>
-
-         <ul class="list-inline">
-            @for(tech <- project.tech){
+   @if(project.tech.nonEmpty){
+      <section class="surface detail-section">
+         <h3>@Messages("project.technologies.title")</h3>
+         <ul class="chip-list">
+            @for(technology <- project.tech){
                <li>
                   @form(action=routes.ProjectController.findProjectsByTech()){
-                     <input type="hidden" name="tech" value="@{tech.name}" />
-                     <button class="well well-sm" type="submit">@{tech.name}</button>
+                     <input type="hidden" name="tech" value="@technology.name" />
+                     <button class="chip" type="submit">@technology.name</button>
                   }
                </li>
             }
          </ul>
-   </div>
+      </section>
    }
 
-   @if(!project.news.isEmpty){
-      <div class="well row">
-
-         <h4>News</h4>
-
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for(news <- project.news){
-                  @newsRow(news)
-               }
-            </tbody>
-         </table>
-      </div>
+   @if(project.news.nonEmpty){
+      <section class="surface detail-section">
+         <h3>@Messages("project.news.title")</h3>
+         <dl class="detail-list timeline-list">
+            @for(news <- project.news){
+               @newsRow(news)
+            }
+         </dl>
+      </section>
    }
 
-   @if(!project.comments.isEmpty){
-      <div class="well row">
-
-         <h4>Comments</h4>
-
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for(comment <- project.comments){
-                  @commentRow(comment)
-               }
-            </tbody>
-         </table>
-      </div>
+   @if(project.comments.nonEmpty){
+      <section class="surface detail-section">
+         <h3>@Messages("project.comments.title")</h3>
+         <dl class="detail-list timeline-list">
+            @for(comment <- project.comments){
+               @commentRow(comment)
+            }
+         </dl>
+      </section>
    }
 
-   <div class="well row">
-
-      <h4>Contact</h4>
-
-      <ul class="list-group">
-         <li class="list-group-item col-xs-12 col-sm-3">
-            <a href="@routes.ProjectController.showHelp(project.link)" class="btn btn-success btn-block">@Messages("project.contact.help")</a>
-         </li>
-         <li class="list-group-item col-xs-12 col-sm-3">
-            <a href="@routes.ProjectController.showSponsor(project.link)" class="btn btn-info btn-block">@Messages("project.contact.sponsor")</a>
-         </li>
-         <li class="list-group-item col-xs-12 col-sm-3">
-            <a href="https://flurdy.com/contact/" class="btn btn-default btn-block">@Messages("project.contact.inquire")</a>
-         </li>
+   <section class="surface detail-section">
+      <h3>@Messages("project.contact.title")</h3>
+      <ul class="action-list">
+         <li><a href="@routes.ProjectController.showHelp(project.link)" class="btn btn-success">@Messages("project.contact.help")</a></li>
+         <li><a href="@routes.ProjectController.showSponsor(project.link)" class="btn btn-info">@Messages("project.contact.sponsor")</a></li>
+         <li><a href="https://flurdy.com/contact/" class="btn btn-default">@Messages("project.contact.inquire")</a></li>
       </ul>
-
-
-   </div>
+   </section>
 }
