@@ -3,297 +3,153 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 
 @import helper._
 
-@projectBox(title: String, projects: List[Project], evenClass: String = "") = {
-    @if(!projects.isEmpty){
-      <div class="project-list-box col-xs-12 col-sm-6 @evenClass">
-      <div class="well">
-         <h3>@title</h3>
-         <table class="table table-striped table-condensed">
-            <tbody>
-               @for( project <- projects){
-                  <tr>
-                     <td class="@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){wilted}"><a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
-                     @(project.urls.live,project.urls.project) match {
-                        case (Some(url), _) if project.characteristics.isLive => {
-                           <td><a href="@url.value">@url.curt(25)</a></td>
-                        }
-                        case (_, Some(url)) => {
-                           <td class="link-project"><a href="@url.value">@url.curt(25)</a></td>
-                        }
-                        case (Some(url), _) => {
-                           <td class="link-notlive" title="Not live at the moment">@url.curt(25)</td>
-                        }
-                        case (None, None) => {
-                           <td></td>
-                        }
-                     }
-                     <td class="projectlist-properties">
-                        @if(project.isLive){
-                           <i class="fas fa-heartbeat" title="project is live"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isAnIdea){
-                           <i class="far fa-lightbulb" title="project is only an idea"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.urls.hasProject){
-                           <i class="fas fa-code" title="project's code is available"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isApp){
-                           <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isDead){
-                           <i class="fas fa-cross" title="project is mothballed or abandoned"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isUnlikely || project.isUnappealing){
-                           <i class="far fa-frown" title="project is not likely to happen"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isStale && !project.isDead){
-                           <i class="fas fa-hourglass-half" title="project is stale"></i>
-                        }
-                     </td>
-                     <td class="projectlist-properties">
-                        @if(project.isCommercial){
-                           <i class="fas  fa-dollar-sign" title="project is commercial"></i>
-                        }
-                     </td>
-                  </tr>
-               }
-            </tbody>
-         </table>
-      </div>
-      </div>
+@projectUrl(project: Project) = {
+   @(project.urls.live, project.urls.project) match {
+      case (Some(url), _) if project.isLive => {
+         <a class="project-summary-url" href="@url.value">@url.naked</a>
+      }
+      case (_, Some(url)) => {
+         <a class="project-summary-url link-project" href="@url.value">@url.naked</a>
+      }
+      case (Some(url), _) => {
+         <span class="project-summary-url link-notlive">@url.naked</span>
+      }
+      case (None, None) => {}
    }
 }
 
-@characteristicsRow(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
-   <div class="panel-group" id="characteristics-accordion" role="tablist" aria-multiselectable="true">
-      <div>
-        <div id="collapse-@{characteristicType.replace(".","-")}" class="" role="tabpanel" aria-labelledby="heading-@{characteristicType.replace(".","-")}">
-          <div class="panel-body">
-             <ul class="list-inline characteristic-list">
-                <li class="characteristic-title">
-                  @Messages(s"project.characteristics.$characteristicType")
-                </li>
-                @characteristicsRowItem(characteristicType, characteristics)
-             </ul>
-          </div>
-        </div>
-      </div>
-  </div>
-}
-
-@characteristicsRowItem(characteristicType: String, characteristics: Set[_ <: ProjectCharacteristics.Characteristic]) = {
-   @for(characteristic <- characteristics){
-      <li>
-         <a href="@routes.ProjectController.findProjectsByCharacteristic(characteristicType,characteristic.name)" class="btn btn-default well well-sm" type="submit">
-            @Html(Messages(s"project.characteristics.$characteristicType.$characteristic"))
-         </a>
-      </li>
+@projectBox(title: String, projects: List[Project]) = {
+   @if(projects.nonEmpty){
+      <section class="project-list-box surface">
+         <h2>@title</h2>
+         <ul class="project-collection">
+            @for(project <- projects){
+               <li class="project-summary@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){ project-summary--muted}">
+                  <a class="project-summary-title" href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a>
+                  @projectUrl(project)
+                  @views.html.project.statuses(project, compact = true)
+               </li>
+            }
+         </ul>
+      </section>
    }
 }
 
-@propertyFilterButton(propertyName: String, icon: String, title: String) = {
+@propertyFilterButton(propertyName: String, icon: String, label: String) = {
    <li>
-      @form(action=routes.ProjectController.findAllProjects()){
+      @form(action=routes.ProjectController.findAllProjects(), Symbol("method") -> "GET"){
          <input type="hidden" name="filter.@propertyName" value="require" />
-         <button class="well well-sm" type="submit"><i class="@icon" title="@title"></i></button>
+         <button class="filter-shortcut" type="submit">
+            <i class="@icon" aria-hidden="true"></i>
+            <span>@label</span>
+         </button>
       }
    </li>
 }
 
+@characteristicsRow(characteristicType: String, values: Set[_ <: ProjectCharacteristics.Characteristic]) = {
+   @if(values.nonEmpty){
+      <div class="characteristic-group">
+         <h3>@Messages(s"project.characteristics.$characteristicType")</h3>
+         <ul class="chip-list">
+            @for(value <- values){
+               <li>
+                  <a class="chip" href="@routes.ProjectController.findProjectsByCharacteristic(characteristicType, value.name)">
+                     @Html(Messages(s"project.characteristics.$characteristicType.$value"))
+                  </a>
+               </li>
+            }
+         </ul>
+      </div>
+   }
+}
+
 @main(){ } {
+   <section class="surface introduction">
+      <p>
+         @Html(Messages("application.description"))
+         @Messages("application.description.2")
+      </p>
+   </section>
 
-   <div class="row">
-
-      <div class="well">
-         <p>
-            @Html(Messages("application.description"))
-            @Messages("application.description.2")
-         </p>
-      </div>
-
-   </div>
-
-   <div class="row">
-
+   <div class="dashboard-grid">
       @projectBox(Messages("projects.popular.title"), popularProjects)
-
-      @projectBox(Messages("projects.updated.title"), updatedProjects, "project-list-box-even")
-
-   </div>
-
-   <div class="row">
-
+      @projectBox(Messages("projects.updated.title"), updatedProjects)
       @projectBox(Messages("projects.new.title"), newProjects)
-
-      @projectBox(Messages("projects.random.title"), randomProjects, "project-list-box-even")
-
+      @projectBox(Messages("projects.random.title"), randomProjects)
    </div>
 
+   <section class="surface search-box" aria-labelledby="home-search-heading">
+      <h2 id="home-search-heading" class="sr-only">@Messages("projects.search.button")</h2>
+      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form", Symbol("method") -> "GET"){
+         <label class="sr-only" for="home-search">@Messages("projects.search.button")</label>
+         <input id="home-search" type="search" class="form-control" placeholder="search amongst @projectsFound projects"
+            maxlength="200" name="searchterm" />
+         <button class="btn btn-primary" type="submit">@Messages("projects.search.button")</button>
+         <a href="@routes.ProjectController.findAllProjects()" class="btn btn-default">@Messages("projects.search.all")</a>
+      }
+   </section>
 
-   <div class="well search-box row">
+   <details class="surface discovery-section" open>
+      <summary>@Messages("projects.index.filter")</summary>
+      <ul class="filter-shortcuts">
+         @propertyFilterButton("popular", "far fa-star", Messages("projects.properties.popular"))
+         @propertyFilterButton("dead", "fas fa-cross", Messages("projects.properties.dead"))
+         @propertyFilterButton("unlikely", "far fa-frown", Messages("projects.properties.unlikely"))
+         @propertyFilterButton("recent", "fas fa-plus-circle", Messages("projects.properties.recent"))
+         @propertyFilterButton("updated", "fas fa-seedling", Messages("projects.properties.updated"))
+         @propertyFilterButton("stale", "fas fa-hourglass-half", Messages("projects.properties.stale"))
+         @propertyFilterButton("live", "fas fa-heartbeat", Messages("projects.properties.live"))
+         @propertyFilterButton("idea", "far fa-lightbulb", Messages("projects.properties.idea"))
+         @propertyFilterButton("code", "fas fa-code", Messages("projects.properties.code"))
+         @propertyFilterButton("mobile", "fas fa-mobile-alt", Messages("projects.properties.mobile"))
+         @propertyFilterButton("commercial", "fas fa-dollar-sign", Messages("projects.properties.commercial"))
+      </ul>
+   </details>
 
-      <div class="row">
-         @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-            <div class="col-xs-12 col-sm-8 col-sm-offset-1">
-               <div class="form-group">
-                  <div class="input-group">
-                        <input type="text" class="form-control" placeholder="search amongst @projectsFound projects"
-                           maxlength="200" name="searchterm" />
-                        <span class="input-group-btn">
-                           <button class="btn btn-default" type="submit">@Messages("projects.search.button")</button>
-                        </span>
-                        <span class="input-group-btn">
-                           <a href="@routes.ProjectController.findAllProjects()" class="btn btn-default">@Messages("projects.search.all")</a>
-                        </span>
-                  </div>
-               </div>
-            </div>
-         }
-      </div>
-   </div>
-
-   @if(!tags.isEmpty){
-      <div class="well row" id="main-filter-accordion" role="tablist" aria-multiselectable="true">
-         <div class="panel-heading" role="tab" id="heading-filter">
-           <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#main-filter-accordion"
-                    href="#collapse-filter" aria-expanded="true"
-                    aria-controls="collapse-filter">
-                  @Messages("projects.index.filter")
-                  <span class="caret"></span>
-                </a>
-             </h4>
-          </div>
-          <div class="panel panel-default">
-            <div id="collapse-filter" class="panel-collapse collapse in"
-                  role="tabpanel" aria-labelledby="heading-filter">
-              <div class="panel-body">
-                 <ul class="list-inline">
-                  @propertyFilterButton("popular", "far fa-star", "only popular projects")
-                  @propertyFilterButton("dead", "fas fa-cross", "only mothballed or abandoned projects")
-                  @propertyFilterButton("unlikely", "far fa-frown", "only unlikely or unappealing projects")
-                  @propertyFilterButton("recent", "fas fa-plus-circle", "only recently added projects")
-                  @propertyFilterButton("updated", "fas fa-seedling", "only recently updated projects")
-                  @propertyFilterButton("stale", "fas fa-hourglass-half", "only stale or untouched for a long time projects")
-                  @propertyFilterButton("live", "fas fa-heartbeat", "only live projects")
-                  @propertyFilterButton("idea", "far fa-lightbulb", "only projects that are only an idea")
-                  @propertyFilterButton("code", "fas fa-code", "only projects that have their code available")
-                  @propertyFilterButton("mobile", "fas fa-mobile-alt", "only mobile app projects")
-                  @propertyFilterButton("commercial", "fas fa-dollar-sign", "only commercial projects")
-                </ul>
-             </div>
-           </div>
-        </div>
-     </div>
+   @if(tags.nonEmpty){
+      <details class="surface discovery-section" open>
+         <summary>@Messages("projects.tags")</summary>
+         <ul class="chip-list">
+            @for(tag <- tags){
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTag(), Symbol("method") -> "GET"){
+                     <input type="hidden" name="tag" value="@tag.name" />
+                     <button class="chip" type="submit">@tag.name</button>
+                  }
+               </li>
+            }
+         </ul>
+      </details>
    }
 
-   @if(!tags.isEmpty){
-      <div class="well row" id="main-tags-accordion" role="tablist" aria-multiselectable="true">
-         <div class="panel-heading" role="tab" id="heading-tags">
-           <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#main-tags-accordion"
-                    href="#collapse-tags" aria-expanded="true"
-                    aria-controls="collapse-tags">
-                  @Messages("projects.tags")
-                  <span class="caret"></span>
-                </a>
-             </h4>
-          </div>
-          <div class="panel panel-default">
-            <div id="collapse-tags" class="panel-collapse collapse in"
-                  role="tabpanel" aria-labelledby="heading-tags">
-              <div class="panel-body">
-                 <ul class="list-inline">
-                  @for(tag <- tags){
-                     <li>
-                        @form(action=routes.ProjectController.findProjectsByTag()){
-                           <input type="hidden" name="tag" value="@{tag.name}" />
-                           <button class="well well-sm" type="submit">@{tag.name}</button>
-                        }
-                     </li>
+   @if(technologies.nonEmpty){
+      <details class="surface discovery-section" open>
+         <summary>@Messages("projects.technologies")</summary>
+         <ul class="chip-list">
+            @for(technology <- technologies){
+               <li>
+                  @form(action=routes.ProjectController.findProjectsByTech(), Symbol("method") -> "GET"){
+                     <input type="hidden" name="tech" value="@technology.name" />
+                     <button class="chip" type="submit">@technology.name</button>
                   }
-                </ul>
-             </div>
-           </div>
-        </div>
-     </div>
-   }
-
-
-   @if(!technologies.isEmpty){
-      <div class="well row" id="main-tech-accordion" role="tablist" aria-multiselectable="true">
-         <div class="panel-heading" role="tab" id="heading-tech">
-           <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#main-tech-accordion"
-                    href="#collapse-tech" aria-expanded="true"
-                    aria-controls="collapse-tech">
-                  @Messages("projects.technologies")
-                  <span class="caret"></span>
-                </a>
-             </h4>
-          </div>
-          <div class="panel panel-default">
-            <div id="collapse-tech" class="panel-collapse collapse in"
-                  role="tabpanel" aria-labelledby="heading-tech">
-              <div class="panel-body">
-                 <ul class="list-inline">
-                  @for(tech <- technologies){
-                     <li>
-                        @form(action=routes.ProjectController.findProjectsByTech()){
-                           <input type="hidden" name="tech" value="@{tech.name}" />
-                           <button class="well well-sm" type="submit">@{tech.name}</button>
-                        }
-                     </li>
-                  }
-                </ul>
-             </div>
-           </div>
-        </div>
-     </div>
+               </li>
+            }
+         </ul>
+      </details>
    }
 
    @if(!characteristics.isEmpty){
-      <div class="well row" id="main-characteristics-accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel-heading" role="tab" id="heading-characteristic">
-           <h4 class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#main-characteristics-accordion"
-                  href="#collapse-characteristic" aria-expanded="true"
-                  aria-controls="collapse-characteristic">
-                 @Messages("projects.characteristics")
-                 <span class="caret"></span>
-              </a>
-           </h4>
-        </div>
-        <div class="panel panel-default">
-           <div id="collapse-characteristic" class="panel-collapse collapse in"
-                role="tabpanel" aria-labelledby="heading-characteristic">
-
-              @characteristicsRow("appeal", characteristics.appeals)
-
-              @characteristicsRow("complexity", characteristics.complexities)
-
-              @characteristicsRow("likelihood", characteristics.likelihoods)
-
-              @characteristicsRow("status.development", characteristics.developmentStatuses)
-
-              @characteristicsRow("status.release", characteristics.releaseStatuses)
-
-              @characteristicsRow("status.deploy", characteristics.deployStatuses)
-
-            </div>
-        </div>
-     </div>
+      <details class="surface discovery-section" open>
+         <summary>@Messages("projects.characteristics")</summary>
+         <div class="characteristic-groups">
+            @characteristicsRow("appeal", characteristics.appeals)
+            @characteristicsRow("complexity", characteristics.complexities)
+            @characteristicsRow("likelihood", characteristics.likelihoods)
+            @characteristicsRow("status.development", characteristics.developmentStatuses)
+            @characteristicsRow("status.release", characteristics.releaseStatuses)
+            @characteristicsRow("status.deploy", characteristics.deployStatuses)
+         </div>
+      </details>
    }
 }

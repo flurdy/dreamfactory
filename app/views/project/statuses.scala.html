@@ -1,0 +1,46 @@
+@(project: Project, compact: Boolean = false)(implicit messages: Messages)
+
+@status(icon: String, label: String) = {
+   <li class="project-status">
+      <i class="@icon" aria-hidden="true"></i>
+      <span class="project-status-label">@label</span>
+   </li>
+}
+
+@if(project.isPopular || project.isDead || project.isUnlikely || project.isUnappealing || project.isRecentlyAdded || project.isRecentlyUpdatedNotAdded || project.isStaleNotDead || project.isLive || project.isAnIdea || project.hasCodeAvailable || project.isApp || project.isCommercial){
+   <ul class="project-statuses@if(compact){ project-statuses--compact}" aria-label="@Messages("project.status.label")">
+      @if(project.isPopular){
+         @status("far fa-star", Messages("project.status.popular"))
+      }
+      @if(project.isDead){
+         @status("fas fa-cross", Messages("project.status.dead"))
+      }
+      @if(project.isUnlikely || project.isUnappealing){
+         @status("far fa-frown", Messages("project.status.unlikely"))
+      }
+      @if(project.isRecentlyAdded){
+         @status("fas fa-plus-circle", Messages("project.status.recent"))
+      }
+      @if(project.isRecentlyUpdatedNotAdded){
+         @status("fas fa-seedling", Messages("project.status.updated"))
+      }
+      @if(project.isStaleNotDead){
+         @status("fas fa-hourglass-half", Messages("project.status.stale"))
+      }
+      @if(project.isLive){
+         @status("fas fa-heartbeat", Messages("project.status.live"))
+      }
+      @if(project.isAnIdea){
+         @status("far fa-lightbulb", Messages("project.status.idea"))
+      }
+      @if(project.hasCodeAvailable){
+         @status("fas fa-code", Messages("project.status.code"))
+      }
+      @if(project.isApp){
+         @status("fas fa-mobile-alt", Messages("project.status.mobile"))
+      }
+      @if(project.isCommercial){
+         @status("fas fa-dollar-sign", Messages("project.status.commercial"))
+      }
+   </ul>
+}

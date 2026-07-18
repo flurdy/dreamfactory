@@ -5,286 +5,215 @@
 
 @import helper._
 
+@projectUrl(project: Project) = {
+   @(project.urls.live, project.urls.project) match {
+      case (Some(url), _) if project.isLive => {
+         <a class="project-summary-url" href="@url.value">@url.naked</a>
+      }
+      case (_, Some(url)) if project.characteristics.isNotAbandoned => {
+         <a class="project-summary-url link-project" href="@url.value">@url.naked</a>
+      }
+      case (Some(url), _) => {
+         <a class="project-summary-url link-notlive" href="@url.value">@url.naked</a>
+      }
+      case (_, Some(url)) => {
+         <a class="project-summary-url link-notlive" href="@url.value">@url.naked</a>
+      }
+      case (None, None) => {}
+   }
+}
 
 @propertiesFilterButtons() = {
-   <div class="row">
-      <div class="form-group">
-         <div class="input-group col-xs-12 col-sm-2 pull-right">
-            <button class="btn btn-default col-xs-12 col-sm-8" type="button" onclick="resetFilter(this.form)">@Messages("projects.properties.filter.reset")</button>
-            <!-- <button class="btn btn-default col-xs-12 col-sm-5 col-sm-offset-1" type="submit">@Messages("projects.properties.filter.filter")</button> -->
-         </div>
-      </div>
+   <div class="filter-actions">
+      <button class="btn btn-primary" type="submit">@Messages("projects.properties.filter.filter")</button>
+      <button class="btn btn-default" type="button" onclick="resetFilter(this.form)">@Messages("projects.properties.filter.reset")</button>
    </div>
 }
 
-@filterInputsForTags() = {
+@filterInputsForContext() = {
    @for(filterValue <- filterProperties.flatMap(_.popular)){
-      <input type="hidden" name="filter.popular" value="@filterValue"/>
+      <input type="hidden" name="filter.popular" value="@filterValue" />
+   }
+   @for(filterValue <- filterProperties.flatMap(_.dead)){
+      <input type="hidden" name="filter.dead" value="@filterValue" />
+   }
+   @for(filterValue <- filterProperties.flatMap(_.unlikely)){
+      <input type="hidden" name="filter.unlikely" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.recent)){
-      <input type="hidden" name="filter.recent" value="@filterValue"/>
+      <input type="hidden" name="filter.recent" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.updated)){
-      <input type="hidden" name="filter.updated" value="@filterValue"/>
+      <input type="hidden" name="filter.updated" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.stale)){
-      <input type="hidden" name="filter.stale" value="@filterValue"/>
+      <input type="hidden" name="filter.stale" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.live)){
-      <input type="hidden" name="filter.live" value="@filterValue"/>
+      <input type="hidden" name="filter.live" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.idea)){
-      <input type="hidden" name="filter.idea" value="@filterValue"/>
+      <input type="hidden" name="filter.idea" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.code)){
-      <input type="hidden" name="filter.code" value="@filterValue"/>
+      <input type="hidden" name="filter.code" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.mobile)){
-      <input type="hidden" name="filter.mobile" value="@filterValue"/>
+      <input type="hidden" name="filter.mobile" value="@filterValue" />
    }
    @for(filterValue <- filterProperties.flatMap(_.commercial)){
-      <input type="hidden" name="filter.commercial" value="@filterValue"/>
+      <input type="hidden" name="filter.commercial" value="@filterValue" />
    }
+}
+
+@filterFields() = {
+   @propertiesFilter(filterProperties)
+   @propertiesFilterButtons()
 }
 
 @main(){
-
    <li class="active">@Messages("breadcrumb.projectlist")</li>
-
 } {
-
-
-   <div class="well row">
-         <p>
-
-           @(tags ,searchTerm, possibleCharacteristic) match {
-             case _ if !tags.isEmpty => {
-               @Messages("project.list.tag")
-               @{tags.map(_.name).mkString(", ")}
-             }
-             case (_, Some(term), _) => {
-               @Messages("project.list.search") [ @term ]
-             }
-             case (_, _, Some(characteristic)) => {
-                 @Messages("project.list.characteristic")
-                 @Messages("project.characteristics." + characteristic.parentName) -
-                 @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))
-             }
-             case _ => {
-               @Messages("project.list.all")
-             }
-           }
-
-         </p>
-
-         @if(!projects.isEmpty){
-           <table class="table table-striped table-condensed projectlist">
-              <tbody>
-                 @for( project <- projects){
-                    <tr>
-
-                      @if(project.isDead){
-                        <td class="mothballed">
-                      } else if(project.isStale){
-                         <td class="wilted">
-                      } else if(project.isLive || project.isRecentlyUpdated || project.isRecentlyAdded || project.isPopular ){
-                        <td class="alive">
-                      } else {
-                        <td>
-                      }
-                        <a href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a></td>
-                        @(project.urls.live,project.urls.project) match {
-                           case (Some(url), _) if project.isLive => {
-                              <td><a href="@url.value">@url.curt(25)</a></td>
-                           }
-                           case (_, Some(url)) if project.characteristics.isNotAbandoned => {
-                            <td class="link-project"><a href="@url.value">@url.curt(25)</a></td>
-                           }
-                           case (Some(url), _) => {
-                              <td class="link-notlive" title="Not live at the moment"><a href="@url.value">@url.curt(25)</a></td>
-                           }
-                           case (_, Some(url)) => {
-                              <td class="link-notlive" title="Development abandoned"><a href="@url.value">@url.curt(25)</a></td>
-                           }
-                           case (None, None) => {
-                             <td></td>
-                           }
-                        }
-                        <td class="projectlist-properties">
-                           @if(project.isPopular){
-                              <i class="far fa-star" title="project is popular"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isDead){
-                              <i class="fas fa-cross" title="project is mothballed or abandoned"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isUnlikely || project.isUnappealing){
-                              <i class="far fa-frown" title="project is not likely to happen"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isRecentlyAdded){
-                              <i class="fas fa-plus-circle" title="project has been recently added"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isRecentlyUpdated && !project.isRecentlyAdded){
-                              <i class="fas fa-seedling" title="project is recently updated"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isStaleNotDead){
-                              <i class="fas fa-hourglass-half" title="project is stale or untouched for a long time"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isLive){
-                              <i class="fas fa-heartbeat" title="project is live"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isAnIdea){
-                              <i class="far fa-lightbulb" title="project is only an idea"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.urls.hasProject){
-                              <i class="fas fa-code" title="project's code is available"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isApp){
-                              <i class="fas fa-mobile-alt" title="project is a mobile app"></i>
-                           }
-                        </td>
-                        <td class="projectlist-properties">
-                           @if(project.isCommercial){
-                              <i class="fas  fa-dollar-sign" title="project is commercial"></i>
-                           }
-                        </td>
-                    </tr>
-                 }
-              </tbody>
-           </table>
-       } else {
-          <p>
-            @Messages("projects.none-found")
-          </p>
-       }
-    </div>
-
-   <div class="well row" id="filter-accordion" role="tablist" aria-multiselectable="true">
-
-      <div class="panel-heading" role="tab" id="heading-filter">
-         <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#main-filter-accordion"
-               href="#collapse-filter" aria-expanded="true"
-               aria-controls="collapse-filter">
-               @Messages("projects.properties.filter")
-               <span class="caret"></span>
-            </a>
-         </h4>
-      </div>
-      <div class="panel panel-default">
-        <div id="collapse-filter" class="panel-collapse collapse in"
-              role="tabpanel" aria-labelledby="heading-filter">
-          <div class="panel-body">
-
-      @if(tags.size == 1){
-         @form(action=routes.ProjectController.findProjectsByTag(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-            <input type="hidden" name="tag" value="@{tags.take(1).map(_.name).mkString(",")}"/>
-            @propertiesFilter(filterProperties)
-            @propertiesFilterButtons()
-         }
-      } else if(tags.size > 1){
-         @form(action=routes.ProjectController.findProjectsByTags(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-            <input type="hidden" name="tag" value="@{tags.take(1).map(_.name).mkString(",")}"/>
-            <input type="hidden" name="tags" value="@{tags.drop(1).map(_.name).mkString(",")}"/>
-            @propertiesFilter(filterProperties)
-            @propertiesFilterButtons()
-         }
-      } else if(!technologies.isEmpty){
-         @form(action=routes.ProjectController.findProjectsByTech(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-            <input type="hidden" name="tech" value="@{technologies.take(1).map(_.name).mkString(", ")}"/>
-             @propertiesFilter(filterProperties)
-             @propertiesFilterButtons()
-         }
-      } else if(!possibleCharacteristic.isEmpty){
-          @for(characteristic <- possibleCharacteristic){
-             @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName,characteristic.name), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-                @propertiesFilter(filterProperties)
-                @propertiesFilterButtons()
-             }
-          }
-      } else if(!searchTerm.isEmpty){
-         @for(searchTermValue <- searchTerm){
-            @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-               <input type="hidden" name="searchterm" value="@searchTermValue"/>
-               @propertiesFilter(filterProperties)
-               @propertiesFilterButtons()
-            }
-         }
-      } else {
-       @form(action=routes.ProjectController.findAllProjects(), Symbol("class") -> "form-line", Symbol("method") -> "GET"){
-          @propertiesFilter(filterProperties)
-          @propertiesFilterButtons()
-       }
-      }
-         </div>
-       </div>
-     </div>
-   </div>
-
-   @if(!subTags.isEmpty){
-      <div class="well row">
-
-         <h4>@Messages("projects.tags")</h4>
-
-         <ul class="list-inline">
-            @for(tag <- subTags){
-               @if(tags.isEmpty){
-                  <li>
-                     @form(action=routes.ProjectController.findProjectsByTag()){
-                        <input type="hidden" name="tag" value="@{tag.name}" />
-                        @filterInputsForTags()
-                        <button class="well well-sm" type="submit">@{tag.name}</button>
-                     }
-                  </li>
-               } else {
-                  <li>
-                     @form(action=routes.ProjectController.findProjectsByTags()){
-                        <input type="hidden" name="tags" value="@{tags.map(_.name).mkString(",")}" />
-                        <input type="hidden" name="tag" value="@{tag.name}" />
-                        @filterInputsForTags()
-                        <button class="well well-sm" type="submit">@{tag.name}</button>
-                     }
-                  </li>
+   <section class="surface results-section" aria-labelledby="results-heading">
+      <div class="results-heading">
+         <h2 id="results-heading">
+            @(tags, searchTerm, possibleCharacteristic) match {
+               case _ if tags.nonEmpty => {
+                  @Messages("project.list.tag") @tags.map(_.name).mkString(", ")
+               }
+               case (_, Some(term), _) => {
+                  @Messages("project.list.search") “@term”
+               }
+               case (_, _, Some(characteristic)) => {
+                  @Messages("project.list.characteristic")
+                  @Messages("project.characteristics." + characteristic.parentName) —
+                  @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))
+               }
+               case _ => {
+                  @Messages("project.list.all")
                }
             }
-         </ul>
+         </h2>
+         <span class="results-count">@projects.size @Messages(if(projects.size == 1) "projects.results.one" else "projects.results.count")</span>
       </div>
+
+      @if(projects.nonEmpty){
+         <ul class="project-results">
+            @for(project <- projects){
+               <li class="project-summary project-result@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){ project-summary--muted}">
+                  <a class="project-summary-title" href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a>
+                  @projectUrl(project)
+                  @views.html.project.statuses(project)
+               </li>
+            }
+         </ul>
+      } else {
+         <p class="empty-results">@Messages("projects.none-found")</p>
+      }
+   </section>
+
+   @if(searchTerm.isEmpty){
+      <details id="filter-section" class="surface filter-section" open>
+         <summary>@Messages("projects.properties.filter")</summary>
+         <div class="filter-section-body">
+            @if(tags.size == 1){
+               @form(action=routes.ProjectController.findProjectsByTag(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  <input type="hidden" name="tag" value="@tags.head.name" />
+                  @filterFields()
+               }
+            } else if(tags.size > 1){
+               @form(action=routes.ProjectController.findProjectsByTags(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  <input type="hidden" name="tag" value="@tags.head.name" />
+                  <input type="hidden" name="tags" value="@tags.tail.map(_.name).mkString(",")" />
+                  @filterFields()
+               }
+            } else if(technologies.size == 1){
+               @form(action=routes.ProjectController.findProjectsByTech(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  <input type="hidden" name="tech" value="@technologies.head.name" />
+                  @filterFields()
+               }
+            } else if(technologies.size > 1){
+               @form(action=routes.ProjectController.findProjectsByTechnologies(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  <input type="hidden" name="tech" value="@technologies.head.name" />
+                  <input type="hidden" name="technologies" value="@technologies.tail.map(_.name).mkString(",")" />
+                  @filterFields()
+               }
+            } else if(possibleCharacteristic.nonEmpty){
+               @for(characteristic <- possibleCharacteristic){
+                  @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName, characteristic.name), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                     @filterFields()
+                  }
+               }
+            } else {
+               @form(action=routes.ProjectController.findAllProjects(), Symbol("class") -> "properties-filter-form", Symbol("method") -> "GET"){
+                  @filterFields()
+               }
+            }
+         </div>
+      </details>
    }
 
-   <div class="well search-box row">
+   @if(subTags.nonEmpty){
+      <section class="surface related-section">
+         <h2>@Messages("projects.tags")</h2>
+         <ul class="chip-list">
+            @for(tag <- subTags){
+               <li>
+                  @if(tags.isEmpty){
+                     @form(action=routes.ProjectController.findProjectsByTag(), Symbol("method") -> "GET"){
+                        <input type="hidden" name="tag" value="@tag.name" />
+                        @filterInputsForContext()
+                        <button class="chip" type="submit">@tag.name</button>
+                     }
+                  } else {
+                     @form(action=routes.ProjectController.findProjectsByTags(), Symbol("method") -> "GET"){
+                        <input type="hidden" name="tags" value="@tags.map(_.name).mkString(",")" />
+                        <input type="hidden" name="tag" value="@tag.name" />
+                        @filterInputsForContext()
+                        <button class="chip" type="submit">@tag.name</button>
+                     }
+                  }
+               </li>
+            }
+         </ul>
+      </section>
+   }
 
-      <div class="row">
-         @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("method") -> "GET"){
-            <div class="col-xs-8 col-sm-8 ">
-               <div class="input-group">
-                     <input type="text" class="form-control" placeholder="search for projects"
-                           maxlength="200" name="searchterm" @for(term <- searchTerm){ value="@term" } />
-                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">search</button>
-                     </span>
-               </div>
-            </div>
-         }
-      </div>
-   </div>
+   @if(subTech.nonEmpty){
+      <section class="surface related-section">
+         <h2>@Messages("projects.technologies")</h2>
+         <ul class="chip-list">
+            @for(technology <- subTech){
+               <li>
+                  @if(technologies.isEmpty){
+                     @form(action=routes.ProjectController.findProjectsByTech(), Symbol("method") -> "GET"){
+                        <input type="hidden" name="tech" value="@technology.name" />
+                        @filterInputsForContext()
+                        <button class="chip" type="submit">@technology.name</button>
+                     }
+                  } else {
+                     @form(action=routes.ProjectController.findProjectsByTechnologies(), Symbol("method") -> "GET"){
+                        <input type="hidden" name="technologies" value="@technologies.map(_.name).mkString(",")" />
+                        <input type="hidden" name="tech" value="@technology.name" />
+                        @filterInputsForContext()
+                        <button class="chip" type="submit">@technology.name</button>
+                     }
+                  }
+               </li>
+            }
+         </ul>
+      </section>
+   }
+
+   <section class="surface search-box" aria-labelledby="list-search-heading">
+      <h2 id="list-search-heading" class="sr-only">@Messages("projects.search.button")</h2>
+      @form(action=routes.ProjectController.findProjectsBySearch(), Symbol("class") -> "search-form", Symbol("method") -> "GET"){
+         <label class="sr-only" for="list-search">@Messages("projects.search.button")</label>
+         <input id="list-search" type="search" class="form-control" placeholder="search for projects"
+            maxlength="200" name="searchterm" @for(term <- searchTerm){value="@term"} />
+         <button class="btn btn-primary" type="submit">@Messages("projects.search.button")</button>
+      }
+   </section>
 
    <script src="@routes.Assets.versioned("javascript/filter.js")"></script>
-
 }
