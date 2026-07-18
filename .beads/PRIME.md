@@ -10,9 +10,10 @@
 ```
 [ ] 1. git status              (check what changed)
 [ ] 2. git add <files>         (stage code changes)
-[ ] 3. bd sync                 (commit beads changes)
+[ ] 3. bd dolt commit -m "..." (commit beads changes locally)
 [ ] 4. git commit -m "..."     (commit code)
-[ ] 5. bd sync                 (commit any new beads changes)
+[ ] 5. bd dolt status           (check for pending beads changes)
+[ ] 6. bd dolt push             (only with explicit approval)
 ```
 
 **NEVER skip this.** Work is not done until committed.
@@ -22,7 +23,7 @@
 - Track strategic work in beads (multi-session, dependencies, discovered work)
 - Use `bd create` for issues, TodoWrite for simple single-session execution
 - When in doubt, prefer bd—persistence you don't need beats lost context
-- Git workflow: hooks auto-sync, run `bd sync` at session end
+- Git workflow: commit Beads data with `bd dolt commit`; pull/push separately when collaborating
 - Session management: check `bd ready` for available work
 
 ## Essential Commands
@@ -53,8 +54,10 @@
 
 ### Sync & Collaboration
 
-- `bd sync` - Sync with git remote (run at session end)
-- `bd sync --status` - Check sync status without syncing
+- `bd dolt commit -m "..."` - Commit pending Beads changes locally
+- `bd dolt status` - Check the local Dolt server and working state
+- `bd dolt pull` - Pull issue updates from the configured Dolt remote
+- `bd dolt push` - Push issue commits to the configured Dolt remote (requires explicit approval)
 
 ### Project Health
 
@@ -75,7 +78,7 @@ bd update <id> --status=in_progress  # Claim it
 
 ```bash
 bd close <id1> <id2> ...    # Close all completed issues at once
-bd sync                     # Sync beads changes
+bd dolt commit -m "Close completed issues"
 ```
 
 **Creating dependent work:**
