@@ -1,151 +1,321 @@
-/* ### Colours ### */
-body { color: black; background-color: rgb(170, 170, 170); }
-#nautical-vaka,
-.nautical-wrapper .nautical-compartment { background-color: white; }
-#nautical-bow,#nautical-bow a { color: #000000; }
-
-/* ### Borders ### */
-
-#nautical-hull, #nautical-ama .nautical-compartment {
-   border: 4px solid #333333;
-   border-top: 4px solid #666666;
-   border-left: 4px solid #666666;
-   box-shadow: 10px 10px 15px -5px #333333;
-   border-radius: 8px;
+/* Dream Factory content components. Prefer these scoped rules to new Bootstrap 3 coupling. */
+#nautical-cargo {
+   min-width: 0;
 }
 
-/* ### Dimensions ### */
-.nautical-compartment { padding: 0.2em 0.5em; }
-#nautical-regatta     { padding: 1em 1em 1em 1em; }
-#nautical-ama         { padding: 1em 0 0 2em; min-height: 25em; }
-#nautical-ballast     { padding: 0.5em 2em 0.2em 2em; min-width: 50em; max-width: 80em; min-height: 25em; }
-#nautical-deck        { width: 11em; padding-top: 0.5em; padding-right: 1.3em; }
+#nautical-cargo h1,
+#nautical-cargo h2,
+#nautical-cargo h3,
+#nautical-cargo h4 {
+   color: var(--df-ink);
+   font-weight: 500;
+   line-height: 1.2;
+}
 
-/* ### Text ### */
-#nautical-bow { text-align: center; }
+#nautical-cargo .well {
+   margin-bottom: var(--df-space-4);
+   padding: clamp(1rem, 2vw, 1.5rem);
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
+   border-radius: var(--df-radius);
+   box-shadow: none;
+}
 
-/* ### All the things ### */
-#nautical-bow header h2 { display: none; }
-#nautical-bow header.unbranded img { height: 5em; margin: 2em 0 0 0;  }
-#nautical-bow header.branded img { height: 3em; margin: 2em 14em 0 0;  }
+#nautical-cargo .well.row,
+#nautical-cargo .row {
+   margin-right: 0;
+   margin-left: 0;
+}
 
-#nautical-lookout {  }
-#nautical-lookout .breadcrumb { margin-top: 1em; margin-bottom: 0; }
+#nautical-cargo .table {
+   margin-bottom: 0;
+}
+
+#nautical-cargo .table > tbody > tr > td,
+#nautical-cargo .table > tbody > tr > th {
+   border-color: #dddddd;
+}
+
+#nautical-cargo .btn,
+#nautical-cargo button,
+#nautical-bridge a {
+   min-height: 2.75rem;
+}
+
+#nautical-cargo .btn:focus,
+#nautical-cargo button:focus,
+#nautical-bridge a:focus {
+   outline: 3px solid var(--df-focus);
+   outline-offset: 2px;
+}
+
+#nautical-lookout .breadcrumb {
+   margin: 0;
+   padding: 0.75rem var(--df-space-3);
+   background: var(--df-surface);
+   border-radius: var(--df-radius);
+}
+
 #nautical-lookout .breadcrumb > li + li.pull-right:before {
-    padding: 0 5px;
-    color: #ccc;
-    content: "|\00a0";
+   padding: 0 5px;
+   color: #cccccc;
+   content: "|\00a0";
 }
-#nautical-lookout .breadcrumb li.pull-right     { padding: 0 3em;  }
-#nautical-lookout .breadcrumb li.pull-right img { height: 1.3em; }
 
-#nautical-cargo .project-list-box      { padding-left: 0; }
-#nautical-cargo .project-list-box-even { float: right; padding-right: 0; }
-#nautical-cargo .project-list-box td   { white-space: nowrap; }
-#nautical-cargo td.projectlist-properties { padding: 5px 1px; margin: 0;}
-#nautical-cargo td.projectlist-properties i { padding: 0; margin: 0; color: #999; }
-#nautical-cargo .project-properties i { padding: 0 5px; color: #999; }
+#nautical-lookout .breadcrumb li.pull-right {
+   padding: 0 3em;
+}
 
-#nautical-cargo ul.characteristic-list { margin-bottom: 0.5em;  }
-#nautical-cargo .characteristic-list li.characteristic-title { font-weight: bold; width: 8em; vertical-align: middle; }
-#nautical-cargo .characteristic-list li { margin-bottom: 1em; }
-#nautical-cargo .characteristic-list .well { margin-bottom: 0; }
+#nautical-lookout .breadcrumb li.pull-right img {
+   height: 1.3em;
+}
 
-#nautical-cargo #main-tags-accordion .panel-body { padding-bottom: 0; }
-#nautical-cargo #characteristics-accordion .panel-body { padding-bottom: 0; }
-#nautical-cargo #collapse-characteristic { margin-top: 15px; }
-#nautical-cargo #characteristics-accordion { margin-bottom: 0; }
-#nautical-cargo #characteristics-accordion .panel-body { padding: 5px 15px 0 15px; }
+#nautical-cargo > .row {
+   display: flex;
+   flex-wrap: wrap;
+}
 
-#nautical-cargo #main-filter-accordion li button i,
-#nautical-cargo #main-filter-accordion li button i { color: #999; }
-#nautical-cargo #main-filter-accordion ul { margin-bottom: 0; }
-#nautical-cargo #main-filter-accordion li button { margin: 5px 0; }
-#nautical-cargo #main-filter-accordion .panel-body { padding: 5px 15px; }
+#nautical-cargo > .row > .project-list-box {
+   float: none;
+}
 
-#nautical-cargo .wilted { font-style: italic; }
-#nautical-cargo .mothballed { font-style: italic; }
-#nautical-cargo .alive { font-weight: bold; }
-/* #nautical-cargo .mothballed { text-decoration: line-through; } */
-/* #nautical-cargo .wilted a, 
-#nautical-cargo .wilted a:visited { color: #666666; }
-#nautical-cargo .mothballed a, 
-#nautical-cargo .mothballed a:visited { color: #666666; } */
-#nautical-cargo .link-project a { font-style: italic; }
-#nautical-cargo .link-notlive { font-style: italic; color: #999; }
+#nautical-cargo .project-list-box {
+   padding-right: 0;
+   padding-left: 0;
+}
+
+#nautical-cargo .project-list-box td {
+   white-space: normal;
+   overflow-wrap: anywhere;
+}
+
+#nautical-cargo td.projectlist-properties {
+   padding: 5px 1px;
+   margin: 0;
+}
+
+#nautical-cargo td.projectlist-properties i,
+#nautical-cargo .project-properties i {
+   padding: 0 5px;
+   margin: 0;
+   color: #888888;
+}
+
+#nautical-cargo ul.characteristic-list {
+   margin-bottom: 0.5em;
+}
+
+#nautical-cargo .characteristic-list li.characteristic-title {
+   width: 8em;
+   font-weight: bold;
+   vertical-align: middle;
+}
+
+#nautical-cargo .characteristic-list li {
+   margin-bottom: 1em;
+}
+
+#nautical-cargo .characteristic-list .well {
+   margin-bottom: 0;
+}
+
+#nautical-cargo #main-tags-accordion .panel-body,
+#nautical-cargo #characteristics-accordion .panel-body {
+   padding-bottom: 0;
+}
+
+#nautical-cargo #collapse-characteristic {
+   margin-top: 15px;
+}
+
+#nautical-cargo #characteristics-accordion {
+   margin-bottom: 0;
+}
+
+#nautical-cargo #characteristics-accordion .panel-body {
+   padding: 5px 15px 0;
+}
+
+#nautical-cargo #main-filter-accordion li button i {
+   color: #888888;
+}
+
+#nautical-cargo #main-filter-accordion ul {
+   margin-bottom: 0;
+}
+
+#nautical-cargo #main-filter-accordion li button {
+   margin: 5px 0;
+}
+
+#nautical-cargo #main-filter-accordion .panel-body {
+   padding: 5px 15px;
+}
+
+#nautical-cargo .wilted,
+#nautical-cargo .mothballed,
+#nautical-cargo .link-project {
+   font-style: italic;
+}
+
+#nautical-cargo .alive {
+   font-weight: bold;
+}
+
+#nautical-cargo .link-notlive {
+   color: #777777;
+   font-style: italic;
+}
+
 #nautical-cargo .link-notlive a,
-#nautical-cargo .link-notlive a:visited { color: #999; }
+#nautical-cargo .link-notlive a:visited {
+   color: #777777;
+}
 
-#nautical-cargo .properties-filter th { font-weight: normal; }
+#nautical-cargo .properties-filter th {
+   font-weight: normal;
+}
+
 #nautical-cargo .properties-filter .properties-filter-include td i,
-#nautical-cargo .properties-filter .properties-filter-exclude td i { color: #bbb; }
-#nautical-cargo .properties-filter .properties-filter-include .included i { color: #337ab7; }
-#nautical-cargo .properties-filter .properties-filter-exclude .excluded i { color: #932a27; }
+#nautical-cargo .properties-filter .properties-filter-exclude td i {
+   color: #aaaaaa;
+}
 
-#nautical-cargo .properties-filter input[type="radio"] { display: none; }
+#nautical-cargo .properties-filter .properties-filter-include .included i,
+#nautical-cargo .properties-filter .properties-filter-include input[type="radio"]:checked + label i {
+   color: #337ab7;
+}
+
+#nautical-cargo .properties-filter .properties-filter-exclude .excluded i,
+#nautical-cargo .properties-filter .properties-filter-exclude input[type="radio"]:checked + label i {
+   color: #932a27;
+}
+
+#nautical-cargo .properties-filter input[type="radio"] {
+   display: none;
+}
+
 #nautical-cargo .properties-filter label:hover,
-#nautical-cargo .properties-filter label:active { cursor: pointer; }
-#nautical-cargo .properties-filter .properties-filter-include input[type="radio"]:checked + label i { color: #337ab7; }
-#nautical-cargo .properties-filter .properties-filter-exclude input[type="radio"]:checked + label i { color: #932a27; }
+#nautical-cargo .properties-filter label:active {
+   cursor: pointer;
+}
+
+#nautical-deck .newsbar {
+   margin: 0;
+   border: 1px solid var(--df-border);
+   border-radius: var(--df-radius);
+   background: var(--df-surface);
+}
+
+#nautical-deck .newsbar summary {
+   padding: var(--df-space-2) var(--df-space-3);
+   cursor: pointer;
+   font-weight: 600;
+}
+
+#nautical-deck .newsbar-list {
+   margin: 0;
+   padding: var(--df-space-1);
+}
 
 #nautical-deck .newsbar-list li {
+   min-width: 0;
+   margin: 0.4rem 0;
+   padding: 0.3rem 0.45rem;
    list-style: none;
-   border: 1px solid silver;
+   border: 1px solid #c4c4c4;
+   font-size: 0.8125rem;
+   line-height: 1.35;
+   overflow-wrap: anywhere;
    text-align: right;
-   margin: 0.5em 0.1em;
-   padding: 0.1em 0.3em;
-   font-size: 9pt;
-}
-#nautical-deck .newsbar-list li .newsbar-date        { float: left; }
-#nautical-deck .newsbar-list li .newsbar-project     { float: right; padding-left: 0.1em; }
-#nautical-deck .newsbar-list li .newsbar-description { clear: both; min-width: 15em; }
-
-#nautical-bridge img { height: 20px; }
-#nautical-bridge .eray-logo img { height: 25px; }
-#nautical-bridge .eray-logo a { padding: 8px 20px; }
-#nautical-bridge .patreon-button a { padding: 8px 20px; }
-#nautical-bridge .patreon-button img { height: 25px; }
-
-#nautical-anchor {
-   font-size: 8pt;
-   text-align: right;
-   margin: 0.2em 1em;
-   color: #666666;
 }
 
-/* ### Not needed ### */
-#nautical-lighthouse,
-#nautical-tug,
-#nautical-figurehead,
-#nautical-prow,
-#nautical-jib,
-#nautical-foremast,
-#nautical-port,
-#nautical-hatch,
-/* #nautical-deck, */
-#nautical-starboard,
-#nautical-ama,
-/* #nautical-bridge, */
-#nautical-aft,
-#nautical-stern,
-/* #nautical-anchor, */
-#nautical-net,
-#nautical-buoy,
-#nautical-dragons { display: none; }
+#nautical-deck .newsbar-list li .newsbar-date {
+   float: left;
+}
 
-@media all and (max-width: 1100px) {
-   #nautical-cargo .project-list-box td.projectlist-properties { display: none; }
+#nautical-deck .newsbar-list li .newsbar-project {
+   float: right;
+   padding-left: 0.1em;
 }
-@media all and (max-width: 1000px) {
-   #nautical-deck { display: none; }
+
+#nautical-deck .newsbar-list li .newsbar-description {
+   clear: both;
 }
-@media all and (max-width: 900px) {
-   #nautical-ballast { min-width: 20em; }
-   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 22em;  height: 2em;  }
-   #nautical-cargo .projectlist td.projectlist-properties { display: none; }
-   #nautical-cargo .project-list-box { padding-right: 0; }
+
+#nautical-bridge .bridge-links ul {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   align-items: center;
+   margin: 0;
+   padding: 0;
+   list-style: none;
 }
-@media all and (max-width: 700px) {
-   #nautical-cargo .project-list-box-even { clear: left; }
-   #nautical-bow header.branded img { margin: 1em 0 0 0; width: 18em; height: 1.6em;  }
+
+#nautical-bridge .bridge-links a {
+   display: inline-flex;
+   align-items: center;
+   padding: 0.45rem 0.7rem;
+   color: var(--df-ink);
+   text-decoration: none;
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
+   border-radius: 0.3rem;
+}
+
+#nautical-bridge .bridge-links a:hover {
+   color: var(--df-ink);
+   background: #eeeeee;
+}
+
+#nautical-bridge .bridge-links img {
+   height: 20px;
+   width: auto;
+}
+
+#nautical-bridge .bridge-links .eray-logo img,
+#nautical-bridge .bridge-links .patreon-button img {
+   height: 25px;
+}
+
+@media (min-width: 1001px) {
+   #nautical-deck .newsbar summary {
+      display: none;
+   }
+}
+
+@media (max-width: 1100px) {
+   #nautical-cargo .project-list-box td.projectlist-properties {
+      display: none;
+   }
+}
+
+@media (max-width: 900px) {
+   #nautical-cargo .projectlist td.projectlist-properties {
+      display: none;
+   }
+
+   #nautical-cargo .projectlist td {
+      overflow-wrap: anywhere;
+   }
+}
+
+@media (max-width: 700px) {
+   #nautical-cargo .well {
+      padding: var(--df-space-3);
+   }
+
+   #nautical-cargo .project-list-box-even {
+      float: none;
+   }
+
+   #nautical-cargo .characteristic-list li.characteristic-title {
+      width: auto;
+   }
+
+   #nautical-bridge .bridge-links a {
+      width: 100%;
+      justify-content: center;
+   }
 }

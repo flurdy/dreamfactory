@@ -6,69 +6,45 @@
    </head>
    <body>
       <div id="nautical-ocean" class="nautical-structure">
-         <div id="nautical-lighthouse" class="nautical-structure nautical-wrapper">
-            <div class="nautical-compartment"></div>
-         </div>
          <div id="nautical-fleet" class="nautical-structure">
             <div id="nautical-regatta" class="nautical-structure">
-               <div id="nautical-tug" class="nautical-structure nautical-wrapper">
-                  <div class="nautical-compartment"></div>
-               </div>
                <div id="nautical-ship" class="nautical-structure">
-                  <div id="nautical-figurehead" class="nautical-compartment"></div>
                   <div id="nautical-hull" class="nautical-structure">
                      <div id="nautical-vaka" class="nautical-structure">
-                        <div id="nautical-prow" class="nautical-compartment"></div>
                         <div id="nautical-bow" class="nautical-compartment">
                            @bow()
                         </div>
-                        <div id="nautical-lookout" class="nautical-compartment">
-                           @if(!lookoutEntries.body.trim.isEmpty){
+                        @if(!lookoutEntries.body.trim.isEmpty){
+                           <nav id="nautical-lookout" class="nautical-compartment" aria-label="Breadcrumb">
                               @lookout(lookoutEntries)
-                           }
-                        </div>
+                           </nav>
+                        }
                         <div id="nautical-keel" class="nautical-structure">
-                           <div id="nautical-port" class="nautical-compartment"></div>
                            <div id="nautical-innerhull" class="nautical-structure">
-                              <div id="nautical-jib" class="nautical-compartment"></div>
-                              <div id="nautical-foremast" class="nautical-compartment"></div>
                               <div id="nautical-bulkhead" class="nautical-structure">
-                                 <div id="nautical-hatch" class="nautical-compartment"></div>
-                                 <div id="nautical-ballast" class="nautical-structure">
+                                 <main id="nautical-ballast" class="nautical-structure">
                                     <div id="nautical-cargo" class="nautical-compartment">
                                        @cargo
-                                   </div>
-                                 </div>
-                                 <div id="nautical-deck" class="nautical-compartment">
+                                    </div>
+                                 </main>
+                                 <aside id="nautical-deck" class="nautical-compartment" aria-label="Latest project updates">
                                     @newsbar(latestNews)
-                                 </div>
+                                 </aside>
                               </div>
-                              <div id="nautical-bridge" class="nautical-compartment">
+                              <footer id="nautical-bridge" class="nautical-compartment">
                                  @bridge()
-                              </div>
+                              </footer>
                            </div>
-                           <div id="nautical-starboard" class="nautical-compartment"></div>
                         </div>
-                        <div id="nautical-aft" class="nautical-compartment"></div>
-                        <div id="nautical-stern" class="nautical-compartment"></div>
                      </div>
                   </div>
-                  <div id="nautical-anchor" class="nautical-compartment">
+                  <footer id="nautical-anchor" class="nautical-compartment">
                      Made with <a href="https://github.com/flurdy/dreamfactory">Dreamfactory</a>
-                  </div>
-               </div>
-               <div id="nautical-ama" class="nautical-structure nautical-wrapper">
-                  <div class="nautical-compartment"></div>
-               </div>
-               <div id="nautical-net" class="nautical-structure nautical-wrapper">
-                  <div class="nautical-compartment"></div>
+                  </footer>
                </div>
             </div>
          </div>
-         <div id="nautical-buoy" class="nautical-structure nautical-wrapper">
-            <div class="nautical-compartment"></div>
-         </div>
       </div>
-      <div id="nautical-dragons" class="nautical-structure"></div>
+      <script src="@routes.Assets.versioned("javascript/shell.js")"></script>
    </body>
 </html>

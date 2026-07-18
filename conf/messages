@@ -2,7 +2,7 @@ application.dream.title=Dream Factory. Ideas, projects, applications
 application.title=Code @ flurdy: ideas, projects, applications with dreamfactory
 application.title.short=code @ flurdy
 application.header=Dream Factory
-application.flurdy.header="code @ flurdy"
+application.flurdy.header=code @ flurdy
 application.description=Projects by <a href="http://flurdy.com">flurdy</a>. Projects that are just ideas. Projects that are being developed or abandoned. Projects that are finished and released. Projects that have been revived or pivoted.
 application.description.2=Any assistance is much appreciated. Any sponsorship is very much appreciated.
 

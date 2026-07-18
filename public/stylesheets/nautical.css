@@ -1,47 +1,195 @@
-/* ****  flurdy's nautical layout  ******* */
+/* Dream Factory shell: the nautical names preserve the original site identity. */
+:root {
+   --df-ocean: #a7a7a7;
+   --df-hull: #ffffff;
+   --df-surface: #f7f7f7;
+   --df-ink: #1f1f1f;
+   --df-muted: #666666;
+   --df-border: #c9c9c9;
+   --df-hull-border-dark: #333333;
+   --df-hull-border-light: #666666;
+   --df-link: #2878bd;
+   --df-link-hover: #155a96;
+   --df-focus: #0d6fb8;
+   --df-radius: 0.5rem;
+   --df-shadow: 0.65rem 0.65rem 1.25rem -0.45rem rgba(0, 0, 0, 0.55);
+   --df-space-1: 0.5rem;
+   --df-space-2: 0.75rem;
+   --df-space-3: 1rem;
+   --df-space-4: 1.5rem;
+}
 
-root {  }
-html { height: 100%; }
-body { height: 95%; }
-.nautical-structure   {  }
-.nautical-compartment {  }
+html {
+   min-height: 100%;
+   font-size: 16px;
+}
 
-#nautical-ocean      { display: table; width: 100%; height: 100%; margin: 0 auto; }
-#nautical-lighthouse { display: table-row; }
-#nautical-fleet      { display: table-cell; vertical-align: middle; }
-#nautical-regatta    { display: table; margin: auto; }
-#nautical-tug        { display: table-row; }
-#nautical-ship       { display: table-cell; }
-#nautical-vaka       { display: table-row; }
-#nautical-hull       { display: table-cell; }
-#nautical-keel       { display: table-row; }
-#nautical-innerhull  { display: table-cell; }
-#nautical-bulkhead   { display: table-cell; }
-#nautical-ballast    { display: table-cell; vertical-align: top; }
-#nautical-ama        { display: table-cell; }
-#nautical-net        { display: table-row; }
-#nautical-buoy       { display: table-row; }
-#nautical-dragons    {  }
+body {
+   min-width: 0;
+   min-height: 100vh;
+   margin: 0;
+   background: var(--df-ocean);
+   color: var(--df-ink);
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+   font-size: 16px;
+   line-height: 1.5;
+}
 
-#nautical-figurehead {  }
-#nautical-prow       {  }
-#nautical-bow        {  }
-#nautical-lookout    {  }
-#nautical-port       { display: table-cell; }
-#nautical-jib        {  }
-#nautical-foremast   {  }
-#nautical-hatch      { display: table-cell; }
-#nautical-cargo      {  }
-#nautical-deck       { display: table-cell; }
-#nautical-bridge     {  }
-#nautical-starboard  { display: table-cell; }
-#nautical-aft        {  }
-#nautical-stern      {  }
-#nautical-anchor     {  }
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
 
-#nautical-lighthouse .nautical-compartment { display: table-cell; }
-#nautical-tug .nautical-compartment        {  }
-#nautical-ama .nautical-compartment        {  }
-#nautical-net .nautical-compartment        {  }
-#nautical-buoy .nautical-compartment       { display: table-cell;  }
+a {
+   color: var(--df-link);
+}
 
+a:hover,
+a:focus {
+   color: var(--df-link-hover);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+   outline: 3px solid var(--df-focus);
+   outline-offset: 2px;
+}
+
+#nautical-ocean {
+   min-height: 100vh;
+   padding: clamp(0.75rem, 2vw, 2rem);
+}
+
+#nautical-fleet {
+   width: min(100%, 88rem);
+   margin: 0 auto;
+}
+
+#nautical-regatta,
+#nautical-ship,
+#nautical-hull,
+#nautical-vaka,
+#nautical-keel,
+#nautical-innerhull,
+#nautical-bulkhead,
+#nautical-ballast,
+#nautical-cargo {
+   min-width: 0;
+}
+
+#nautical-hull {
+   overflow: hidden;
+   background: var(--df-hull);
+   border: 4px solid var(--df-hull-border-dark);
+   border-top-color: var(--df-hull-border-light);
+   border-left-color: var(--df-hull-border-light);
+   border-radius: var(--df-radius);
+   box-shadow: var(--df-shadow);
+}
+
+#nautical-bow {
+   display: flex;
+   justify-content: center;
+   padding: clamp(1rem, 3vw, 2rem) var(--df-space-3) var(--df-space-2);
+   text-align: center;
+}
+
+#nautical-bow header {
+   margin: 0;
+}
+
+#nautical-bow header h1 {
+   margin: 0;
+}
+
+#nautical-bow header img {
+   display: block;
+   width: auto;
+   max-width: min(100%, 30rem);
+   height: auto;
+}
+
+#nautical-lookout {
+   padding: 0 var(--df-space-4) var(--df-space-2);
+}
+
+#nautical-bulkhead {
+   display: grid;
+   grid-template-columns: minmax(0, 1fr) minmax(14rem, 15rem);
+   gap: var(--df-space-4);
+   align-items: start;
+   padding: 0 var(--df-space-4) var(--df-space-3);
+}
+
+#nautical-ballast {
+   min-width: 0;
+}
+
+#nautical-deck {
+   min-width: 0;
+}
+
+#nautical-bridge {
+   padding: var(--df-space-2) var(--df-space-4) var(--df-space-3);
+}
+
+#nautical-anchor {
+   padding: 0 var(--df-space-4) var(--df-space-3);
+   color: var(--df-muted);
+   font-size: 0.8125rem;
+   text-align: right;
+}
+
+#nautical-lighthouse,
+#nautical-tug,
+#nautical-figurehead,
+#nautical-prow,
+#nautical-jib,
+#nautical-foremast,
+#nautical-port,
+#nautical-hatch,
+#nautical-starboard,
+#nautical-ama,
+#nautical-aft,
+#nautical-stern,
+#nautical-net,
+#nautical-buoy,
+#nautical-dragons {
+   display: none;
+}
+
+@media (max-width: 1000px) {
+   #nautical-bulkhead {
+      grid-template-columns: minmax(0, 1fr);
+   }
+
+   #nautical-deck {
+      order: 2;
+   }
+}
+
+@media (max-width: 700px) {
+   #nautical-ocean {
+      padding: 0.75rem;
+   }
+
+   #nautical-hull {
+      border-width: 3px;
+   }
+
+   #nautical-lookout,
+   #nautical-bulkhead,
+   #nautical-bridge,
+   #nautical-anchor {
+      padding-right: var(--df-space-3);
+      padding-left: var(--df-space-3);
+   }
+
+   #nautical-bulkhead {
+      gap: var(--df-space-3);
+   }
+}
