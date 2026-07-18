@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "source \"$HOME/.nvm/nvm.sh\" && nvm use --silent >/dev/null && exec npx --yes @playwright/mcp@0.0.78 --headless --isolated --browser chrome --output-dir /tmp/dreamfactory-playwright"
+      ],
+      "lifecycle": "lazy",
+      "idleTimeout": 10,
+      "requestTimeoutMs": 30000
+    }
+  }
+}
