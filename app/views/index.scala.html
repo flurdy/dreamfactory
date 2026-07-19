@@ -6,15 +6,17 @@ tags: List[Tag], technologies: List[Technology], characteristics: ProjectCharact
 @projectUrl(project: Project) = {
    @(project.urls.live, project.urls.project) match {
       case (Some(url), _) if project.isLive => {
-         <a class="project-summary-url" href="@url.value">@url.naked</a>
+         <a class="project-summary-url" href="@url.value">@url.curt(25)</a>
       }
       case (_, Some(url)) => {
-         <a class="project-summary-url link-project" href="@url.value">@url.naked</a>
+         <a class="project-summary-url link-project" href="@url.value">@url.curt(25)</a>
       }
       case (Some(url), _) => {
-         <span class="project-summary-url link-notlive">@url.naked</span>
+         <span class="project-summary-url link-notlive">@url.curt(25)</span>
       }
-      case (None, None) => {}
+      case (None, None) => {
+         <span class="project-summary-url" aria-hidden="true"></span>
+      }
    }
 }
 

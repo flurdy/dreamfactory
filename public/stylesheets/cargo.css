@@ -98,6 +98,20 @@
    margin: 0;
 }
 
+.dashboard-grid .project-summary {
+   grid-template-columns: 8rem minmax(0, 1fr) auto;
+}
+
+.dashboard-grid .project-summary-title {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.dashboard-grid .project-summary-url {
+   font-size: 0.9rem;
+}
+
 .project-list-box h2 {
    margin: 0 0 var(--df-space-2);
 }
@@ -111,7 +125,7 @@
 
 .project-summary {
    display: grid;
-   grid-template-columns: minmax(8rem, 0.8fr) minmax(10rem, 1.2fr) auto;
+   grid-template-columns: 10rem minmax(0, 1fr) auto;
    gap: var(--df-space-2);
    align-items: start;
    min-width: 0;
@@ -174,6 +188,12 @@
    grid-template-columns: minmax(10rem, 1fr) auto auto;
    gap: var(--df-space-2);
    align-items: stretch;
+}
+
+.search-form .btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .search-form .form-control {
@@ -578,7 +598,7 @@
    }
 
    .project-statuses--compact .project-status {
-      width: 1.75rem;
+      width: 1.5rem;
       justify-content: center;
       padding: 0;
       background: transparent;
@@ -609,14 +629,6 @@
 }
 
 @media (max-width: 1000px) {
-   .dashboard-grid .project-summary {
-      grid-template-columns: minmax(8rem, 0.8fr) minmax(0, 1.2fr);
-   }
-
-   .dashboard-grid .project-statuses {
-      grid-column: 1 / -1;
-   }
-
    .properties-filter-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
    }
@@ -635,8 +647,15 @@
    }
 
    .project-summary,
-   .project-result {
+   .project-result,
+   .dashboard-grid .project-summary {
       grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr);
+   }
+
+   .dashboard-grid .project-summary-title {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
    }
 
    .project-summary .project-statuses {
