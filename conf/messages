@@ -121,8 +121,8 @@ project.contact.inquire=inquire
 
 project.status.label=Project status
 project.status.popular=Popular
-project.status.dead=Mothballed or abandoned
-project.status.unlikely=Unlikely or unappealing
+project.status.dead=Mothballed
+project.status.unlikely=Unlikely
 project.status.recent=Recently added
 project.status.updated=Recently updated
 project.status.stale=Stale
