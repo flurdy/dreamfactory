@@ -79,14 +79,17 @@
    <section class="surface results-section" aria-labelledby="results-heading">
       <div class="results-heading">
          <h2 id="results-heading">
-            @(tags, searchTerm, possibleCharacteristic) match {
+            @(tags, technologies, searchTerm, possibleCharacteristic) match {
                case _ if tags.nonEmpty => {
                   @Messages("project.list.tag") @tags.map(_.name).mkString(", ")
                }
-               case (_, Some(term), _) => {
+               case _ if technologies.nonEmpty => {
+                  @Messages("project.list.technology") @technologies.map(_.name).mkString(", ")
+               }
+               case (_, _, Some(term), _) => {
                   @Messages("project.list.search") “@term”
                }
-               case (_, _, Some(characteristic)) => {
+               case (_, _, _, Some(characteristic)) => {
                   @Messages("project.list.characteristic")
                   @Messages("project.characteristics." + characteristic.parentName) —
                   @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))

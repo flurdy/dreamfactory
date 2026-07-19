@@ -90,10 +90,10 @@ class ProjectController @Inject() (
       .fold(
         formWithErrors => BadRequest("Invalid form"),
         tagName => {
-          val tag      = Tag(tagName._1)
-          val projects = projectLookup.findProjectsByTag(tag).sortBy(_.title.toLowerCase)
+          val tag              = Tag(tagName._1)
+          val projects         = projectLookup.findProjectsByTag(tag).sortBy(_.title.toLowerCase)
           val filteredProjects = filterProjects(projects, tagName._2)
-          val subTags  = projectLookup.findTagsInProjects(filteredProjects, 50).filter(_.name != tag.name)
+          val subTags = projectLookup.findTagsInProjects(filteredProjects, 50).filter(_.name != tag.name)
           Ok(
             views.html.project
               .listprojects(
@@ -115,9 +115,12 @@ class ProjectController @Inject() (
         techName => {
           val tech             = Technology(techName._1)
           val projects         = projectLookup.findProjectsByTech(tech).sortBy(_.title.toLowerCase)
-          val subTech          =
-            projectLookup.findTechnologiesInProjects(projects, 11).filter(_.name != tech.name).take(10)
           val filteredProjects = filterProjects(projects, techName._2)
+          val subTech          =
+            projectLookup
+              .findTechnologiesInProjects(filteredProjects, 11)
+              .filter(_.name != tech.name)
+              .take(10)
           Ok(
             views.html.project.listprojects(
               filteredProjects,
@@ -163,11 +166,11 @@ class ProjectController @Inject() (
           val tech         = Technology(techData._2)
           val technologies = tech :: (techData._1.split(",").map(Technology(_)).toList)
           val projects = projectLookup.findProjectsByTechnologies(technologies).sortBy(_.title.toLowerCase)
-          val subTech  = projectLookup
-            .findTechnologiesInProjects(projects, 30)
+          val filteredProjects = filterProjects(projects, techData._3)
+          val subTech          = projectLookup
+            .findTechnologiesInProjects(filteredProjects, 30)
             .filter(t => !technologies.exists(tt => t.name == tt.name))
             .take(10)
-          val filteredProjects = filterProjects(projects, techData._3)
           Ok(
             views.html.project.listprojects(
               filteredProjects,
@@ -192,16 +195,19 @@ class ProjectController @Inject() (
                 characteristicType,
                 characteristic
               )
-            val projects: List[Project]                                            = for {
-              c       <- characteristicFound.toList
-              project <- projectLookup.findProjectsByCharacteristic(c).sortBy(_.title.toLowerCase)
-              filteredProjects = filterProject(project, filters)
-            } yield project
+            val projects         = characteristicFound.toList
+              .flatMap(projectLookup.findProjectsByCharacteristic)
+              .sortBy(_.title.toLowerCase)
+            val filteredProjects = filterProjects(projects, filters)
+            val subTags          = projectLookup.findTagsInProjects(filteredProjects, 50)
+            val subTech          = projectLookup.findTechnologiesInProjects(filteredProjects, 10)
             Ok(
               views.html.project
                 .listprojects(
-                  projects = projects,
+                  projects = filteredProjects,
                   possibleCharacteristic = characteristicFound,
+                  subTags = subTags,
+                  subTech = subTech,
                   filterProperties = filters
                 )
             )

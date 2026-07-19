@@ -63,6 +63,7 @@ project.versions.dev.title=In development
 
 project.list.all=All projects:
 project.list.tag=Projects with tags:
+project.list.technology=Projects with technologies:
 project.list.characteristic=Projects with characteristic:
 project.list.search=Projects containing search term:
 

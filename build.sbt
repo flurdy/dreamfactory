@@ -11,6 +11,9 @@ resolvers += ("Local Maven Repository" at s"file:///${Path.userHome.absolutePath
 scalaVersion                   := "2.13.10"
 addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
 
+Test / fork := true
+Test / javaOptions += "--add-opens=java.base/java.lang=ALL-UNNAMED"
+
 libraryDependencies ++= Seq(
   guice,
   //   jdbc,
@@ -19,5 +22,6 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.8.18",
   "org.webjars"  % "bootstrap"    % "3.3.6",
   "org.webjars"  % "jquery"       % "2.2.3",
-  "commons-io"   % "commons-io"   % "2.5"
+  "commons-io"   % "commons-io"   % "2.5",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 )
