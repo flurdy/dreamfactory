@@ -1,5 +1,6 @@
 package controllers
 
+import java.net.URLEncoder
 import models.{ProjectLookup, Technology}
 import models.ProjectCharacteristics.Easy
 import org.scalatestplus.play._
@@ -24,6 +25,14 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
       .map(_.group(1))
       .toList
   }
+
+  private def discoverySection(content: String, heading: String): String =
+    (s"""(?s)<details class="surface discovery-section" open>\\s*<summary>$heading</summary>(.*?)</details>""".r findFirstMatchIn content)
+      .map(_.group(1))
+      .getOrElse(fail(s"Missing $heading discovery section"))
+
+  private def formsIn(content: String): List[String] =
+    """(?s)<form\b.*?</form>""".r.findAllIn(content).toList
 
   "ProjectController" should {
     "apply property filters to characteristic results" in {
@@ -62,6 +71,83 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
         .filter(_.name != "scala")
         .take(10)
         .map(_.name)
+    }
+
+    "show discovery controls before unfiltered results" in {
+      val result = route(app, FakeRequest(GET, "/projects/")).value
+
+      status(result) mustBe OK
+      val content          = contentAsString(result)
+      content must include("<summary>Quick filters</summary>")
+      val technologyForms  = formsIn(discoverySection(content, "Technologies"))
+      technologyForms must not be empty
+      technologyForms.foreach { form =>
+        form must include("action=\"/projects/tech\"")
+        form must include("name=\"tech\"")
+      }
+      discoverySection(content, "Characteristics") must include(
+        "href=\"/projects/characteristic/type/"
+      )
+      val quickFilterIndex = content.indexOf("filter-shortcuts")
+      val searchIndex      = content.indexOf("list-search")
+      val filterIndex      = content.indexOf("filter-section")
+      val resultsIndex     = content.indexOf("results-section")
+      quickFilterIndex must be >= 0
+      searchIndex must be >= 0
+      filterIndex must be >= 0
+      resultsIndex must be >= 0
+      quickFilterIndex must be < resultsIndex
+      searchIndex must be < resultsIndex
+      filterIndex must be < resultsIndex
+    }
+
+    "preserve technology context in quick filters" in {
+      val result = route(app, FakeRequest(GET, "/projects/tech?tech=scala&filter.live=require")).value
+
+      status(result) mustBe OK
+      val quickFilterForms = formsIn(discoverySection(contentAsString(result), "Quick filters"))
+      quickFilterForms.size mustBe 4
+      quickFilterForms.foreach { form =>
+        form must include("action=\"/projects/tech\"")
+        form must include("name=\"tech\" value=\"scala\"")
+        form must include("name=\"filter.live\" value=\"require\"")
+      }
+    }
+
+    "combine searches with property filters" in {
+      val lookup            = app.injector.instanceOf[ProjectLookup]
+      val searchTerm        = lookup.findAllTheProjects
+        .flatMap(_.title.toLowerCase.split("\\W+"))
+        .filter(_.length >= 3)
+        .distinct
+        .find { term =>
+          val matches = lookup.findProjectsBySearch(term)
+          matches.exists(_.isLive) && matches.exists(p => !p.isLive)
+        }
+        .getOrElse(fail("Expected a search term shared by live and non-live projects"))
+      val searchMatches     = lookup.findProjectsBySearch(searchTerm)
+      val expectedTitles    = searchMatches
+        .filter(_.isLive)
+        .sortBy(_.title.toLowerCase)
+        .map(_.title)
+      val encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8")
+      val result            = route(
+        app,
+        FakeRequest(GET, s"/projects/search?searchterm=$encodedSearchTerm&filter.live=require")
+      ).value
+
+      expectedTitles must not be empty
+      expectedTitles.size must be < searchMatches.size
+      status(result) mustBe OK
+      val content           = contentAsString(result)
+      resultTitles(content) must contain theSameElementsInOrderAs expectedTitles
+      val quickFilterForms  = formsIn(discoverySection(content, "Quick filters"))
+      quickFilterForms.size mustBe 4
+      quickFilterForms.foreach { form =>
+        form must include("action=\"/projects/search\"")
+        form must include(s"name=\"searchterm\" value=\"$searchTerm\"")
+        form must include("name=\"filter.live\" value=\"require\"")
+      }
     }
   }
 }

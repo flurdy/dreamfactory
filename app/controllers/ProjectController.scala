@@ -51,6 +51,8 @@ class ProjectController @Inject() (
               filteredProjects,
               searchTerm = None,
               subTags = subTags,
+              browseTechnologies = projectLookup.findTechnologies(30),
+              browseCharacteristics = Some(ProjectCharacteristics.characteristicPossibilities),
               filterProperties = filters
             )
           )
@@ -63,17 +65,24 @@ class ProjectController @Inject() (
       .bindFromRequest()
       .fold(
         formWithErrors => BadRequest("Invalid form"),
-        searchTerm => {
-          val projects =
+        searchData => {
+          val searchTerm       = searchData._1
+          val filters          = searchData._2
+          val projects         =
             if (searchTerm.trim.isEmpty) projectLookup.findAllTheProjects.sortBy(_.title.toLowerCase)
             else projectLookup.findProjectsBySearch(searchTerm).sortBy(_.title.toLowerCase)
-          val search   = if (searchTerm.trim.isEmpty) None else Some(searchTerm)
-          Ok(views.html.project.listprojects(projects = projects, searchTerm = search))
+          val filteredProjects = filterProjects(projects, filters)
+          val search           = if (searchTerm.trim.isEmpty) None else Some(searchTerm)
+          Ok(
+            views.html.project.listprojects(
+              projects = filteredProjects,
+              searchTerm = search,
+              filterProperties = filters
+            )
+          )
         }
       )
   }
-
-  val searchForm = Form(single("searchterm" -> text))
 
   private def filterProject(project: Project, filters: Option[ProjectFilters]) =
     filters match {
@@ -261,5 +270,12 @@ class ProjectController @Inject() (
   )
 
   val filtersForm = Form(single("filter" -> optional(filterMapping)))
+
+  val searchForm = Form(
+    tuple(
+      "searchterm" -> text,
+      "filter"     -> optional(filterMapping)
+    )
+  )
 
 }
