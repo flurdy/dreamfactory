@@ -52,14 +52,14 @@ case class ProjectFilters(
   val excludeMobile     = excludeProperty(mobile)
   val excludeCommercial = excludeProperty(commercial)
 
-  def filterPopular(project: Project): Option[Project] = filterProperty(project, project.isPopular, popular)
+  def filterPopular(project: Project): Option[Project]  = filterProperty(project, project.isPopular, popular)
   def filterDead(project: Project): Option[Project]     =
     filterProperty(project, project.isDead, dead)
   def filterUnlikely(project: Project): Option[Project] =
     filterProperty(project, project.isUnlikely || project.isUnappealing, unlikely)
   def filterUpdated(project: Project): Option[Project]  =
     filterProperty(project, project.isRecentlyUpdatedNotAdded, updated)
-  def filterRecent(project: Project): Option[Project]  =
+  def filterRecent(project: Project): Option[Project]   =
     filterProperty(project, project.isRecentlyAdded, recent)
   def filterStale(project: Project): Option[Project] = filterProperty(project, project.isStaleNotDead, stale)
   def filterLive(project: Project): Option[Project]  = filterProperty(project, project.isLive, live)
