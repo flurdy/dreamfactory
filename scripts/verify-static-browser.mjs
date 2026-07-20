@@ -17,25 +17,15 @@ async function assertNoBlockingA11y(page, label) {
   assert.deepEqual(details, [], `${label} has blocking accessibility violations`);
 }
 
-async function waitForServer() {
-  for (let attempt = 0; attempt < 30; attempt += 1) {
-    try {
-      const response = await fetch(baseUrl);
-      if (response.ok) return;
-    } catch (_) {
-      // Container startup race.
-    }
-    await new Promise((resolve) => setTimeout(resolve, 250));
-  }
-  throw new Error('Static-site container did not become ready');
-}
-
 run('scripts/verify-static-site.sh', []);
 run('docker', [...composeArgs, 'up', '--detach', '--force-recreate']);
 
 let browser;
 try {
-  await waitForServer();
+  run('curl', [
+    '--fail', '--silent', '--show-error', '--retry', '30', '--retry-all-errors',
+    '--retry-delay', '1', '--output', '/dev/null', baseUrl
+  ]);
   browser = await chromium.launch({
     headless: true,
     executablePath: process.env.PLAYWRIGHT_CHROME_PATH || '/usr/bin/google-chrome'

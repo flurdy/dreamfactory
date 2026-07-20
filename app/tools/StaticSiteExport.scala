@@ -10,9 +10,16 @@ import models._
 import play.api.libs.json._
 import play.api.{Configuration, Environment}
 import scala.jdk.CollectionConverters._
+import org.joda.time.{DateTime, DateTimeUtils, DateTimeZone}
 
 object StaticSiteExport extends App {
 
+  private val fixedAsOf       = sys.env.get("DREAMFACTORY_AS_OF").map(DateTime.parse)
+  fixedAsOf.foreach { asOf =>
+    DateTimeZone.setDefault(DateTimeZone.UTC)
+    DateTimeUtils.setCurrentMillisFixed(asOf.getMillis)
+  }
+  private val asOf            = DateTime.now(DateTimeZone.UTC)
   private val outputDirectory = args.headOption.map(Paths.get(_)).getOrElse(Paths.get("static-site/data"))
 
   private val knownProjectFields        = Set(
@@ -27,7 +34,10 @@ object StaticSiteExport extends App {
     "tech",
     "license",
     "news",
-    "comments"
+    "comments",
+    "aliases",
+    "owner",
+    "keywords"
   )
   private val knownDateFields           = Set("created", "updated")
   private val knownVersionFields        = Set("dev", "live")
@@ -35,6 +45,7 @@ object StaticSiteExport extends App {
   private val knownStatusFields         = Set("development", "release", "deploy")
   private val knownNewsFields           = Set("date", "description")
   private val knownCommentFields        = Set("date", "comment")
+  private val knownOwnerFields          = Set("name", "link")
 
   // Deliberately duplicated from the rendered model's accepted values. The raw inventory must
   // detect source/model drift instead of treating model parsing as the source of truth.
@@ -71,6 +82,8 @@ object StaticSiteExport extends App {
 
   private val projectsJson = Json.obj(
     "schemaVersion" -> 1,
+    "asOf"          -> asOf.toString,
+    "timeZone"      -> DateTimeZone.getDefault.getID,
     "projectCount"  -> projects.size,
     "home"          -> Json.obj(
       "newLinks"                   -> newestProjects.map(_.link),
@@ -112,20 +125,8 @@ object StaticSiteExport extends App {
   writeJson(Paths.get("static-site/static/data/projects.json"), projectsJson)
   writeRedirects(Paths.get("static-site/static/_redirects"), projects)
 
-  private val knownValidationIssues = Set(
-    ("badusernames.conf", "characteristics.appeal", "high"),
-    ("gauge.conf", "characteristics.appeal", "high"),
-    ("consensus.conf", "characteristics.appeal", "somewhat"),
-    ("shop.conf", "characteristics.status.release", "abandoned")
-  )
-
   require(projects.size == 72, s"Expected 72 rendered projects, found ${projects.size}")
-  require(
-    knownValidationIssues.subsetOf(
-      validationIssues.map(issue => (issue.file, issue.path, issue.value)).toSet
-    ),
-    "Raw validation did not report every known model/data discrepancy"
-  )
+  require(validationIssues.isEmpty, s"Raw validation found ${validationIssues.size} issue(s)")
 
   private def configFiles: List[File] =
     Option(new File("conf/dreams.d").listFiles).toList.flatten
@@ -140,7 +141,14 @@ object StaticSiteExport extends App {
         validateKeys(file, index, "versions", optionalConfig(project, "versions"), knownVersionFields) ++
         validateCharacteristics(file, index, optionalConfig(project, "characteristics")) ++
         validateEntries(file, index, "news", optionalConfigList(project, "news"), knownNewsFields) ++
-        validateEntries(file, index, "comments", optionalConfigList(project, "comments"), knownCommentFields)
+        validateEntries(
+          file,
+          index,
+          "comments",
+          optionalConfigList(project, "comments"),
+          knownCommentFields
+        ) ++
+        validateEntries(file, index, "owner", optionalConfigList(project, "owner"), knownOwnerFields)
     }
   }
 

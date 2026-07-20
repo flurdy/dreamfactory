@@ -27,7 +27,11 @@ node_modules/
 *.db
 .beads-credential-key
 
-# Static-site proof build artifacts
+# Static-site generated artifacts
 /static-site/public/
 /static-site/.hugo_build.lock
+/static-site/data/projects.json
+/static-site/data/raw-validation.json
+/static-site/static/data/projects.json
+/static-site/static/_redirects
 .pi-subagents/

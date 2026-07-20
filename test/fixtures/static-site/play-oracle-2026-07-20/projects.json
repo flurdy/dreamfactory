@@ -1,8 +1,10 @@
 {
   "schemaVersion" : 1,
+  "asOf" : "2026-07-20T12:00:00.000Z",
+  "timeZone" : "UTC",
   "projectCount" : 72,
   "home" : {
-    "newLinks" : [ "pilltrack", "Lucid", "draft", "sluice", "gauge", "consensus", "LavaFlow", "gatehouse", "Handshake", "expire" ],
+    "newLinks" : [ "pilltrack", "Lucid", "draft", "sluice", "consensus", "gauge", "gatehouse", "LavaFlow", "Handshake", "expire" ],
     "updatedLinks" : [ "bad_usernames", "TapIn", "Lucid", "expire", "gauge", "Letterbox", "who_to" ],
     "popularLinks" : [ "ContractCalc", "expire", "Letterbox", "sorting_office", "Spring-boot-logging-json", "TapIn", "Tulipan" ],
     "newProjects" : [ {
@@ -39,7 +41,7 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2026-07-18T00:00:00.000+01:00",
+        "date" : "2026-07-18T00:00:00.000Z",
         "description" : "Added PillTrack"
       } ],
       "comments" : [ ],
@@ -153,7 +155,7 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2024-05-22T00:00:00.000+01:00",
+        "date" : "2024-05-22T00:00:00.000Z",
         "description" : "Added Draft to code.flurdy.com"
       } ],
       "comments" : [ ],
@@ -225,6 +227,57 @@
         "unlikely" : false
       }
     }, {
+      "title" : "Consensus",
+      "encoded" : "consensus",
+      "link" : "consensus",
+      "pathSegment" : "consensus",
+      "aliases" : [ "consensus", "Consensus" ],
+      "description" : "Simple polling web app for estimations un e.g. a planning poker session. Fibonacci, t-shirt sizes, etc.",
+      "urls" : { },
+      "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
+      "dates" : {
+        "created" : "2021-06",
+        "updated" : "2021-06"
+      },
+      "versions" : {
+        "dev" : null,
+        "live" : null
+      },
+      "tags" : [ "estimation", "idea", "planning", "poker", "productivity", "scrum" ],
+      "technologies" : [ ],
+      "license" : null,
+      "characteristics" : {
+        "appeal" : null,
+        "complexity" : "easy",
+        "likelihood" : "possibly",
+        "development" : "notstarted",
+        "release" : "notreleased",
+        "deploy" : "offline"
+      },
+      "news" : [ {
+        "date" : "2021-06-21T00:00:00.000Z",
+        "description" : "Added consensus to code.flurdy.com"
+      } ],
+      "comments" : [ ],
+      "derived" : {
+        "live" : false,
+        "idea" : true,
+        "popular" : false,
+        "code" : false,
+        "mobile" : false,
+        "commercial" : false,
+        "dead" : false,
+        "stale" : false,
+        "updated" : false,
+        "recent" : false,
+        "unlikely" : false
+      }
+    }, {
       "title" : "Gauge",
       "encoded" : "gauge",
       "link" : "gauge",
@@ -280,7 +333,7 @@
         "date" : "2025-11-11T00:00:00.000Z",
         "description" : "gauge.flurdy.io is now live!"
       }, {
-        "date" : "2021-06-08T00:00:00.000+01:00",
+        "date" : "2021-06-08T00:00:00.000Z",
         "description" : "Added Gauge to code.flurdy.com"
       } ],
       "comments" : [ ],
@@ -294,108 +347,6 @@
         "dead" : false,
         "stale" : false,
         "updated" : true,
-        "recent" : false,
-        "unlikely" : false
-      }
-    }, {
-      "title" : "Consensus",
-      "encoded" : "consensus",
-      "link" : "consensus",
-      "pathSegment" : "consensus",
-      "aliases" : [ "consensus", "Consensus" ],
-      "description" : "Simple polling web app for estimations un e.g. a planning poker session. Fibonacci, t-shirt sizes, etc.",
-      "urls" : { },
-      "urlEntries" : [ ],
-      "summaryUrl" : {
-        "kind" : "empty",
-        "href" : null,
-        "text" : ""
-      },
-      "dates" : {
-        "created" : "2021-06",
-        "updated" : "2021-06"
-      },
-      "versions" : {
-        "dev" : null,
-        "live" : null
-      },
-      "tags" : [ "estimation", "idea", "planning", "poker", "productivity", "scrum" ],
-      "technologies" : [ ],
-      "license" : null,
-      "characteristics" : {
-        "appeal" : null,
-        "complexity" : "easy",
-        "likelihood" : "possibly",
-        "development" : "notstarted",
-        "release" : "notreleased",
-        "deploy" : "offline"
-      },
-      "news" : [ {
-        "date" : "2021-06-21T00:00:00.000+01:00",
-        "description" : "Added consensus to code.flurdy.com"
-      } ],
-      "comments" : [ ],
-      "derived" : {
-        "live" : false,
-        "idea" : true,
-        "popular" : false,
-        "code" : false,
-        "mobile" : false,
-        "commercial" : false,
-        "dead" : false,
-        "stale" : false,
-        "updated" : false,
-        "recent" : false,
-        "unlikely" : false
-      }
-    }, {
-      "title" : "LavaFlow",
-      "encoded" : null,
-      "link" : "LavaFlow",
-      "pathSegment" : "LavaFlow",
-      "aliases" : [ "LavaFlow" ],
-      "description" : "Feature toggle sunsetting build plugin tool. Set dates for when a feature toggle is expected to be removed, as in no longer needing toggle. Can be date or semver version. Warn or fail build",
-      "urls" : { },
-      "urlEntries" : [ ],
-      "summaryUrl" : {
-        "kind" : "empty",
-        "href" : null,
-        "text" : ""
-      },
-      "dates" : {
-        "created" : "2021-02",
-        "updated" : "2021-02"
-      },
-      "versions" : {
-        "dev" : null,
-        "live" : null
-      },
-      "tags" : [ "build", "ci", "feature", "idea" ],
-      "technologies" : [ ],
-      "license" : null,
-      "characteristics" : {
-        "appeal" : "interested",
-        "complexity" : "medium",
-        "likelihood" : "possibly",
-        "development" : "notstarted",
-        "release" : "notreleased",
-        "deploy" : "offline"
-      },
-      "news" : [ {
-        "date" : "2021-02-12T00:00:00.000Z",
-        "description" : "Added LavaFlow to code.flurdy.com"
-      } ],
-      "comments" : [ ],
-      "derived" : {
-        "live" : false,
-        "idea" : true,
-        "popular" : false,
-        "code" : false,
-        "mobile" : false,
-        "commercial" : false,
-        "dead" : false,
-        "stale" : false,
-        "updated" : false,
         "recent" : false,
         "unlikely" : false
       }
@@ -457,6 +408,57 @@
         "unlikely" : true
       }
     }, {
+      "title" : "LavaFlow",
+      "encoded" : null,
+      "link" : "LavaFlow",
+      "pathSegment" : "LavaFlow",
+      "aliases" : [ "LavaFlow" ],
+      "description" : "Feature toggle sunsetting build plugin tool. Set dates for when a feature toggle is expected to be removed, as in no longer needing toggle. Can be date or semver version. Warn or fail build",
+      "urls" : { },
+      "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
+      "dates" : {
+        "created" : "2021-02",
+        "updated" : "2021-02"
+      },
+      "versions" : {
+        "dev" : null,
+        "live" : null
+      },
+      "tags" : [ "build", "ci", "feature", "idea" ],
+      "technologies" : [ ],
+      "license" : null,
+      "characteristics" : {
+        "appeal" : "interested",
+        "complexity" : "medium",
+        "likelihood" : "possibly",
+        "development" : "notstarted",
+        "release" : "notreleased",
+        "deploy" : "offline"
+      },
+      "news" : [ {
+        "date" : "2021-02-12T00:00:00.000Z",
+        "description" : "Added LavaFlow to code.flurdy.com"
+      } ],
+      "comments" : [ ],
+      "derived" : {
+        "live" : false,
+        "idea" : true,
+        "popular" : false,
+        "code" : false,
+        "mobile" : false,
+        "commercial" : false,
+        "dead" : false,
+        "stale" : false,
+        "updated" : false,
+        "recent" : false,
+        "unlikely" : false
+      }
+    }, {
       "title" : "Handshake",
       "encoded" : null,
       "link" : "Handshake",
@@ -490,7 +492,7 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2020-09-28T00:00:00.000+01:00",
+        "date" : "2020-09-28T00:00:00.000Z",
         "description" : "Added Handshake to code.flurdy.com"
       } ],
       "comments" : [ ],
@@ -552,7 +554,7 @@
         "date" : "2026-02-01T00:00:00.000Z",
         "description" : "Started development on Expire"
       }, {
-        "date" : "2020-07-12T00:00:00.000+01:00",
+        "date" : "2020-07-12T00:00:00.000Z",
         "description" : "Added Expire"
       } ],
       "comments" : [ ],
@@ -616,17 +618,17 @@
         "deploy" : "live"
       },
       "news" : [ {
-        "date" : "2026-07-09T00:00:00.000+01:00",
+        "date" : "2026-07-09T00:00:00.000Z",
         "description" : "badusernames.flurdy.io is live"
       }, {
-        "date" : "2019-08-30T00:00:00.000+01:00",
+        "date" : "2019-08-30T00:00:00.000Z",
         "description" : "Added Badusernames to code.flurdy.com"
       } ],
       "comments" : [ {
-        "date" : "2026-06-30T00:00:00.000+01:00",
+        "date" : "2026-06-30T00:00:00.000Z",
         "comment" : "Scope should be multilingual where it is practical and high-value, such as common reserved/system words like admin or support in major languages, but intentionally English-first to avoid an unbounded language-maintenance problem."
       }, {
-        "date" : "2026-06-30T00:00:00.000+01:00",
+        "date" : "2026-06-30T00:00:00.000Z",
         "comment" : "Keep the public project and service name as Bad Usernames for now: it is direct, searchable, and matches the existing bad_usernames repository. A more distinctive branded name can be revisited later if the service grows beyond username blocklist checks."
       } ],
       "derived" : {
@@ -693,7 +695,7 @@
         "date" : "2017-02-11T00:00:00.000Z",
         "description" : "Beta tagged"
       }, {
-        "date" : "2016-06-20T00:00:00.000+01:00",
+        "date" : "2016-06-20T00:00:00.000Z",
         "description" : "Renamed <b>CheckIn</b> to <b>TapIn</b>"
       }, {
         "date" : "2014-12-15T00:00:00.000Z",
@@ -827,7 +829,7 @@
         "date" : "2026-02-01T00:00:00.000Z",
         "description" : "Started development on Expire"
       }, {
-        "date" : "2020-07-12T00:00:00.000+01:00",
+        "date" : "2020-07-12T00:00:00.000Z",
         "description" : "Added Expire"
       } ],
       "comments" : [ ],
@@ -900,7 +902,7 @@
         "date" : "2025-11-11T00:00:00.000Z",
         "description" : "gauge.flurdy.io is now live!"
       }, {
-        "date" : "2021-06-08T00:00:00.000+01:00",
+        "date" : "2021-06-08T00:00:00.000Z",
         "description" : "Added Gauge to code.flurdy.com"
       } ],
       "comments" : [ ],
@@ -962,7 +964,7 @@
         "date" : "2023-03-20T00:00:00.000Z",
         "description" : "Promoting <a href=\"/project/letterbox\">letterbox</a> as beta"
       }, {
-        "date" : "2020-08-12T00:00:00.000+01:00",
+        "date" : "2020-08-12T00:00:00.000Z",
         "description" : "Changed domain name to <a href=\"https://letterbox.tech\">letterbox.tech</a>"
       }, {
         "date" : "2020-01-08T00:00:00.000Z",
@@ -971,7 +973,7 @@
         "date" : "2019-12-04T00:00:00.000Z",
         "description" : "Launched <a href=\"https://contactus.flurdy.io\">contactus.flurdy.io</a>"
       }, {
-        "date" : "2019-09-28T00:00:00.000+01:00",
+        "date" : "2019-09-28T00:00:00.000Z",
         "description" : "Added ContactUs"
       } ],
       "comments" : [ {
@@ -1043,16 +1045,16 @@
         "date" : "2025-11-05T00:00:00.000Z",
         "description" : "Started new UI styling update"
       }, {
-        "date" : "2025-10-05T00:00:00.000+01:00",
+        "date" : "2025-10-05T00:00:00.000Z",
         "description" : "Migrated away from heroku to kubernetes/upstash"
       }, {
         "date" : "2016-02-01T00:00:00.000Z",
         "description" : "Live url change to https://whoto.flurdy.io"
       }, {
-        "date" : "2013-07-28T00:00:00.000+01:00",
+        "date" : "2013-07-28T00:00:00.000Z",
         "description" : "v1.0 deployed to <a href=\"http://whoto.flurdy.com\">whoto.flurdy.com</a>"
       }, {
-        "date" : "2013-05-24T00:00:00.000+01:00",
+        "date" : "2013-05-24T00:00:00.000Z",
         "description" : "Started <b>WhoTo</b> at <a href=\"https://bitbucket.org/flurdy/who-to\">bitbucket.org</a>"
       } ],
       "comments" : [ ],
@@ -1175,7 +1177,7 @@
         "date" : "2026-02-01T00:00:00.000Z",
         "description" : "Started development on Expire"
       }, {
-        "date" : "2020-07-12T00:00:00.000+01:00",
+        "date" : "2020-07-12T00:00:00.000Z",
         "description" : "Added Expire"
       } ],
       "comments" : [ ],
@@ -1237,7 +1239,7 @@
         "date" : "2023-03-20T00:00:00.000Z",
         "description" : "Promoting <a href=\"/project/letterbox\">letterbox</a> as beta"
       }, {
-        "date" : "2020-08-12T00:00:00.000+01:00",
+        "date" : "2020-08-12T00:00:00.000Z",
         "description" : "Changed domain name to <a href=\"https://letterbox.tech\">letterbox.tech</a>"
       }, {
         "date" : "2020-01-08T00:00:00.000Z",
@@ -1246,7 +1248,7 @@
         "date" : "2019-12-04T00:00:00.000Z",
         "description" : "Launched <a href=\"https://contactus.flurdy.io\">contactus.flurdy.io</a>"
       }, {
-        "date" : "2019-09-28T00:00:00.000+01:00",
+        "date" : "2019-09-28T00:00:00.000Z",
         "description" : "Added ContactUs"
       } ],
       "comments" : [ {
@@ -1311,17 +1313,17 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2025-07-08T00:00:00.000+01:00",
+        "date" : "2025-07-08T00:00:00.000Z",
         "description" : "v3.0 released. New Rust, Axum, HTMX based version"
       }, {
-        "date" : "2014-08-21T00:00:00.000+01:00",
+        "date" : "2014-08-21T00:00:00.000Z",
         "description" : "v1.0&alpha; deployed to <a href=\"http://sortingoffice-demo.herokuapp.com\">sortingoffice-demo.herokuapp.com</a>"
       } ],
       "comments" : [ {
-        "date" : "2025-07-08T00:00:00.000+01:00",
+        "date" : "2025-07-08T00:00:00.000Z",
         "comment" : "Version 3 is a complete rewrite in Rust, using Axum and HTMX."
       }, {
-        "date" : "2014-08-21T00:00:00.000+01:00",
+        "date" : "2014-08-21T00:00:00.000Z",
         "comment" : "The original version was built with Scala and Play Framework"
       } ],
       "derived" : {
@@ -1445,7 +1447,7 @@
         "date" : "2017-02-11T00:00:00.000Z",
         "description" : "Beta tagged"
       }, {
-        "date" : "2016-06-20T00:00:00.000+01:00",
+        "date" : "2016-06-20T00:00:00.000Z",
         "description" : "Renamed <b>CheckIn</b> to <b>TapIn</b>"
       }, {
         "date" : "2014-12-15T00:00:00.000Z",
@@ -1513,10 +1515,10 @@
         "deploy" : "live"
       },
       "news" : [ {
-        "date" : "2019-08-14T00:00:00.000+01:00",
+        "date" : "2019-08-14T00:00:00.000Z",
         "description" : "Renamed and moved to <a href=\"https://www.tulipan.io\">tulipan.io</a>"
       }, {
-        "date" : "2018-05-25T00:00:00.000+01:00",
+        "date" : "2018-05-25T00:00:00.000Z",
         "description" : "Moved to <a href=\"https://tulips.eray.io\">tulips.eray.io</a>"
       }, {
         "date" : "2018-03-01T00:00:00.000Z",
@@ -1552,12 +1554,12 @@
       "description" : "badusernames.flurdy.io is live"
     }, {
       "date" : "2026-Feb-24",
-      "project" : "TapIn",
-      "description" : "Static app page hosted on apps.flurdy.io"
-    }, {
-      "date" : "2026-Feb-24",
       "project" : "Lucid",
       "description" : "Created Lucid to host app support pages on apps.flurdy.io"
+    }, {
+      "date" : "2026-Feb-24",
+      "project" : "TapIn",
+      "description" : "Static app page hosted on apps.flurdy.io"
     }, {
       "date" : "2026-Feb-01",
       "project" : "Expire",
@@ -1612,12 +1614,12 @@
       "description" : "Added Gauge to code.flurdy.com"
     }, {
       "date" : "2021-Feb-12",
-      "project" : "LavaFlow",
-      "description" : "Added LavaFlow to code.flurdy.com"
-    }, {
-      "date" : "2021-Feb-12",
       "project" : "Gate House",
       "description" : "Added Sluice to code.flurdy.com"
+    }, {
+      "date" : "2021-Feb-12",
+      "project" : "LavaFlow",
+      "description" : "Added LavaFlow to code.flurdy.com"
     }, {
       "date" : "2020-Sept-28",
       "project" : "Handshake",
@@ -1687,10 +1689,10 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2017-10-13T00:00:00.000+01:00",
+        "date" : "2017-10-13T00:00:00.000Z",
         "description" : "Create github repo"
       }, {
-        "date" : "2017-10-10T00:00:00.000+01:00",
+        "date" : "2017-10-10T00:00:00.000Z",
         "description" : "Started Cargo scaffold"
       }, {
         "date" : "2017-01-21T00:00:00.000Z",
@@ -1807,13 +1809,13 @@
         "deploy" : "live"
       },
       "news" : [ {
-        "date" : "2019-10-17T00:00:00.000+01:00",
+        "date" : "2019-10-17T00:00:00.000Z",
         "description" : "Added help and sponsor"
       }, {
-        "date" : "2016-07-24T00:00:00.000+01:00",
+        "date" : "2016-07-24T00:00:00.000Z",
         "description" : "Made Dreamfactory public"
       }, {
-        "date" : "2016-07-24T00:00:00.000+01:00",
+        "date" : "2016-07-24T00:00:00.000Z",
         "description" : "Launched Dreamfactory on code.flurdy.com"
       } ],
       "comments" : [ ],
@@ -1873,10 +1875,10 @@
         "deploy" : "live"
       },
       "news" : [ {
-        "date" : "2020-09-24T00:00:00.000+01:00",
+        "date" : "2020-09-24T00:00:00.000Z",
         "description" : "Deployed mock up to <a href='http://hakiki.flurdy.io'>hakiki.flurdy.io</a>"
       }, {
-        "date" : "2020-09-15T00:00:00.000+01:00",
+        "date" : "2020-09-15T00:00:00.000Z",
         "description" : "Renamed Reviewer to Hakiki"
       }, {
         "date" : "2017-03-10T00:00:00.000Z",
@@ -2059,7 +2061,7 @@
         "deploy" : "offline"
       },
       "news" : [ {
-        "date" : "2018-06-02T00:00:00.000+01:00",
+        "date" : "2018-06-02T00:00:00.000Z",
         "description" : "v0.2&beta; deployed on <a href=\"http://valuta.flurdy.io\">valuta.flurdy.io</a>."
       }, {
         "date" : "2018-02-03T00:00:00.000Z",
@@ -2068,10 +2070,10 @@
         "date" : "2018-01-20T00:00:00.000Z",
         "description" : "Started new Valuta based on crypto currencies"
       }, {
-        "date" : "2009-04-28T00:00:00.000+01:00",
+        "date" : "2009-04-28T00:00:00.000Z",
         "description" : "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/valuta\">grid.flurdy.com/valuta</a>. Includes import of exchange rates from banks."
       }, {
-        "date" : "2009-04-23T00:00:00.000+01:00",
+        "date" : "2009-04-23T00:00:00.000Z",
         "description" : "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/valuta\">grid.flurdy.com/valuta</a>. Includes conversion tools."
       } ],
       "comments" : [ ],
@@ -2341,17 +2343,17 @@
       "deploy" : "live"
     },
     "news" : [ {
-      "date" : "2026-07-09T00:00:00.000+01:00",
+      "date" : "2026-07-09T00:00:00.000Z",
       "description" : "badusernames.flurdy.io is live"
     }, {
-      "date" : "2019-08-30T00:00:00.000+01:00",
+      "date" : "2019-08-30T00:00:00.000Z",
       "description" : "Added Badusernames to code.flurdy.com"
     } ],
     "comments" : [ {
-      "date" : "2026-06-30T00:00:00.000+01:00",
+      "date" : "2026-06-30T00:00:00.000Z",
       "comment" : "Scope should be multilingual where it is practical and high-value, such as common reserved/system words like admin or support in major languages, but intentionally English-first to avoid an unbounded language-maintenance problem."
     }, {
-      "date" : "2026-06-30T00:00:00.000+01:00",
+      "date" : "2026-06-30T00:00:00.000Z",
       "comment" : "Keep the public project and service name as Bad Usernames for now: it is direct, searchable, and matches the existing bad_usernames repository. A more distinctive branded name can be revisited later if the service grows beyond username blocklist checks."
     } ],
     "derived" : {
@@ -2510,10 +2512,10 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2017-10-13T00:00:00.000+01:00",
+      "date" : "2017-10-13T00:00:00.000Z",
       "description" : "Create github repo"
     }, {
-      "date" : "2017-10-10T00:00:00.000+01:00",
+      "date" : "2017-10-10T00:00:00.000Z",
       "description" : "Started Cargo scaffold"
     }, {
       "date" : "2017-01-21T00:00:00.000Z",
@@ -2618,7 +2620,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2021-06-21T00:00:00.000+01:00",
+      "date" : "2021-06-21T00:00:00.000Z",
       "description" : "Added consensus to code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -2777,7 +2779,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2024-05-22T00:00:00.000+01:00",
+      "date" : "2024-05-22T00:00:00.000Z",
       "description" : "Added Draft to code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -2840,13 +2842,13 @@
       "deploy" : "live"
     },
     "news" : [ {
-      "date" : "2019-10-17T00:00:00.000+01:00",
+      "date" : "2019-10-17T00:00:00.000Z",
       "description" : "Added help and sponsor"
     }, {
-      "date" : "2016-07-24T00:00:00.000+01:00",
+      "date" : "2016-07-24T00:00:00.000Z",
       "description" : "Made Dreamfactory public"
     }, {
-      "date" : "2016-07-24T00:00:00.000+01:00",
+      "date" : "2016-07-24T00:00:00.000Z",
       "description" : "Launched Dreamfactory on code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -2959,7 +2961,7 @@
       "date" : "2026-02-01T00:00:00.000Z",
       "description" : "Started development on Expire"
     }, {
-      "date" : "2020-07-12T00:00:00.000+01:00",
+      "date" : "2020-07-12T00:00:00.000Z",
       "description" : "Added Expire"
     } ],
     "comments" : [ ],
@@ -3123,7 +3125,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2014-10-10T00:00:00.000+01:00",
+      "date" : "2014-10-10T00:00:00.000Z",
       "description" : "Started <b>Gantry</b> at <a href=\"http://github.com/flurdy/gantry\">github.com</a>"
     } ],
     "comments" : [ ],
@@ -3253,7 +3255,7 @@
       "date" : "2025-11-11T00:00:00.000Z",
       "description" : "gauge.flurdy.io is now live!"
     }, {
-      "date" : "2021-06-08T00:00:00.000+01:00",
+      "date" : "2021-06-08T00:00:00.000Z",
       "description" : "Added Gauge to code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -3642,10 +3644,10 @@
       "deploy" : "live"
     },
     "news" : [ {
-      "date" : "2020-09-24T00:00:00.000+01:00",
+      "date" : "2020-09-24T00:00:00.000Z",
       "description" : "Deployed mock up to <a href='http://hakiki.flurdy.io'>hakiki.flurdy.io</a>"
     }, {
-      "date" : "2020-09-15T00:00:00.000+01:00",
+      "date" : "2020-09-15T00:00:00.000Z",
       "description" : "Renamed Reviewer to Hakiki"
     }, {
       "date" : "2017-03-10T00:00:00.000Z",
@@ -3699,7 +3701,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2020-09-28T00:00:00.000+01:00",
+      "date" : "2020-09-28T00:00:00.000Z",
       "description" : "Added Handshake to code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -4073,7 +4075,7 @@
       "date" : "2023-03-20T00:00:00.000Z",
       "description" : "Promoting <a href=\"/project/letterbox\">letterbox</a> as beta"
     }, {
-      "date" : "2020-08-12T00:00:00.000+01:00",
+      "date" : "2020-08-12T00:00:00.000Z",
       "description" : "Changed domain name to <a href=\"https://letterbox.tech\">letterbox.tech</a>"
     }, {
       "date" : "2020-01-08T00:00:00.000Z",
@@ -4082,7 +4084,7 @@
       "date" : "2019-12-04T00:00:00.000Z",
       "description" : "Launched <a href=\"https://contactus.flurdy.io\">contactus.flurdy.io</a>"
     }, {
-      "date" : "2019-09-28T00:00:00.000+01:00",
+      "date" : "2019-09-28T00:00:00.000Z",
       "description" : "Added ContactUs"
     } ],
     "comments" : [ {
@@ -4210,7 +4212,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2010-10-04T00:00:00.000+01:00",
+      "date" : "2010-10-04T00:00:00.000Z",
       "description" : "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
     } ],
     "comments" : [ ],
@@ -4261,7 +4263,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2015-10-04T00:00:00.000+01:00",
+      "date" : "2015-10-04T00:00:00.000Z",
       "description" : "Added Me to <a href=\"http://code.flurdy.com/\">code.flurdy.com</a>"
     } ],
     "comments" : [ ],
@@ -4417,7 +4419,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2010-04-02T00:00:00.000+01:00",
+      "date" : "2010-04-02T00:00:00.000Z",
       "description" : "Maven repository, <a href=\"http://code.flurdy.com/nexus\">code.flurdy.com/nexus</a>, now live"
     } ],
     "comments" : [ ],
@@ -4481,10 +4483,10 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2009-08-10T00:00:00.000+01:00",
+      "date" : "2009-08-10T00:00:00.000Z",
       "description" : "v2.0&alpha; deployed on <a href=\"http://grid.flurdy.com/passhash\">grid.flurdy.com/passhash</a>"
     }, {
-      "date" : "2009-08-10T00:00:00.000+01:00",
+      "date" : "2009-08-10T00:00:00.000Z",
       "description" : "v2.0&alpha;-m1 tagged"
     } ],
     "comments" : [ ],
@@ -4588,20 +4590,20 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2016-10-01T00:00:00.000+01:00",
+      "date" : "2016-10-01T00:00:00.000Z",
       "description" : "Conductor &alpha;lpha"
     }, {
-      "date" : "2016-08-01T00:00:00.000+01:00",
+      "date" : "2016-08-01T00:00:00.000Z",
       "description" : "Started on Philharmonic"
     } ],
     "comments" : [ {
       "date" : "2019-11-01T00:00:00.000Z",
       "comment" : "Considering reviving Philharmonic. May use Flux's multi tenancy to create short lived Kubernetes clusters for local development."
     }, {
-      "date" : "2017-10-01T00:00:00.000+01:00",
+      "date" : "2017-10-01T00:00:00.000Z",
       "comment" : "Dropped current development. Scala/Java Docker library was a bit immature. And a Kubernetes architecture seems more appropriate."
     }, {
-      "date" : "2016-08-01T00:00:00.000+01:00",
+      "date" : "2016-08-01T00:00:00.000Z",
       "comment" : "Architecture split across several apps. Started with an Akka actor setup."
     } ],
     "derived" : {
@@ -4651,7 +4653,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2013-05-20T00:00:00.000+01:00",
+      "date" : "2013-05-20T00:00:00.000Z",
       "description" : "Started <b>Photo Git</b>"
     }, {
       "date" : "2011-11-12T00:00:00.000Z",
@@ -4705,7 +4707,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2026-07-18T00:00:00.000+01:00",
+      "date" : "2026-07-18T00:00:00.000Z",
       "description" : "Added PillTrack"
     } ],
     "comments" : [ ],
@@ -4768,10 +4770,10 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2018-09-29T00:00:00.000+01:00",
+      "date" : "2018-09-29T00:00:00.000Z",
       "description" : "Added <a href=\"https:/github.com/flurdy/kotlin-pizza\">kotlin-pizza</a> to github"
     }, {
-      "date" : "2017-04-07T00:00:00.000+01:00",
+      "date" : "2017-04-07T00:00:00.000Z",
       "description" : "Added <a href=\"https:/github.com/flurdy/rustic-pizza\">rustic-pizza</a> to github"
     }, {
       "date" : "2016-12-07T00:00:00.000Z",
@@ -4876,7 +4878,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2018-05-15T00:00:00.000+01:00",
+      "date" : "2018-05-15T00:00:00.000Z",
       "description" : "Added Problems to code.flurdy.com"
     } ],
     "comments" : [ ],
@@ -4927,7 +4929,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2013-05-25T00:00:00.000+01:00",
+      "date" : "2013-05-25T00:00:00.000Z",
       "description" : "Set up <b>Scaffold-Play</b> at  <a href=\"http://github.com/flurdy/scaffold-play\">github.com</a>"
     } ],
     "comments" : [ ],
@@ -5303,22 +5305,22 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2012-09-01T00:00:00.000+01:00",
+      "date" : "2012-09-01T00:00:00.000Z",
       "description" : "v0.4&beta; deployed to <a href=\"http://snaps.flurdy.com\">snaps.flurdy.com</a>"
     }, {
-      "date" : "2012-08-06T00:00:00.000+01:00",
+      "date" : "2012-08-06T00:00:00.000Z",
       "description" : "v0.2&beta; deployed to <a href=\"http://snaps.flurdy.com\">snaps.flurdy.com</a>"
     }, {
-      "date" : "2010-08-06T00:00:00.000+01:00",
+      "date" : "2010-08-06T00:00:00.000Z",
       "description" : "v0.2&beta;-01 tagged"
     }, {
-      "date" : "2010-04-09T00:00:00.000+01:00",
+      "date" : "2010-04-09T00:00:00.000Z",
       "description" : "v0.2&alpha; deployed"
     }, {
-      "date" : "2009-10-20T00:00:00.000+01:00",
+      "date" : "2009-10-20T00:00:00.000Z",
       "description" : "v0.1&alpha;, <a href=\"http://grid.flurdy.com/fotogator\">grid.flurdy.com/fotogator</a> deployed "
     }, {
-      "date" : "2009-10-06T00:00:00.000+01:00",
+      "date" : "2009-10-06T00:00:00.000Z",
       "description" : "Added Fotogator to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
     } ],
     "comments" : [ ],
@@ -5422,17 +5424,17 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2025-07-08T00:00:00.000+01:00",
+      "date" : "2025-07-08T00:00:00.000Z",
       "description" : "v3.0 released. New Rust, Axum, HTMX based version"
     }, {
-      "date" : "2014-08-21T00:00:00.000+01:00",
+      "date" : "2014-08-21T00:00:00.000Z",
       "description" : "v1.0&alpha; deployed to <a href=\"http://sortingoffice-demo.herokuapp.com\">sortingoffice-demo.herokuapp.com</a>"
     } ],
     "comments" : [ {
-      "date" : "2025-07-08T00:00:00.000+01:00",
+      "date" : "2025-07-08T00:00:00.000Z",
       "comment" : "Version 3 is a complete rewrite in Rust, using Axum and HTMX."
     }, {
-      "date" : "2014-08-21T00:00:00.000+01:00",
+      "date" : "2014-08-21T00:00:00.000Z",
       "comment" : "The original version was built with Scala and Play Framework"
     } ],
     "derived" : {
@@ -5765,7 +5767,7 @@
       "date" : "2017-02-11T00:00:00.000Z",
       "description" : "Beta tagged"
     }, {
-      "date" : "2016-06-20T00:00:00.000+01:00",
+      "date" : "2016-06-20T00:00:00.000Z",
       "description" : "Renamed <b>CheckIn</b> to <b>TapIn</b>"
     }, {
       "date" : "2014-12-15T00:00:00.000Z",
@@ -5934,10 +5936,10 @@
       "deploy" : "live"
     },
     "news" : [ {
-      "date" : "2019-08-14T00:00:00.000+01:00",
+      "date" : "2019-08-14T00:00:00.000Z",
       "description" : "Renamed and moved to <a href=\"https://www.tulipan.io\">tulipan.io</a>"
     }, {
-      "date" : "2018-05-25T00:00:00.000+01:00",
+      "date" : "2018-05-25T00:00:00.000Z",
       "description" : "Moved to <a href=\"https://tulips.eray.io\">tulips.eray.io</a>"
     }, {
       "date" : "2018-03-01T00:00:00.000Z",
@@ -5994,7 +5996,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2010-10-04T00:00:00.000+01:00",
+      "date" : "2010-10-04T00:00:00.000Z",
       "description" : "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
     } ],
     "comments" : [ ],
@@ -6050,13 +6052,13 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2010-07-04T00:00:00.000+01:00",
+      "date" : "2010-07-04T00:00:00.000Z",
       "description" : "v0.0.1&alpha; deployed"
     }, {
-      "date" : "2009-09-17T00:00:00.000+01:00",
+      "date" : "2009-09-17T00:00:00.000Z",
       "description" : "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/upto\">grid.flurdy.com/upto</a>"
     }, {
-      "date" : "2009-04-01T00:00:00.000+01:00",
+      "date" : "2009-04-01T00:00:00.000Z",
       "description" : "Blog entry: <a href=\"http://blog.flurdy.com/2009/04/what-i-would-like-to-do-if-others-are.html\">what I would like to do if others are up for it</a>"
     } ],
     "comments" : [ ],
@@ -6116,7 +6118,7 @@
       "deploy" : "offline"
     },
     "news" : [ {
-      "date" : "2018-06-02T00:00:00.000+01:00",
+      "date" : "2018-06-02T00:00:00.000Z",
       "description" : "v0.2&beta; deployed on <a href=\"http://valuta.flurdy.io\">valuta.flurdy.io</a>."
     }, {
       "date" : "2018-02-03T00:00:00.000Z",
@@ -6125,10 +6127,10 @@
       "date" : "2018-01-20T00:00:00.000Z",
       "description" : "Started new Valuta based on crypto currencies"
     }, {
-      "date" : "2009-04-28T00:00:00.000+01:00",
+      "date" : "2009-04-28T00:00:00.000Z",
       "description" : "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/valuta\">grid.flurdy.com/valuta</a>. Includes import of exchange rates from banks."
     }, {
-      "date" : "2009-04-23T00:00:00.000+01:00",
+      "date" : "2009-04-23T00:00:00.000Z",
       "description" : "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/valuta\">grid.flurdy.com/valuta</a>. Includes conversion tools."
     } ],
     "comments" : [ ],
@@ -6232,7 +6234,7 @@
       "deploy" : null
     },
     "news" : [ {
-      "date" : "2010-10-04T00:00:00.000+01:00",
+      "date" : "2010-10-04T00:00:00.000Z",
       "description" : "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
     } ],
     "comments" : [ ],
@@ -6295,16 +6297,16 @@
       "date" : "2025-11-05T00:00:00.000Z",
       "description" : "Started new UI styling update"
     }, {
-      "date" : "2025-10-05T00:00:00.000+01:00",
+      "date" : "2025-10-05T00:00:00.000Z",
       "description" : "Migrated away from heroku to kubernetes/upstash"
     }, {
       "date" : "2016-02-01T00:00:00.000Z",
       "description" : "Live url change to https://whoto.flurdy.io"
     }, {
-      "date" : "2013-07-28T00:00:00.000+01:00",
+      "date" : "2013-07-28T00:00:00.000Z",
       "description" : "v1.0 deployed to <a href=\"http://whoto.flurdy.com\">whoto.flurdy.com</a>"
     }, {
-      "date" : "2013-05-24T00:00:00.000+01:00",
+      "date" : "2013-05-24T00:00:00.000Z",
       "description" : "Started <b>WhoTo</b> at <a href=\"https://bitbucket.org/flurdy/who-to\">bitbucket.org</a>"
     } ],
     "comments" : [ ],
@@ -6386,7 +6388,7 @@
       "date" : "2012-11-30T00:00:00.000Z",
       "description" : "v7.7&beta; deployed to <a href=\"http://wish.flurdy.com\">wish.flurdy.com</a>"
     }, {
-      "date" : "2012-09-18T00:00:00.000+01:00",
+      "date" : "2012-09-18T00:00:00.000Z",
       "description" : "v7.0&beta; deployed to <a href=\"http://wish.flurdy.com\">wish.flurdy.com</a>"
     }, {
       "date" : "2012-01-13T00:00:00.000Z",
@@ -6398,25 +6400,25 @@
       "date" : "2010-03-27T00:00:00.000Z",
       "description" : "v5.1&alpha;-m3 tagged"
     }, {
-      "date" : "2009-07-19T00:00:00.000+01:00",
+      "date" : "2009-07-19T00:00:00.000Z",
       "description" : "v5.1&alpha;-m1 tagged"
     }, {
-      "date" : "2009-05-23T00:00:00.000+01:00",
+      "date" : "2009-05-23T00:00:00.000Z",
       "description" : "v5.1&alpha; deployed on grid.flurdy.com/wishlist"
     }, {
-      "date" : "2009-05-23T00:00:00.000+01:00",
+      "date" : "2009-05-23T00:00:00.000Z",
       "description" : "v5.0&beta; deployed on grid.flurdy.com/wish"
     }, {
-      "date" : "2009-05-23T00:00:00.000+01:00",
+      "date" : "2009-05-23T00:00:00.000Z",
       "description" : "v5.0&beta;-1 tagged"
     }, {
-      "date" : "2009-04-13T00:00:00.000+01:00",
+      "date" : "2009-04-13T00:00:00.000Z",
       "description" : "v5.0&alpha;-m2 tagged"
     }, {
       "date" : "2008-10-29T00:00:00.000Z",
       "description" : "v4.2&alpha;-m2 tagged"
     }, {
-      "date" : "2008-08-18T00:00:00.000+01:00",
+      "date" : "2008-08-18T00:00:00.000Z",
       "description" : "v4.0&beta;-1 tagged"
     }, {
       "date" : "2008-02-08T00:00:00.000Z",
@@ -6425,7 +6427,7 @@
       "date" : "2006-12-03T00:00:00.000Z",
       "description" : "v0.3&alpha;-1.2 tagged"
     }, {
-      "date" : "2003-04-22T00:00:00.000+01:00",
+      "date" : "2003-04-22T00:00:00.000Z",
       "description" : "Registered as Sourceforge project <a href=\"https://sourceforge.net/projects/wishlist/\">sourceforge.net/projects/wishlist/</a>"
     } ],
     "comments" : [ ],

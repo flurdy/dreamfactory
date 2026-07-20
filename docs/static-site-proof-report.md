@@ -1,7 +1,7 @@
 # Hugo / Cloudflare Pages proof report
 
 **Bead:** `dreamfactory-lu1`
-**Status:** Local mechanics evidence complete; proof acceptance incomplete and Pages preview deferred
+**Status:** Bounded proof reviewed and closed; canonical-data follow-up passes local gates, Pages preview remains deferred
 **Date:** 2026-07-20
 
 ## Scope decision
@@ -10,10 +10,11 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 ## Implemented local proof
 
-- Added `tools.StaticSiteExport`, a raw HOCON inventory and rendered-model exporter.
-  - It independently validates the raw HOCON schema/value allow-list before model conversion.
-  - It exports a 72-project snapshot, a 16-issue raw-validation report, generated aliases, and homepage selection metadata. Repeated regeneration is byte-stable within the same current time-derived state; fixed-time derivation remains migration work.
-  - The known unsupported assignments in `badusernames.conf`, `gauge.conf`, `consensus.conf`, and `shop.conf` are asserted by `scripts/verify-static-site.sh`.
+- Established `static-site/source/projects.json` as the canonical authored dataset.
+  - A strict JSON Schema and Ajv validation reject unknown fields, unsupported values, invalid dates, route collisions, and URL-order drift.
+  - The 16 raw HOCON discrepancies have explicit decisions in `docs/static-data-migration-decisions.md`; owners, keywords, and typo aliases are preserved rather than silently dropped.
+  - A fixed-clock Play oracle records `2026-07-20T12:00:00Z` in UTC. Node generation matches its project fields and derived flags except the approved data corrections and deterministic tie ordering; separate homepage/list summary fields preserve each Play template's URL behavior.
+  - Production-shaped Hugo builds generate data, browser catalog, and 216 redirects without Scala or SBT.
 - Added a Hugo `0.164.0` proof under `static-site/`.
   - It builds the shared shell, home, all-project list, 72 detail pages, 72 help pages, 72 sponsor pages, representative query shells, a representative characteristic page, and `404.html`.
   - Detail pages carry rich HTML, URLs, versions, license, characteristics, tags, technologies, news, and comments from the exported data, using the same component structure and shared CSS as Play.
@@ -35,15 +36,14 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 | Check | Result |
 |---|---|
-| Raw HOCON inventory | 72 rendered projects; 16 discrepancies reported; no discrepancy is silently ignored. |
+| Canonical data migration | 72 projects validate against one schema. The original 16 discrepancies are fixed/classified, four owners and Expire keywords are preserved, two typo slugs are retained as aliases, and the raw inventory now reports zero unresolved issues. |
 | Generated page shape | 216 project detail/help/sponsor pages, plus home/list/query/characteristic/404 pages. |
-| Local artifact | 268 files, 4,309,765 bytes total; largest asset 202,869 bytes. This is below Cloudflare Pages Free's 20,000-file and 25 MiB-per-asset limits. |
-| Acceptance benchmark | Play `sbt clean test stage`: 30.24 s / 1,723,080 KB, 30.06 s / 1,702,384 KB, 30.46 s / 1,693,824 KB. Static `npm run test:static-browser` (which regenerates, verifies, builds, starts nginx, and runs browser/a11y tests): 31.80 s / 1,161,152 KB, 30.46 s / 1,080,876 KB, 31.90 s / 1,292,900 KB. The static median is 5% slower and uses 32% less peak RSS, so both approved 50% gates **fail**. |
-| Build-only reference | Three clean-output exporter + Hugo builds: 9.74 s / 1,209,376 KB, 8.33 s / 1,072,228 KB, 8.53 s / 1,195,328 KB. Useful local feedback, but not substituted for the tested acceptance benchmark. |
-| Hugo-only reference | Three clean-output builds from committed static snapshots: 0.12 s / 93,552 KB, 0.11 s / 93,808 KB, 0.11 s / 93,412 KB. This represents the intended Pages build after canonical static data exists, but is not substituted for the failed tested gate. |
-| Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. The generated manifest has 213 explicit aliases. |
+| Local artifact | 268 files, 4,348,366 bytes total; largest asset 240,026 bytes. This is below Cloudflare Pages Free's 20,000-file and 25 MiB-per-asset limits. |
+| Acceptance benchmark | Play `sbt clean test stage` baseline: 30.24 s / 1,723,080 KB, 30.06 s / 1,702,384 KB, 30.46 s / 1,693,824 KB. Canonical static `npm run test:static-browser` (schema/oracle tests, generation, Hugo, link audit, nginx, browser/a11y): 8.47 s / 224,960 KB, 8.08 s / 223,804 KB, 8.88 s / 224,184 KB. Median wall time improves 72.0% and peak RSS 86.8%, so both approved 50% gates **pass**. |
+| Production build reference | Three Node generation + clean Hugo builds: 0.35 s / 103,484 KB, 0.38 s / 106,512 KB, 0.37 s / 103,356 KB. |
+| Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. The generated manifest has 216 explicit aliases. |
 | Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, Play-oracle search/technology/characteristic results, keyboard focus, rich page content, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on home/search/detail samples. |
-| Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, and Gift Registry at 1280 px and 375 px. Differences range from 0.09% to 0.36%, below the 1% gate. |
+| Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, and Gift Registry at 1280 px and 375 px. Differences range from 0.24% to 0.46%, below the 1% gate. |
 | Existing application tests | `sbt test` passes: 5 tests, 0 failures. |
 | Manual browser checks | Side-by-side local inspection confirmed the representative Hugo project page closely matches Play. Docker Compose/nginx checks production-shaped extensionless paths and 404 behavior locally. |
 
@@ -58,24 +58,19 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 ## Known gaps and decision impact
 
-The local implementation is sufficient to evaluate Hugo plus static Pages mechanics, but it **does not yet satisfy every proof acceptance criterion**:
+The canonical-data follow-up resolves the local data, fixed-time derivation, source-link, and benchmark gaps. Remaining migration gaps are tracked separately:
 
-1. The 16 raw-data discrepancies are reported but not classified/resolved; a full migration must make a source-truth decision for each.
-2. The export's derived-state fields remain a current-rendered-behavior oracle. The full migration must compute them from raw dates/news with an injectable timestamp and keep dated fixtures.
-3. Query shells demonstrate only representative search/technology/characteristic cases; they do not yet reproduce the full tag, multi-value, related-filter, and eleven-property interaction matrix.
-4. The link audit has no unclassified internal route failures, but records five existing source defects: stale `@routes...` content and four malformed `https:/github...` links. These require data cleanup before migration.
-5. The acceptance-compliant tested benchmark misses both 50% gates: it is 5% slower and uses only 32% less peak RSS than Play. Canonical static data would remove SBT export and the production Pages build is represented by the much smaller Hugo-only reference, but that remains migration work rather than proven tested end-to-end evidence.
-6. Cloudflare Pages preview, Pages redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback are explicitly unverified because the owner chose local proof only.
-7. The static route output has been verified against Docker Compose/nginx, not Cloudflare's path/redirect semantics. In particular, Pages preview remains required before any cutover decision.
+1. Query shells demonstrate only representative search/technology/characteristic cases; they do not yet reproduce the full tag, multi-value, related-filter, and eleven-property interaction matrix.
+2. The projects list and remaining page families still need complete visual and interaction parity coverage.
+3. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. Local route output has only been verified against Docker Compose/nginx.
 
 ## Revised full-migration estimate
 
-If the remaining proof gates are accepted/completed, estimate **6–9 developer days** for the full migration:
+After the canonical-data slice, estimate **4–7 developer days** for the remaining migration:
 
-- 1–2 days: classify/fix raw data, remove the Scala-export dependency, and establish canonical timestamped static data.
-- 2–3 days: complete home/help/sponsor visual coverage and the full query/filter/related-filter matrix; project-detail template parity is already established.
-- 1–2 days: visual/a11y/link/contract coverage and Cloudflare Pages preview validation.
-- 1 day: custom-domain cutover/rollback rehearsal and contributor/runbook documentation.
+- 2–3 days: complete projects-list, home/help/sponsor, and query/filter/related-filter parity.
+- 1–2 days: full visual/a11y/link/contract coverage and Cloudflare Pages preview validation.
+- 1 day: contributor/runbook documentation and custom-domain cutover/rollback rehearsal.
 - Up to 1 contingency day for Pages URL/cache differences or rich-content cleanup.
 
 This estimate excludes production observation time and assumes no Pages Function/Worker.
@@ -84,4 +79,4 @@ This estimate excludes production observation time and assumes no Pages Function
 
 The local mechanics evidence supports continuing with **Hugo on Cloudflare Pages Free** as the provisional direction: the generated artifact is small, the Hugo-only build is materially faster/lighter, and the current static constraints are understood.
 
-The bounded proof does **not** yet pass its acceptance contract because the tested build thresholds fail and Cloudflare Pages evidence is deferred; raw-data and broader interaction gaps also remain. Representative project-detail visual and accessibility gates now pass. Do not approve full migration or production cutover. Next choose whether to (a) complete the remaining local coverage and later obtain a non-production Pages preview, or (b) stop after this evidence and keep Play in production.
+The local candidate now passes the canonical-data, reproducibility, benchmark, representative visual, browser, and accessibility gates. Broader interaction/page parity and real Cloudflare Pages behavior remain outstanding in the approved migration sequence. Do not approve production cutover until those beads pass and rollback is rehearsed.

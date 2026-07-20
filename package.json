@@ -2,14 +2,19 @@
   "name": "dreamfactory-static-proof",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   },
   "scripts": {
+    "build:static-data": "node scripts/generate-static-data.mjs",
+    "test:static-data": "node --test test/static-site/static-data.test.mjs",
     "test:static-browser": "node scripts/verify-static-browser.mjs",
     "test:visual-parity": "node scripts/compare-project-pages.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
     "playwright": "1.55.1"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
   }
 }

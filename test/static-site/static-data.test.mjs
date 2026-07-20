@@ -1,0 +1,173 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import test from 'node:test';
+
+import {
+  generateStaticData,
+  loadCanonicalProjects,
+  subtractYearsClamped,
+  validateCanonicalData,
+} from '../../scripts/lib/static-projects.mjs';
+
+const asOf = '2026-07-20T12:00:00Z';
+const oracle = JSON.parse(fs.readFileSync('test/fixtures/static-site/play-oracle-2026-07-20/projects.json', 'utf8'));
+const source = loadCanonicalProjects();
+const approvedCharacteristics = new Map([
+  ['baby_crowd_monitor', { development: 'notstarted' }],
+  ['bad_usernames', { appeal: 'keen' }],
+  ['Bookmarks', { development: 'notstarted' }],
+  ['consensus', { appeal: 'maybe' }],
+  ['gauge', { appeal: 'keen' }],
+  ['Grapemine', { development: 'notstarted' }],
+  ['Guvnor', { complexity: 'verydifficult' }],
+  ['Problems', { complexity: 'easy' }],
+  ['shopmobile', { release: 'mothballed' }],
+]);
+
+function byRoute(projects) {
+  return new Map(projects.map(project => [project.link ?? project.route, project]));
+}
+
+function sorted(values) {
+  return [...values].sort();
+}
+
+function fixKnownLinks(value) {
+  if (typeof value === 'string') {
+    return value
+      .replaceAll('@routes.ProjectController.ideas()', '/projects/?filter.idea=require')
+      .replaceAll('https:/github.com', 'https://github.com');
+  }
+  if (Array.isArray(value)) return value.map(fixKnownLinks);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, fixKnownLinks(item)]));
+  }
+  return value;
+}
+
+test('canonical data validates with explicit stable route identity', () => {
+  assert.equal(source.projects.length, 72);
+  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 72);
+  assert.equal(source.projects.find(project => project.route === 'Scala Soup').aliases[0], 'Scala-Soup');
+  assert.equal(source.projects.find(project => project.route === 'Spring-boot-logging-json').aliases[0], 'spring-boot-logging-json');
+  assert.deepEqual(source.projects.find(project => project.route === 'expire').keywords, [
+    'Expire', 'shopping', 'pantry', 'fridge', 'food', 'groceries', 'produce', 'bestby',
+  ]);
+  assert.deepEqual(source.projects.find(project => project.route === 'Lucid').owners, [
+    { name: 'Eray by Flurdy', link: 'https://eray.uk' },
+  ]);
+  assert.doesNotMatch(JSON.stringify(source), /@routes|https:\/github/);
+});
+
+test('schema and semantic validation reject lossy or ambiguous source data', () => {
+  const unknownField = structuredClone(source);
+  unknownField.projects[0].unexpected = true;
+  assert.throws(() => validateCanonicalData(unknownField), /additional properties/);
+
+  const unsupportedValue = structuredClone(source);
+  unsupportedValue.projects[0].characteristics.appeal = 'high';
+  assert.throws(() => validateCanonicalData(unsupportedValue), /must be equal to one of the allowed values/);
+
+  const invalidDate = structuredClone(source);
+  invalidDate.projects[0].dates.created = '2026-02-30';
+  assert.throws(() => validateCanonicalData(invalidDate), /Invalid calendar date/);
+
+  const duplicateRoute = structuredClone(source);
+  duplicateRoute.projects[1].route = duplicateRoute.projects[0].route;
+  assert.throws(() => validateCanonicalData(duplicateRoute), /Duplicate case-insensitive route/);
+
+  const caseDuplicateRoute = structuredClone(source);
+  caseDuplicateRoute.projects[1].route = caseDuplicateRoute.projects[0].route.toUpperCase();
+  assert.throws(() => validateCanonicalData(caseDuplicateRoute), /Duplicate case-insensitive route/);
+
+  const traversalRoute = structuredClone(source);
+  traversalRoute.projects[0].route = '../project';
+  assert.throws(() => validateCanonicalData(traversalRoute), /must match pattern/);
+
+  const malformedUrl = structuredClone(source);
+  malformedUrl.projects.find(project => project.route === 'bad_usernames').urls.live = 'https://%';
+  assert.throws(() => validateCanonicalData(malformedUrl), /Invalid bad_usernames URL live/);
+
+  const malformedLicense = structuredClone(source);
+  malformedLicense.projects.find(project => project.route === 'Dreamfactory').license.link = 'https://%';
+  assert.throws(() => validateCanonicalData(malformedLicense), /Invalid Dreamfactory license/);
+
+  const malformedOwner = structuredClone(source);
+  malformedOwner.projects.find(project => project.route === 'Lucid').owners[0].link = 'https://%';
+  assert.throws(() => validateCanonicalData(malformedOwner), /Invalid Lucid owner Eray by Flurdy/);
+});
+
+test('fixed-time generation is byte-stable and timezone-explicit', () => {
+  const first = generateStaticData({ asOf, write: false });
+  const second = generateStaticData({ asOf, write: false });
+  assert.equal(JSON.stringify(first), JSON.stringify(second));
+  assert.equal(first.catalog.asOf, '2026-07-20T12:00:00.000Z');
+  assert.equal(first.catalog.timeZone, 'UTC');
+  assert.throws(() => generateStaticData({ asOf: '2026-07-20T12:00:00', write: false }), /explicit timezone/);
+});
+
+test('calendar year subtraction clamps leap days', () => {
+  const leapDay = new Date('2024-02-29T12:34:56.789Z');
+  assert.equal(subtractYearsClamped(leapDay, 1).toISOString(), '2023-02-28T12:34:56.789Z');
+  assert.equal(subtractYearsClamped(leapDay, 8).toISOString(), '2016-02-29T12:34:56.789Z');
+});
+
+test('fixed-time output matches the Play oracle except approved source decisions', () => {
+  const { catalog, redirects } = generateStaticData({ asOf, write: false });
+  const actualProjects = byRoute(catalog.projects);
+  const oracleProjects = byRoute(oracle.projects);
+  assert.deepEqual(sorted(actualProjects.keys()), sorted(oracleProjects.keys()));
+
+  for (const [route, expected] of oracleProjects) {
+    const actual = actualProjects.get(route);
+    for (const key of [
+      'title', 'encoded', 'link', 'pathSegment', 'description', 'urls', 'urlEntries', 'dates',
+      'versions', 'tags', 'technologies', 'license', 'comments', 'derived',
+    ]) {
+      assert.deepEqual(actual[key], expected[key], `${route} ${key}`);
+    }
+
+    const expectedNews = fixKnownLinks(expected.news);
+    assert.deepEqual(actual.news, expectedNews, `${route} news`);
+
+    const changes = approvedCharacteristics.get(route) ?? {};
+    assert.deepEqual(actual.characteristics, { ...expected.characteristics, ...changes }, `${route} characteristics`);
+
+    assert.deepEqual(actual.summaryUrl, expected.summaryUrl, `${route} homepage summary URL`);
+    if (
+      expected.characteristics.development === 'abandoned' &&
+      !(expected.urls.live && expected.characteristics.deploy === 'live') &&
+      (expected.urls.project || expected.urls.live)
+    ) {
+      assert.equal(actual.listSummaryUrl.kind, 'not-live', `${route} abandoned list summary URL`);
+      assert.equal(actual.listSummaryUrl.href, expected.urls.live ?? expected.urls.project, `${route} abandoned list summary href`);
+    } else {
+      assert.deepEqual(actual.listSummaryUrl, expected.summaryUrl, `${route} list summary URL`);
+    }
+
+    assert.ok(actual.aliases.includes(expected.link), `${route} canonical alias`);
+    assert.ok(actual.aliases.includes(expected.title), `${route} title alias`);
+  }
+
+  assert.deepEqual(catalog.home.newLinks, oracle.home.newLinks);
+  assert.deepEqual(new Set(catalog.home.updatedLinks), new Set(oracle.home.updatedLinks));
+  assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
+  assert.deepEqual(catalog.home.latestNews, oracle.home.latestNews);
+  assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted(oracle.home.randomExcludedLinks));
+  assert.deepEqual(
+    catalog.home.noJavaScriptRandomProjects.map(project => project.link),
+    oracle.home.noJavaScriptRandomProjects.map(project => project.link),
+  );
+  assert.deepEqual(catalog.oracle.searchDreamfactoryLiveTitles, oracle.oracle.searchDreamfactoryLiveTitles);
+  assert.deepEqual(catalog.oracle.scalaLiveTitles, oracle.oracle.scalaLiveTitles);
+  assert.deepEqual(
+    catalog.oracle.easyComplexityTitles,
+    [...oracle.oracle.easyComplexityTitles, 'Problems'].sort((left, right) => left.toLowerCase().localeCompare(right.toLowerCase())),
+  );
+
+  const oldRedirects = fs.readFileSync('test/fixtures/static-site/play-oracle-redirects-2026-07-20.txt', 'utf8')
+    .split('\n').filter(Boolean);
+  const newRedirects = new Set(redirects.split('\n').filter(Boolean));
+  oldRedirects.forEach(redirect => assert.ok(newRedirects.has(redirect), `missing redirect: ${redirect}`));
+  assert.ok(newRedirects.has('/project/Scala-Soup /project/Scala%20Soup 301'));
+});

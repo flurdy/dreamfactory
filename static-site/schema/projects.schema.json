@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://code.flurdy.com/schemas/projects.schema.json",
+  "title": "Dream Factory canonical project data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "projects"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "projects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/project" }
+    }
+  },
+  "$defs": {
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
+    },
+    "fullDate": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https?://[^\\s]+$"
+    },
+    "namedLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "link"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "link": { "$ref": "#/$defs/url" }
+      }
+    },
+    "characteristics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "appeal": { "enum": ["keen", "interested", "maybe", "low", "none"] },
+        "complexity": { "enum": ["verydifficult", "difficult", "medium", "easy"] },
+        "likelihood": { "enum": ["high", "possibly", "unlikely", "never"] },
+        "development": { "enum": ["abandoned", "alpha", "beta", "completed", "notstarted"] },
+        "release": { "enum": ["mature", "released", "beta", "notreleased", "mothballed"] },
+        "deploy": { "enum": ["live", "offline"] }
+      }
+    },
+    "news": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "description"],
+      "properties": {
+        "date": { "$ref": "#/$defs/fullDate" },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "comment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "comment"],
+      "properties": {
+        "date": { "$ref": "#/$defs/fullDate" },
+        "comment": { "type": "string", "minLength": 1 }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route",
+        "title",
+        "urls",
+        "dates",
+        "versions",
+        "tags",
+        "technologies",
+        "characteristics",
+        "news",
+        "comments"
+      ],
+      "properties": {
+        "route": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!\\.{1,2}$)(?!.*[\\\\/])[^\\u0000-\\u001F\\u007F]+$"
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "encoded": { "type": "string", "minLength": 1 },
+        "aliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "description": { "type": "string" },
+        "urls": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z][a-z0-9.-]*$" },
+          "additionalProperties": { "$ref": "#/$defs/url" }
+        },
+        "urlOrder": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*$" }
+        },
+        "dates": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "created": { "$ref": "#/$defs/date" },
+            "updated": { "$ref": "#/$defs/date" }
+          }
+        },
+        "versions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dev": { "type": "string" },
+            "live": { "type": "string" }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "technologies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "license": { "$ref": "#/$defs/namedLink" },
+        "owners": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/namedLink" }
+        },
+        "keywords": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "characteristics": { "$ref": "#/$defs/characteristics" },
+        "news": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/news" }
+        },
+        "comments": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/comment" }
+        }
+      }
+    }
+  }
+}

@@ -11,13 +11,6 @@ redirect_sources = {
     if line.strip() and not line.startswith("#")
 }
 
-known_source_defects = {
-    "@routes.ProjectController.ideas()",
-    "https:/github.com/flurdy/docker-compose-machine-swarm-cloud-example",
-    "https:/github.com/flurdy/kotlin-pizza",
-    "https:/github.com/flurdy/pizzeria",
-    "https:/github.com/flurdy/rustic-pizza",
-}
 found_source_defects = set()
 broken_internal = set()
 
@@ -41,19 +34,13 @@ for html_file in root.rglob("*.html"):
         if not any(candidate.is_file() for candidate in candidates) and encoded_source not in redirect_sources:
             broken_internal.add(f"{html_file.relative_to(root)} -> {href}")
 
-unexpected_defects = found_source_defects - known_source_defects
-missing_defects = known_source_defects - found_source_defects
-
-if broken_internal or unexpected_defects or missing_defects:
+if broken_internal or found_source_defects:
     if broken_internal:
         print("Broken internal routes:")
         print("\n".join(sorted(broken_internal)))
-    if unexpected_defects:
-        print("Unexpected source-link defects:")
-        print("\n".join(sorted(unexpected_defects)))
-    if missing_defects:
-        print("Expected source-link defects no longer found; update the baseline:")
-        print("\n".join(sorted(missing_defects)))
+    if found_source_defects:
+        print("Source-link defects:")
+        print("\n".join(sorted(found_source_defects)))
     raise SystemExit(1)
 
-print(f"Static link audit passed with {len(found_source_defects)} classified legacy source defects.")
+print("Static link audit passed with no source-link defects.")

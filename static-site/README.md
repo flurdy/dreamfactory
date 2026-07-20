@@ -1,6 +1,6 @@
-# Static-site proof
+# Static site
 
-This directory is the bounded Hugo/Cloudflare Pages proof for `dreamfactory-lu1`, not a production migration.
+This directory contains the Hugo/Cloudflare Pages migration. Canonical authored project data lives in `source/projects.json`; Hugo data, the browser catalog, and redirects are generated from it.
 
 ## Local verification
 
@@ -8,7 +8,7 @@ This directory is the bounded Hugo/Cloudflare Pages proof for `dreamfactory-lu1`
 scripts/verify-static-site.sh
 ```
 
-The command requires Hugo `0.164.0`, runs the Scala HOCON inventory/exporter, then builds Hugo into `static-site/public/`.
+The command requires Node 20 and Hugo `0.164.0`. It validates canonical data, generates timestamp-derived state, then builds Hugo into `static-site/public/` without Scala or SBT.
 
 Run the committed browser proof (build, Docker Compose/nginx, deterministic random reload, representative filters, keyboard focus, and 404):
 
@@ -38,19 +38,23 @@ npm run test:visual-parity
 
 The desktop and mobile comparisons must each differ by no more than 1% of pixels.
 
-`data/projects.json`, `data/raw-validation.json`, `static/data/projects.json`, and `static/_redirects` are committed proof snapshots so Cloudflare Pages can build Hugo without a JVM. Regenerate and review them with:
+Generate the Hugo data, browser catalog, and redirects with:
 
 ```bash
-sbt "runMain tools.StaticSiteExport"
+nvm use
+npm ci
+npm run build:static-data
 ```
+
+Set `DREAMFACTORY_AS_OF` to an ISO timestamp with an explicit timezone for reproducible output. Tests use `2026-07-20T12:00:00Z`. `tools.StaticSiteExport` remains temporarily available only for fixed-clock Play-oracle fixtures; production static builds do not invoke it.
 
 ## Cloudflare Pages preview configuration
 
 When credentials and a non-production Pages project are available, configure the repository root as the build root with:
 
-- **Build command:** `hugo --source static-site --destination public --minify`
+- **Build command:** `npm ci && scripts/build-static-site.sh`
 - **Build output directory:** `static-site/public`
-- **Environment variable:** `HUGO_VERSION=0.164.0`
+- **Environment variables:** `HUGO_VERSION=0.164.0`, `NODE_VERSION=20`
 - **Functions:** none
 
 Use a preview deployment only. Do not attach the production custom domain or alter the Kubernetes/Play deployment during this proof.

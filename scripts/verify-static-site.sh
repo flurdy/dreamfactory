@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export DREAMFACTORY_AS_OF="${DREAMFACTORY_AS_OF:-2026-07-20T12:00:00Z}"
+
+npm run test:static-data
 scripts/build-static-site.sh
 
 snapshot_hash() {
-  sha256sum static-site/data/projects.json static-site/data/raw-validation.json static-site/static/data/projects.json static-site/static/_redirects | sha256sum | cut -d' ' -f1
+  sha256sum static-site/data/projects.json static-site/static/data/projects.json static-site/static/_redirects | sha256sum | cut -d' ' -f1
 }
 
 first_snapshot_hash="$(snapshot_hash)"
-sbt "runMain tools.StaticSiteExport" >/tmp/dreamfactory-static-export-repeat.log
+node scripts/generate-static-data.mjs >/tmp/dreamfactory-static-data-repeat.log
 second_snapshot_hash="$(snapshot_hash)"
 test "$first_snapshot_hash" = "$second_snapshot_hash"
 
@@ -21,10 +24,10 @@ jq -e '
   ([.home.noJavaScriptRandomProjects[] | select((.derived.dead or .derived.unlikely or .derived.stale) | not)] | length >= 7)
 ' static-site/data/projects.json >/dev/null
 jq -e '
-  .issueCount == 16 and
-  any(.issues[]; .file == "badusernames.conf" and .path == "characteristics.appeal" and .value == "high") and
-  any(.issues[]; .file == "shop.conf" and .path == "characteristics.status.release" and .value == "abandoned")
-' static-site/data/raw-validation.json >/dev/null
+  .schemaVersion == 1 and
+  (.projects | length == 72) and
+  ([.projects[].route | ascii_downcase] | length == ([.[]] | unique | length))
+' static-site/source/projects.json >/dev/null
 
 test -f static-site/public/404.html
 test "$(find static-site/public/project -name index.html -not -path 'static-site/public/project/index.html' | wc -l)" -eq 216

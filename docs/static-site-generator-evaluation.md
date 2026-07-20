@@ -168,7 +168,7 @@ Each slice remains reviewable and reversible; implementation tracking should be 
 
 ## Decision and acceptance criteria
 
-**Decision (2026-07-20):** the two-day Hugo proof is approved, with Hugo as the provisional migration target. Do not approve the full migration until the bounded proof passes and its decision report is reviewed.
+**Decision (2026-07-20):** the bounded proof was reviewed and closed with its failed/deferred gates documented. The owner then approved the staged full-migration backlog and canonical-data implementation. Production cutover remains gated on complete parity, Cloudflare Pages preview evidence, and rehearsed rollback.
 
 After proof approval, the full migration is accepted only when:
 
@@ -187,4 +187,4 @@ If the proof fails exact URL or interaction parity, retain Play and limit modern
 - Confirm that JavaScript-enabled query filtering is acceptable; otherwise retain Play.
 - Treat homepage random boxes as changing on every page load when JavaScript is enabled; build-time selection is the no-JavaScript fallback.
 - **Decided (2026-07-19):** use canonical URLs plus known encoded/title aliases. Intentionally return 404 for arbitrary-case detail/help/sponsor URLs, keeping the migration on free static Pages without a Function/Worker.
-- The Hugo proof is approved and tracked as `dreamfactory-lu1`; do not begin full migration work until its decision report is reviewed.
+- **Decided (2026-07-20):** the proof report was reviewed, `dreamfactory-lu1` was closed, and the staged full-migration beads were approved.
