@@ -235,7 +235,13 @@ object StaticSiteExport extends App {
   private def optionalConfigList(config: Config, path: String): List[Config] =
     Option.when(config.hasPath(path))(config.getConfigList(path).asScala.toList).getOrElse(List.empty)
 
-  private def projectJson(project: Project): JsObject =
+  private def projectJson(project: Project): JsObject = {
+    val urlEntries = (List("project", "live").flatMap(key => project.urls.get(key).map(key -> _)) ++
+      project.urls.others.keys.toList.flatMap(key => project.urls.get(key).map(key -> _))).map {
+      case (key, url) =>
+        Json.obj("key" -> key, "url" -> url.value.toString)
+    }
+
     Json.obj(
       "title"       -> project.title,
       "encoded"     -> project.encoded,
@@ -243,8 +249,9 @@ object StaticSiteExport extends App {
       "pathSegment" -> encodePathSegment(project.link),
       "aliases"     -> Seq(project.link, project.title).distinct,
       "description" -> project.description,
-      "urls"  -> JsObject(project.urls.values.map { case (key, url) => key -> JsString(url.value.toString) }),
-      "dates" -> Json.obj("created" -> project.dates.created, "updated" -> project.dates.updated),
+      "urls" -> JsObject(project.urls.values.map { case (key, url) => key -> JsString(url.value.toString) }),
+      "urlEntries"   -> urlEntries,
+      "dates"        -> Json.obj("created" -> project.dates.created, "updated" -> project.dates.updated),
       "versions"     -> Json.obj("dev" -> project.versions.dev, "live" -> project.versions.live),
       "tags"         -> project.tags.toList.map(_.name).sorted,
       "technologies" -> project.tech.toList.map(_.name).sorted,
@@ -277,6 +284,7 @@ object StaticSiteExport extends App {
         "unlikely"   -> (project.isUnlikely || project.isUnappealing)
       )
     )
+  }
 
   private def deterministicRandomFallback(
       projects: List[Project],

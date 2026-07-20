@@ -1,0 +1,6 @@
+<ul class="newsbar-list">
+  {{ range hugo.Data.projects.home.latestNews }}
+    {{ $newsPath := replace (urlquery .project) "+" "%20" }}
+    <li><div class="newsbar-date">{{ .date }}:</div><div class="newsbar-project"><a href="/project/{{ $newsPath | safeURL }}">{{ .project }}</a>:</div><div class="newsbar-description">{{ .description | safeHTML }}</div></li>
+  {{ end }}
+</ul>

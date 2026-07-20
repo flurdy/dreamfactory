@@ -60,11 +60,27 @@
    outline-offset: 2px;
 }
 
+#nautical-cargo .btn-success {
+   color: #ffffff;
+   background-color: #2f7d32;
+   border-color: #286c2b;
+}
+
+#nautical-cargo .btn-info {
+   color: #ffffff;
+   background-color: #236f86;
+   border-color: #1e6074;
+}
+
 #nautical-lookout .breadcrumb {
    margin: 0;
    padding: 0.75rem var(--df-space-3);
    background: var(--df-surface);
    border-radius: var(--df-radius);
+}
+
+#nautical-lookout .breadcrumb > .active {
+   color: #666666;
 }
 
 #nautical-lookout .breadcrumb > li + li.pull-right:before {

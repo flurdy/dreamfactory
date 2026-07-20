@@ -41,7 +41,7 @@ grep -Fq 'random-projects.js' static-site/public/index.html
 ! grep -Fq 'href="/project/"' static-site/public/projects/index.html
 
 grep -Fq 'catalog.js' static-site/public/projects/search/index.html
-grep -Fq '<h2>News</h2>' static-site/public/project/gatehouse/index.html
+grep -Fq '<h3>News</h3>' static-site/public/project/gatehouse/index.html
 grep -Fq '/project/Stuck%20%26amp%3B%20Duck/help' 'static-site/public/project/Stuck &amp; Duck/index.html'
 
 scripts/verify-static-links.py

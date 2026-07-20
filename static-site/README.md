@@ -24,8 +24,19 @@ Run the production-shaped local static server manually after a build:
 ```bash
 docker compose -f static-site/docker-compose.yml up --detach
 # browse http://localhost:4176/
+# Restart the container after rebuilding because the build replaces public/.
+docker compose -f static-site/docker-compose.yml restart static-site
 docker compose -f static-site/docker-compose.yml down
 ```
+
+With Play running on port 9000 and the static server on port 4176, compare full-page screenshots for the three representative project slices at fixed desktop and mobile widths using Playwright and ImageMagick:
+
+```bash
+nvm use
+npm run test:visual-parity
+```
+
+The desktop and mobile comparisons must each differ by no more than 1% of pixels.
 
 `data/projects.json`, `data/raw-validation.json`, `static/data/projects.json`, and `static/_redirects` are committed proof snapshots so Cloudflare Pages can build Hugo without a JVM. Regenerate and review them with:
 

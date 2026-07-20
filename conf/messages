@@ -52,6 +52,7 @@ project.links.ci.title=Continuous Integration
 project.links.build.title=Build Server
 project.links.info.title=Information
 project.links.binary.title=Binary
+project.links.source.title=Source
 project.links.other.title=Other site
 
 project.dates.title=Dates

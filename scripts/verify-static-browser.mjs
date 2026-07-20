@@ -31,7 +31,7 @@ async function waitForServer() {
 }
 
 run('scripts/verify-static-site.sh', []);
-run('docker', [...composeArgs, 'up', '--detach']);
+run('docker', [...composeArgs, 'up', '--detach', '--force-recreate']);
 
 let browser;
 try {
@@ -107,9 +107,31 @@ try {
   );
   assert.equal(await page.locator('#catalog-heading').textContent(), 'Projects with complexity: easy');
 
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(`${baseUrl}/project/gatehouse`);
   await assert.doesNotReject(page.getByRole('heading', { name: 'News' }).waitFor());
+  assert.deepEqual(await page.locator('#nautical-cargo h2, #nautical-cargo h3').allTextContents(), [
+    'Gate House',
+    'Dates',
+    'Characteristics',
+    'Tags',
+    'News',
+    'Comments',
+    'Contact'
+  ]);
+  assert.equal(await page.getByRole('link', { name: 'Not started' }).textContent(), 'Not started');
+  assert.equal(await page.locator('.timeline-list').first().locator('dt').first().textContent(), '2023-Mar-21');
+  assert.equal(await page.locator('#nautical-deck .newsbar-list:visible').count(), 1);
+  assert.equal(await page.locator('#nautical-deck .newsbar-list:visible > li').count(), 26);
   await assertNoBlockingA11y(page, 'Project detail page');
+
+  await page.setViewportSize({ width: 375, height: 900 });
+  const mobileNewsSummary = page.locator('#nautical-deck .newsbar--mobile summary');
+  assert.equal(await mobileNewsSummary.isVisible(), true);
+  assert.equal(await page.locator('#nautical-deck .newsbar-list:visible').count(), 0);
+  await mobileNewsSummary.click();
+  assert.equal(await page.locator('#nautical-deck .newsbar-list:visible > li').count(), 26);
+  await assertNoBlockingA11y(page, 'Expanded mobile project news');
 
   const missing = await page.goto(`${baseUrl}/project/DOES-NOT-EXIST`);
   assert.equal(missing.status(), 404);

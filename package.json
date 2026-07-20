@@ -5,7 +5,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "test:static-browser": "node scripts/verify-static-browser.mjs"
+    "test:static-browser": "node scripts/verify-static-browser.mjs",
+    "test:visual-parity": "node scripts/compare-project-pages.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

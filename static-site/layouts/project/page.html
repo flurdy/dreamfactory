@@ -36,23 +36,81 @@
     </dl></section>
     <section class="surface detail-section"><h2>Help or join</h2><p>If in addition or instead you want to assist the project directly then that is very appreciated as well.</p><p><a class="btn btn-primary" href="/project/{{ $pathSegment | safeURL }}/help">Help or join</a></p></section>
   {{ else }}
-    <article class="surface project-hero">
-      <h1>{{ $project.title }}</h1>
-      {{ with $project.description }}<div>{{ . | safeHTML }}</div>{{ end }}
-      <dl class="detail-list">
-        {{ range $key, $url := $project.urls }}<div class="detail-row"><dt>{{ $key | humanize }}</dt><dd><a href="{{ $url }}">{{ $url }}</a></dd></div>{{ end }}
+    {{ $derived := $project.derived }}
+    {{ $urlTitles := dict "project" "Project site" "live" "Live site" "website" "Website" "alternative" "Alternative" "tasks" "Tasks" "bugs" "Bugs" "wiki" "Wiki" "demo" "Demo application" "ci" "Continuous Integration" "build" "Build Server" "info" "Information" "binary" "Binary" "source" "Source" "other" "Other site" }}
+    {{ $characteristicTitles := dict "appeal" "Appeal" "complexity" "Complexity" "likelihood" "Likelihood" "development" "Development status" "release" "Release status" "deploy" "Deploy status" }}
+
+    <section class="surface project-hero">
+      <h2>{{ $project.title }}</h2>
+      {{ with $project.description }}<p>{{ . | safeHTML }}</p>{{ end }}
+      {{ if or $derived.popular $derived.dead $derived.unlikely $derived.recent $derived.updated $derived.stale $derived.live $derived.idea $derived.code $derived.mobile $derived.commercial }}
+        <ul class="project-statuses" aria-label="Project status">
+          {{ if $derived.popular }}<li class="project-status"><i class="far fa-star" aria-hidden="true"></i><span class="project-status-label">Popular</span></li>{{ end }}
+          {{ if $derived.dead }}<li class="project-status"><i class="fas fa-cross" aria-hidden="true"></i><span class="project-status-label">Mothballed</span></li>{{ end }}
+          {{ if $derived.unlikely }}<li class="project-status"><i class="far fa-frown" aria-hidden="true"></i><span class="project-status-label">Unlikely</span></li>{{ end }}
+          {{ if $derived.recent }}<li class="project-status"><i class="fas fa-plus-circle" aria-hidden="true"></i><span class="project-status-label">Recently added</span></li>{{ end }}
+          {{ if $derived.updated }}<li class="project-status"><i class="fas fa-seedling" aria-hidden="true"></i><span class="project-status-label">Recently updated</span></li>{{ end }}
+          {{ if $derived.stale }}<li class="project-status"><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="project-status-label">Stale</span></li>{{ end }}
+          {{ if $derived.live }}<li class="project-status"><i class="fas fa-heartbeat" aria-hidden="true"></i><span class="project-status-label">Live</span></li>{{ end }}
+          {{ if $derived.idea }}<li class="project-status"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="project-status-label">Idea</span></li>{{ end }}
+          {{ if $derived.code }}<li class="project-status"><i class="fas fa-code" aria-hidden="true"></i><span class="project-status-label">Code available</span></li>{{ end }}
+          {{ if $derived.mobile }}<li class="project-status"><i class="fas fa-mobile-alt" aria-hidden="true"></i><span class="project-status-label">Mobile</span></li>{{ end }}
+          {{ if $derived.commercial }}<li class="project-status"><i class="fas fa-dollar-sign" aria-hidden="true"></i><span class="project-status-label">Commercial</span></li>{{ end }}
+        </ul>
+      {{ end }}
+    </section>
+
+    {{ if or (isset $project.urls "project") (isset $project.urls "live") }}
+      <section class="surface detail-section">
+        <h3>Links</h3><dl class="detail-list">
+          {{ range $project.urlEntries }}<div class="detail-row"><dt>{{ index $urlTitles .key | default (.key | humanize) }}</dt><dd><a href="{{ .url }}">{{ replaceRE "^https?://" "" .url }}</a></dd></div>{{ end }}
+        </dl>
+      </section>
+    {{ end }}
+
+    {{ if or $project.dates.created $project.dates.updated }}
+      <section class="surface detail-section"><h3>Dates</h3><dl class="detail-list">
         {{ with $project.dates.created }}<div class="detail-row"><dt>Created</dt><dd>{{ . }}</dd></div>{{ end }}
         {{ with $project.dates.updated }}<div class="detail-row"><dt>Updated</dt><dd>{{ . }}</dd></div>{{ end }}
-        {{ with $project.versions.dev }}<div class="detail-row"><dt>Development version</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
-        {{ with $project.versions.live }}<div class="detail-row"><dt>Live version</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
-        {{ with $project.license }}<div class="detail-row"><dt>License</dt><dd><a href="{{ .link }}">{{ .name }}</a></dd></div>{{ end }}
-        {{ range $key, $value := $project.characteristics }}{{ with $value }}{{ $type := $key }}{{ if in (slice "development" "release" "deploy") $key }}{{ $type = printf "status.%s" $key }}{{ end }}<div class="detail-row"><dt>{{ $key | humanize }}</dt><dd><a href="/projects/characteristic/type/{{ $type }}/characteristic/{{ . }}">{{ . }}</a></dd></div>{{ end }}{{ end }}
-      </dl>
-      {{ with $project.tags }}<h2>Tags</h2><ul class="chip-list">{{ range . }}<li><a class="chip" href="/projects/tag?tag={{ . | urlquery }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
-      {{ with $project.technologies }}<h2>Technologies</h2><ul class="chip-list">{{ range . }}<li><a class="chip" href="/projects/tech?tech={{ . | urlquery }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
-      {{ with $project.news }}<h2>News</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ .date }}</dt><dd>{{ .description | safeHTML }}</dd></div>{{ end }}</dl>{{ end }}
-      {{ with $project.comments }}<h2>Comments</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ .date }}</dt><dd>{{ .comment | safeHTML }}</dd></div>{{ end }}</dl>{{ end }}
-    </article>
-    <p><a class="btn btn-default" href="/project/{{ $pathSegment | safeURL }}/help">Help</a> <a class="btn btn-primary" href="/project/{{ $pathSegment | safeURL }}/sponsor">Sponsor</a></p>
+      </dl></section>
+    {{ end }}
+
+    {{ if or $project.versions.live $project.versions.dev }}
+      <section class="surface detail-section"><h3>Versions</h3><dl class="detail-list">
+        {{ with $project.versions.live }}<div class="detail-row"><dt>Live</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
+        {{ with $project.versions.dev }}<div class="detail-row"><dt>In development</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
+      </dl></section>
+    {{ end }}
+
+    {{ with $project.license }}<section class="surface detail-section"><h3>License</h3><dl class="detail-list"><div class="detail-row"><dt>Type</dt><dd><a href="{{ .link }}">{{ .name }}</a></dd></div></dl></section>{{ end }}
+
+    {{ if or $project.characteristics.appeal $project.characteristics.complexity $project.characteristics.likelihood $project.characteristics.development $project.characteristics.release $project.characteristics.deploy }}
+    <section class="surface detail-section"><h3>Characteristics</h3><dl class="detail-list">
+      {{ range slice "appeal" "complexity" "likelihood" "development" "release" "deploy" }}
+        {{ $key := . }}{{ with index $project.characteristics $key }}
+          {{ $value := . }}{{ $type := $key }}{{ if in (slice "development" "release" "deploy") $key }}{{ $type = printf "status.%s" $key }}{{ end }}
+          {{ $label := $value | humanize }}
+          {{ if and (eq $key "complexity") (eq $value "verydifficult") }}{{ $label = "Very Difficult" }}{{ end }}
+          {{ if and (eq $key "development") (eq $value "notstarted") }}{{ $label = "Not started" }}{{ end }}
+          {{ if and (eq $key "release") (eq $value "notreleased") }}{{ $label = "Not released" }}{{ end }}
+          {{ if and (eq $key "development") (eq $value "alpha") }}{{ $label = "αlpha" }}{{ end }}
+          {{ if and (eq $key "development") (eq $value "beta") }}{{ $label = "βeta" }}{{ end }}
+          {{ if and (eq $key "release") (eq $value "beta") }}{{ $label = "βeta release" }}{{ end }}
+          <div class="detail-row"><dt>{{ index $characteristicTitles $key }}</dt><dd><a href="/projects/characteristic/type/{{ $type }}/characteristic/{{ $value }}">{{ $label }}</a></dd></div>
+        {{ end }}
+      {{ end }}
+    </dl></section>
+    {{ end }}
+
+    {{ with $project.tags }}<section class="surface detail-section"><h3>Tags</h3><ul class="chip-list">{{ range . }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
+    {{ with $project.technologies }}<section class="surface detail-section"><h3>Technologies</h3><ul class="chip-list">{{ range . }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
+    {{ with $project.news }}<section class="surface detail-section"><h3>News</h3><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .description | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
+    {{ with $project.comments }}<section class="surface detail-section"><h3>Comments</h3><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .comment | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
+
+    <section class="surface detail-section"><h3>Contact</h3><ul class="action-list">
+      <li><a href="/project/{{ $pathSegment | safeURL }}/help" class="btn btn-success">help/join</a></li>
+      <li><a href="/project/{{ $pathSegment | safeURL }}/sponsor" class="btn btn-info">sponsor</a></li>
+      <li><a href="https://flurdy.com/contact/" class="btn btn-default">inquire</a></li>
+    </ul></section>
   {{ end }}
 {{ end }}

@@ -140,7 +140,7 @@
       <section class="surface detail-section">
          <h3>@Messages("project.tags.title")</h3>
          <ul class="chip-list">
-            @for(tag <- project.tags){
+            @for(tag <- project.tags.toList.sortBy(_.name)){
                <li>
                   @form(action=routes.ProjectController.findProjectsByTag()){
                      <input type="hidden" name="tag" value="@tag.name" />
@@ -156,7 +156,7 @@
       <section class="surface detail-section">
          <h3>@Messages("project.technologies.title")</h3>
          <ul class="chip-list">
-            @for(technology <- project.tech){
+            @for(technology <- project.tech.toList.sortBy(_.name)){
                <li>
                   @form(action=routes.ProjectController.findProjectsByTech()){
                      <input type="hidden" name="tech" value="@technology.name" />
