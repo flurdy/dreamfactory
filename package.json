@@ -1,0 +1,14 @@
+{
+  "name": "dreamfactory-static-proof",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test:static-browser": "node scripts/verify-static-browser.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "playwright": "1.55.1"
+  }
+}

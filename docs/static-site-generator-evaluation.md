@@ -1,6 +1,6 @@
 # Static-site generator evaluation
 
-**Status:** Proposed decision; migration is not yet approved
+**Status:** Proof approved; full migration is not yet approved
 **Date:** 2026-07-19
 **Bead:** `dreamfactory-4mb`
 
@@ -23,7 +23,7 @@ The material caveat is filtering: today search and filters work without JavaScri
 | Runtime behavior | `app/controllers/HomeController.scala`, `app/controllers/ProjectController.scala`, `app/models/ProjectLookup.scala`, and `app/models/ProjectFilters.scala` implement selection, search, taxonomy, and property filtering over in-memory files. |
 | Pages | Every project has detail, help, and sponsor routes; shared latest-news content is rendered by `app/views/newsbar.scala.html`. |
 | Assets | Static assets under `public/` contain about 161 KB. Bootstrap 3 and jQuery are supplied by WebJars in `app/views/head.scala.html`; repository search found no jQuery or Bootstrap-JS usage. `filter.js` manages filter forms and `shell.js` changes responsive newsbar state. |
-| Data risk | At least 15 project files contain trusted HTML fragments. Some content also contains stale Play route syntax, for example `@routes.ProjectController.ideas()` in `conf/dreams.d/tapin.conf`. Raw inventory also finds values the current model silently drops: `appeal=high` twice, `appeal=somewhat` once, and `release=abandoned` once. |
+| Data risk | At least 15 project files contain trusted HTML fragments. Some content also contains stale Play route syntax, for example `@routes.ProjectController.ideas()` in `conf/dreams.d/tapin.conf`. The proof's raw inventory currently reports 16 discrepancies: unsupported values (including `appeal=high` twice, `appeal=somewhat`, `status.development="not started"`, `complexity="very high"`, and `release=abandoned`) plus unknown fields such as `comlexity`, `encode`, `keywords`, and `owner`. |
 | Tests | `test/controllers/ProjectControllerSpec.scala` currently has five controller tests focused on list/filter behavior. |
 | Build baseline | On this machine with dependencies cached, `sbt clean test stage` took 30.86 seconds, peaked at 1,702,800 KB RSS, and produced a 52 MB staged application with 284 files. This is a local baseline, not a cross-machine benchmark. |
 | Deployment | `Dockerfile` builds and runs a JVM application in the current Kubernetes path; `cloudbuild.yaml` publishes versioned container images. `blog.flurdy.com` already demonstrates this owner’s Cloudflare Pages/Jekyll workflow. |
@@ -68,7 +68,7 @@ Date-derived properties are currently calculated from `DateTime.now` in `app/mod
 4. Produce a dated oracle fixture containing the current derived flags and an explicit build timestamp. Recompute those flags in the static build from raw dates using an injectable timestamp.
 5. Make JSON (or one JSON/YAML content file per project) the only canonical source at cutover; do not keep a permanent dual-write HOCON/JSON workflow.
 
-The raw validator must initially report at least the four currently observed unsupported assignments in `badusernames.conf`, `gauge.conf`, `consensus.conf`, and `shop.conf`; silently converting them would reproduce data loss. Hugo should create project content through a content adapter or generated content files. Explicit legacy URLs are required because current fallback links preserve title case and spaces, while Hugo normally normalizes logical paths.
+The raw validator must continue to report the known unsupported assignments in `badusernames.conf`, `gauge.conf`, `consensus.conf`, and `shop.conf`, while reporting—not suppressing—new discrepancies; its current baseline is 16 issues. Silently converting any of them would reproduce data loss. Hugo should create project content through a content adapter or generated content files. Explicit legacy URLs are required because current fallback links preserve title case and spaces, while Hugo normally normalizes logical paths.
 
 ### Generated pages and routes
 
@@ -121,7 +121,7 @@ The proof is capped at **two developer days**. It must stop at the cap and repor
 
 ### Proof acceptance evidence
 
-- The raw inventory detects the four known unsupported characteristic assignments and no source value disappears without a recorded decision.
+- The raw inventory detects the four known unsupported characteristic assignments, records the current 16-issue baseline, and no source value disappears without a recorded decision.
 - The three project slices render equivalent content; their canonical/detail/help/sponsor paths and selected explicit aliases return the expected 200/redirect behavior with no internal 404s. Unsupported aliases and unknown detail/help/sponsor paths return a generated 404. The report records the intentional arbitrary-case break.
 - Representative query result sets equal Play fixtures; query context remains visible; random tests use a fixed seed and verify size, exclusion, and healthy-ratio invariants. A browser reload test injects a deterministic RNG and proves that JavaScript replaces the rendered no-JavaScript random fallback on every page load.
 - Fixed-content screenshots at 1280 px and 375 px differ by at most 1% of pixels after masking analytics/dynamic regions, and manual review finds no content or layout regression.
@@ -168,7 +168,7 @@ Each slice remains reviewable and reversible; implementation tracking should be 
 
 ## Decision and acceptance criteria
 
-**Decision proposed:** approve the two-day Hugo proof and treat Hugo as the provisional migration target. Do not approve the full migration until the bounded proof passes and its decision report is reviewed.
+**Decision (2026-07-20):** the two-day Hugo proof is approved, with Hugo as the provisional migration target. Do not approve the full migration until the bounded proof passes and its decision report is reviewed.
 
 After proof approval, the full migration is accepted only when:
 
@@ -187,4 +187,4 @@ If the proof fails exact URL or interaction parity, retain Play and limit modern
 - Confirm that JavaScript-enabled query filtering is acceptable; otherwise retain Play.
 - Treat homepage random boxes as changing on every page load when JavaScript is enabled; build-time selection is the no-JavaScript fallback.
 - **Decided (2026-07-19):** use canonical URLs plus known encoded/title aliases. Intentionally return 404 for arbitrary-case detail/help/sponsor URLs, keeping the migration on free static Pages without a Function/Worker.
-- Approve Hugo and the time-boxed proof before creating migration implementation work.
+- The Hugo proof is approved and tracked as `dreamfactory-lu1`; do not begin full migration work until its decision report is reviewed.

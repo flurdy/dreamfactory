@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <section class="surface search-box" aria-labelledby="list-search-heading">
+    <h1 id="list-search-heading">All projects</h1>
+    <form action="/projects/search" method="get" class="search-form">
+      <label for="list-search">Search projects</label>
+      <input id="list-search" name="searchterm" type="search" maxlength="200">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </section>
+  <section class="surface results-section" aria-labelledby="results-heading">
+    <h2 id="results-heading">All projects</h2>
+    <ul class="project-results">
+      {{ range hugo.Data.projects.projects }}
+        {{ $pathSegment := replace (urlquery .link) "+" "%20" }}
+        <li class="project-summary project-result"><a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ .title }}</a></li>
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

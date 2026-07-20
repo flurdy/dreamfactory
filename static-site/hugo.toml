@@ -1,0 +1,7 @@
+baseURL = "https://code.flurdy.com/"
+locale = "en"
+title = "Code @ flurdy"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[params]
+  catalogSchemaVersion = 1

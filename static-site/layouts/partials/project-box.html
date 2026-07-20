@@ -1,0 +1,16 @@
+{{ $title := .title }}
+{{ $projects := .projects }}
+{{ $random := .random }}
+<section class="project-list-box surface">
+  <h2>{{ $title }}</h2>
+  <ul{{ if $random }} id="random-projects" data-catalog="/data/projects.json" data-schema-version="1"{{ end }} class="project-collection">
+    {{ range $projects }}
+      {{ $pathSegment := replace (urlquery .link) "+" "%20" }}
+      <li class="project-summary">
+        <a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ .title }}</a>
+        {{ with index .urls "live" }}<a class="project-summary-url" href="{{ . }}">{{ . }}</a>{{ end }}
+      </li>
+    {{ end }}
+  </ul>
+  {{ if $random }}<noscript><p>The projects above are a build-time random fallback.</p></noscript>{{ end }}
+</section>

@@ -1,0 +1,101 @@
+{
+  "schemaVersion" : 1,
+  "issueCount" : 16,
+  "issues" : [ {
+    "file" : "badusernames.conf",
+    "project" : 0,
+    "path" : "characteristics.appeal",
+    "value" : "high",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "bookmarks.conf",
+    "project" : 0,
+    "path" : "characteristics.status.development",
+    "value" : "not started",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "consensus.conf",
+    "project" : 0,
+    "path" : "characteristics.appeal",
+    "value" : "somewhat",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 0,
+    "path" : "characteristics.status.development",
+    "value" : "not started",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 9,
+    "path" : "characteristics.status.development",
+    "value" : "not started",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 11,
+    "path" : "characteristics.complexity",
+    "value" : "very high",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 26,
+    "path" : "characteristics.comlexity",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 28,
+    "path" : "project.encode",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "dreams.conf",
+    "project" : 31,
+    "path" : "project.encode",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "expire.conf",
+    "project" : 0,
+    "path" : "project.keywords",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "gauge.conf",
+    "project" : 0,
+    "path" : "characteristics.appeal",
+    "value" : "high",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "letterbox.conf",
+    "project" : 0,
+    "path" : "project.owner",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "lucid.conf",
+    "project" : 0,
+    "path" : "project.owner",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "shop.conf",
+    "project" : 1,
+    "path" : "characteristics.status.release",
+    "value" : "abandoned",
+    "message" : "Unsupported value"
+  }, {
+    "file" : "tapin.conf",
+    "project" : 0,
+    "path" : "project.owner",
+    "value" : "",
+    "message" : "Unknown field"
+  }, {
+    "file" : "tulipan.conf",
+    "project" : 0,
+    "path" : "project.owner",
+    "value" : "",
+    "message" : "Unknown field"
+  } ]
+}

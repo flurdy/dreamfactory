@@ -1,0 +1,711 @@
+/* Dream Factory content components. Prefer these scoped rules to new Bootstrap 3 coupling. */
+#nautical-cargo {
+   min-width: 0;
+}
+
+#nautical-cargo h1,
+#nautical-cargo h2,
+#nautical-cargo h3,
+#nautical-cargo h4 {
+   color: var(--df-ink);
+   font-weight: 500;
+   line-height: 1.2;
+}
+
+#nautical-cargo h2 {
+   font-size: 1.5rem;
+}
+
+#nautical-cargo h3 {
+   font-size: 1rem;
+   font-weight: 600;
+}
+
+#nautical-cargo .surface,
+#nautical-cargo .well {
+   margin-bottom: var(--df-space-4);
+   padding: clamp(1rem, 2vw, 1.5rem);
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
+   border-radius: var(--df-radius);
+   box-shadow: none;
+}
+
+#nautical-cargo .well.row,
+#nautical-cargo .row {
+   margin-right: 0;
+   margin-left: 0;
+}
+
+#nautical-cargo .table {
+   margin-bottom: 0;
+}
+
+#nautical-cargo .table > tbody > tr > td,
+#nautical-cargo .table > tbody > tr > th {
+   border-color: #dddddd;
+   overflow-wrap: anywhere;
+}
+
+#nautical-cargo .btn,
+#nautical-cargo button,
+#nautical-bridge a {
+   min-height: 2.75rem;
+}
+
+#nautical-cargo .btn:focus,
+#nautical-cargo button:focus,
+#nautical-bridge a:focus {
+   outline: 3px solid var(--df-focus);
+   outline-offset: 2px;
+}
+
+#nautical-lookout .breadcrumb {
+   margin: 0;
+   padding: 0.75rem var(--df-space-3);
+   background: var(--df-surface);
+   border-radius: var(--df-radius);
+}
+
+#nautical-lookout .breadcrumb > li + li.pull-right:before {
+   padding: 0 5px;
+   color: #cccccc;
+   content: "|\00a0";
+}
+
+#nautical-lookout .breadcrumb li.pull-right {
+   padding: 0 3em;
+}
+
+#nautical-lookout .breadcrumb li.pull-right img {
+   height: 1.3em;
+}
+
+.introduction p {
+   max-width: 75rem;
+   margin: 0;
+}
+
+.dashboard-grid {
+   display: grid;
+   grid-template-columns: repeat(2, minmax(0, 1fr));
+   gap: var(--df-space-4);
+   margin-bottom: var(--df-space-4);
+}
+
+#nautical-cargo .dashboard-grid .project-list-box {
+   min-width: 0;
+   margin: 0;
+}
+
+.dashboard-grid .project-summary {
+   grid-template-columns: 8rem minmax(0, 1fr) auto;
+}
+
+.dashboard-grid .project-summary-title {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.dashboard-grid .project-summary-url {
+   font-size: 0.9rem;
+}
+
+.project-list-box h2 {
+   margin: 0 0 var(--df-space-2);
+}
+
+.project-collection,
+.project-results {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.project-summary {
+   display: grid;
+   grid-template-columns: 10rem minmax(0, 1fr) auto;
+   gap: var(--df-space-2);
+   align-items: start;
+   min-width: 0;
+   padding: 0.55rem 0.35rem;
+   border-top: 1px solid #dddddd;
+}
+
+.project-summary:nth-child(even) {
+   background: rgba(255, 255, 255, 0.5);
+}
+
+.project-summary-title,
+.project-summary-url {
+   min-width: 0;
+   overflow-wrap: anywhere;
+}
+
+.project-summary--muted .project-summary-title,
+.link-project,
+.link-notlive {
+   font-style: italic;
+}
+
+.project-summary--muted .project-summary-title,
+.link-notlive,
+.link-notlive:visited {
+   color: #6f6f6f;
+}
+
+.project-statuses {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.3rem;
+   min-width: 0;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.project-status {
+   display: inline-flex;
+   gap: 0.3rem;
+   align-items: center;
+   min-height: 1.75rem;
+   padding: 0.15rem 0.45rem;
+   color: #555555;
+   font-size: 0.75rem;
+   line-height: 1.2;
+   background: #eeeeee;
+   border: 1px solid #d0d0d0;
+   border-radius: 999px;
+}
+
+.project-status i {
+   color: #777777;
+}
+
+.search-form {
+   display: grid;
+   grid-template-columns: minmax(10rem, 1fr) auto auto;
+   gap: var(--df-space-2);
+   align-items: stretch;
+}
+
+.search-form .btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.search-form .form-control {
+   min-width: 0;
+   height: 2.75rem;
+}
+
+.discovery-section,
+.filter-section {
+   padding: 0 !important;
+   overflow: hidden;
+}
+
+.discovery-section > summary,
+.filter-section > summary {
+   padding: var(--df-space-3) var(--df-space-4);
+   cursor: pointer;
+   font-size: 1.125rem;
+   font-weight: 600;
+}
+
+.discovery-section[open] > summary,
+.filter-section[open] > summary {
+   border-bottom: 1px solid var(--df-border);
+}
+
+.discovery-section > :not(summary),
+.filter-section-body {
+   margin: var(--df-space-3) var(--df-space-4);
+}
+
+.filter-shortcuts,
+.chip-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   padding: 0;
+   list-style: none;
+}
+
+.filter-shortcuts form,
+.chip-list form {
+   margin: 0;
+}
+
+.filter-shortcut,
+.chip {
+   display: inline-flex;
+   gap: var(--df-space-1);
+   align-items: center;
+   justify-content: center;
+   min-height: 2.75rem;
+   padding: 0.5rem 0.8rem;
+   color: var(--df-ink);
+   text-decoration: none;
+   background: var(--df-hull);
+   border: 1px solid #bdbdbd;
+   border-radius: 0.35rem;
+}
+
+.filter-shortcut:hover,
+.chip:hover {
+   color: var(--df-ink);
+   text-decoration: none;
+   background: #eeeeee;
+}
+
+.characteristic-groups {
+   display: grid;
+   grid-template-columns: repeat(2, minmax(0, 1fr));
+   gap: var(--df-space-3) var(--df-space-4);
+}
+
+.characteristic-group h3 {
+   margin: 0 0 var(--df-space-2);
+}
+
+.results-section {
+   padding-bottom: var(--df-space-1) !important;
+}
+
+.results-heading {
+   display: flex;
+   gap: var(--df-space-3);
+   align-items: baseline;
+   justify-content: space-between;
+   margin-bottom: var(--df-space-2);
+}
+
+.results-heading h2 {
+   margin: 0;
+}
+
+.results-count {
+   flex: none;
+   color: var(--df-muted);
+   font-size: 0.875rem;
+}
+
+.project-result {
+   grid-template-columns: minmax(10rem, 0.7fr) minmax(12rem, 1fr) minmax(18rem, 1.4fr);
+}
+
+.empty-results {
+   margin: var(--df-space-3) 0;
+}
+
+.filter-section-body {
+   margin-bottom: var(--df-space-4);
+}
+
+.properties-filter-grid {
+   display: grid;
+   grid-template-columns: repeat(3, minmax(0, 1fr));
+   gap: var(--df-space-3);
+}
+
+.property-filter {
+   min-width: 0;
+   margin: 0;
+   padding: var(--df-space-2);
+   border: 1px solid #d4d4d4;
+   border-radius: 0.4rem;
+}
+
+.property-filter legend {
+   display: flex;
+   gap: var(--df-space-1);
+   align-items: center;
+   width: auto;
+   max-width: 100%;
+   margin: 0 0 var(--df-space-1);
+   padding: 0 0.2rem;
+   font-size: 0.875rem;
+   font-weight: 600;
+   line-height: 1.3;
+}
+
+.property-filter-options {
+   display: grid;
+   grid-template-columns: repeat(3, minmax(0, 1fr));
+   gap: 0.25rem;
+}
+
+.property-filter-input {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   opacity: 0;
+}
+
+.property-filter-options label {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 0;
+   min-height: 2.75rem;
+   margin: 0;
+   padding: 0.35rem;
+   color: #4a4a4a;
+   font-size: 0.75rem;
+   font-weight: 500;
+   text-align: center;
+   cursor: pointer;
+   background: #ffffff;
+   border: 1px solid #c5c5c5;
+   border-radius: 0.3rem;
+}
+
+.property-filter-any:checked + label {
+   color: var(--df-ink);
+   background: #e5e5e5;
+   border-color: #a8a8a8;
+}
+
+.property-filter-include:checked + label {
+   color: #ffffff;
+   background: var(--df-link);
+   border-color: var(--df-link-hover);
+}
+
+.property-filter-exclude:checked + label {
+   color: #ffffff;
+   background: #8a3532;
+   border-color: #6f2724;
+}
+
+.property-filter-input:focus-visible + label {
+   outline: 3px solid var(--df-focus);
+   outline-offset: 2px;
+}
+
+.filter-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   margin-top: var(--df-space-4);
+}
+
+.related-section h2 {
+   margin: 0 0 var(--df-space-3);
+}
+
+.project-hero h2,
+.support-intro h2,
+.detail-section h3 {
+   margin: 0 0 var(--df-space-3);
+}
+
+.project-hero p,
+.support-intro p,
+.detail-section > p {
+   max-width: 70rem;
+}
+
+.project-hero .project-statuses {
+   margin-top: var(--df-space-3);
+}
+
+.detail-list {
+   margin: 0;
+}
+
+.detail-row {
+   display: grid;
+   grid-template-columns: minmax(10rem, 0.4fr) minmax(0, 1fr);
+   gap: var(--df-space-3);
+   min-width: 0;
+   padding: 0.65rem 0.35rem;
+   border-top: 1px solid #dddddd;
+}
+
+.detail-row:nth-child(even) {
+   background: rgba(255, 255, 255, 0.5);
+}
+
+.detail-row dt,
+.detail-row dd {
+   min-width: 0;
+   margin: 0;
+   overflow-wrap: anywhere;
+}
+
+.detail-row code {
+   display: inline-block;
+   max-width: 100%;
+   color: #444444;
+   font-size: 0.875rem;
+   white-space: normal;
+   overflow-wrap: anywhere;
+   background: #eeeeee;
+}
+
+.timeline-list .detail-row dt {
+   color: var(--df-muted);
+   font-weight: 500;
+}
+
+.action-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.action-list li {
+   flex: 1 1 11rem;
+   max-width: 16rem;
+}
+
+.action-list .btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   white-space: normal;
+}
+
+.paypal-form {
+   display: inline-flex;
+   align-items: center;
+   min-height: 2.75rem;
+   margin: 0;
+}
+
+.paypal-button {
+   min-width: 9rem;
+   min-height: 2.75rem;
+   object-fit: contain;
+}
+
+.payment-tracker {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+}
+
+#nautical-cargo .wilted,
+#nautical-cargo .mothballed {
+   font-style: italic;
+}
+
+#nautical-cargo .alive {
+   font-weight: bold;
+}
+
+#nautical-cargo .project-properties i {
+   padding: 0 5px;
+   color: #888888;
+}
+
+#nautical-deck .newsbar {
+   margin: 0;
+   border: 1px solid var(--df-border);
+   border-radius: var(--df-radius);
+   background: var(--df-surface);
+}
+
+#nautical-deck .newsbar summary {
+   padding: var(--df-space-2) var(--df-space-3);
+   cursor: pointer;
+   font-weight: 600;
+}
+
+#nautical-deck .newsbar-list {
+   margin: 0;
+   padding: var(--df-space-1);
+}
+
+#nautical-deck .newsbar-list li {
+   min-width: 0;
+   margin: 0.4rem 0;
+   padding: 0.3rem 0.45rem;
+   list-style: none;
+   border: 1px solid #c4c4c4;
+   font-size: 0.8125rem;
+   line-height: 1.35;
+   overflow-wrap: anywhere;
+   text-align: right;
+}
+
+#nautical-deck .newsbar-list li .newsbar-date {
+   float: left;
+}
+
+#nautical-deck .newsbar-list li .newsbar-project {
+   float: right;
+   padding-left: 0.1em;
+}
+
+#nautical-deck .newsbar-list li .newsbar-description {
+   clear: both;
+}
+
+#nautical-bridge .bridge-links ul {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   align-items: center;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+#nautical-bridge .bridge-links a {
+   display: inline-flex;
+   align-items: center;
+   padding: 0.45rem 0.7rem;
+   color: var(--df-ink);
+   text-decoration: none;
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
+   border-radius: 0.3rem;
+}
+
+#nautical-bridge .bridge-links a:hover {
+   color: var(--df-ink);
+   background: #eeeeee;
+}
+
+#nautical-bridge .bridge-links img {
+   width: auto;
+   height: 20px;
+}
+
+#nautical-bridge .bridge-links .eray-logo img,
+#nautical-bridge .bridge-links .patreon-button img {
+   height: 25px;
+}
+
+@media (min-width: 1001px) {
+   #nautical-deck .newsbar summary {
+      display: none;
+   }
+}
+
+@media (min-width: 701px) {
+   .project-statuses--compact {
+      flex-wrap: nowrap;
+   }
+
+   .project-statuses--compact .project-status {
+      width: 1.5rem;
+      justify-content: center;
+      padding: 0;
+      background: transparent;
+      border-color: transparent;
+   }
+
+   .project-statuses--compact .project-status-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+   }
+}
+
+@media (max-width: 1250px) {
+   .project-result {
+      grid-template-columns: minmax(10rem, 0.8fr) minmax(12rem, 1.2fr);
+   }
+
+   .project-result .project-statuses {
+      grid-column: 1 / -1;
+   }
+}
+
+@media (max-width: 1000px) {
+   .properties-filter-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+   }
+}
+
+@media (max-width: 700px) {
+   #nautical-cargo .surface,
+   #nautical-cargo .well {
+      padding: var(--df-space-3);
+   }
+
+   .dashboard-grid,
+   .characteristic-groups,
+   .properties-filter-grid {
+      grid-template-columns: minmax(0, 1fr);
+   }
+
+   .project-summary,
+   .project-result,
+   .dashboard-grid .project-summary {
+      grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr);
+   }
+
+   .dashboard-grid .project-summary-title {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+   }
+
+   .project-summary .project-statuses {
+      grid-column: 1 / -1;
+   }
+
+   .search-form {
+      grid-template-columns: minmax(0, 1fr) auto;
+   }
+
+   .search-form .btn:last-child {
+      grid-column: 1 / -1;
+   }
+
+   .discovery-section > summary,
+   .filter-section > summary {
+      padding: var(--df-space-3);
+   }
+
+   .discovery-section > :not(summary),
+   .filter-section-body {
+      margin-right: var(--df-space-3);
+      margin-left: var(--df-space-3);
+   }
+
+   .results-heading {
+      display: block;
+   }
+
+   .results-count {
+      display: block;
+      margin-top: var(--df-space-1);
+   }
+
+   .detail-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.2rem;
+   }
+
+   .detail-row dt {
+      color: var(--df-muted);
+      font-size: 0.8125rem;
+   }
+
+   .action-list li {
+      max-width: none;
+   }
+
+   #nautical-bridge .bridge-links a {
+      width: 100%;
+      justify-content: center;
+   }
+}

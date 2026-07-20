@@ -1,0 +1,58 @@
+{{ define "main" }}
+  {{ $project := .Params.project }}
+  {{ $pathSegment := replace (urlquery $project.link) "+" "%20" }}
+  {{ if eq .Params.pageKind "help" }}
+    <section class="surface support-intro">
+      <h1>Help or Join</h1>
+      <p>Assisting a project. If you can then any help will be appreciated. As a developer, artist, tester or just general feedback and ideas.</p>
+      <p>If available, fork and have a look at the code. If live, try the site. And if you are serious please contact us for a chat on how you can help.</p>
+      <p>Thank you for any assistance.</p>
+    </section>
+    <section class="surface detail-section">
+      <h2>Project details</h2><dl class="detail-list">
+        <div class="detail-row"><dt>Project</dt><dd><a href="/project/{{ $pathSegment | safeURL }}">{{ $project.title }}</a></dd></div>
+        {{ with $project.license }}<div class="detail-row"><dt>License</dt><dd>{{ .name }}</dd></div>{{ end }}
+        {{ with index $project.urls "project" }}<div class="detail-row"><dt>Code</dt><dd><a href="{{ . }}">{{ . }}</a></dd></div>{{ end }}
+        {{ with index $project.urls "live" }}<div class="detail-row"><dt>Live site</dt><dd><a href="{{ . }}">{{ . }}</a></dd></div>{{ end }}
+        <div class="detail-row"><dt>Contact details</dt><dd><a href="https://flurdy.com/contact">flurdy.com/contact</a></dd></div>
+      </dl>
+    </section>
+    <section class="surface detail-section"><h2>Sponsor</h2><p>Alternatively you can sponsor the development.</p><p><a class="btn btn-primary" href="/project/{{ $pathSegment | safeURL }}/sponsor">Sponsor</a></p></section>
+  {{ else if eq .Params.pageKind "sponsor" }}
+    <section class="surface support-intro">
+      <h1>Sponsor</h1>
+      <p>Sponsorship and donations to the development of this project is very much appreciated.</p>
+      <p>As a personal donation of a few quid, or corporate sponsorship, they are all welcome.</p>
+      <p>Any contributor has the option of becoming an official backer of the project. Large enough corporate sponsorship may become main sponsor of the project.</p>
+      <p>Thank you for your contribution.</p>
+    </section>
+    <section class="surface detail-section"><h2>Project details</h2><p><a href="/project/{{ $pathSegment | safeURL }}">{{ $project.title }}</a></p></section>
+    <section class="surface detail-section"><h2>Sponsor method</h2><dl class="detail-list sponsor-methods">
+      <div class="detail-row"><dt>Paypal</dt><dd><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_donations"><input type="hidden" name="business" value="HZCUYKJFRR3EQ"><input type="hidden" name="currency_code" value="GBP"><button class="btn btn-primary" type="submit">Donate with PayPal</button></form></dd></div>
+      <div class="detail-row"><dt>Patreon</dt><dd><a href="https://patreon.com/flurdy">patreon.com/flurdy</a></dd></div>
+      <div class="detail-row"><dt>Bitcoin address</dt><dd><code>1NUbsHd25oeZSUhwaPdCQj9cBHVwxhhhn7</code></dd></div>
+      <div class="detail-row"><dt>Ethereum address</dt><dd><code>0xB72baA7AA3C8E7bF184cF13EbE0cd4BC0192B2a0</code></dd></div>
+      <div class="detail-row"><dt>Other alternatives</dt><dd><a href="https://flurdy.com/contact">flurdy.com/contact</a></dd></div>
+    </dl></section>
+    <section class="surface detail-section"><h2>Help or join</h2><p>If in addition or instead you want to assist the project directly then that is very appreciated as well.</p><p><a class="btn btn-primary" href="/project/{{ $pathSegment | safeURL }}/help">Help or join</a></p></section>
+  {{ else }}
+    <article class="surface project-hero">
+      <h1>{{ $project.title }}</h1>
+      {{ with $project.description }}<div>{{ . | safeHTML }}</div>{{ end }}
+      <dl class="detail-list">
+        {{ range $key, $url := $project.urls }}<div class="detail-row"><dt>{{ $key | humanize }}</dt><dd><a href="{{ $url }}">{{ $url }}</a></dd></div>{{ end }}
+        {{ with $project.dates.created }}<div class="detail-row"><dt>Created</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with $project.dates.updated }}<div class="detail-row"><dt>Updated</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with $project.versions.dev }}<div class="detail-row"><dt>Development version</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
+        {{ with $project.versions.live }}<div class="detail-row"><dt>Live version</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}
+        {{ with $project.license }}<div class="detail-row"><dt>License</dt><dd><a href="{{ .link }}">{{ .name }}</a></dd></div>{{ end }}
+        {{ range $key, $value := $project.characteristics }}{{ with $value }}{{ $type := $key }}{{ if in (slice "development" "release" "deploy") $key }}{{ $type = printf "status.%s" $key }}{{ end }}<div class="detail-row"><dt>{{ $key | humanize }}</dt><dd><a href="/projects/characteristic/type/{{ $type }}/characteristic/{{ . }}">{{ . }}</a></dd></div>{{ end }}{{ end }}
+      </dl>
+      {{ with $project.tags }}<h2>Tags</h2><ul class="chip-list">{{ range . }}<li><a class="chip" href="/projects/tag?tag={{ . | urlquery }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
+      {{ with $project.technologies }}<h2>Technologies</h2><ul class="chip-list">{{ range . }}<li><a class="chip" href="/projects/tech?tech={{ . | urlquery }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
+      {{ with $project.news }}<h2>News</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ .date }}</dt><dd>{{ .description | safeHTML }}</dd></div>{{ end }}</dl>{{ end }}
+      {{ with $project.comments }}<h2>Comments</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ .date }}</dt><dd>{{ .comment | safeHTML }}</dd></div>{{ end }}</dl>{{ end }}
+    </article>
+    <p><a class="btn btn-default" href="/project/{{ $pathSegment | safeURL }}/help">Help</a> <a class="btn btn-primary" href="/project/{{ $pathSegment | safeURL }}/sponsor">Sponsor</a></p>
+  {{ end }}
+{{ end }}

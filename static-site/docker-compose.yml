@@ -1,0 +1,8 @@
+services:
+  static-site:
+    image: nginx@sha256:aed99734248e851764f1f2146835ecad42b5f994081fa6631cc5d79240891ec9
+    ports:
+      - "127.0.0.1:${STATIC_SITE_PORT:-4176}:80"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

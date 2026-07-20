@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <section class="surface search-box" aria-labelledby="catalog-heading">
+    <h1 id="catalog-heading">{{ .Title }}</h1>
+    <form action="/projects/search" method="get" class="search-form">
+      <label for="catalog-search">Search projects</label>
+      <input id="catalog-search" name="searchterm" type="search" maxlength="200">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </section>
+  <section class="surface results-section" aria-labelledby="catalog-results-heading">
+    <h2 id="catalog-results-heading" tabindex="-1">Results</h2>
+    <p id="catalog-count" role="status" aria-live="polite">Loading projects…</p>
+    <ul id="catalog-results" class="project-results"></ul>
+  </section>
+  <script src="/assets/javascript/catalog.js?v=proof-1"></script>
+{{ end }}

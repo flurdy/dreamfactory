@@ -20,7 +20,14 @@ project/project/
 
 project/metals.sbt
 
+node_modules/
+
 # Beads / Dolt files (added by bd init)
 .dolt/
 *.db
 .beads-credential-key
+
+# Static-site proof build artifacts
+/static-site/public/
+/static-site/.hugo_build.lock
+.pi-subagents/

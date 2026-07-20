@@ -1,0 +1,12 @@
+{{ range hugo.Data.projects.projects }}
+  {{ $project := . }}
+  {{ $base := dict
+    "content" (dict "mediaType" "text/markdown" "value" "")
+    "kind" "page"
+    "params" (dict "project" $project)
+    "title" $project.title
+  }}
+  {{ $.AddPage (merge (dict "path" $project.link "url" (printf "/project/%s" $project.link)) $base) }}
+  {{ $.AddPage (merge (dict "path" (printf "%s/help" $project.link) "title" (printf "%s help" $project.title) "url" (printf "/project/%s/help" $project.link) "params" (dict "project" $project "pageKind" "help")) $base) }}
+  {{ $.AddPage (merge (dict "path" (printf "%s/sponsor" $project.link) "title" (printf "%s sponsor" $project.title) "url" (printf "/project/%s/sponsor" $project.link) "params" (dict "project" $project "pageKind" "sponsor")) $base) }}
+{{ end }}

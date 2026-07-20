@@ -1,0 +1,20 @@
+{{ $characteristics := dict
+  "appeal" (slice "keen" "interested" "maybe" "low" "none")
+  "complexity" (slice "verydifficult" "difficult" "medium" "easy")
+  "likelihood" (slice "high" "possibly" "unlikely" "never")
+  "status.development" (slice "abandoned" "alpha" "beta" "completed" "notstarted")
+  "status.release" (slice "mature" "released" "beta" "notreleased" "mothballed")
+  "status.deploy" (slice "live" "offline")
+}}
+{{ range $type, $values := $characteristics }}
+  {{ range $values }}
+    {{ $path := printf "type/%s/characteristic/%s" $type . }}
+    {{ $.AddPage (dict
+      "content" (dict "mediaType" "text/markdown" "value" "")
+      "kind" "page"
+      "path" $path
+      "title" (printf "Projects with %s %s" ($type | humanize) (. | humanize))
+      "url" (printf "/projects/characteristic/%s" $path)
+    ) }}
+  {{ end }}
+{{ end }}

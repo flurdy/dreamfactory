@@ -1,0 +1,53 @@
+{{ define "main" }}
+  {{ $home := hugo.Data.projects.home }}
+  <section class="surface introduction">
+    <p>Projects by <a href="https://flurdy.com">flurdy</a>. Projects that are just ideas, being developed, abandoned, finished, released, revived, or pivoted. Any assistance or sponsorship is much appreciated.</p>
+  </section>
+
+  <div class="dashboard-grid">
+    {{ partial "project-box.html" (dict "title" "Popular" "projects" $home.popularProjects "random" false) }}
+    {{ partial "project-box.html" (dict "title" "Updated recently" "projects" $home.updatedProjects "random" false) }}
+    {{ partial "project-box.html" (dict "title" "Added recently" "projects" $home.newProjects "random" false) }}
+    {{ partial "project-box.html" (dict "title" "Random" "projects" $home.noJavaScriptRandomProjects "random" true) }}
+  </div>
+
+  <section class="surface search-box" aria-labelledby="home-search-heading">
+    <h2 id="home-search-heading" class="sr-only">Search projects</h2>
+    <form action="/projects/search" method="get" class="search-form">
+      <label class="sr-only" for="home-search">Search projects</label>
+      <input id="home-search" name="searchterm" type="search" maxlength="200" placeholder="search amongst 72 projects">
+      <button class="btn btn-primary" type="submit">Search</button>
+      <a class="btn btn-default" href="/projects/">List all</a>
+    </form>
+  </section>
+
+  <details class="surface discovery-section" open>
+    <summary>Properties Filter</summary>
+    <ul class="filter-shortcuts">
+      {{ range slice "popular" "dead" "unlikely" "recent" "updated" "stale" "live" "idea" "code" "mobile" "commercial" }}
+        <li><form action="/projects/" method="get"><input type="hidden" name="filter.{{ . }}" value="require"><button class="filter-shortcut" type="submit">{{ . | humanize }}</button></form></li>
+      {{ end }}
+    </ul>
+  </details>
+
+  <details class="surface discovery-section" open>
+    <summary>Tags</summary>
+    <ul class="chip-list">{{ range $home.tags }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul>
+  </details>
+
+  <details class="surface discovery-section" open>
+    <summary>Technologies</summary>
+    <ul class="chip-list">{{ range $home.technologies }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul>
+  </details>
+
+  <details class="surface discovery-section" open>
+    <summary>Characteristics</summary>
+    <div class="characteristic-groups">
+      {{ range $type, $values := dict "appeal" (slice "keen" "interested" "maybe" "low" "none") "complexity" (slice "verydifficult" "difficult" "medium" "easy") "likelihood" (slice "high" "possibly" "unlikely" "never") "status.development" (slice "abandoned" "alpha" "beta" "completed" "notstarted") "status.release" (slice "mature" "released" "beta" "notreleased" "mothballed") "status.deploy" (slice "live" "offline") }}
+        <div class="characteristic-group"><h3>{{ $type | humanize }}</h3><ul class="chip-list">{{ range $values }}<li><a class="chip" href="/projects/characteristic/type/{{ $type }}/characteristic/{{ . }}">{{ . | humanize }}</a></li>{{ end }}</ul></div>
+      {{ end }}
+    </div>
+  </details>
+
+  <script src="/assets/javascript/random-projects.js?v=proof-1"></script>
+{{ end }}
