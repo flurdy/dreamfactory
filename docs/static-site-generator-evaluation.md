@@ -186,5 +186,5 @@ If the proof fails exact URL or interaction parity, retain Play and limit modern
 
 - Confirm that JavaScript-enabled query filtering is acceptable; otherwise retain Play.
 - Treat homepage random boxes as changing on every page load when JavaScript is enabled; build-time selection is the no-JavaScript fallback.
-- Confirm the recommended compatibility boundary: intentional break for arbitrary-case detail/help/sponsor URLs while canonical and known encoded/title aliases remain redirected. If this is unacceptable, retain Play rather than adding a Function/Worker under this evaluation.
+- **Decided (2026-07-19):** use canonical URLs plus known encoded/title aliases. Intentionally return 404 for arbitrary-case detail/help/sponsor URLs, keeping the migration on free static Pages without a Function/Worker.
 - Approve Hugo and the time-boxed proof before creating migration implementation work.
