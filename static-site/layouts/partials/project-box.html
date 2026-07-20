@@ -1,16 +1,21 @@
 {{ $title := .title }}
 {{ $projects := .projects }}
 {{ $random := .random }}
+{{ if $projects }}
 <section class="project-list-box surface">
   <h2>{{ $title }}</h2>
   <ul{{ if $random }} id="random-projects" data-catalog="/data/projects.json" data-schema-version="1"{{ end }} class="project-collection">
     {{ range $projects }}
       {{ $pathSegment := replace (urlquery .link) "+" "%20" }}
-      <li class="project-summary">
-        <a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ .title }}</a>
-        {{ with index .urls "live" }}<a class="project-summary-url" href="{{ . }}">{{ . }}</a>{{ end }}
+      <li class="project-summary{{ if or .derived.dead .derived.stale .derived.unlikely }} project-summary--muted{{ end }}">
+        <a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ .title | safeHTML }}</a>
+        {{ if eq .summaryUrl.kind "live" }}<a class="project-summary-url" href="{{ .summaryUrl.href }}">{{ .summaryUrl.text }}</a>
+        {{ else if eq .summaryUrl.kind "project" }}<a class="project-summary-url link-project" href="{{ .summaryUrl.href }}">{{ .summaryUrl.text }}</a>
+        {{ else if eq .summaryUrl.kind "not-live" }}<span class="project-summary-url link-notlive">{{ .summaryUrl.text }}</span>
+        {{ else }}<span class="project-summary-url" aria-hidden="true"></span>{{ end }}
+        {{ partial "project-statuses.html" (dict "project" . "compact" true) }}
       </li>
     {{ end }}
   </ul>
-  {{ if $random }}<noscript><p>The projects above are a build-time random fallback.</p></noscript>{{ end }}
 </section>
+{{ end }}

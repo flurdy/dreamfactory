@@ -23,9 +23,9 @@
                 <div id="nautical-bow" class="nautical-compartment">
                   <header class="branded"><h1 class="sr-only">code @ flurdy</h1><a href="/"><img src="/assets/images/codeatflurdy.png" alt="code @ flurdy"></a></header>
                 </div>
-                <nav id="nautical-lookout" class="nautical-compartment" aria-label="Breadcrumb">
-                  <ol class="breadcrumb"><li><a href="/">Home</a></li>{{ if ne .RelPermalink "/" }}<li><a href="/projects/">projects</a></li>{{ end }}{{ if eq .Section "project" }}<li class="active">{{ with .Params.pageKind }}{{ . }}{{ else }}project{{ end }}</li>{{ end }}</ol>
-                </nav>
+                {{ if ne .RelPermalink "/" }}<nav id="nautical-lookout" class="nautical-compartment" aria-label="Breadcrumb">
+                  <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/projects/">projects</a></li>{{ if eq .Section "project" }}<li class="active">{{ with .Params.pageKind }}{{ . }}{{ else }}project{{ end }}</li>{{ end }}</ol>
+                </nav>{{ end }}
                 <div id="nautical-keel" class="nautical-structure">
                   <div id="nautical-innerhull" class="nautical-structure">
                     <div id="nautical-bulkhead" class="nautical-structure">

@@ -17,6 +17,7 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 - Added a Hugo `0.164.0` proof under `static-site/`.
   - It builds the shared shell, home, all-project list, 72 detail pages, 72 help pages, 72 sponsor pages, representative query shells, a representative characteristic page, and `404.html`.
   - Detail pages carry rich HTML, URLs, versions, license, characteristics, tags, technologies, news, and comments from the exported data, using the same component structure and shared CSS as Play.
+  - The homepage mirrors Play's introduction, project-summary URLs/statuses, search control, property shortcuts, taxonomy labels/order, and omits the breadcrumb exactly as Play does; popular/random project membership remains intentionally dynamic.
   - The build-time latest-news sidebar renders without JavaScript: desktop shows it directly, while mobile retains an HTML disclosure.
   - It vendors the current public assets and Bootstrap 3.3.6 CSS, and generates explicit title-alias redirects.
 - Added a small browser catalog implementation.
@@ -36,7 +37,7 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 |---|---|
 | Raw HOCON inventory | 72 rendered projects; 16 discrepancies reported; no discrepancy is silently ignored. |
 | Generated page shape | 216 project detail/help/sponsor pages, plus home/list/query/characteristic/404 pages. |
-| Local artifact | 268 files, 4,278,159 bytes total; largest asset 190,045 bytes. This is below Cloudflare Pages Free's 20,000-file and 25 MiB-per-asset limits. |
+| Local artifact | 268 files, 4,309,765 bytes total; largest asset 202,869 bytes. This is below Cloudflare Pages Free's 20,000-file and 25 MiB-per-asset limits. |
 | Acceptance benchmark | Play `sbt clean test stage`: 30.24 s / 1,723,080 KB, 30.06 s / 1,702,384 KB, 30.46 s / 1,693,824 KB. Static `npm run test:static-browser` (which regenerates, verifies, builds, starts nginx, and runs browser/a11y tests): 31.80 s / 1,161,152 KB, 30.46 s / 1,080,876 KB, 31.90 s / 1,292,900 KB. The static median is 5% slower and uses 32% less peak RSS, so both approved 50% gates **fail**. |
 | Build-only reference | Three clean-output exporter + Hugo builds: 9.74 s / 1,209,376 KB, 8.33 s / 1,072,228 KB, 8.53 s / 1,195,328 KB. Useful local feedback, but not substituted for the tested acceptance benchmark. |
 | Hugo-only reference | Three clean-output builds from committed static snapshots: 0.12 s / 93,552 KB, 0.11 s / 93,808 KB, 0.11 s / 93,412 KB. This represents the intended Pages build after canonical static data exists, but is not substituted for the failed tested gate. |

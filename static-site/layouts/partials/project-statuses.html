@@ -1,0 +1,16 @@
+{{ $project := .project }}{{ $derived := $project.derived }}
+{{ if or $derived.popular $derived.dead $derived.unlikely $derived.recent $derived.updated $derived.stale $derived.live $derived.idea $derived.code $derived.mobile $derived.commercial }}
+<ul class="project-statuses{{ if .compact }} project-statuses--compact{{ end }}" aria-label="Project status">
+  {{ if $derived.popular }}<li class="project-status"><i class="far fa-star" aria-hidden="true"></i><span class="project-status-label">Popular</span></li>{{ end }}
+  {{ if $derived.dead }}<li class="project-status"><i class="fas fa-cross" aria-hidden="true"></i><span class="project-status-label">Mothballed</span></li>{{ end }}
+  {{ if $derived.unlikely }}<li class="project-status"><i class="far fa-frown" aria-hidden="true"></i><span class="project-status-label">Unlikely</span></li>{{ end }}
+  {{ if $derived.recent }}<li class="project-status"><i class="fas fa-plus-circle" aria-hidden="true"></i><span class="project-status-label">Recently added</span></li>{{ end }}
+  {{ if $derived.updated }}<li class="project-status"><i class="fas fa-seedling" aria-hidden="true"></i><span class="project-status-label">Recently updated</span></li>{{ end }}
+  {{ if $derived.stale }}<li class="project-status"><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="project-status-label">Stale</span></li>{{ end }}
+  {{ if $derived.live }}<li class="project-status"><i class="fas fa-heartbeat" aria-hidden="true"></i><span class="project-status-label">Live</span></li>{{ end }}
+  {{ if $derived.idea }}<li class="project-status"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="project-status-label">Idea</span></li>{{ end }}
+  {{ if $derived.code }}<li class="project-status"><i class="fas fa-code" aria-hidden="true"></i><span class="project-status-label">Code available</span></li>{{ end }}
+  {{ if $derived.mobile }}<li class="project-status"><i class="fas fa-mobile-alt" aria-hidden="true"></i><span class="project-status-label">Mobile</span></li>{{ end }}
+  {{ if $derived.commercial }}<li class="project-status"><i class="fas fa-dollar-sign" aria-hidden="true"></i><span class="project-status-label">Commercial</span></li>{{ end }}
+</ul>
+{{ end }}

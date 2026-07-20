@@ -53,6 +53,13 @@ try {
 
   await page.goto(`${baseUrl}/`);
   await page.waitForFunction(() => document.querySelector('#random-projects')?.dataset.randomized === 'true');
+  assert.equal(await page.locator('#nautical-lookout').count(), 0);
+  assert.equal(await page.locator('#home-search.form-control').count(), 1);
+  assert.equal(await page.getByRole('button', { name: 'Mothballed or abandoned' }).count(), 1);
+  assert.equal(await page.getByRole('heading', { name: 'Development status' }).count(), 1);
+  assert.equal(await page.getByRole('link', { name: 'Not started' }).count(), 1);
+  assert.equal(await page.locator('.dashboard-grid .project-summary-url').count(), 34);
+  assert.ok(await page.locator('.dashboard-grid .project-statuses').count() > 0);
   await assertNoBlockingA11y(page, 'Home page');
   const firstRandom = await page.locator('#random-projects .project-summary-title').allTextContents();
   assert.equal(firstRandom.length, 10);
@@ -72,6 +79,15 @@ try {
   await page.waitForFunction(() => document.querySelector('#random-projects')?.dataset.randomized === 'true');
   const secondRandom = await page.locator('#random-projects .project-summary-title').allTextContents();
   assert.notDeepEqual(secondRandom, firstRandom);
+
+  const entityTitlePage = await context.newPage();
+  await entityTitlePage.addInitScript(() => { window.__dreamFactoryRandom = () => 0.25074925074925075; });
+  await entityTitlePage.goto(`${baseUrl}/`);
+  await entityTitlePage.waitForFunction(() => document.querySelector('#random-projects')?.dataset.randomized === 'true');
+  const entityTitles = await entityTitlePage.locator('#random-projects .project-summary-title').allTextContents();
+  assert.ok(entityTitles.includes('Baby\u00a0Crowd\u00a0Monitor'));
+  assert.ok(entityTitles.every((title) => !title.includes('&nbsp;')));
+  await entityTitlePage.close();
 
   await page.goto(`${baseUrl}/projects/search`);
   const search = page.getByRole('searchbox', { name: 'Search projects' });

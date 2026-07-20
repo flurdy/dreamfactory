@@ -37,7 +37,7 @@ function compareImages(playPath, staticPath) {
   return { differentPixels, percent: (differentPixels * 100) / totalPixels };
 }
 
-async function capture(page, url, path, desktop) {
+async function preparePage(page, url) {
   const response = await page.goto(url, { waitUntil: 'networkidle' });
   assert.equal(response?.status(), 200, `${url} did not return 200`);
   await page.evaluate(() => {
@@ -47,6 +47,10 @@ async function capture(page, url, path, desktop) {
       element.style.transition = 'none';
     }
   });
+}
+
+async function capture(page, url, path, desktop) {
+  await preparePage(page, url);
   if (desktop) {
     await page.locator('#nautical-deck .newsbar-list:visible').waitFor({ state: 'visible' });
   } else {

@@ -251,6 +251,7 @@ object StaticSiteExport extends App {
       "description" -> project.description,
       "urls" -> JsObject(project.urls.values.map { case (key, url) => key -> JsString(url.value.toString) }),
       "urlEntries"   -> urlEntries,
+      "summaryUrl"   -> summaryUrlJson(project),
       "dates"        -> Json.obj("created" -> project.dates.created, "updated" -> project.dates.updated),
       "versions"     -> Json.obj("dev" -> project.versions.dev, "live" -> project.versions.live),
       "tags"         -> project.tags.toList.map(_.name).sorted,
@@ -283,6 +284,24 @@ object StaticSiteExport extends App {
         "recent"     -> project.isRecentlyAdded,
         "unlikely"   -> (project.isUnlikely || project.isUnappealing)
       )
+    )
+  }
+
+  private def summaryUrlJson(project: Project): JsObject = {
+    val (kind, url): (String, Option[Url]) = (project.urls.live, project.urls.project) match {
+      case (Some(live), _) if project.isLive => "live"     -> Some(live)
+      case (_, Some(source))                 => "project"  -> Some(source)
+      case (Some(live), _)                   => "not-live" -> Some(live)
+      case _                                 => "empty"    -> None
+    }
+    val text: String                       = url match {
+      case Some(value) => value.curt(25).toString
+      case None        => ""
+    }
+    Json.obj(
+      "kind" -> JsString(kind),
+      "href" -> url.map(_.value.toString),
+      "text" -> JsString(text)
     )
   }
 

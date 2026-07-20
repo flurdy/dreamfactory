@@ -14,6 +14,11 @@
       "description" : "PillTrack is a mobile app for recording daily medicines with a clear taken, missed, or unknown history. Persistent reminders help when an initial alarm is snoozed or missed, while pack and prescription tracking warns early enough to request a refill from the GP before medicine runs out.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2026-07-18",
         "updated" : "2026-07-18"
@@ -69,6 +74,11 @@
         "key" : "live",
         "url" : "https://apps.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://apps.flurdy.io",
+        "text" : "apps.flurdy.io"
+      },
       "dates" : {
         "created" : "2026-02-24",
         "updated" : "2026-02-24"
@@ -118,6 +128,11 @@
       "description" : "Team project planning and tracking tool. With emphasis on simplicity, productivity and flexibility. With a focus on the team and the project. Not the tool. The idea is to draft ideas, and funnel it through iterations until it is done. People are not assigned tasks. The team is responsible. Instead people may be associated with a task, often as a pair or contributor or subject expert, with a history trail of references. Supporting the idea of colaboration, pair rotation, story evolution. Epic stories and tasks are not assigned a due date, but ranked by priority. Tasks are not assigned a dependency, but a relationship across epics. Tasks are not assigned a date, but a draft funnel. Tasks descriptions are not definite but a conversation. Tasks are funneled through a flow through to being released and iterated on. Tasks are not forgotten but revisited. Tasks are not tracked but visualised. If the flow and conversations are done in Draft, details of the story may be in another tool like Jira or Trello. And Draft updates its status automatically as it moves down the funnel. Draft is the teams tool, not the project managers tool.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2024-05",
         "updated" : "2024-05"
@@ -164,6 +179,11 @@
       "description" : "A Feature Toggle management tool. An experiment management tool. Can be combined with <a href=\"/project/gatehouse\">Gate House</a> to provide a complete experience management across the architecture.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2023-03-21",
         "updated" : "2023-03-21"
@@ -226,6 +246,11 @@
         "key" : "demo",
         "url" : "http://gauge.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://gauge.team",
+        "text" : "gauge.team"
+      },
       "dates" : {
         "created" : "2021-06",
         "updated" : "2026-01"
@@ -281,6 +306,11 @@
       "description" : "Simple polling web app for estimations un e.g. a planning poker session. Fibonacci, t-shirt sizes, etc.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2021-06",
         "updated" : "2021-06"
@@ -327,6 +357,11 @@
       "description" : "Feature toggle sunsetting build plugin tool. Set dates for when a feature toggle is expected to be removed, as in no longer needing toggle. Can be date or semver version. Warn or fail build",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2021-02",
         "updated" : "2021-02"
@@ -373,6 +408,11 @@
       "description" : "An API gateway. An experiment management tool. A Blue/Green, Canary and rollout tool. An A/B testing tool. Can be chained. Combined with <a href=\"/project/sluice\">Sluice</a> for Feature Toggles.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2021-02",
         "updated" : "2023-03-20"
@@ -425,6 +465,11 @@
       "description" : "An API versioning assistant. Specify versions in your request and responses. Test contracts like in Pact. Specify EOL of older versions, manually or automatically. Announce new versions, and EOL versions. Include version support as part of a build process",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2020-09",
         "updated" : "2020-09"
@@ -476,6 +521,11 @@
         "key" : "project",
         "url" : "https://apps.flurdy.io/expire"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://apps.flurdy.io/expire",
+        "text" : "apps.flurdy.io/expire"
+      },
       "dates" : {
         "created" : "2020-04-10",
         "updated" : "2026-02-18"
@@ -538,6 +588,11 @@
         "key" : "live",
         "url" : "https://badusernames.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://badusernames.flurdy.io",
+        "text" : "badusernames.flurdy.io"
+      },
       "dates" : {
         "created" : "2019-08",
         "updated" : "2026-07-09"
@@ -601,6 +656,11 @@
         "key" : "project",
         "url" : "https://apps.flurdy.io/tapin"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://apps.flurdy.io/tapin",
+        "text" : "apps.flurdy.io/tapin"
+      },
       "dates" : {
         "created" : "2016-01-01",
         "updated" : "2026-02-24"
@@ -677,6 +737,11 @@
         "key" : "live",
         "url" : "https://apps.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://apps.flurdy.io",
+        "text" : "apps.flurdy.io"
+      },
       "dates" : {
         "created" : "2026-02-24",
         "updated" : "2026-02-24"
@@ -731,6 +796,11 @@
         "key" : "project",
         "url" : "https://apps.flurdy.io/expire"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://apps.flurdy.io/expire",
+        "text" : "apps.flurdy.io/expire"
+      },
       "dates" : {
         "created" : "2020-04-10",
         "updated" : "2026-02-18"
@@ -796,6 +866,11 @@
         "key" : "demo",
         "url" : "http://gauge.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://gauge.team",
+        "text" : "gauge.team"
+      },
       "dates" : {
         "created" : "2021-06",
         "updated" : "2026-01"
@@ -856,6 +931,11 @@
         "key" : "live",
         "url" : "https://letterbox.tech"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://letterbox.tech",
+        "text" : "letterbox.tech"
+      },
       "dates" : {
         "created" : "2019-09-28",
         "updated" : "2025-11-28"
@@ -935,6 +1015,11 @@
         "key" : "live",
         "url" : "https://whoto.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://whoto.flurdy.io",
+        "text" : "whoto.flurdy.io"
+      },
       "dates" : {
         "created" : "2013",
         "updated" : "2025-11"
@@ -1003,6 +1088,11 @@
         "key" : "live",
         "url" : "https://contract-calc.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://contract-calc.flurdy.io",
+        "text" : "contract-calc.flurdy.io"
+      },
       "dates" : {
         "created" : "2012",
         "updated" : "2016"
@@ -1054,6 +1144,11 @@
         "key" : "project",
         "url" : "https://apps.flurdy.io/expire"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://apps.flurdy.io/expire",
+        "text" : "apps.flurdy.io/expire"
+      },
       "dates" : {
         "created" : "2020-04-10",
         "updated" : "2026-02-18"
@@ -1111,6 +1206,11 @@
         "key" : "live",
         "url" : "https://letterbox.tech"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://letterbox.tech",
+        "text" : "letterbox.tech"
+      },
       "dates" : {
         "created" : "2019-09-28",
         "updated" : "2025-11-28"
@@ -1186,6 +1286,11 @@
         "key" : "project",
         "url" : "http://github.com/flurdy/sortingoffice"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "http://github.com/flurdy/sortingoffice",
+        "text" : "...com/flurdy/sortingoffice"
+      },
       "dates" : {
         "created" : "2014",
         "updated" : "2025-07-08"
@@ -1250,6 +1355,11 @@
         "key" : "binary",
         "url" : "https://bintray.com/flurdy/maven/spring-boot-logging-json"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://github.com/flurdy/spring-boot-logging-json",
+        "text" : "../spring-boot-logging-json"
+      },
       "dates" : {
         "created" : null,
         "updated" : null
@@ -1298,6 +1408,11 @@
         "key" : "project",
         "url" : "https://apps.flurdy.io/tapin"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://apps.flurdy.io/tapin",
+        "text" : "apps.flurdy.io/tapin"
+      },
       "dates" : {
         "created" : "2016-01-01",
         "updated" : "2026-02-24"
@@ -1370,6 +1485,11 @@
         "key" : "live",
         "url" : "https://www.tulipan.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://www.tulipan.io",
+        "text" : "www.tulipan.io"
+      },
       "dates" : {
         "created" : "2018-02",
         "updated" : "2021-02"
@@ -1542,6 +1662,11 @@
         "key" : "project",
         "url" : "https://github.com/flurdy/cargo"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://github.com/flurdy/cargo",
+        "text" : "github.com/flurdy/cargo"
+      },
       "dates" : {
         "created" : "2017-01",
         "updated" : "2017-09"
@@ -1594,6 +1719,11 @@
       "description" : "A changelog service to independently host projects changelogs. Will include services to list and link to release tags, bugs, binaries, etc.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2018-10-25",
         "updated" : "2018-10-25"
@@ -1649,6 +1779,11 @@
         "key" : "live",
         "url" : "http://code.flurdy.com"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "http://code.flurdy.com",
+        "text" : "code.flurdy.com"
+      },
       "dates" : {
         "created" : "2016-06",
         "updated" : "2021-02"
@@ -1713,6 +1848,11 @@
         "key" : "live",
         "url" : "https://hakiki.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "live",
+        "href" : "https://hakiki.flurdy.io",
+        "text" : "hakiki.flurdy.io"
+      },
       "dates" : {
         "created" : "2017-03",
         "updated" : "2025-03"
@@ -1778,6 +1918,11 @@
         "key" : "alternative",
         "url" : "https://jsoup.org"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://github.com/flurdy/scala-soup",
+        "text" : "..hub.com/flurdy/scala-soup"
+      },
       "dates" : {
         "created" : null,
         "updated" : null
@@ -1826,6 +1971,11 @@
         "key" : "project",
         "url" : "http://github.com/flurdy/shop-mobile"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "http://github.com/flurdy/shop-mobile",
+        "text" : "..ub.com/flurdy/shop-mobile"
+      },
       "dates" : {
         "created" : "2015",
         "updated" : "2016"
@@ -1884,6 +2034,11 @@
         "key" : "live",
         "url" : "https://valuta.flurdy.io"
       } ],
+      "summaryUrl" : {
+        "kind" : "project",
+        "href" : "https://github.com/flurdy/valuta",
+        "text" : "github.com/flurdy/valuta"
+      },
       "dates" : {
         "created" : "2009",
         "updated" : "2018-01"
@@ -1942,6 +2097,11 @@
       "description" : "<p>An application to <a href=\"http://en.wikipedia.org/wiki/Baby_monitor\">monitor your baby/babies</a>. Integrating video feeds from your baby monitor.</p><p>But to increase coverage time and enhance reaction time it can utilse <a href=\"http://en.wikipedia.org/wiki/Crowdsourcing\">crowdsourcing</a>. You can add friends and family as co-monitors. You can enable anonymous co-monitors. And vice versa people can add you as a friend &amp; monitor,or you can agree to anonymous monitor other people's babies.</p><p>Your main interface is then big feeds of your baby/babies. Then a few smaller feeds of your friends' &amp; families' feeds. And then a few random anonymous feeds.</p><p>If you notice something worrying in the feeds from other people they can be alerted. Friends &amp; families can be phoned, anonoymous can be alerted automatically via their monitoring webpage, email, sms, or perhaps an external alarm. </p><p>Via the website people can then praise your alarm, or tick you off for a false alarm. This scoring can be used to scale how many anonymous feeds you are allowed to monitor. It can be used to filter alarms or ban feed access below a certain praise level.</p><p>This project would need several modules.<ul><li>A client feed source transponder for various inputs and differnt types of baby monitors. Sending codec compressed video to the cloud, and making high definition available locally. This is the difficult high risk module.</li><li>A cloud based client monitoring application.</li><li>A cloud based application for alarm notification.</li><li>A cloud based application for feed content distribution.</li><li>A cloud based server application.</li><li>A cloud based website application for information.</li></ul></p><p>This will of course never replace direct baby monitoring by the parent, People should not reply on only others to monitor and not do it themselves at anytime. This is only as an enhancement.</p>",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2012",
         "updated" : null
@@ -1990,6 +2150,11 @@
         "key" : "alternative",
         "url" : "https://myfav.es"
       } ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : "2012-02-18",
         "updated" : null
@@ -2033,6 +2198,11 @@
       "description" : "(Or SnapUp) Use Kelko, Froogle, PriceRunner, Amazon etc to find prices for a product. Customers set the max price they would buy the product for. If price goes under said amount then buy it. <p> E.g if iPad 2 64bit Wifi costs at least &pound;549 according to price matchers, the customer might say if goes under &pound;400 he would buy it. </p> Initially price update searches (while registered users are low) can by manual job at days interval, even outsourced. Then eventual automated and more instant. By \"buy it\" initially it can be just an email notification. In time it could be actual reservation. Allows tie ins with 3rd party shops and price matchers.",
       "urls" : { },
       "urlEntries" : [ ],
+      "summaryUrl" : {
+        "kind" : "empty",
+        "href" : null,
+        "text" : ""
+      },
       "dates" : {
         "created" : null,
         "updated" : null
@@ -2086,6 +2256,11 @@
     "description" : "<p>An application to <a href=\"http://en.wikipedia.org/wiki/Baby_monitor\">monitor your baby/babies</a>. Integrating video feeds from your baby monitor.</p><p>But to increase coverage time and enhance reaction time it can utilse <a href=\"http://en.wikipedia.org/wiki/Crowdsourcing\">crowdsourcing</a>. You can add friends and family as co-monitors. You can enable anonymous co-monitors. And vice versa people can add you as a friend &amp; monitor,or you can agree to anonymous monitor other people's babies.</p><p>Your main interface is then big feeds of your baby/babies. Then a few smaller feeds of your friends' &amp; families' feeds. And then a few random anonymous feeds.</p><p>If you notice something worrying in the feeds from other people they can be alerted. Friends &amp; families can be phoned, anonoymous can be alerted automatically via their monitoring webpage, email, sms, or perhaps an external alarm. </p><p>Via the website people can then praise your alarm, or tick you off for a false alarm. This scoring can be used to scale how many anonymous feeds you are allowed to monitor. It can be used to filter alarms or ban feed access below a certain praise level.</p><p>This project would need several modules.<ul><li>A client feed source transponder for various inputs and differnt types of baby monitors. Sending codec compressed video to the cloud, and making high definition available locally. This is the difficult high risk module.</li><li>A cloud based client monitoring application.</li><li>A cloud based application for alarm notification.</li><li>A cloud based application for feed content distribution.</li><li>A cloud based server application.</li><li>A cloud based website application for information.</li></ul></p><p>This will of course never replace direct baby monitoring by the parent, People should not reply on only others to monitor and not do it themselves at anytime. This is only as an enhancement.</p>",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2012",
       "updated" : null
@@ -2138,6 +2313,11 @@
       "key" : "live",
       "url" : "https://badusernames.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://badusernames.flurdy.io",
+      "text" : "badusernames.flurdy.io"
+    },
     "dates" : {
       "created" : "2019-08",
       "updated" : "2026-07-09"
@@ -2201,6 +2381,11 @@
       "key" : "alternative",
       "url" : "https://myfav.es"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2012-02-18",
       "updated" : null
@@ -2244,6 +2429,11 @@
     "description" : "(Or SnapUp) Use Kelko, Froogle, PriceRunner, Amazon etc to find prices for a product. Customers set the max price they would buy the product for. If price goes under said amount then buy it. <p> E.g if iPad 2 64bit Wifi costs at least &pound;549 according to price matchers, the customer might say if goes under &pound;400 he would buy it. </p> Initially price update searches (while registered users are low) can by manual job at days interval, even outsourced. Then eventual automated and more instant. By \"buy it\" initially it can be just an email notification. In time it could be actual reservation. Allows tie ins with 3rd party shops and price matchers.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2295,6 +2485,11 @@
       "key" : "project",
       "url" : "https://github.com/flurdy/cargo"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy/cargo",
+      "text" : "github.com/flurdy/cargo"
+    },
     "dates" : {
       "created" : "2017-01",
       "updated" : "2017-09"
@@ -2347,6 +2542,11 @@
     "description" : "A changelog service to independently host projects changelogs. Will include services to list and link to release tags, bugs, binaries, etc.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2018-10-25",
       "updated" : "2018-10-25"
@@ -2393,6 +2593,11 @@
     "description" : "Simple polling web app for estimations un e.g. a planning poker session. Fibonacci, t-shirt sizes, etc.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2021-06",
       "updated" : "2021-06"
@@ -2448,6 +2653,11 @@
       "key" : "live",
       "url" : "https://contract-calc.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://contract-calc.flurdy.io",
+      "text" : "contract-calc.flurdy.io"
+    },
     "dates" : {
       "created" : "2012",
       "updated" : "2016"
@@ -2494,6 +2704,11 @@
     "description" : "A transaction middleman. Something similar to what they call escrow in the US.<ul><li>Keep it simple.</li><li>Users initially registers:<ul><li>amount</li><li>requirement for fullfilment</li><li>actions if dispute</li><li>3rd party details</li><li>details of stages, if payment is staggered</li><li>details of when deposit is to be made</li></ul></li><li>Both receiver and sender / purchaser & seller is set to yellow state.</li><li>Sender encounters a problem / delay in delivering / shipping etc<ul><li>his state is set to amber</li><li>receiver is notified by email</li><li></li></ul></li><li>sender sends products<ul><li>sender state is set to green</li><li>receiver state is set to orange, as he awaits delivery</li><li>receiver is notified by email</li></ul></li><li>receiver receives products<ul><li>the products are not what ordered or damaged<ul><li>receiver state is set to red</li><li>sender is notified by email</li><li>sender's state is set to amber</li></ul></li><li>the products are as espected<ul><li>receiver state is set to green</li><li>3rd party middleman is notified to transfer money</li></ul></ul></li><li></li><li></li><li><ul><li></li></ul></li><li><ul><li></li></ul></li><li>Problems:<ul><li>legality may need to be financial institution</li><li>US' facination with lawsuits. </li></ul></li></ul>",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2537,6 +2752,11 @@
     "description" : "Team project planning and tracking tool. With emphasis on simplicity, productivity and flexibility. With a focus on the team and the project. Not the tool. The idea is to draft ideas, and funnel it through iterations until it is done. People are not assigned tasks. The team is responsible. Instead people may be associated with a task, often as a pair or contributor or subject expert, with a history trail of references. Supporting the idea of colaboration, pair rotation, story evolution. Epic stories and tasks are not assigned a due date, but ranked by priority. Tasks are not assigned a dependency, but a relationship across epics. Tasks are not assigned a date, but a draft funnel. Tasks descriptions are not definite but a conversation. Tasks are funneled through a flow through to being released and iterated on. Tasks are not forgotten but revisited. Tasks are not tracked but visualised. If the flow and conversations are done in Draft, details of the story may be in another tool like Jira or Trello. And Draft updates its status automatically as it moves down the funnel. Draft is the teams tool, not the project managers tool.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2024-05",
       "updated" : "2024-05"
@@ -2592,6 +2812,11 @@
       "key" : "live",
       "url" : "http://code.flurdy.com"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "http://code.flurdy.com",
+      "text" : "code.flurdy.com"
+    },
     "dates" : {
       "created" : "2016-06",
       "updated" : "2021-02"
@@ -2647,6 +2872,11 @@
     "description" : "<p>The anti drone defence. A business venture of software and hardware.</p><ul><li>Detect drone</li><li>Identity and tag drones</li><li>Track drones</li><li>Jam drones</li><li>Patrol zones</li><li>Intercept drones</li><li>Down and capture drones</li><li>Destroy drones</li></ul><ul><li>Assist border patrol</li><li>Prevent illegal smuggling across borders, prisons, industrial espionage</li><li>Protect events</li><li>Protect people</li><li>Protect property</li><li>Protect the peace</li></ul><p>Surface to air launchers of paint, projectiles or efficient nets</p><p>Air to air launches</p><p>Air based fans for unaggressive deterrent</p><p>Nets with parachutes to capture and down drones</p><p>Detection with scanners for visual and transition signals. As well as air based drone mesh to act as detection perimeter cages.</p>",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2698,6 +2928,11 @@
       "key" : "project",
       "url" : "https://apps.flurdy.io/expire"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://apps.flurdy.io/expire",
+      "text" : "apps.flurdy.io/expire"
+    },
     "dates" : {
       "created" : "2020-04-10",
       "updated" : "2026-02-18"
@@ -2750,6 +2985,11 @@
     "description" : "App to timer to record breast feeding. We are now on kid number two and both times I really wanted to write this app. I observed my partners struggle to remember/record for how long and on which side the babies was fed.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2805,6 +3045,11 @@
       "key" : "info",
       "url" : "http://www.ivar.co.uk/fotos.html"
     } ],
+    "summaryUrl" : {
+      "kind" : "not-live",
+      "href" : "http://foto.flurdy.com",
+      "text" : "foto.flurdy.com"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2853,6 +3098,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/gantry"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/gantry",
+      "text" : "github.com/flurdy/gantry"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -2899,6 +3149,11 @@
     "description" : "An API gateway. An experiment management tool. A Blue/Green, Canary and rollout tool. An A/B testing tool. Can be chained. Combined with <a href=\"/project/sluice\">Sluice</a> for Feature Toggles.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2021-02",
       "updated" : "2023-03-20"
@@ -2964,6 +3219,11 @@
       "key" : "demo",
       "url" : "http://gauge.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://gauge.team",
+      "text" : "gauge.team"
+    },
     "dates" : {
       "created" : "2021-06",
       "updated" : "2026-01"
@@ -3028,6 +3288,11 @@
       "key" : "demo",
       "url" : "http://grid.flurdy.com/giftregistry"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/giftregistry",
+      "text" : "..b.com/flurdy/giftregistry"
+    },
     "dates" : {
       "created" : "2012",
       "updated" : null
@@ -3079,6 +3344,11 @@
       "key" : "demo",
       "url" : "http://grid.flurdy.com/golf"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3127,6 +3397,11 @@
       "key" : "project",
       "url" : "https://bitbucket.org/flurdy/gpsalarm"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://bitbucket.org/flurdy/gpsalarm",
+      "text" : "..ucket.org/flurdy/gpsalarm"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3173,6 +3448,11 @@
     "description" : "Collect social networking sites in one place. See friends/contacts network, Diary of changes etc",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3221,6 +3501,11 @@
       "key" : "website",
       "url" : "http://grid.flurdy.com"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3269,6 +3554,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/guvnor"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/guvnor",
+      "text" : "github.com/flurdy/guvnor"
+    },
     "dates" : {
       "created" : "2015-11-01",
       "updated" : "2016-04-01"
@@ -3327,6 +3617,11 @@
       "key" : "live",
       "url" : "https://hakiki.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://hakiki.flurdy.io",
+      "text" : "hakiki.flurdy.io"
+    },
     "dates" : {
       "created" : "2017-03",
       "updated" : "2025-03"
@@ -3379,6 +3674,11 @@
     "description" : "An API versioning assistant. Specify versions in your request and responses. Test contracts like in Pact. Specify EOL of older versions, manually or automatically. Announce new versions, and EOL versions. Include version support as part of a build process",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2020-09",
       "updated" : "2020-09"
@@ -3430,6 +3730,11 @@
       "key" : "live",
       "url" : "http://www.bionichouse.com"
     } ],
+    "summaryUrl" : {
+      "kind" : "not-live",
+      "href" : "http://www.bionichouse.com",
+      "text" : "www.bionichouse.com"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3473,6 +3778,11 @@
     "description" : null,
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3524,6 +3834,11 @@
       "key" : "alternative",
       "url" : "http://www.ideatorrent.org"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3567,6 +3882,11 @@
     "description" : null,
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3618,6 +3938,11 @@
       "key" : "demo",
       "url" : "http://grid.flurdy.com/joke"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3661,6 +3986,11 @@
     "description" : "Feature toggle sunsetting build plugin tool. Set dates for when a feature toggle is expected to be removed, as in no longer needing toggle. Can be date or semver version. Warn or fail build",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2021-02",
       "updated" : "2021-02"
@@ -3712,6 +4042,11 @@
       "key" : "live",
       "url" : "https://letterbox.tech"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://letterbox.tech",
+      "text" : "letterbox.tech"
+    },
     "dates" : {
       "created" : "2019-09-28",
       "updated" : "2025-11-28"
@@ -3791,6 +4126,11 @@
       "key" : "live",
       "url" : "https://apps.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://apps.flurdy.io",
+      "text" : "apps.flurdy.io"
+    },
     "dates" : {
       "created" : "2026-02-24",
       "updated" : "2026-02-24"
@@ -3845,6 +4185,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/Mailer"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/Mailer",
+      "text" : "github.com/flurdy/Mailer"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3891,6 +4236,11 @@
     "description" : "An avatar photo service. A URL something like me.flurdy.io/myusername/me.jpg. Upload several photos of yourself, and random one is returned, with size and shape options. May also return GIF animation , morphs etc. Will need some porn filters. Or not.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3946,6 +4296,11 @@
       "key" : "alternative",
       "url" : "http://freedvr.org"
     } ],
+    "summaryUrl" : {
+      "kind" : "not-live",
+      "href" : "http://mypvr.org",
+      "text" : "mypvr.org"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -3989,6 +4344,11 @@
     "description" : "A news aggregation webapp. Probably RSS and tailored per person. May use 3rd party tool. google news, RSS feeds etc have made this redundant.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4032,6 +4392,11 @@
     "description" : null,
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4091,6 +4456,11 @@
       "key" : "source",
       "url" : "https://code.flurdy.com/hg/grid/passhash/EllisIsland"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://svn.flurdy.com/code/java/passhash/trunk",
+      "text" : "../code/java/passhash/trunk"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4140,6 +4510,11 @@
     "description" : "online address db with e.g. link to postfix tables. birthday register, etc. todays plaxo, facebook, linkedin etc make it less appealing, however I still loose people's real post addresses.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4188,6 +4563,11 @@
       "key" : "project",
       "url" : "https://github.com/flurdy/philharmonic"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy/philharmonic",
+      "text" : "..b.com/flurdy/philharmonic"
+    },
     "dates" : {
       "created" : "2016-08",
       "updated" : "2019-11"
@@ -4246,6 +4626,11 @@
     "description" : "Photo sharing using git repositories to push photos, albums etc to share",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4295,6 +4680,11 @@
     "description" : "PillTrack is a mobile app for recording daily medicines with a clear taken, missed, or unknown history. Persistent reminders help when an initial alarm is snoozed or missed, while pack and prescription tracking warns early enough to request a refill from the GP before medicine runs out.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2026-07-18",
       "updated" : "2026-07-18"
@@ -4350,6 +4740,11 @@
       "key" : "website",
       "url" : "https://flurdy.com/docs"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy",
+      "text" : "github.com/flurdy"
+    },
     "dates" : {
       "created" : "2007-02",
       "updated" : "2018-09"
@@ -4408,6 +4803,11 @@
     "description" : "Carpooling framework, for subscription service to quick rent of cars, ala Oslo bilkollektiv etc.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2007",
       "updated" : null
@@ -4451,6 +4851,11 @@
     "description" : "A known problems page stand alone service",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2018-05",
       "updated" : null
@@ -4497,6 +4902,11 @@
     "description" : null,
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4556,6 +4966,11 @@
       "key" : "alternative",
       "url" : "https://jsoup.org"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy/scala-soup",
+      "text" : "..hub.com/flurdy/scala-soup"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4612,6 +5027,11 @@
       "key" : "demo",
       "url" : "http://grid.flurdy.com/shop"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/shoppinglist",
+      "text" : "..b.com/flurdy/shoppinglist"
+    },
     "dates" : {
       "created" : "2012",
       "updated" : "2015"
@@ -4666,6 +5086,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/shop-mobile"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/shop-mobile",
+      "text" : "..ub.com/flurdy/shop-mobile"
+    },
     "dates" : {
       "created" : "2015",
       "updated" : "2016"
@@ -4715,6 +5140,11 @@
     "description" : "A Feature Toggle management tool. An experiment management tool. Can be combined with <a href=\"/project/gatehouse\">Gate House</a> to provide a complete experience management across the architecture.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : "2023-03-21",
       "updated" : "2023-03-21"
@@ -4764,6 +5194,11 @@
     "description" : "A one page site. Consisting of photos only. Think if <a href=\"http://en.wikipedia.org/wiki/The_Million_Dollar_Homepage\">the million dollar homepage</a> merged with <a href=\"http://twitter.com\">Twitter</a>. The huge canvas would be zoomable so that you can eventually make out what the photo(s) are of. Photos could only be posted via mms and maybe webcam tools, so more personal and recent. Could possibly be 3d (not <a href=\"http://en.wikipedia.org/wiki/Stereoscopy\">stereoscopic</a>) but <a href=\"http://en.wikipedia.org/wiki/Z-order\">z layered</a>with more recent on top. Some clever algorithm to place related photos closer together. <a href=\"http://google.com\">Google</a> <a href=\"http://maps.google.com\">maps</a>/<a href=\"http://earth.google.com\">earth</a> -esque on demand loading of the photos and gradully more details. Revenue model is trickier. :0 Maybe small ads in the corner of every photo that can only be seen once very close to the photo. UI &amp; UX need to be slick, clean and do one thing well. Technology: probably html5, jquery/coffeescript, json on the client site. And whatever chosen on the server side, probably play, nosql, heroku.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4843,6 +5278,11 @@
       "key" : "wiki",
       "url" : "http://wiki.github.com/flurdy/snaps"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/snaps",
+      "text" : "github.com/flurdy/snaps"
+    },
     "dates" : {
       "created" : "2010",
       "updated" : null
@@ -4904,6 +5344,11 @@
     "description" : "A self hosted internal repository of text and code snippets and ideas. Basically a cut down wiki using markdown to store: code snippets ala the github's gists, small wiki like tips, lists of things, etc. Small and lightweight so not to replace full wikis ala Confluence.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -4952,6 +5397,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/sortingoffice"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/sortingoffice",
+      "text" : "...com/flurdy/sortingoffice"
+    },
     "dates" : {
       "created" : "2014",
       "updated" : "2025-07-08"
@@ -5016,6 +5466,11 @@
       "key" : "binary",
       "url" : "https://bintray.com/flurdy/maven/spring-boot-logging-json"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy/spring-boot-logging-json",
+      "text" : "../spring-boot-logging-json"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5059,6 +5514,11 @@
     "description" : "Stuck on something,<br/>share it by adding to Stuck &amp; Duck.<br/>Either directly or via twitter<br/>with #s&amp;d! as a trendword.<br/><br/>Then perhaps <a href=\"http://headrush.typepad.com/creating_passionate_users/2005/01/rubberducking_a.html\">rubberduck</a> explain it<br/>and perhaps you solve the problem yourself then.<br/>Or find others with similar problems.<br/>Or find links to external sites with similar problems.<br/><br/>And always enter solutions for future people stuck on the same or similar issue.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5107,6 +5567,11 @@
       "key" : "project",
       "url" : "https://svn.flurdy.com/code/java/flurdysvn/trunk"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://svn.flurdy.com/code/java/flurdysvn/trunk",
+      "text" : "..code/java/flurdysvn/trunk"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5159,6 +5624,11 @@
       "key" : "live",
       "url" : "http://tabsearch.sourceforge.net"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "http://tabsearch.sourceforge.net",
+      "text" : "tabsearch.sourceforge.net"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5202,6 +5672,11 @@
     "description" : "A Twitter tape delayed feed reader. Whilst watching live events that you have paused/recorded, ie as if it was tape delayed, you generally can not read twitter feeds as they might be full of spoilers. With Tape Delay you can set how far behind time you are and only read tweets up to that time. The solution will probably be an app calling a service that proxies twitter feeds and filters out too new tweets. Some caching might also be needed.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5253,6 +5728,11 @@
       "key" : "project",
       "url" : "https://apps.flurdy.io/tapin"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://apps.flurdy.io/tapin",
+      "text" : "apps.flurdy.io/tapin"
+    },
     "dates" : {
       "created" : "2016-01-01",
       "updated" : "2026-02-24"
@@ -5320,6 +5800,11 @@
     "description" : "Integrate todo lists e.g. <a href=\"http://rmilk.com\">rmilk.com</a>, bug / tasks e.g. Jira, calendars, e.g. google calendar, timesheets ....",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5368,6 +5853,11 @@
       "key" : "alternative",
       "url" : "http://rmilk.com"
     } ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5416,6 +5906,11 @@
       "key" : "live",
       "url" : "https://www.tulipan.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://www.tulipan.io",
+      "text" : "www.tulipan.io"
+    },
     "dates" : {
       "created" : "2018-02",
       "updated" : "2021-02"
@@ -5474,6 +5969,11 @@
     "description" : "A twitter stalker. Follow people on twitter without them knowing. Aggregate Twitter RSS into a standalone web app.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5525,6 +6025,11 @@
       "key" : "project",
       "url" : "https://code.flurdy.com/hg/grid/upto/EllisIsland"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://code.flurdy.com/hg/grid/upto/EllisIsland",
+      "text" : "../hg/grid/upto/EllisIsland"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5586,6 +6091,11 @@
       "key" : "live",
       "url" : "https://valuta.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "https://github.com/flurdy/valuta",
+      "text" : "github.com/flurdy/valuta"
+    },
     "dates" : {
       "created" : "2009",
       "updated" : "2018-01"
@@ -5644,6 +6154,11 @@
     "description" : "Quick way to let other people know what you are working on at the moment. Hobby projects, big projects at work. That way people may join, or help, or brag.",
     "urls" : { },
     "urlEntries" : [ ],
+    "summaryUrl" : {
+      "kind" : "empty",
+      "href" : null,
+      "text" : ""
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5692,6 +6207,11 @@
       "key" : "project",
       "url" : "http://github.com/flurdy/WRU"
     } ],
+    "summaryUrl" : {
+      "kind" : "project",
+      "href" : "http://github.com/flurdy/WRU",
+      "text" : "github.com/flurdy/WRU"
+    },
     "dates" : {
       "created" : null,
       "updated" : null
@@ -5747,6 +6267,11 @@
       "key" : "live",
       "url" : "https://whoto.flurdy.io"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://whoto.flurdy.io",
+      "text" : "whoto.flurdy.io"
+    },
     "dates" : {
       "created" : "2013",
       "updated" : "2025-11"
@@ -5830,6 +6355,11 @@
       "key" : "tasks",
       "url" : "https://pivotaltracker.com/projects/101944"
     } ],
+    "summaryUrl" : {
+      "kind" : "live",
+      "href" : "https://wish.flurdy.io",
+      "text" : "wish.flurdy.io"
+    },
     "dates" : {
       "created" : "2006",
       "updated" : "2019-01"

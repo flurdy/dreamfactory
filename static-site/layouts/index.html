@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ $home := hugo.Data.projects.home }}
   <section class="surface introduction">
-    <p>Projects by <a href="https://flurdy.com">flurdy</a>. Projects that are just ideas, being developed, abandoned, finished, released, revived, or pivoted. Any assistance or sponsorship is much appreciated.</p>
+    <p>Projects by <a href="http://flurdy.com">flurdy</a>. Projects that are just ideas. Projects that are being developed or abandoned. Projects that are finished and released. Projects that have been revived or pivoted. Any assistance is much appreciated. Any sponsorship is very much appreciated.</p>
   </section>
 
   <div class="dashboard-grid">
@@ -15,7 +15,7 @@
     <h2 id="home-search-heading" class="sr-only">Search projects</h2>
     <form action="/projects/search" method="get" class="search-form">
       <label class="sr-only" for="home-search">Search projects</label>
-      <input id="home-search" name="searchterm" type="search" maxlength="200" placeholder="search amongst 72 projects">
+      <input id="home-search" name="searchterm" type="search" class="form-control" maxlength="200" placeholder="search amongst 72 projects">
       <button class="btn btn-primary" type="submit">Search</button>
       <a class="btn btn-default" href="/projects/">List all</a>
     </form>
@@ -24,8 +24,8 @@
   <details class="surface discovery-section" open>
     <summary>Properties Filter</summary>
     <ul class="filter-shortcuts">
-      {{ range slice "popular" "dead" "unlikely" "recent" "updated" "stale" "live" "idea" "code" "mobile" "commercial" }}
-        <li><form action="/projects/" method="get"><input type="hidden" name="filter.{{ . }}" value="require"><button class="filter-shortcut" type="submit">{{ . | humanize }}</button></form></li>
+      {{ range slice (dict "name" "popular" "icon" "far fa-star" "label" "Popular") (dict "name" "dead" "icon" "fas fa-cross" "label" "Mothballed or abandoned") (dict "name" "unlikely" "icon" "far fa-frown" "label" "Unlikely or unappealing") (dict "name" "recent" "icon" "fas fa-plus-circle" "label" "Recently added") (dict "name" "updated" "icon" "fas fa-seedling" "label" "Recently updated") (dict "name" "stale" "icon" "fas fa-hourglass-half" "label" "Stale") (dict "name" "live" "icon" "fas fa-heartbeat" "label" "Live") (dict "name" "idea" "icon" "far fa-lightbulb" "label" "Idea") (dict "name" "code" "icon" "fas fa-code" "label" "Code available") (dict "name" "mobile" "icon" "fas fa-mobile-alt" "label" "Mobile") (dict "name" "commercial" "icon" "fas fa-dollar-sign" "label" "Commercial") }}
+        <li><form action="/projects/" method="get"><input type="hidden" name="filter.{{ .name }}" value="require"><button class="filter-shortcut" type="submit"><i class="{{ .icon }}" aria-hidden="true"></i><span>{{ .label }}</span></button></form></li>
       {{ end }}
     </ul>
   </details>
@@ -43,8 +43,15 @@
   <details class="surface discovery-section" open>
     <summary>Characteristics</summary>
     <div class="characteristic-groups">
-      {{ range $type, $values := dict "appeal" (slice "keen" "interested" "maybe" "low" "none") "complexity" (slice "verydifficult" "difficult" "medium" "easy") "likelihood" (slice "high" "possibly" "unlikely" "never") "status.development" (slice "abandoned" "alpha" "beta" "completed" "notstarted") "status.release" (slice "mature" "released" "beta" "notreleased" "mothballed") "status.deploy" (slice "live" "offline") }}
-        <div class="characteristic-group"><h3>{{ $type | humanize }}</h3><ul class="chip-list">{{ range $values }}<li><a class="chip" href="/projects/characteristic/type/{{ $type }}/characteristic/{{ . }}">{{ . | humanize }}</a></li>{{ end }}</ul></div>
+      {{ range slice
+        (dict "type" "appeal" "title" "Appeal" "values" (slice (dict "value" "low" "label" "Low") (dict "value" "maybe" "label" "Maybe") (dict "value" "none" "label" "None") (dict "value" "keen" "label" "Keen") (dict "value" "interested" "label" "Interested")))
+        (dict "type" "complexity" "title" "Complexity" "values" (slice (dict "value" "verydifficult" "label" "Very Difficult") (dict "value" "difficult" "label" "Difficult") (dict "value" "medium" "label" "Medium") (dict "value" "easy" "label" "Easy")))
+        (dict "type" "likelihood" "title" "Likelihood" "values" (slice (dict "value" "high" "label" "High") (dict "value" "possibly" "label" "Possibly") (dict "value" "unlikely" "label" "Unlikely") (dict "value" "never" "label" "Never")))
+        (dict "type" "status.development" "title" "Development status" "values" (slice (dict "value" "abandoned" "label" "Abandoned") (dict "value" "completed" "label" "Completed") (dict "value" "alpha" "label" "αlpha") (dict "value" "beta" "label" "βeta") (dict "value" "notstarted" "label" "Not started")))
+        (dict "type" "status.release" "title" "Release status" "values" (slice (dict "value" "notreleased" "label" "Not released") (dict "value" "released" "label" "Released") (dict "value" "mature" "label" "Mature") (dict "value" "mothballed" "label" "Mothballed") (dict "value" "beta" "label" "βeta release")))
+        (dict "type" "status.deploy" "title" "Deploy status" "values" (slice (dict "value" "live" "label" "Live") (dict "value" "offline" "label" "Offline")))
+      }}
+        {{ $type := .type }}<div class="characteristic-group"><h3>{{ .title }}</h3><ul class="chip-list">{{ range .values }}<li><a class="chip" href="/projects/characteristic/type/{{ $type }}/characteristic/{{ .value }}">{{ .label }}</a></li>{{ end }}</ul></div>
       {{ end }}
     </div>
   </details>
