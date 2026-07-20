@@ -63,60 +63,6 @@
    }
 }
 
-@propertyFilterFields(propertyName: String, icon: String, label: String) = {
-   @filterInputsForContext(propertyName)
-   <input type="hidden" name="filter.@propertyName" value="require" />
-   <button class="filter-shortcut" type="submit">
-      <i class="@icon" aria-hidden="true"></i>
-      <span>@label</span>
-   </button>
-}
-
-@propertyFilterButton(propertyName: String, icon: String, label: String) = {
-   <li>
-      @if(searchTerm.nonEmpty){
-         @form(action=routes.ProjectController.findProjectsBySearch()){
-            @for(term <- searchTerm){
-               <input type="hidden" name="searchterm" value="@term" />
-            }
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      } else if(tags.size == 1){
-         @form(action=routes.ProjectController.findProjectsByTag()){
-            <input type="hidden" name="tag" value="@tags.head.name" />
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      } else if(tags.size > 1){
-         @form(action=routes.ProjectController.findProjectsByTags()){
-            <input type="hidden" name="tag" value="@tags.head.name" />
-            <input type="hidden" name="tags" value="@tags.tail.map(_.name).mkString(",")" />
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      } else if(technologies.size == 1){
-         @form(action=routes.ProjectController.findProjectsByTech()){
-            <input type="hidden" name="tech" value="@technologies.head.name" />
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      } else if(technologies.size > 1){
-         @form(action=routes.ProjectController.findProjectsByTechnologies()){
-            <input type="hidden" name="tech" value="@technologies.head.name" />
-            <input type="hidden" name="technologies" value="@technologies.tail.map(_.name).mkString(",")" />
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      } else if(possibleCharacteristic.nonEmpty){
-         @for(characteristic <- possibleCharacteristic){
-            @form(action=routes.ProjectController.findProjectsByCharacteristic(characteristic.parentName, characteristic.name)){
-               @propertyFilterFields(propertyName, icon, label)
-            }
-         }
-      } else {
-         @form(action=routes.ProjectController.findAllProjects()){
-            @propertyFilterFields(propertyName, icon, label)
-         }
-      }
-   </li>
-}
-
 @propertiesFilterButtons() = {
    <div class="filter-actions">
       <button class="btn btn-primary" type="submit">@Messages("projects.properties.filter.filter")</button>
@@ -162,17 +108,48 @@
 @main(){
    <li class="active">@Messages("breadcrumb.projectlist")</li>
 } {
-   <details class="surface discovery-section" open>
-      <summary>@Messages("projects.quick-filters")</summary>
-      <ul class="filter-shortcuts">
-         @propertyFilterButton("live", "fas fa-heartbeat", Messages("projects.properties.live"))
-         @propertyFilterButton("code", "fas fa-code", Messages("projects.properties.code"))
-         @propertyFilterButton("idea", "far fa-lightbulb", Messages("projects.properties.idea"))
-         @propertyFilterButton("updated", "fas fa-seedling", Messages("projects.properties.updated"))
-      </ul>
-   </details>
-
    @searchBox()
+
+   <section class="surface results-section" aria-labelledby="results-heading">
+      <div class="results-heading">
+         <h2 id="results-heading">
+            @(tags, technologies, searchTerm, possibleCharacteristic) match {
+               case _ if tags.nonEmpty => {
+                  @Messages("project.list.tag") @tags.map(_.name).mkString(", ")
+               }
+               case _ if technologies.nonEmpty => {
+                  @Messages("project.list.technology") @technologies.map(_.name).mkString(", ")
+               }
+               case (_, _, Some(term), _) => {
+                  @Messages("project.list.search") “@term”
+               }
+               case (_, _, _, Some(characteristic)) => {
+                  @Messages("project.list.characteristic")
+                  @Messages("project.characteristics." + characteristic.parentName) —
+                  @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))
+               }
+               case _ => {
+                  @Messages("project.list.all")
+               }
+            }
+         </h2>
+         <span class="results-count">@projects.size @Messages(if(projects.size == 1) "projects.results.one" else "projects.results.count")</span>
+      </div>
+
+      @if(projects.nonEmpty){
+         <ul class="project-results">
+            @for(project <- projects){
+               <li class="project-summary project-result@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){ project-summary--muted}">
+                  <a class="project-summary-title" href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a>
+                  @projectUrl(project)
+                  @views.html.project.statuses(project)
+               </li>
+            }
+         </ul>
+      } else {
+         <p class="empty-results">@Messages("projects.none-found")</p>
+      }
+   </section>
 
    <details id="filter-section" class="surface filter-section" open>
       <summary>@Messages("projects.properties.filter")</summary>
@@ -219,47 +196,6 @@
          }
       </div>
    </details>
-
-   <section class="surface results-section" aria-labelledby="results-heading">
-      <div class="results-heading">
-         <h2 id="results-heading">
-            @(tags, technologies, searchTerm, possibleCharacteristic) match {
-               case _ if tags.nonEmpty => {
-                  @Messages("project.list.tag") @tags.map(_.name).mkString(", ")
-               }
-               case _ if technologies.nonEmpty => {
-                  @Messages("project.list.technology") @technologies.map(_.name).mkString(", ")
-               }
-               case (_, _, Some(term), _) => {
-                  @Messages("project.list.search") “@term”
-               }
-               case (_, _, _, Some(characteristic)) => {
-                  @Messages("project.list.characteristic")
-                  @Messages("project.characteristics." + characteristic.parentName) —
-                  @Html(Messages("project.characteristics." + characteristic.parentName + "." + characteristic.name))
-               }
-               case _ => {
-                  @Messages("project.list.all")
-               }
-            }
-         </h2>
-         <span class="results-count">@projects.size @Messages(if(projects.size == 1) "projects.results.one" else "projects.results.count")</span>
-      </div>
-
-      @if(projects.nonEmpty){
-         <ul class="project-results">
-            @for(project <- projects){
-               <li class="project-summary project-result@if(project.isDead || project.isStale || project.isUnlikely || project.isUnappealing){ project-summary--muted}">
-                  <a class="project-summary-title" href="@routes.ProjectController.showProject(project.link)">@Html(project.title)</a>
-                  @projectUrl(project)
-                  @views.html.project.statuses(project)
-               </li>
-            }
-         </ul>
-      } else {
-         <p class="empty-results">@Messages("projects.none-found")</p>
-      }
-   </section>
 
    @if(subTags.nonEmpty){
       <section class="surface related-section">

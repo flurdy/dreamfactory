@@ -73,13 +73,13 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
         .map(_.name)
     }
 
-    "show discovery controls before unfiltered results" in {
+    "show unfiltered results before property filters" in {
       val result = route(app, FakeRequest(GET, "/projects/")).value
 
       status(result) mustBe OK
-      val content          = contentAsString(result)
-      content must include("<summary>Quick filters</summary>")
-      val technologyForms  = formsIn(discoverySection(content, "Technologies"))
+      val content         = contentAsString(result)
+      content must not include "<summary>Quick filters</summary>"
+      val technologyForms = formsIn(discoverySection(content, "Technologies"))
       technologyForms must not be empty
       technologyForms.foreach { form =>
         form must include("action=\"/projects/tech\"")
@@ -88,35 +88,31 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
       discoverySection(content, "Characteristics") must include(
         "href=\"/projects/characteristic/type/"
       )
-      val quickFilterIndex = content.indexOf("filter-shortcuts")
-      val searchIndex      = content.indexOf("list-search")
-      val filterIndex      = content.indexOf("filter-section")
-      val resultsIndex     = content.indexOf("results-section")
-      quickFilterIndex must be >= 0
+      val searchIndex     = content.indexOf("list-search")
+      val resultsIndex    = content.indexOf("results-section")
+      val filterIndex     = content.indexOf("filter-section")
       searchIndex must be >= 0
-      filterIndex must be >= 0
       resultsIndex must be >= 0
-      quickFilterIndex must be < resultsIndex
+      filterIndex must be >= 0
       searchIndex must be < resultsIndex
-      filterIndex must be < resultsIndex
+      resultsIndex must be < filterIndex
     }
 
-    "preserve technology context in quick filters" in {
+    "preserve technology context in property filters" in {
       val result = route(app, FakeRequest(GET, "/projects/tech?tech=scala&filter.live=require")).value
 
       status(result) mustBe OK
-      val quickFilterForms = formsIn(discoverySection(contentAsString(result), "Quick filters"))
-      quickFilterForms.size mustBe 4
-      quickFilterForms.foreach { form =>
-        form must include("action=\"/projects/tech\"")
-        form must include("name=\"tech\" value=\"scala\"")
-        form must include("name=\"filter.live\" value=\"require\"")
-      }
+      val propertyFilterForm = formsIn(contentAsString(result))
+        .find(_.contains("properties-filter-form"))
+        .getOrElse(fail("Missing properties filter form"))
+      propertyFilterForm must include("action=\"/projects/tech\"")
+      propertyFilterForm must include("name=\"tech\" value=\"scala\"")
+      propertyFilterForm must include("name=\"filter.live\" value=\"require\"")
     }
 
     "combine searches with property filters" in {
-      val lookup            = app.injector.instanceOf[ProjectLookup]
-      val searchTerm        = lookup.findAllTheProjects
+      val lookup             = app.injector.instanceOf[ProjectLookup]
+      val searchTerm         = lookup.findAllTheProjects
         .flatMap(_.title.toLowerCase.split("\\W+"))
         .filter(_.length >= 3)
         .distinct
@@ -125,13 +121,13 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
           matches.exists(_.isLive) && matches.exists(p => !p.isLive)
         }
         .getOrElse(fail("Expected a search term shared by live and non-live projects"))
-      val searchMatches     = lookup.findProjectsBySearch(searchTerm)
-      val expectedTitles    = searchMatches
+      val searchMatches      = lookup.findProjectsBySearch(searchTerm)
+      val expectedTitles     = searchMatches
         .filter(_.isLive)
         .sortBy(_.title.toLowerCase)
         .map(_.title)
-      val encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8")
-      val result            = route(
+      val encodedSearchTerm  = URLEncoder.encode(searchTerm, "UTF-8")
+      val result             = route(
         app,
         FakeRequest(GET, s"/projects/search?searchterm=$encodedSearchTerm&filter.live=require")
       ).value
@@ -139,15 +135,14 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
       expectedTitles must not be empty
       expectedTitles.size must be < searchMatches.size
       status(result) mustBe OK
-      val content           = contentAsString(result)
+      val content            = contentAsString(result)
       resultTitles(content) must contain theSameElementsInOrderAs expectedTitles
-      val quickFilterForms  = formsIn(discoverySection(content, "Quick filters"))
-      quickFilterForms.size mustBe 4
-      quickFilterForms.foreach { form =>
-        form must include("action=\"/projects/search\"")
-        form must include(s"name=\"searchterm\" value=\"$searchTerm\"")
-        form must include("name=\"filter.live\" value=\"require\"")
-      }
+      val propertyFilterForm = formsIn(content)
+        .find(_.contains("properties-filter-form"))
+        .getOrElse(fail("Missing properties filter form"))
+      propertyFilterForm must include("action=\"/projects/search\"")
+      propertyFilterForm must include(s"name=\"searchterm\" value=\"$searchTerm\"")
+      propertyFilterForm must include("name=\"filter.live\" value=\"require\"")
     }
   }
 }
