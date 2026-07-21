@@ -1,0 +1,39 @@
+{{ $browse := hugo.Data.projects.browse }}
+{{ with $browse.tags }}
+<section class="surface related-section">
+  <h2>Tags</h2>
+  <ul class="chip-list">
+    {{ range . }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ with $browse.technologies }}
+<details class="surface discovery-section" open>
+  <summary>Technologies</summary>
+  <ul class="chip-list">
+    {{ range . }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}
+  </ul>
+</details>
+{{ end }}
+{{ $groups := slice
+  (dict "type" "appeal" "label" "Appeal" "values" (slice (dict "name" "low" "label" "Low") (dict "name" "maybe" "label" "Maybe") (dict "name" "none" "label" "None") (dict "name" "keen" "label" "Keen") (dict "name" "interested" "label" "Interested")))
+  (dict "type" "complexity" "label" "Complexity" "values" (slice (dict "name" "verydifficult" "label" "Very difficult") (dict "name" "difficult" "label" "Difficult") (dict "name" "medium" "label" "Medium") (dict "name" "easy" "label" "Easy")))
+  (dict "type" "likelihood" "label" "Likelihood" "values" (slice (dict "name" "high" "label" "High") (dict "name" "possibly" "label" "Possibly") (dict "name" "unlikely" "label" "Unlikely") (dict "name" "never" "label" "Never")))
+  (dict "type" "status.development" "label" "Development status" "values" (slice (dict "name" "abandoned" "label" "Abandoned") (dict "name" "completed" "label" "Completed") (dict "name" "alpha" "label" "Alpha") (dict "name" "beta" "label" "Beta") (dict "name" "notstarted" "label" "Not started")))
+  (dict "type" "status.release" "label" "Release status" "values" (slice (dict "name" "notreleased" "label" "Not released") (dict "name" "released" "label" "Released") (dict "name" "mature" "label" "Mature") (dict "name" "mothballed" "label" "Mothballed") (dict "name" "beta" "label" "Beta release")))
+  (dict "type" "status.deploy" "label" "Deploy status" "values" (slice (dict "name" "live" "label" "Live") (dict "name" "offline" "label" "Offline")))
+}}
+<details class="surface discovery-section" open>
+  <summary>Characteristics</summary>
+  <div class="characteristic-groups">
+    {{ range $groups }}
+      <div class="characteristic-group">
+        <h3>{{ .label }}</h3>
+        <ul class="chip-list">
+          {{ $type := .type }}
+          {{ range .values }}<li><a class="chip" href="/projects/characteristic/type/{{ $type }}/characteristic/{{ .name }}">{{ .label }}</a></li>{{ end }}
+        </ul>
+      </div>
+    {{ end }}
+  </div>
+</details>

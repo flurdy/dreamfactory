@@ -29,14 +29,15 @@ docker compose -f static-site/docker-compose.yml restart static-site
 docker compose -f static-site/docker-compose.yml down
 ```
 
-With Play running on port 9000 and the static server on port 4176, compare full-page screenshots for the three representative project slices at fixed desktop and mobile widths using Playwright and ImageMagick:
+With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick:
 
 ```bash
 nvm use
-npm run test:visual-parity
+npm run test:list-visual-parity # Complete projects list.
+npm run test:visual-parity      # Three representative project details.
 ```
 
-The desktop and mobile comparisons must each differ by no more than 1% of pixels.
+Each desktop and mobile comparison must differ by no more than 1% of pixels.
 
 Generate the Hugo data, browser catalog, and redirects with:
 

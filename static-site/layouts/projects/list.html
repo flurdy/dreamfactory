@@ -1,19 +1,23 @@
 {{ define "main" }}
+  {{ $projects := hugo.Data.projects.projects }}
   <section class="surface search-box" aria-labelledby="list-search-heading">
-    <h1 id="list-search-heading">All projects</h1>
+    <h2 id="list-search-heading" class="sr-only">Search</h2>
     <form action="/projects/search" method="get" class="search-form">
-      <label for="list-search">Search projects</label>
-      <input id="list-search" name="searchterm" type="search" maxlength="200">
+      <label class="sr-only" for="list-search">Search</label>
+      <input id="list-search" name="searchterm" type="search" class="form-control" placeholder="search for projects" maxlength="200">
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
   </section>
   <section class="surface results-section" aria-labelledby="results-heading">
-    <h2 id="results-heading">All projects</h2>
+    <div class="results-heading">
+      <h2 id="results-heading">All projects:</h2>
+      <span class="results-count">{{ len $projects }} projects</span>
+    </div>
     <ul class="project-results">
-      {{ range hugo.Data.projects.projects }}
-        {{ $pathSegment := replace (urlquery .link) "+" "%20" }}
-        <li class="project-summary project-result"><a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ .title }}</a></li>
-      {{ end }}
+      {{ range $projects }}{{ partial "project-result.html" . }}{{ end }}
     </ul>
   </section>
+  {{ partial "properties-filter.html" . }}
+  {{ partial "project-discovery.html" . }}
+  <script src="/assets/javascript/filter.js"></script>
 {{ end }}

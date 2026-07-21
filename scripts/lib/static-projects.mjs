@@ -43,6 +43,7 @@ export function generateStaticData({ asOf = new Date().toISOString(), write = tr
     timeZone: 'UTC',
     projectCount: projects.length,
     home,
+    browse: buildBrowseData(projects),
     oracle: buildOracle(projects),
     projects,
   };
@@ -298,6 +299,16 @@ function buildHomeData(projects) {
       .map(item => ({ date: formatNewsDate(item.date), project: item.project, description: item.description })),
     randomExcludedLinks,
     noJavaScriptRandomProjects: [...healthy, ...remaining],
+  };
+}
+
+function buildBrowseData(projects) {
+  return {
+    tags: rankedTerms(
+      projects.flatMap(project => project.tags).filter(tag => !['idea', 'live', 'popular'].includes(tag)),
+      50,
+    ),
+    technologies: rankedTerms(projects.flatMap(project => project.technologies), 30),
   };
 }
 

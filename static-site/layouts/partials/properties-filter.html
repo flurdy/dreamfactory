@@ -1,0 +1,39 @@
+{{ $filters := slice
+  (dict "name" "popular" "icon" "far fa-star" "label" "Popular")
+  (dict "name" "dead" "icon" "fas fa-cross" "label" "Mothballed or abandoned")
+  (dict "name" "unlikely" "icon" "far fa-frown" "label" "Unlikely or unappealing")
+  (dict "name" "recent" "icon" "fas fa-plus-circle" "label" "Recently added")
+  (dict "name" "updated" "icon" "fas fa-seedling" "label" "Recently updated")
+  (dict "name" "stale" "icon" "fas fa-hourglass-half" "label" "Stale")
+  (dict "name" "live" "icon" "fas fa-heartbeat" "label" "Live")
+  (dict "name" "idea" "icon" "far fa-lightbulb" "label" "Idea")
+  (dict "name" "code" "icon" "fas fa-code" "label" "Code available")
+  (dict "name" "mobile" "icon" "fas fa-mobile-alt" "label" "Mobile")
+  (dict "name" "commercial" "icon" "fas fa-dollar-sign" "label" "Commercial")
+}}
+<details id="filter-section" class="surface filter-section" open>
+  <summary>Properties Filter</summary>
+  <div class="filter-section-body">
+    <form action="/projects/" method="get" class="properties-filter-form">
+      <div class="properties-filter-grid">
+        {{ range $filters }}
+          <fieldset class="property-filter">
+            <legend><i class="{{ .icon }}" aria-hidden="true"></i><span>{{ .label }}</span></legend>
+            <div class="property-filter-options">
+              <input class="property-filter-input property-filter-any" type="radio" id="filter_{{ .name }}_any" name="filter.{{ .name }}" value="" checked>
+              <label for="filter_{{ .name }}_any">Any</label>
+              <input class="property-filter-input property-filter-include" type="radio" id="filter_{{ .name }}_include" name="filter.{{ .name }}" value="require">
+              <label for="filter_{{ .name }}_include">Include</label>
+              <input class="property-filter-input property-filter-exclude" type="radio" id="filter_{{ .name }}_exclude" name="filter.{{ .name }}" value="exclude">
+              <label for="filter_{{ .name }}_exclude">Exclude</label>
+            </div>
+          </fieldset>
+        {{ end }}
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary" type="submit">Apply filters</button>
+        <button class="btn btn-default" type="button" onclick="resetFilter(this.form)">Clear filters</button>
+      </div>
+    </form>
+  </div>
+</details>

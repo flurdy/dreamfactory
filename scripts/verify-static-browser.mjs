@@ -79,6 +79,33 @@ try {
   assert.ok(entityTitles.every((title) => !title.includes('&nbsp;')));
   await entityTitlePage.close();
 
+  await page.goto(`${baseUrl}/projects/`);
+  const expectedProjectTitles = catalog.projects.map((project) => project.title
+    .replaceAll('&nbsp;', '\u00a0')
+    .replaceAll('&amp;', '&'));
+  assert.deepEqual(await page.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
+  assert.equal(await page.locator('.project-results .project-summary-url').count(), catalog.projectCount);
+  assert.equal(await page.locator('.project-results .project-status').count(), 175);
+  assert.equal(await page.locator('.property-filter').count(), 11);
+  assert.equal(await page.locator('.property-filter-any:checked').count(), 11);
+  assert.equal(await page.locator('.related-section .chip').count(), catalog.browse.tags.length);
+  assert.equal(await page.locator('.discovery-section').first().locator('.chip').count(), catalog.browse.technologies.length);
+  assert.equal(await page.evaluate(() => {
+    const results = document.querySelector('.results-section').getBoundingClientRect();
+    const filters = document.querySelector('.filter-section').getBoundingClientRect();
+    return results.bottom <= filters.top;
+  }), true);
+  await assertNoBlockingA11y(page, 'Projects list page');
+
+  const noScriptContext = await browser.newContext({ javaScriptEnabled: false });
+  const noScriptPage = await noScriptContext.newPage();
+  const noScriptResponse = await noScriptPage.goto(`${baseUrl}/projects/`);
+  assert.equal(noScriptResponse?.status(), 200);
+  assert.deepEqual(await noScriptPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
+  assert.equal(await noScriptPage.locator('.project-results .project-status').count(), 175);
+  assert.equal(await noScriptPage.locator('.project-results .project-summary-url').count(), catalog.projectCount);
+  await noScriptContext.close();
+
   await page.goto(`${baseUrl}/projects/search`);
   const search = page.getByRole('searchbox', { name: 'Search projects' });
   await search.fill('dreamfactory');

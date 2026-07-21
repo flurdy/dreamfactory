@@ -152,6 +152,11 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.deepEqual(catalog.home.newLinks, oracle.home.newLinks);
   assert.deepEqual(new Set(catalog.home.updatedLinks), new Set(oracle.home.updatedLinks));
   assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
+  assert.equal(catalog.browse.tags.length, 49);
+  assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'commercial', 'email', 'productivity']);
+  assert.ok(catalog.browse.tags.every(tag => !['idea', 'live', 'popular'].includes(tag)));
+  assert.equal(catalog.browse.technologies.length, 30);
+  assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'go', 'javascript']);
   assert.deepEqual(catalog.home.latestNews, oracle.home.latestNews);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted(oracle.home.randomExcludedLinks));
   assert.deepEqual(

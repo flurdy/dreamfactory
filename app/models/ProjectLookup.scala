@@ -163,9 +163,8 @@ trait ProjectLookup {
       .view
       .mapValues(_.size)
       .toList
-      .sortBy { case (_, tagCount) => tagCount }
-      .takeRight(size)
-      .reverse
+      .sortBy { case (name, tagCount) => (-tagCount, name.toLowerCase) }
+      .take(size)
       .map { case (name, _) => Tag(name) }
   }
 
@@ -178,9 +177,8 @@ trait ProjectLookup {
       .view
       .mapValues(_.size)
       .toList
-      .sortBy { case (_, count) => count }
-      .takeRight(size)
-      .reverse
+      .sortBy { case (name, count) => (-count, name.toLowerCase) }
+      .take(size)
       .map { case (name, _) => Technology(name.toLowerCase) }
   }
 
