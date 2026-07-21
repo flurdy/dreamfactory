@@ -7,7 +7,7 @@ WORKDIR /opt/build
 RUN sbt clean compile test stage
 
 RUN rm -f target/universal/stage/bin/*.bat && \
-   mv target/universal/stage/bin/* target/universal/stage/bin/app
+   mv target/universal/stage/bin/dreamfactory target/universal/stage/bin/app
 
 
 FROM eclipse-temurin:11.0.18_10-jre-alpine
