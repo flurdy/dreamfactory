@@ -31,9 +31,12 @@ jq -e '
 ' static-site/source/projects.json >/dev/null
 
 test -f static-site/public/404.html
-test "$(find static-site/public/project -name index.html -not -path 'static-site/public/project/index.html' | wc -l)" -eq 216
+test "$(find static-site/public/project -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 72
+test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/help' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 72
+test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/sponsor' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 72
 test -f static-site/public/project/bad_usernames/index.html
 test -f static-site/public/project/shop_grid/help/index.html
+test -f static-site/public/project/shop_grid/sponsor/index.html
 test -f static-site/public/projects/search/index.html
 test "$(find static-site/public/projects/characteristic -name index.html | wc -l)" -eq 38
 test -f static-site/public/projects/characteristic/type/complexity/characteristic/easy/index.html
@@ -49,6 +52,9 @@ grep -Fq 'random-projects.js' static-site/public/index.html
 
 grep -Fq 'catalog.js' static-site/public/projects/search/index.html
 grep -Fq '<h3>News</h3>' static-site/public/project/gatehouse/index.html
+grep -Fq 'Help or Join' static-site/public/project/gatehouse/help/index.html
+grep -Fq 'paypal-form' static-site/public/project/gatehouse/sponsor/index.html
+grep -Fq 'Send a message' static-site/public/project/gatehouse/sponsor/index.html
 grep -Fq '/project/Stuck%20%26amp%3B%20Duck/help' 'static-site/public/project/Stuck &amp; Duck/index.html'
 
 scripts/verify-static-links.py

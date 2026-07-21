@@ -11,7 +11,9 @@ const threshold = Number(process.env.VISUAL_DIFF_THRESHOLD || '1');
 const projects = [
   { name: 'gatehouse', path: 'gatehouse' },
   { name: 'bad-usernames', path: 'bad_usernames' },
-  { name: 'gift-registry', path: 'Gift%20Registry' }
+  { name: 'gift-registry', path: 'Gift%20Registry' },
+  { name: 'gatehouse-help', path: 'gatehouse/help' },
+  { name: 'gatehouse-sponsor', path: 'gatehouse/sponsor' }
 ];
 const sizes = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -80,7 +82,7 @@ try {
       await context.close();
     }
   }
-  console.log(`All three project slices are within ${threshold}% at both widths.`);
+  console.log(`All ${projects.length} project slices are within ${threshold}% at both widths.`);
 } finally {
   await browser.close();
   rmSync(outputDirectory, { recursive: true, force: true });

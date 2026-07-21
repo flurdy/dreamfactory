@@ -238,6 +238,29 @@ try {
   assert.equal(await page.locator('#nautical-deck .newsbar-list:visible > li').count(), 26);
   await assertNoBlockingA11y(page, 'Expanded mobile project news');
 
+  await page.goto(`${baseUrl}/project/gatehouse/help`);
+  await assert.doesNotReject(page.getByRole('heading', { name: 'Help or Join' }).waitFor());
+  assert.equal(await page.locator('.detail-row a[href="/project/gatehouse"]').count(), 1);
+  assert.equal(await page.getByRole('link', { name: 'sponsor' }).count(), 1);
+  await assertNoBlockingA11y(page, 'Help page');
+
+  await page.goto(`${baseUrl}/project/gatehouse/sponsor`);
+  await assert.doesNotReject(page.getByRole('heading', { name: 'Sponsor' }).first().waitFor());
+  assert.equal(await page.locator('#sponsor-methods .paypal-form').count(), 1);
+  assert.equal(await page.locator('#sponsor-methods input[name="cmd"]').inputValue(), '_donations');
+  assert.equal(await page.locator('#sponsor-methods input[name="business"]').inputValue(), 'HZCUYKJFR3EQ');
+  assert.equal(await page.getByRole('heading', { name: 'Send a message' }).count(), 1);
+  assert.equal(await page.getByRole('link', { name: 'help/join' }).count(), 1);
+  await assertNoBlockingA11y(page, 'Sponsor page');
+
+  const supportNoScriptContext = await browser.newContext({ javaScriptEnabled: false });
+  const supportNoScriptPage = await supportNoScriptContext.newPage();
+  await supportNoScriptPage.goto(`${baseUrl}/project/gatehouse/help`);
+  assert.equal(await supportNoScriptPage.getByRole('heading', { name: 'Help or Join' }).count(), 1);
+  await supportNoScriptPage.goto(`${baseUrl}/project/gatehouse/sponsor`);
+  assert.equal(await supportNoScriptPage.locator('#sponsor-methods .paypal-form').count(), 1);
+  await supportNoScriptContext.close();
+
   const missing = await page.goto(`${baseUrl}/project/DOES-NOT-EXIST`);
   assert.equal(missing.status(), 404);
   await assert.doesNotReject(page.getByRole('heading', { name: 'Page not found' }).waitFor());

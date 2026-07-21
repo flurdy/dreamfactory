@@ -15,7 +15,7 @@
     <h2 id="home-search-heading" class="sr-only">Search projects</h2>
     <form action="/projects/search" method="get" class="search-form">
       <label class="sr-only" for="home-search">Search projects</label>
-      <input id="home-search" name="searchterm" type="search" class="form-control" maxlength="200" placeholder="search amongst 72 projects">
+      <input id="home-search" name="searchterm" type="search" class="form-control" maxlength="200" placeholder="search amongst {{ hugo.Data.projects.projectCount }} projects">
       <button class="btn btn-primary" type="submit">Search</button>
       <a class="btn btn-default" href="/projects/">List all</a>
     </form>
@@ -24,7 +24,7 @@
   <details class="surface discovery-section" open>
     <summary>Properties Filter</summary>
     <ul class="filter-shortcuts">
-      {{ range slice (dict "name" "popular" "icon" "far fa-star" "label" "Popular") (dict "name" "dead" "icon" "fas fa-cross" "label" "Mothballed or abandoned") (dict "name" "unlikely" "icon" "far fa-frown" "label" "Unlikely or unappealing") (dict "name" "recent" "icon" "fas fa-plus-circle" "label" "Recently added") (dict "name" "updated" "icon" "fas fa-seedling" "label" "Recently updated") (dict "name" "stale" "icon" "fas fa-hourglass-half" "label" "Stale") (dict "name" "live" "icon" "fas fa-heartbeat" "label" "Live") (dict "name" "idea" "icon" "far fa-lightbulb" "label" "Idea") (dict "name" "code" "icon" "fas fa-code" "label" "Code available") (dict "name" "mobile" "icon" "fas fa-mobile-alt" "label" "Mobile") (dict "name" "commercial" "icon" "fas fa-dollar-sign" "label" "Commercial") }}
+      {{ range hugo.Data.projects.controls.properties }}
         <li><form action="/projects/" method="get"><input type="hidden" name="filter.{{ .name }}" value="require"><button class="filter-shortcut" type="submit"><i class="{{ .icon }}" aria-hidden="true"></i><span>{{ .label }}</span></button></form></li>
       {{ end }}
     </ul>
