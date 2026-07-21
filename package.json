@@ -12,7 +12,8 @@
     "test:static-catalog": "node --test test/static-site/catalog-core.test.mjs",
     "test:static-browser": "node scripts/verify-static-browser.mjs",
     "test:list-visual-parity": "node scripts/compare-project-list.mjs",
-    "test:visual-parity": "node scripts/compare-project-pages.mjs"
+    "test:visual-parity": "node scripts/compare-project-pages.mjs",
+    "test:homepage-visual-parity": "node scripts/compare-homepage.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

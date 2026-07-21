@@ -5,6 +5,7 @@ import models.{ProjectLookup, Technology}
 import models.ProjectCharacteristics.Easy
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
@@ -33,6 +34,23 @@ class ProjectControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   private def formsIn(content: String): List[String] =
     """(?s)<form\b.*?</form>""".r.findAllIn(content).toList
+
+  "ProjectLookup" should {
+    "use stable route ordering in the opt-in homepage visual fixture" in {
+      val fixtureApp = new GuiceApplicationBuilder()
+        .configure("dreamfactory.visual-fixture.deterministic-homepage" -> true)
+        .build()
+      running(fixtureApp) {
+        val lookup  = fixtureApp.injector.instanceOf[ProjectLookup]
+        val popular = lookup.findPopularProjects(7)
+        val random  = lookup.findRandomProjects(10, popular.toSet)
+
+        popular.map(_.link) mustBe popular.map(_.link).sortBy(link => (link.toLowerCase, link))
+        random.take(7).map(_.link) mustBe random.take(7).map(_.link).sortBy(link => (link.toLowerCase, link))
+        random.drop(7).map(_.link) mustBe random.drop(7).map(_.link).sortBy(link => (link.toLowerCase, link))
+      }
+    }
+  }
 
   "ProjectController" should {
     "apply property filters to characteristic results" in {

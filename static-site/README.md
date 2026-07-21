@@ -29,15 +29,16 @@ docker compose -f static-site/docker-compose.yml restart static-site
 docker compose -f static-site/docker-compose.yml down
 ```
 
-With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick. The list comparison covers the unfiltered list plus representative search, plural-technology, and characteristic-alias results:
+With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick. Start Play with `DREAMFACTORY_DETERMINISTIC_HOMEPAGE=true sbt run` for the homepage comparison. The list comparison covers the unfiltered list plus representative search, plural-technology, and characteristic-alias results:
 
 ```bash
 nvm use
-npm run test:list-visual-parity # Complete projects list.
-npm run test:visual-parity      # Three representative project details.
+npm run test:list-visual-parity     # Complete projects list.
+npm run test:visual-parity          # Representative project detail/support pages.
+npm run test:homepage-visual-parity # Homepage with deterministic Play fixture.
 ```
 
-Each desktop and mobile comparison must differ by no more than 1% of pixels.
+Each desktop and mobile comparison must differ by no more than 1% of pixels. Homepage parity uses an opt-in Play-only deterministic ordering fixture and blocks Hugo's random-project enhancement so it compares the valid rendered no-JavaScript fallback. `test:static-browser` separately verifies that the enhanced Random box reshuffles on reload.
 
 Generate the Hugo data, browser catalog, and redirects with:
 

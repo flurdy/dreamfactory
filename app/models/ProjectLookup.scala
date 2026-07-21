@@ -19,6 +19,8 @@ trait ProjectLookup {
   def configuration: Configuration
   def environment: Environment
   private val ignoredTags = Set("idea", "live", "popular")
+  private lazy val deterministicHomepage =
+    configuration.get[Boolean]("dreamfactory.visual-fixture.deterministic-homepage")
 
   def fillWithOtherProjects(subsetOfProjects: List[Project], size: Int) = {
     val fillProjects =
@@ -36,11 +38,15 @@ trait ProjectLookup {
     )
   }
 
-  private def lookupUpdatedProjects(excludeProjects: Set[Project] = Set()): List[Project] =
-    (projects.filter(_.dates.hasDate).toSet -- excludeProjects).toList
-      .filter(_.dates.hasDate)
-      .sortBy(_.dates.newestDate.get.getMillis)
-      .reverse
+  private def lookupUpdatedProjects(excludeProjects: Set[Project] = Set()): List[Project] = {
+    val updatedProjects =
+      (projects.filter(_.dates.hasDate).toSet -- excludeProjects).toList.filter(_.dates.hasDate)
+    if (deterministicHomepage)
+      updatedProjects.sortBy(project =>
+        (-project.dates.newestDate.get.getMillis, project.link.toLowerCase, project.link)
+      )
+    else updatedProjects.sortBy(_.dates.newestDate.get.getMillis).reverse
+  }
 
   def findUpdatedProjects(size: Int, newProjects: List[Project] = List()) = {
     val allUpdatedProjects      = lookupUpdatedProjects()
@@ -55,11 +61,14 @@ trait ProjectLookup {
       filteredUpdatedProjects.take(size)
   }
 
-  private def newestProjects =
-    projects
-      .filter(_.dates.created.isDefined)
-      .sortBy(_.dates.created)
-      .reverse
+  private def newestProjects = {
+    val datedProjects = projects.filter(_.dates.created.isDefined)
+    if (deterministicHomepage)
+      datedProjects.sortBy(project =>
+        (-project.dates.toDate(project.dates.created.get).getMillis, project.link.toLowerCase, project.link)
+      )
+    else datedProjects.sortBy(_.dates.created).reverse
+  }
 
   def findNewestProjects(size: Int) =
     fillWithOtherProjects(newestProjects.take(size), size)
@@ -79,7 +88,10 @@ trait ProjectLookup {
     preferred ::: remaining
   }
 
-  private def randomiseProjects(someProjects: List[Project]) = Random.shuffle(someProjects)
+  private def randomiseProjects(someProjects: List[Project]) =
+    if (deterministicHomepage)
+      someProjects.sortBy(project => (project.link.toLowerCase, project.link))
+    else Random.shuffle(someProjects)
 
   private def loadConfigFile(path: String): Configuration = Configuration(ConfigFactory.load(path))
 
