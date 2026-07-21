@@ -33,7 +33,7 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
   - `scripts/verify-static-site.sh`
   - `docker compose -f static-site/docker-compose.yml up --detach` for a production-shaped local nginx server.
   - `npm run test:static-browser` for a committed deterministic Playwright/nginx browser proof.
-  - `npm run test:visual-parity` for fixed Play-versus-Hugo screenshots of three representative project slices.
+  - `npm run test:visual-parity` for fixed Play-versus-Hugo screenshots of representative detail, help, and sponsor slices.
   - `npm run test:list-visual-parity` for fixed desktop/mobile comparisons of the complete projects list.
 
 ## Evidence
@@ -47,9 +47,9 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 | Production build reference | Three Node generation + clean Hugo builds: 0.35 s / 103,484 KB, 0.38 s / 106,512 KB, 0.37 s / 103,356 KB. |
 | Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. The generated manifest has 216 explicit aliases. |
 | Catalog contract | `npm run test:static-catalog` matches 47 rendered Play cases: all eleven properties in Include and Exclude modes, combined filters, search edge behavior, singular/plural tag and technology intersections, canonical and alias characteristics, related terms, and preserved form context. |
-| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, rich filtered rows, plural and alias routes, filter reset, keyboard focus, empty/fetch-failure states, complete no-JavaScript fallback, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on representative home/catalog/detail states. |
-| Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.06% to 0.45%, below the 1% gate. |
-| Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, and Gift Registry at 1280 px and 375 px. Differences range from 0.24% to 0.46%, below the 1% gate. |
+| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, rich filtered rows, plural and alias routes, filter reset, keyboard focus, empty/fetch-failure states, complete no-JavaScript fallback, help/sponsor content and payment-control checks, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on representative home, catalog, detail, help, and sponsor states. |
+| Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.17% to 0.46%, below the 1% gate. |
+| Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, Gift Registry, Gate House help, and Gate House sponsor at 1280 px and 375 px. Differences range from 0.08% to 0.32%, below the 1% gate. |
 | Existing application tests | `sbt test` passes: 5 tests, 0 failures. |
 | Manual browser checks | Side-by-side local inspection confirmed the representative Hugo project page closely matches Play. Docker Compose/nginx checks production-shaped extensionless paths and 404 behavior locally. |
 
@@ -66,7 +66,7 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 The canonical-data, all-project list, and catalog-interaction follow-ups resolve the local data, fixed-time derivation, source-link, benchmark, query-route, and filtering gaps. Remaining migration gaps are tracked separately:
 
-1. Remaining page families still need complete visual and interaction parity coverage; the all-project list and filtered catalog now pass dedicated visual, accessibility, link, and no-JavaScript checks.
+1. Homepage browser/a11y coverage is complete, but a meaningful fixed-fixture visual comparison still needs a deterministic Play homepage ordering strategy; its Set-backed project/taxonomy ordering currently differs from the canonical static ordering.
 2. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. Local route output has only been verified against Docker Compose/nginx.
 3. The Hugo-only compatibility boundary supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing; malformed tag/technology URLs render an empty 200 shell instead of Play's 400. Normal site forms never produce either shape. Exact parity would require an edge function, which remains intentionally out of scope.
 
@@ -74,7 +74,7 @@ The canonical-data, all-project list, and catalog-interaction follow-ups resolve
 
 After the canonical-data, projects-list, and catalog slices, estimate **3–5 developer days** for the remaining migration:
 
-- Up to 1 day: complete remaining home/help/sponsor page-family parity.
+- Up to 1 day: establish deterministic homepage visual fixtures and complete its page-family visual parity.
 - 1–2 days: full route-contract coverage and Cloudflare Pages preview validation.
 - 1 day: contributor/runbook documentation and custom-domain cutover/rollback rehearsal.
 - Up to 1 contingency day for Pages URL/cache differences or rich-content cleanup.
