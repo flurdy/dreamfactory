@@ -19,6 +19,8 @@ npm run test:static-browser
 # Set PLAYWRIGHT_CHROME_PATH if Chrome is not /usr/bin/google-chrome.
 ```
 
+`test:static-browser` also crawls the generated route manifest: every canonical HTML/asset route must return 200 and deliberate arbitrary-case/missing project paths must return 404. The manifest rejects duplicate canonical paths, duplicate redirect sources, redirect collisions, and redirect targets that are not generated routes.
+
 Run the production-shaped local static server manually after a build:
 
 ```bash
@@ -27,6 +29,14 @@ docker compose -f static-site/docker-compose.yml up --detach
 # Restart the container after rebuilding because the build replaces public/.
 docker compose -f static-site/docker-compose.yml restart static-site
 docker compose -f static-site/docker-compose.yml down
+```
+
+To reuse the manifest against a Cloudflare Pages preview, leave the server running and set its URL. Set `ROUTE_CONTRACT_VERIFY_REDIRECTS=true` only for Pages: local nginx intentionally does not implement the `_redirects` file.
+
+```bash
+ROUTE_CONTRACT_BASE_URL=https://preview.example.pages.dev \
+  ROUTE_CONTRACT_VERIFY_REDIRECTS=true \
+  npm run test:static-route-contract
 ```
 
 With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick. Start Play with `DREAMFACTORY_DETERMINISTIC_HOMEPAGE=true sbt run` for the homepage comparison. The list comparison covers the unfiltered list plus representative search, plural-technology, and characteristic-alias results:

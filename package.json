@@ -11,6 +11,7 @@
     "test:static-data": "node --test test/static-site/static-data.test.mjs",
     "test:static-catalog": "node --test test/static-site/catalog-core.test.mjs",
     "test:static-browser": "node scripts/verify-static-browser.mjs",
+    "test:static-route-contract": "node scripts/verify-static-route-contract.mjs",
     "test:list-visual-parity": "node scripts/compare-project-list.mjs",
     "test:visual-parity": "node scripts/compare-project-pages.mjs",
     "test:homepage-visual-parity": "node scripts/compare-homepage.mjs"

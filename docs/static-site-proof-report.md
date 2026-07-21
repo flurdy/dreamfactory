@@ -36,6 +36,7 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
   - `npm run test:visual-parity` for fixed Play-versus-Hugo screenshots of representative detail, help, and sponsor slices.
   - `npm run test:list-visual-parity` for fixed desktop/mobile comparisons of the complete projects list.
   - `npm run test:homepage-visual-parity` for an opt-in deterministic Play homepage fixture compared with Hugo's no-JavaScript Random fallback.
+  - `npm run test:static-route-contract` to crawl the generated route manifest against a local server or a Pages preview; preview mode also verifies every `_redirects` response.
 
 ## Evidence
 
@@ -46,9 +47,9 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 | Local artifact | 268 files, 4,348,366 bytes total; largest asset 240,026 bytes. This is below Cloudflare Pages Free's 20,000-file and 25 MiB-per-asset limits. |
 | Acceptance benchmark | Play `sbt clean test stage` baseline: 30.24 s / 1,723,080 KB, 30.06 s / 1,702,384 KB, 30.46 s / 1,693,824 KB. Canonical static `npm run test:static-browser` (schema/oracle tests, generation, Hugo, link audit, nginx, browser/a11y): 8.47 s / 224,960 KB, 8.08 s / 223,804 KB, 8.88 s / 224,184 KB. Median wall time improves 72.0% and peak RSS 86.8%, so both approved 50% gates **pass**. |
 | Production build reference | Three Node generation + clean Hugo builds: 0.35 s / 103,484 KB, 0.38 s / 106,512 KB, 0.37 s / 103,356 KB. |
-| Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. The generated manifest has 216 explicit aliases. |
+| Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. `route-manifest.json` rejects duplicate canonical paths, duplicate/colliding redirect sources, non-canonical redirect targets, and redirect loops; it records 280 canonical routes, 216 explicit aliases, and two expected 404s. |
 | Catalog contract | `npm run test:static-catalog` matches 47 rendered Play cases: all eleven properties in Include and Exclude modes, combined filters, search edge behavior, singular/plural tag and technology intersections, canonical and alias characteristics, related terms, and preserved form context. |
-| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, rich filtered rows, plural and alias routes, filter reset, keyboard focus, empty/fetch-failure states, complete no-JavaScript fallback, help/sponsor content and payment-control checks, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on representative home, catalog, detail, help, and sponsor states. |
+| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: all 280 canonical manifest routes return 200; expected arbitrary-case/missing project routes return 404; deterministic reload randomization, exclusion/healthy invariants, rich filtered rows, plural and alias routes, filter reset, keyboard focus, empty/fetch-failure states, complete no-JavaScript fallback, help/sponsor content and payment-control checks, build-time desktop/mobile latest-news behavior, and no axe critical/serious violations on representative home, catalog, detail, help, and sponsor states. |
 | Homepage visual parity | `npm run test:homepage-visual-parity` passes full-page deterministic Play comparisons at 1280 px and 375 px. Differences are 0.77% and 0.75%, below the 1% gate. The fixture is opt-in; normal Play shuffling and Hugo's enhanced reload randomization remain unchanged. |
 | Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.17% to 0.53%, below the 1% gate. |
 | Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, Gift Registry, Gate House help, and Gate House sponsor at 1280 px and 375 px. Differences range from 0.08% to 0.40%, below the 1% gate. |
@@ -68,14 +69,14 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 The canonical-data, all-project list, and catalog-interaction follow-ups resolve the local data, fixed-time derivation, source-link, benchmark, query-route, and filtering gaps. Remaining migration gaps are tracked separately:
 
-1. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. Local route output has only been verified against Docker Compose/nginx.
+1. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. The local route manifest can be replayed against a preview, including all 216 redirects; local nginx verifies canonical routes and 404s but intentionally does not implement `_redirects`.
 2. The Hugo-only compatibility boundary supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing; malformed tag/technology URLs render an empty 200 shell instead of Play's 400. Normal site forms never produce either shape. Exact parity would require an edge function, which remains intentionally out of scope.
 
 ## Revised full-migration estimate
 
 After completing local page-family parity, estimate **2–4 developer days** for the remaining migration:
 
-- 1–2 days: full route-contract coverage and Cloudflare Pages preview validation.
+- 0.5–1 day: Cloudflare Pages preview route-contract replay and validation.
 - 1 day: contributor/runbook documentation and custom-domain cutover/rollback rehearsal.
 - Up to 1 contingency day for Pages URL/cache differences or rich-content cleanup.
 
@@ -85,4 +86,4 @@ This estimate excludes production observation time and assumes no Pages Function
 
 The local mechanics evidence supports continuing with **Hugo on Cloudflare Pages Free** as the provisional direction: the generated artifact is small, the Hugo-only build is materially faster/lighter, and the current static constraints are understood.
 
-The local candidate now passes the canonical-data, reproducibility, benchmark, page-family visual, browser, and accessibility gates. Full route-contract coverage and real Cloudflare Pages behavior remain outstanding in the approved migration sequence. Do not approve production cutover until those beads pass and rollback is rehearsed.
+The local candidate now passes the canonical-data, reproducibility, benchmark, route-contract, page-family visual, browser, and accessibility gates. Real Cloudflare Pages behavior remains outstanding in the approved migration sequence. Do not approve production cutover until its preview validation passes and rollback is rehearsed.

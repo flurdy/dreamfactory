@@ -34,6 +34,7 @@ try {
     '--fail', '--silent', '--show-error', '--retry', '30', '--retry-all-errors',
     '--retry-delay', '1', '--output', '/dev/null', baseUrl
   ]);
+  run('node', ['scripts/verify-static-route-contract.mjs']);
   browser = await chromium.launch({
     headless: true,
     executablePath: process.env.PLAYWRIGHT_CHROME_PATH || '/usr/bin/google-chrome'

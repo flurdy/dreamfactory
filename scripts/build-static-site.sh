@@ -19,3 +19,4 @@ fi
 node scripts/generate-static-data.mjs
 rm -rf static-site/public
 hugo --source static-site --destination public --minify --printPathWarnings
+python3 scripts/generate-static-route-manifest.py
