@@ -1,7 +1,7 @@
 {{ $project := . }}
 {{ $listSummaryUrl := index $project "listsummaryurl" }}
 {{ $pathSegment := replace (urlquery $project.link) "+" "%20" }}
-<li class="project-summary project-result{{ if or $project.derived.dead $project.derived.stale $project.derived.unlikely }} project-summary--muted{{ end }}">
+<li class="project-summary project-result{{ if or $project.derived.dead $project.derived.stale $project.derived.unlikely }} project-summary--muted{{ end }}" data-project-link="{{ $project.link }}">
   <a class="project-summary-title" href="/project/{{ $pathSegment | safeURL }}">{{ $project.title | safeHTML }}</a>
   {{ if eq $listSummaryUrl.kind "live" }}<a class="project-summary-url" href="{{ $listSummaryUrl.href }}">{{ $listSummaryUrl.text }}</a>
   {{ else if eq $listSummaryUrl.kind "project" }}<a class="project-summary-url link-project" href="{{ $listSummaryUrl.href }}">{{ $listSummaryUrl.text }}</a>

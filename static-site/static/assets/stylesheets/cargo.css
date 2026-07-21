@@ -313,6 +313,10 @@
    grid-template-columns: minmax(10rem, 0.7fr) minmax(12rem, 1fr) minmax(18rem, 1.4fr);
 }
 
+#catalog-results[hidden] {
+   display: none !important;
+}
+
 .empty-results {
    margin: var(--df-space-3) 0;
 }

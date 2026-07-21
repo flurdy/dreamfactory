@@ -1,23 +1,3 @@
 {{ define "main" }}
-  {{ $projects := hugo.Data.projects.projects }}
-  <section class="surface search-box" aria-labelledby="list-search-heading">
-    <h2 id="list-search-heading" class="sr-only">Search</h2>
-    <form action="/projects/search" method="get" class="search-form">
-      <label class="sr-only" for="list-search">Search</label>
-      <input id="list-search" name="searchterm" type="search" class="form-control" placeholder="search for projects" maxlength="200">
-      <button class="btn btn-primary" type="submit">Search</button>
-    </form>
-  </section>
-  <section class="surface results-section" aria-labelledby="results-heading">
-    <div class="results-heading">
-      <h2 id="results-heading">All projects:</h2>
-      <span class="results-count">{{ len $projects }} projects</span>
-    </div>
-    <ul class="project-results">
-      {{ range $projects }}{{ partial "project-result.html" . }}{{ end }}
-    </ul>
-  </section>
-  {{ partial "properties-filter.html" . }}
-  {{ partial "project-discovery.html" . }}
-  <script src="/assets/javascript/filter.js"></script>
+  {{ partial "project-catalog.html" (dict "showDiscovery" true) }}
 {{ end }}

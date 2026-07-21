@@ -1,0 +1,5239 @@
+{
+  "capturedAt": "2026-07-21T03:26:30.945Z",
+  "cases": [
+    {
+      "name": "popular-required",
+      "path": "/projects/?filter.popular=require",
+      "heading": "All projects:",
+      "count": "9 projects",
+      "titles": [
+        "ContractCalc",
+        "Expire",
+        "Letterbox",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "TapIn",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "email",
+            "mobile",
+            "2fa",
+            "api",
+            "bintray",
+            "cryptocurrency",
+            "list",
+            "logging",
+            "microservices",
+            "oauth",
+            "payment",
+            "service",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            "require"
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.popular",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "popular-excluded",
+      "path": "/projects/?filter.popular=exclude",
+      "heading": "All projects:",
+      "count": "63 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Lucid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "PillTrack",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "taskgrid",
+        "ToDo",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "mobile",
+            "productivity",
+            "ci",
+            "featuretoggle",
+            "planning",
+            "security",
+            "testing",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "currency",
+            "docker",
+            "email",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "howto",
+            "infrastructure",
+            "integration",
+            "management",
+            "medicine",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "service",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            "exclude"
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.popular",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "dead-required",
+      "path": "/projects/?filter.dead=require",
+      "heading": "All projects:",
+      "count": "21 projects",
+      "titles": [
+        "Bookmarks",
+        "Foto",
+        "Gantry",
+        "Gift Registry",
+        "grid",
+        "Guvnor",
+        "Hudson",
+        "Jira",
+        "Mailer",
+        "MyPVR",
+        "Nexus",
+        "passhash",
+        "Philharmonic",
+        "Pizzeria",
+        "Scaffold-Play",
+        "Shop Grid",
+        "Snaps",
+        "svnadmin",
+        "tabsearch",
+        "taskgrid",
+        "ToDo"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "ci",
+            "cloud9",
+            "docker",
+            "email",
+            "howto",
+            "microservices",
+            "pizza",
+            "security",
+            "testing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            "require"
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.dead",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "dead-excluded",
+      "path": "/projects/?filter.dead=exclude",
+      "heading": "All projects:",
+      "count": "51 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Gate House",
+        "Gauge",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "ideagrid",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Lucid",
+        "Me",
+        "newsgrid",
+        "peoplegrid",
+        "PhotoGit",
+        "PillTrack",
+        "Pool",
+        "Problems",
+        "Scala Soup",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "Tape Delay",
+        "TapIn",
+        "Tulipan",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "commercial",
+            "productivity",
+            "email",
+            "featuretoggle",
+            "planning",
+            "service",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "ci",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "infrastructure",
+            "integration",
+            "list",
+            "logging",
+            "management",
+            "medicine",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "oauth",
+            "payment",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "security",
+            "shopping",
+            "sms",
+            "support",
+            "testing",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            "exclude"
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.dead",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "unlikely-required",
+      "path": "/projects/?filter.unlikely=require",
+      "heading": "All projects:",
+      "count": "27 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bookmarks",
+        "BuyNow",
+        "depositor",
+        "Gantry",
+        "Gate House",
+        "golfgrid",
+        "Grapemine",
+        "grid",
+        "housegrid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "passhash",
+        "peoplegrid",
+        "PhotoGit",
+        "Pool",
+        "Snips",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "taskgrid",
+        "ToDo",
+        "Twalker",
+        "What are you working on",
+        "Where are you"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "docker",
+            "email",
+            "featuretoggle",
+            "management",
+            "security"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            "require"
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.unlikely",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "unlikely-excluded",
+      "path": "/projects/?filter.unlikely=exclude",
+      "heading": "All projects:",
+      "count": "45 projects",
+      "titles": [
+        "Bad Usernames",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Foto",
+        "Gauge",
+        "Gift Registry",
+        "GpsAlarm",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Lucid",
+        "Nexus",
+        "Philharmonic",
+        "PillTrack",
+        "Pizzeria",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Tape Delay",
+        "TapIn",
+        "Tulipan",
+        "UpTo",
+        "Valuta",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "commercial",
+            "productivity",
+            "ci",
+            "email",
+            "microservices",
+            "planning",
+            "service",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "estimation",
+            "feature",
+            "featuretoggle",
+            "game",
+            "health",
+            "howto",
+            "infrastructure",
+            "integration",
+            "list",
+            "logging",
+            "medicine",
+            "mentalhealth",
+            "multilingual",
+            "oauth",
+            "payment",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "security",
+            "shopping",
+            "sms",
+            "support",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            "exclude"
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.unlikely",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "recent-required",
+      "path": "/projects/?filter.recent=require",
+      "heading": "All projects:",
+      "count": "3 projects",
+      "titles": [
+        "Draft",
+        "Lucid",
+        "PillTrack"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "health",
+            "infrastructure",
+            "medicine",
+            "mobile",
+            "planning",
+            "prescription",
+            "productivity",
+            "project",
+            "reminders",
+            "support"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            "require"
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.recent",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "recent-excluded",
+      "path": "/projects/?filter.recent=exclude",
+      "heading": "All projects:",
+      "count": "69 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "TapIn",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "mobile",
+            "commercial",
+            "email",
+            "ci",
+            "featuretoggle",
+            "microservices",
+            "productivity",
+            "security",
+            "service",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "docker",
+            "estimation",
+            "feature",
+            "game",
+            "howto",
+            "integration",
+            "list",
+            "logging",
+            "management",
+            "mentalhealth",
+            "multilingual",
+            "oauth",
+            "payment",
+            "pizza",
+            "planning",
+            "poker",
+            "scrum",
+            "shopping",
+            "sms",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            "exclude"
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.recent",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "updated-required",
+      "path": "/projects/?filter.updated=require",
+      "heading": "All projects:",
+      "count": "8 projects",
+      "titles": [
+        "Bad Usernames",
+        "Expire",
+        "Gauge",
+        "Hakiki",
+        "Letterbox",
+        "Sorting Office",
+        "TapIn",
+        "Who To"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "commercial",
+            "email",
+            "mobile",
+            "service",
+            "consumer",
+            "list",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "productivity",
+            "security",
+            "shopping",
+            "sms",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            "require"
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.updated",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "updated-excluded",
+      "path": "/projects/?filter.updated=exclude",
+      "heading": "All projects:",
+      "count": "64 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Lucid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "PillTrack",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "ci",
+            "featuretoggle",
+            "planning",
+            "productivity",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "commercial",
+            "cryptocurrency",
+            "currency",
+            "docker",
+            "email",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "howto",
+            "infrastructure",
+            "integration",
+            "logging",
+            "management",
+            "medicine",
+            "microservices",
+            "oauth",
+            "payment",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "security",
+            "support"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            "exclude"
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.updated",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "stale-required",
+      "path": "/projects/?filter.stale=require",
+      "heading": "All projects:",
+      "count": "25 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "BuyNow",
+        "depositor",
+        "Drone Hawk",
+        "Feed Timer",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "housegrid",
+        "ideagrid",
+        "Joke",
+        "Me",
+        "newsgrid",
+        "peoplegrid",
+        "PhotoGit",
+        "Pool",
+        "Problems",
+        "Snapper",
+        "Snips",
+        "Stuck & Duck",
+        "Tape Delay",
+        "Twalker",
+        "UpTo",
+        "What are you working on",
+        "Where are you"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            "require"
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.stale",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "stale-excluded",
+      "path": "/projects/?filter.stale=exclude",
+      "heading": "All projects:",
+      "count": "47 projects",
+      "titles": [
+        "Bad Usernames",
+        "Bookmarks",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "Draft",
+        "Dreamfactory",
+        "Expire",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "Hudson",
+        "Jira",
+        "LavaFlow",
+        "Letterbox",
+        "Lucid",
+        "Mailer",
+        "MyPVR",
+        "Nexus",
+        "passhash",
+        "Philharmonic",
+        "PillTrack",
+        "Pizzeria",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snaps",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "svnadmin",
+        "tabsearch",
+        "TapIn",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Valuta",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "mobile",
+            "commercial",
+            "email",
+            "productivity",
+            "ci",
+            "featuretoggle",
+            "microservices",
+            "planning",
+            "security",
+            "service",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "docker",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "howto",
+            "infrastructure",
+            "integration",
+            "list",
+            "logging",
+            "management",
+            "medicine",
+            "mentalhealth",
+            "multilingual",
+            "oauth",
+            "payment",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "shopping",
+            "sms",
+            "support",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            "exclude"
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.stale",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "live-required",
+      "path": "/projects/?filter.live=require",
+      "heading": "All projects:",
+      "count": "11 projects",
+      "titles": [
+        "Bad Usernames",
+        "ContractCalc",
+        "Dreamfactory",
+        "Gauge",
+        "Hakiki",
+        "Letterbox",
+        "Lucid",
+        "tabsearch",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "commercial",
+            "service",
+            "2fa",
+            "consumer",
+            "cryptocurrency",
+            "email",
+            "infrastructure",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "oauth",
+            "payment",
+            "productivity",
+            "security",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "live-excluded",
+      "path": "/projects/?filter.live=exclude",
+      "heading": "All projects:",
+      "count": "61 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "depositor",
+        "Draft",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "PillTrack",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "Tape Delay",
+        "TapIn",
+        "taskgrid",
+        "ToDo",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "ci",
+            "email",
+            "featuretoggle",
+            "planning",
+            "productivity",
+            "testing",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "commercial",
+            "currency",
+            "docker",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "howto",
+            "integration",
+            "list",
+            "logging",
+            "management",
+            "medicine",
+            "microservices",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "security",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "exclude"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "idea-required",
+      "path": "/projects/?filter.idea=require",
+      "heading": "All projects:",
+      "count": "33 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "BuyNow",
+        "Changelog",
+        "Consensus",
+        "depositor",
+        "Draft",
+        "Drone Hawk",
+        "Feed Timer",
+        "Gate House",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "Handshake",
+        "housegrid",
+        "ideagrid",
+        "Joke",
+        "LavaFlow",
+        "Me",
+        "newsgrid",
+        "peoplegrid",
+        "PhotoGit",
+        "PillTrack",
+        "Pool",
+        "Problems",
+        "Sluice",
+        "Snapper",
+        "Snips",
+        "Stuck & Duck",
+        "Tape Delay",
+        "Twalker",
+        "UpTo",
+        "What are you working on",
+        "Where are you"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "featuretoggle",
+            "mobile",
+            "planning",
+            "productivity",
+            "build",
+            "ci",
+            "estimation",
+            "feature",
+            "health",
+            "integration",
+            "management",
+            "medicine",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            "require"
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.idea",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "idea-excluded",
+      "path": "/projects/?filter.idea=exclude",
+      "heading": "All projects:",
+      "count": "39 projects",
+      "titles": [
+        "Bad Usernames",
+        "Bookmarks",
+        "Cargo",
+        "ContractCalc",
+        "Dreamfactory",
+        "Expire",
+        "Foto",
+        "Gantry",
+        "Gauge",
+        "Gift Registry",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Hudson",
+        "Jira",
+        "Letterbox",
+        "Lucid",
+        "Mailer",
+        "MyPVR",
+        "Nexus",
+        "passhash",
+        "Philharmonic",
+        "Pizzeria",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Snaps",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "svnadmin",
+        "tabsearch",
+        "TapIn",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Valuta",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "email",
+            "mobile",
+            "api",
+            "microservices",
+            "security",
+            "service",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "ci",
+            "cloud9",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "docker",
+            "game",
+            "howto",
+            "infrastructure",
+            "list",
+            "logging",
+            "mentalhealth",
+            "multilingual",
+            "oauth",
+            "payment",
+            "pizza",
+            "productivity",
+            "shopping",
+            "sms",
+            "support",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            "exclude"
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.idea",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "code-required",
+      "path": "/projects/?filter.code=require",
+      "heading": "All projects:",
+      "count": "30 projects",
+      "titles": [
+        "Bad Usernames",
+        "Cargo",
+        "ContractCalc",
+        "Dreamfactory",
+        "Expire",
+        "Gantry",
+        "Gauge",
+        "Gift Registry",
+        "GpsAlarm",
+        "Guvnor",
+        "Hakiki",
+        "Lucid",
+        "Mailer",
+        "passhash",
+        "Philharmonic",
+        "Pizzeria",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Snaps",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "svnadmin",
+        "tabsearch",
+        "TapIn",
+        "UpTo",
+        "Valuta",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "email",
+            "security",
+            "testing",
+            "api",
+            "bintray",
+            "browserbased",
+            "ci",
+            "cloud9",
+            "commercial",
+            "consumer",
+            "currency",
+            "docker",
+            "game",
+            "howto",
+            "infrastructure",
+            "list",
+            "logging",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "pizza",
+            "productivity",
+            "service",
+            "shopping",
+            "sms",
+            "support",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            "require"
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.code",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "code-excluded",
+      "path": "/projects/?filter.code=exclude",
+      "heading": "All projects:",
+      "count": "42 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bookmarks",
+        "BuyNow",
+        "Changelog",
+        "Consensus",
+        "depositor",
+        "Draft",
+        "Drone Hawk",
+        "Feed Timer",
+        "Foto",
+        "Gate House",
+        "golfgrid",
+        "Grapemine",
+        "grid",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "peoplegrid",
+        "PhotoGit",
+        "PillTrack",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Sluice",
+        "Snapper",
+        "Snips",
+        "Stuck & Duck",
+        "Tape Delay",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Twalker",
+        "What are you working on"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "commercial",
+            "featuretoggle",
+            "mobile",
+            "planning",
+            "productivity",
+            "2fa",
+            "build",
+            "ci",
+            "cryptocurrency",
+            "email",
+            "estimation",
+            "feature",
+            "health",
+            "integration",
+            "management",
+            "medicine",
+            "microservices",
+            "oauth",
+            "payment",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "service"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            "exclude"
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.code",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "mobile-required",
+      "path": "/projects/?filter.mobile=require",
+      "heading": "All projects:",
+      "count": "5 projects",
+      "titles": [
+        "Expire",
+        "Feed Timer",
+        "PillTrack",
+        "Shop Mobile",
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "commercial",
+            "health",
+            "list",
+            "medicine",
+            "prescription",
+            "reminders",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            "require"
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.mobile",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "mobile-excluded",
+      "path": "/projects/?filter.mobile=exclude",
+      "heading": "All projects:",
+      "count": "67 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Lucid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "email",
+            "productivity",
+            "ci",
+            "commercial",
+            "featuretoggle",
+            "microservices",
+            "planning",
+            "security",
+            "service",
+            "testing",
+            "2fa",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "cryptocurrency",
+            "currency",
+            "docker",
+            "estimation",
+            "feature",
+            "game",
+            "howto",
+            "infrastructure",
+            "integration",
+            "logging",
+            "management",
+            "mentalhealth",
+            "multilingual",
+            "oauth",
+            "payment",
+            "pizza",
+            "poker",
+            "project",
+            "scrum",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            "exclude"
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.mobile",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "commercial-required",
+      "path": "/projects/?filter.commercial=require",
+      "heading": "All projects:",
+      "count": "3 projects",
+      "titles": [
+        "Letterbox",
+        "TapIn",
+        "Tulipan"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "2fa",
+            "api",
+            "cryptocurrency",
+            "email",
+            "microservices",
+            "mobile",
+            "oauth",
+            "payment",
+            "service",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            "require"
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.commercial",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "commercial-excluded",
+      "path": "/projects/?filter.commercial=exclude",
+      "heading": "All projects:",
+      "count": "69 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Lucid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "PillTrack",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "taskgrid",
+        "ToDo",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "productivity",
+            "ci",
+            "email",
+            "featuretoggle",
+            "planning",
+            "security",
+            "testing",
+            "bintray",
+            "browserbased",
+            "build",
+            "cloud9",
+            "consumer",
+            "currency",
+            "docker",
+            "estimation",
+            "feature",
+            "game",
+            "health",
+            "howto",
+            "infrastructure",
+            "integration",
+            "list",
+            "logging",
+            "management",
+            "medicine",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "pizza",
+            "poker",
+            "prescription",
+            "project",
+            "reminders",
+            "scrum",
+            "service",
+            "shopping",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            "exclude"
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.commercial",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "healthy-code",
+      "path": "/projects/?filter.dead=exclude&filter.stale=exclude&filter.unlikely=exclude&filter.code=require",
+      "heading": "All projects:",
+      "count": "16 projects",
+      "titles": [
+        "Bad Usernames",
+        "Cargo",
+        "ContractCalc",
+        "Dreamfactory",
+        "Expire",
+        "Gauge",
+        "Hakiki",
+        "Lucid",
+        "Scala Soup",
+        "Shop Mobile",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "TapIn",
+        "Valuta",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "api",
+            "bintray",
+            "browserbased",
+            "commercial",
+            "consumer",
+            "currency",
+            "email",
+            "game",
+            "infrastructure",
+            "list",
+            "logging",
+            "mentalhealth",
+            "multilingual",
+            "productivity",
+            "security",
+            "service",
+            "shopping",
+            "sms",
+            "support",
+            "testing",
+            "username",
+            "validation",
+            "wellbeing",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            "exclude"
+          ],
+          [
+            "filter.unlikely",
+            "exclude"
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            "exclude"
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            "require"
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.dead",
+          "exclude"
+        ],
+        [
+          "filter.unlikely",
+          "exclude"
+        ],
+        [
+          "filter.stale",
+          "exclude"
+        ],
+        [
+          "filter.code",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "live-code",
+      "path": "/projects/?filter.live=require&filter.code=require",
+      "heading": "All projects:",
+      "count": "9 projects",
+      "titles": [
+        "Bad Usernames",
+        "ContractCalc",
+        "Dreamfactory",
+        "Gauge",
+        "Hakiki",
+        "Lucid",
+        "tabsearch",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "consumer",
+            "infrastructure",
+            "mentalhealth",
+            "multilingual",
+            "productivity",
+            "security",
+            "service",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            "require"
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ],
+        [
+          "filter.code",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "live-idea-empty",
+      "path": "/projects/?filter.live=require&filter.idea=require",
+      "heading": "All projects:",
+      "count": "0 projects",
+      "titles": [],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            "require"
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ],
+        [
+          "filter.idea",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "mobile-commercial",
+      "path": "/projects/?filter.mobile=require&filter.commercial=require",
+      "heading": "All projects:",
+      "count": "1 project",
+      "titles": [
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "mobile",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            "require"
+          ],
+          [
+            "filter.commercial",
+            "require"
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.mobile",
+          "require"
+        ],
+        [
+          "filter.commercial",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "search",
+      "path": "/projects/search?searchterm=dreamfactory",
+      "heading": "Projects containing search term: “dreamfactory”",
+      "count": "1 project",
+      "titles": [
+        "Dreamfactory"
+      ],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/search",
+        "context": [
+          [
+            "searchterm",
+            "dreamfactory"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "search-case-sensitive-edge",
+      "path": "/projects/search?searchterm=Dreamfactory",
+      "heading": "Projects containing search term: “Dreamfactory”",
+      "count": "0 projects",
+      "titles": [],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/search",
+        "context": [
+          [
+            "searchterm",
+            "Dreamfactory"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "search-whitespace",
+      "path": "/projects/search?searchterm=%20%20",
+      "heading": "All projects:",
+      "count": "72 projects",
+      "titles": [
+        "Baby Crowd Monitor",
+        "Bad Usernames",
+        "Bookmarks",
+        "BuyNow",
+        "Cargo",
+        "Changelog",
+        "Consensus",
+        "ContractCalc",
+        "depositor",
+        "Draft",
+        "Dreamfactory",
+        "Drone Hawk",
+        "Expire",
+        "Feed Timer",
+        "Foto",
+        "Gantry",
+        "Gate House",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Grapemine",
+        "grid",
+        "Guvnor",
+        "Hakiki",
+        "Handshake",
+        "housegrid",
+        "Hudson",
+        "ideagrid",
+        "Jira",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Lucid",
+        "Mailer",
+        "Me",
+        "MyPVR",
+        "newsgrid",
+        "Nexus",
+        "passhash",
+        "peoplegrid",
+        "Philharmonic",
+        "PhotoGit",
+        "PillTrack",
+        "Pizzeria",
+        "Pool",
+        "Problems",
+        "Scaffold-Play",
+        "Scala Soup",
+        "Shop Grid",
+        "Shop Mobile",
+        "Sluice",
+        "Snapper",
+        "Snaps",
+        "Snips",
+        "Sorting Office",
+        "Spring-boot-logging-json",
+        "Stuck & Duck",
+        "svnadmin",
+        "tabsearch",
+        "Tape Delay",
+        "TapIn",
+        "taskgrid",
+        "ToDo",
+        "Tulipan",
+        "Twalker",
+        "UpTo",
+        "Valuta",
+        "What are you working on",
+        "Where are you",
+        "Who To",
+        "Wish"
+      ],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "search-live",
+      "path": "/projects/search?searchterm=dreamfactory&filter.live=require",
+      "heading": "Projects containing search term: “dreamfactory”",
+      "count": "1 project",
+      "titles": [
+        "Dreamfactory"
+      ],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/search",
+        "context": [
+          [
+            "searchterm",
+            "dreamfactory"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "search-empty",
+      "path": "/projects/search?searchterm=no-such-project",
+      "heading": "Projects containing search term: “no-such-project”",
+      "count": "0 projects",
+      "titles": [],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/search",
+        "context": [
+          [
+            "searchterm",
+            "no-such-project"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "tag-single",
+      "path": "/projects/tag?tag=mobile",
+      "heading": "Projects with tags: mobile",
+      "count": "5 projects",
+      "titles": [
+        "Expire",
+        "Feed Timer",
+        "PillTrack",
+        "Shop Mobile",
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "health",
+            "list",
+            "medicine",
+            "prescription",
+            "reminders",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tag",
+        "context": [
+          [
+            "tag",
+            "mobile"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "tag-single-case-insensitive",
+      "path": "/projects/tag?tag=Mobile",
+      "heading": "Projects with tags: Mobile",
+      "count": "5 projects",
+      "titles": [
+        "Expire",
+        "Feed Timer",
+        "PillTrack",
+        "Shop Mobile",
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "commercial",
+            "health",
+            "list",
+            "medicine",
+            "prescription",
+            "reminders",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tag",
+        "context": [
+          [
+            "tag",
+            "Mobile"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "tag-with-filter",
+      "path": "/projects/tag?tag=mobile&filter.dead=exclude",
+      "heading": "Projects with tags: mobile",
+      "count": "5 projects",
+      "titles": [
+        "Expire",
+        "Feed Timer",
+        "PillTrack",
+        "Shop Mobile",
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "commercial",
+            "health",
+            "list",
+            "medicine",
+            "prescription",
+            "reminders",
+            "shopping",
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tag",
+        "context": [
+          [
+            "tag",
+            "mobile"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            "exclude"
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.dead",
+          "exclude"
+        ]
+      ]
+    },
+    {
+      "name": "tags-intersection",
+      "path": "/projects/tags?tags=mobile&tag=commercial",
+      "heading": "Projects with tags: commercial, mobile",
+      "count": "1 project",
+      "titles": [
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "sms",
+            "whatsapp"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tags",
+        "context": [
+          [
+            "tag",
+            "commercial"
+          ],
+          [
+            "tags",
+            "mobile"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "tags-three-way-empty",
+      "path": "/projects/tags?tags=mobile,api&tag=commercial",
+      "heading": "Projects with tags: commercial, mobile, api",
+      "count": "0 projects",
+      "titles": [],
+      "related": [],
+      "propertyForm": {
+        "action": "/projects/tags",
+        "context": [
+          [
+            "tag",
+            "commercial"
+          ],
+          [
+            "tags",
+            "mobile,api"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "technology-single",
+      "path": "/projects/tech?tech=scala",
+      "heading": "Projects with technologies: scala",
+      "count": "10 projects",
+      "titles": [
+        "Cargo",
+        "Handshake",
+        "Letterbox",
+        "Pizzeria",
+        "Scala Soup",
+        "Shop Grid",
+        "Sorting Office",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Technologies",
+          "terms": [
+            "play",
+            "docker",
+            "heroku",
+            "rust",
+            "circleci",
+            "go",
+            "postgres",
+            "spring",
+            "spring-mvc",
+            "spring-ws"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tech",
+        "context": [
+          [
+            "tech",
+            "scala"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "technology-single-case-insensitive",
+      "path": "/projects/tech?tech=SCALA",
+      "heading": "Projects with technologies: SCALA",
+      "count": "10 projects",
+      "titles": [
+        "Cargo",
+        "Handshake",
+        "Letterbox",
+        "Pizzeria",
+        "Scala Soup",
+        "Shop Grid",
+        "Sorting Office",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Technologies",
+          "terms": [
+            "scala",
+            "play",
+            "docker",
+            "heroku",
+            "rust",
+            "circleci",
+            "go",
+            "postgres",
+            "spring",
+            "spring-mvc"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tech",
+        "context": [
+          [
+            "tech",
+            "SCALA"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "technology-live",
+      "path": "/projects/tech?tech=scala&filter.live=require",
+      "heading": "Projects with technologies: scala",
+      "count": "4 projects",
+      "titles": [
+        "Letterbox",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Technologies",
+          "terms": [
+            "play",
+            "circleci",
+            "heroku",
+            "postgres",
+            "acegi",
+            "bootstrap",
+            "cats",
+            "docker",
+            "doobie",
+            "hibernate"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/tech",
+        "context": [
+          [
+            "tech",
+            "scala"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "technologies-intersection",
+      "path": "/projects/technologies?technologies=scala&tech=play",
+      "heading": "Projects with technologies: play, scala",
+      "count": "7 projects",
+      "titles": [
+        "Cargo",
+        "Letterbox",
+        "Pizzeria",
+        "Shop Grid",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Technologies",
+          "terms": [
+            "circleci",
+            "docker",
+            "heroku",
+            "postgres",
+            "rust",
+            "spring",
+            "spring-mvc",
+            "spring-ws",
+            "wicket",
+            "acegi"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/technologies",
+        "context": [
+          [
+            "tech",
+            "play"
+          ],
+          [
+            "technologies",
+            "scala"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "technologies-mobile",
+      "path": "/projects/technologies?technologies=react-native&tech=typescript",
+      "heading": "Projects with technologies: typescript, react-native",
+      "count": "2 projects",
+      "titles": [
+        "PillTrack",
+        "TapIn"
+      ],
+      "related": [
+        {
+          "heading": "Technologies",
+          "terms": [
+            "ios",
+            "android",
+            "cordova",
+            "expo",
+            "javascript"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/technologies",
+        "context": [
+          [
+            "tech",
+            "typescript"
+          ],
+          [
+            "technologies",
+            "react-native"
+          ]
+        ],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "characteristic",
+      "path": "/projects/characteristic/type/complexity/characteristic/easy",
+      "heading": "Projects with characteristic: Complexity — Easy",
+      "count": "21 projects",
+      "titles": [
+        "Bad Usernames",
+        "Changelog",
+        "Consensus",
+        "Dreamfactory",
+        "Expire",
+        "Feed Timer",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Hakiki",
+        "ideagrid",
+        "Lucid",
+        "Mailer",
+        "MyPVR",
+        "newsgrid",
+        "peoplegrid",
+        "Problems",
+        "Snips",
+        "Twalker",
+        "Who To"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "productivity",
+            "api",
+            "consumer",
+            "email",
+            "estimation",
+            "infrastructure",
+            "list",
+            "mentalhealth",
+            "multilingual",
+            "planning",
+            "poker",
+            "scrum",
+            "security",
+            "service",
+            "shopping",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "docker",
+            "go",
+            "hugo",
+            "kubernetes",
+            "android",
+            "circleci",
+            "cloudflare pages",
+            "heroku",
+            "html",
+            "htmx"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/complexity/characteristic/easy",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "characteristic-alias",
+      "path": "/projects/characteristic/type/complexity/characteristic/low",
+      "heading": "Projects with characteristic: Complexity — Easy",
+      "count": "21 projects",
+      "titles": [
+        "Bad Usernames",
+        "Changelog",
+        "Consensus",
+        "Dreamfactory",
+        "Expire",
+        "Feed Timer",
+        "Gauge",
+        "Gift Registry",
+        "golfgrid",
+        "GpsAlarm",
+        "Hakiki",
+        "ideagrid",
+        "Lucid",
+        "Mailer",
+        "MyPVR",
+        "newsgrid",
+        "peoplegrid",
+        "Problems",
+        "Snips",
+        "Twalker",
+        "Who To"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "mobile",
+            "productivity",
+            "api",
+            "consumer",
+            "email",
+            "estimation",
+            "infrastructure",
+            "list",
+            "mentalhealth",
+            "multilingual",
+            "planning",
+            "poker",
+            "scrum",
+            "security",
+            "service",
+            "shopping",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "docker",
+            "go",
+            "hugo",
+            "kubernetes",
+            "android",
+            "circleci",
+            "cloudflare pages",
+            "heroku",
+            "html",
+            "htmx"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/complexity/characteristic/easy",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "characteristic-filtered",
+      "path": "/projects/characteristic/type/complexity/characteristic/easy?filter.live=require",
+      "heading": "Projects with characteristic: Complexity — Easy",
+      "count": "6 projects",
+      "titles": [
+        "Bad Usernames",
+        "Dreamfactory",
+        "Gauge",
+        "Hakiki",
+        "Lucid",
+        "Who To"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "consumer",
+            "infrastructure",
+            "mentalhealth",
+            "multilingual",
+            "productivity",
+            "security",
+            "service",
+            "support",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "docker",
+            "go",
+            "hugo",
+            "kubernetes",
+            "circleci",
+            "cloudflare pages",
+            "heroku",
+            "html",
+            "htmx",
+            "http4s"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/complexity/characteristic/easy",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            "require"
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": [
+        [
+          "filter.live",
+          "require"
+        ]
+      ]
+    },
+    {
+      "name": "appeal-alias",
+      "path": "/projects/characteristic/type/appeal/characteristic/good",
+      "heading": "Projects with characteristic: Appeal — Interested",
+      "count": "14 projects",
+      "titles": [
+        "Changelog",
+        "Draft",
+        "Expire",
+        "golfgrid",
+        "GpsAlarm",
+        "ideagrid",
+        "Joke",
+        "LavaFlow",
+        "Letterbox",
+        "Mailer",
+        "Problems",
+        "Sorting Office",
+        "Stuck & Duck",
+        "UpTo"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "email",
+            "api",
+            "build",
+            "ci",
+            "commercial",
+            "feature",
+            "list",
+            "microservices",
+            "mobile",
+            "planning",
+            "productivity",
+            "project",
+            "service",
+            "shopping"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "docker",
+            "scala",
+            "android",
+            "axum",
+            "cats",
+            "circleci",
+            "doobie",
+            "heroku",
+            "htmx",
+            "http4s"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/appeal/characteristic/interested",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "development-alias",
+      "path": "/projects/characteristic/type/status.development/characteristic/mothballed",
+      "heading": "Projects with characteristic: Development status — Abandoned",
+      "count": "16 projects",
+      "titles": [
+        "Foto",
+        "Gantry",
+        "Gift Registry",
+        "GpsAlarm",
+        "Guvnor",
+        "Nexus",
+        "passhash",
+        "Philharmonic",
+        "Scaffold-Play",
+        "Shop Grid",
+        "Snapper",
+        "Snaps",
+        "svnadmin",
+        "tabsearch",
+        "ToDo",
+        "UpTo"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "ci",
+            "cloud9",
+            "docker",
+            "microservices",
+            "security",
+            "testing"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "akka",
+            "cloud9",
+            "docker",
+            "javascript",
+            "kubernetes",
+            "node.js",
+            "play",
+            "scala"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/status.development/characteristic/abandoned",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    },
+    {
+      "name": "deploy-alias",
+      "path": "/projects/characteristic/type/status.deploy/characteristic/online",
+      "heading": "Projects with characteristic: Deploy status — Live",
+      "count": "13 projects",
+      "titles": [
+        "Bad Usernames",
+        "ContractCalc",
+        "Dreamfactory",
+        "Gauge",
+        "Hakiki",
+        "Letterbox",
+        "Lucid",
+        "Scala Soup",
+        "Spring-boot-logging-json",
+        "tabsearch",
+        "Tulipan",
+        "Who To",
+        "Wish"
+      ],
+      "related": [
+        {
+          "heading": "Tags",
+          "terms": [
+            "api",
+            "commercial",
+            "service",
+            "2fa",
+            "bintray",
+            "consumer",
+            "cryptocurrency",
+            "email",
+            "infrastructure",
+            "logging",
+            "mentalhealth",
+            "microservices",
+            "multilingual",
+            "oauth",
+            "payment",
+            "productivity",
+            "security",
+            "support",
+            "testing",
+            "username",
+            "validation",
+            "wellbeing"
+          ]
+        },
+        {
+          "heading": "Technologies",
+          "terms": [
+            "scala",
+            "play",
+            "docker",
+            "kubernetes",
+            "bintray",
+            "circleci",
+            "go",
+            "heroku",
+            "html",
+            "http4s"
+          ]
+        }
+      ],
+      "propertyForm": {
+        "action": "/projects/characteristic/type/status.deploy/characteristic/live",
+        "context": [],
+        "selected": [
+          [
+            "filter.popular",
+            ""
+          ],
+          [
+            "filter.dead",
+            ""
+          ],
+          [
+            "filter.unlikely",
+            ""
+          ],
+          [
+            "filter.recent",
+            ""
+          ],
+          [
+            "filter.updated",
+            ""
+          ],
+          [
+            "filter.stale",
+            ""
+          ],
+          [
+            "filter.live",
+            ""
+          ],
+          [
+            "filter.idea",
+            ""
+          ],
+          [
+            "filter.code",
+            ""
+          ],
+          [
+            "filter.mobile",
+            ""
+          ],
+          [
+            "filter.commercial",
+            ""
+          ]
+        ]
+      },
+      "searchContext": []
+    }
+  ]
+}

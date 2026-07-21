@@ -22,10 +22,12 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
   - The all-project list renders all 72 Play-equivalent result rows in canonical order, including rich titles, summary URLs, status labels, property controls, and taxonomy discovery. The complete list remains available without JavaScript.
   - The build-time latest-news sidebar renders without JavaScript: desktop shows it directly, while mobile retains an HTML disclosure.
   - It vendors the current public assets and Bootstrap 3.3.6 CSS, and generates explicit title-alias redirects.
-- Added a small browser catalog implementation.
-  - It demonstrates search plus property filtering, technology filtering, and characteristic filtering.
+- Added a progressive browser catalog implementation.
+  - It reproduces Play search, singular/plural tag and technology intersections, all eleven Include/Exclude property filters, characteristic aliases, related controls, context-preserving forms, counts, empty states, and result focus.
+  - A 47-case rendered Play fixture covers every property in both states plus combined and route-specific behavior; a pure query engine and browser checks enforce the contract.
+  - Every query route renders the complete rich project list before enhancement, so users retain a semantic no-JavaScript or fetch-failure fallback.
   - Homepage JavaScript replaces the rendered no-JavaScript fallback on each load and preserves the current 10-item, seven-healthy-item selection shape while excluding the generated new/updated/popular sets.
-  - Arbitrary-case aliases remain intentionally unsupported; canonical and explicit title aliases are the static compatibility boundary.
+  - Arbitrary-case project aliases remain intentionally unsupported; canonical and explicit title aliases are the static compatibility boundary.
 - Added reproducible local commands:
   - `scripts/build-static-site.sh`
   - `scripts/verify-static-site.sh`
@@ -44,8 +46,9 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 | Acceptance benchmark | Play `sbt clean test stage` baseline: 30.24 s / 1,723,080 KB, 30.06 s / 1,702,384 KB, 30.46 s / 1,693,824 KB. Canonical static `npm run test:static-browser` (schema/oracle tests, generation, Hugo, link audit, nginx, browser/a11y): 8.47 s / 224,960 KB, 8.08 s / 223,804 KB, 8.88 s / 224,184 KB. Median wall time improves 72.0% and peak RSS 86.8%, so both approved 50% gates **pass**. |
 | Production build reference | Three Node generation + clean Hugo builds: 0.35 s / 103,484 KB, 0.38 s / 106,512 KB, 0.37 s / 103,356 KB. |
 | Static artifact verification | `scripts/verify-static-site.sh` passes, including repeated snapshot-regeneration comparison, route, rich-field, redirect, no-JS link, exclusion, healthy-ratio, and internal-link audit checks. The generated manifest has 216 explicit aliases. |
-| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, all-project list order/content with and without JavaScript, Play-oracle search/technology/characteristic results, keyboard focus, rich page content, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on home/list/search/detail samples. |
-| Project-list visual parity | `npm run test:list-visual-parity` passes full-page comparisons at 1280 px and 375 px. Differences are 0.21% and 0.16%, respectively, below the 1% gate. |
+| Catalog contract | `npm run test:static-catalog` matches 47 rendered Play cases: all eleven properties in Include and Exclude modes, combined filters, search edge behavior, singular/plural tag and technology intersections, canonical and alias characteristics, related terms, and preserved form context. |
+| Browser proof | `npm run test:static-browser` passes against Docker Compose/nginx: deterministic reload randomization, exclusion/healthy invariants, rich filtered rows, plural and alias routes, filter reset, keyboard focus, empty/fetch-failure states, complete no-JavaScript fallback, build-time desktop/mobile latest-news behavior, negative-route 404, and no axe critical/serious violations on representative home/catalog/detail states. |
+| Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.06% to 0.45%, below the 1% gate. |
 | Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, and Gift Registry at 1280 px and 375 px. Differences range from 0.24% to 0.46%, below the 1% gate. |
 | Existing application tests | `sbt test` passes: 5 tests, 0 failures. |
 | Manual browser checks | Side-by-side local inspection confirmed the representative Hugo project page closely matches Play. Docker Compose/nginx checks production-shaped extensionless paths and 404 behavior locally. |
@@ -61,18 +64,18 @@ This is the approved two-developer-day, non-production proof from `docs/static-s
 
 ## Known gaps and decision impact
 
-The canonical-data follow-up resolves the local data, fixed-time derivation, source-link, and benchmark gaps. Remaining migration gaps are tracked separately:
+The canonical-data, all-project list, and catalog-interaction follow-ups resolve the local data, fixed-time derivation, source-link, benchmark, query-route, and filtering gaps. Remaining migration gaps are tracked separately:
 
-1. Query shells demonstrate only representative search/technology/characteristic cases; they do not yet reproduce the full tag, multi-value, related-filter, and eleven-property interaction matrix.
-2. Remaining page families still need complete visual and interaction parity coverage; the all-project list now passes dedicated visual, accessibility, and no-JavaScript checks.
-3. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. Local route output has only been verified against Docker Compose/nginx.
+1. Remaining page families still need complete visual and interaction parity coverage; the all-project list and filtered catalog now pass dedicated visual, accessibility, link, and no-JavaScript checks.
+2. Cloudflare Pages preview, actual redirect/404 behavior, deployment headers/cache policy, and custom-domain rollback remain unverified. Local route output has only been verified against Docker Compose/nginx.
+3. The Hugo-only compatibility boundary supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing; malformed tag/technology URLs render an empty 200 shell instead of Play's 400. Normal site forms never produce either shape. Exact parity would require an edge function, which remains intentionally out of scope.
 
 ## Revised full-migration estimate
 
-After the canonical-data slice, estimate **4–7 developer days** for the remaining migration:
+After the canonical-data, projects-list, and catalog slices, estimate **3–5 developer days** for the remaining migration:
 
-- 2–3 days: complete projects-list, home/help/sponsor, and query/filter/related-filter parity.
-- 1–2 days: full visual/a11y/link/contract coverage and Cloudflare Pages preview validation.
+- Up to 1 day: complete remaining home/help/sponsor page-family parity.
+- 1–2 days: full route-contract coverage and Cloudflare Pages preview validation.
 - 1 day: contributor/runbook documentation and custom-domain cutover/rollback rehearsal.
 - Up to 1 contingency day for Pages URL/cache differences or rich-content cleanup.
 

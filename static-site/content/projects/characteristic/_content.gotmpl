@@ -1,20 +1,27 @@
-{{ $characteristics := dict
-  "appeal" (slice "keen" "interested" "maybe" "low" "none")
-  "complexity" (slice "verydifficult" "difficult" "medium" "easy")
-  "likelihood" (slice "high" "possibly" "unlikely" "never")
-  "status.development" (slice "abandoned" "alpha" "beta" "completed" "notstarted")
-  "status.release" (slice "mature" "released" "beta" "notreleased" "mothballed")
-  "status.deploy" (slice "live" "offline")
-}}
-{{ range $type, $values := $characteristics }}
-  {{ range $values }}
-    {{ $path := printf "type/%s/characteristic/%s" $type . }}
+{{ range hugo.Data.projects.controls.characteristics }}
+  {{ $type := .type }}
+  {{ $contentType := replace $type "." "-" }}
+  {{ range .values }}
+    {{ $canonical := .name }}
+    {{ $path := printf "type/%s/characteristic/%s" $contentType $canonical }}
+    {{ $url := printf "/projects/characteristic/type/%s/characteristic/%s/" $type $canonical }}
     {{ $.AddPage (dict
       "content" (dict "mediaType" "text/markdown" "value" "")
       "kind" "page"
       "path" $path
-      "title" (printf "Projects with %s %s" ($type | humanize) (. | humanize))
-      "url" (printf "/projects/characteristic/%s" $path)
+      "title" (printf "Projects with %s %s" $type $canonical)
+      "url" $url
     ) }}
+    {{ range .aliases }}
+      {{ $aliasPath := printf "type/%s/characteristic/%s" $contentType . }}
+      {{ $aliasUrl := printf "/projects/characteristic/type/%s/characteristic/%s/" $type . }}
+      {{ $.AddPage (dict
+        "content" (dict "mediaType" "text/markdown" "value" "")
+        "kind" "page"
+        "path" $aliasPath
+        "title" (printf "Projects with %s %s" $type $canonical)
+        "url" $aliasUrl
+      ) }}
+    {{ end }}
   {{ end }}
 {{ end }}

@@ -1,20 +1,9 @@
-{{ $filters := slice
-  (dict "name" "popular" "icon" "far fa-star" "label" "Popular")
-  (dict "name" "dead" "icon" "fas fa-cross" "label" "Mothballed or abandoned")
-  (dict "name" "unlikely" "icon" "far fa-frown" "label" "Unlikely or unappealing")
-  (dict "name" "recent" "icon" "fas fa-plus-circle" "label" "Recently added")
-  (dict "name" "updated" "icon" "fas fa-seedling" "label" "Recently updated")
-  (dict "name" "stale" "icon" "fas fa-hourglass-half" "label" "Stale")
-  (dict "name" "live" "icon" "fas fa-heartbeat" "label" "Live")
-  (dict "name" "idea" "icon" "far fa-lightbulb" "label" "Idea")
-  (dict "name" "code" "icon" "fas fa-code" "label" "Code available")
-  (dict "name" "mobile" "icon" "fas fa-mobile-alt" "label" "Mobile")
-  (dict "name" "commercial" "icon" "fas fa-dollar-sign" "label" "Commercial")
-}}
+{{ $filters := hugo.Data.projects.controls.properties }}
 <details id="filter-section" class="surface filter-section" open>
   <summary>Properties Filter</summary>
   <div class="filter-section-body">
-    <form action="/projects/" method="get" class="properties-filter-form">
+    <form id="catalog-filter-form" action="/projects/" method="get" class="properties-filter-form">
+      <span id="catalog-filter-context" hidden></span>
       <div class="properties-filter-grid">
         {{ range $filters }}
           <fieldset class="property-filter">

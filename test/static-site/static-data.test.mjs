@@ -106,6 +106,34 @@ test('fixed-time generation is byte-stable and timezone-explicit', () => {
   assert.throws(() => generateStaticData({ asOf: '2026-07-20T12:00:00', write: false }), /explicit timezone/);
 });
 
+test('catalog controls cover every property and characteristic alias', () => {
+  const { catalog } = generateStaticData({ asOf, write: false });
+  assert.deepEqual(
+    catalog.projects.map(project => project.title.toLowerCase()),
+    [...catalog.projects].map(project => project.title.toLowerCase()).sort(),
+  );
+  assert.deepEqual(catalog.controls.properties.map(property => property.name), [
+    'popular', 'dead', 'unlikely', 'recent', 'updated', 'stale', 'live', 'idea', 'code', 'mobile', 'commercial',
+  ]);
+  const aliases = Object.fromEntries(catalog.controls.characteristics.map(characteristic => [
+    characteristic.type,
+    Object.fromEntries(characteristic.values.filter(value => value.aliases.length).map(value => [value.name, value.aliases])),
+  ]));
+  assert.deepEqual(aliases, {
+    appeal: { interested: ['good'] },
+    complexity: {
+      verydifficult: ['veryhigh'],
+      difficult: ['high', 'hard'],
+      medium: ['average'],
+      easy: ['low'],
+    },
+    likelihood: { possibly: ['maybe'], unlikely: ['low', 'slight'] },
+    'status.development': { abandoned: ['cancelled', 'mothballed'] },
+    'status.release': {},
+    'status.deploy': { live: ['demo', 'online'] },
+  });
+});
+
 test('calendar year subtraction clamps leap days', () => {
   const leapDay = new Date('2024-02-29T12:34:56.789Z');
   assert.equal(subtractYearsClamped(leapDay, 1).toISOString(), '2023-02-28T12:34:56.789Z');

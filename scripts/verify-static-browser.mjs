@@ -17,6 +17,14 @@ async function assertNoBlockingA11y(page, label) {
   assert.deepEqual(details, [], `${label} has blocking accessibility violations`);
 }
 
+async function waitForCatalog(page) {
+  await page.waitForFunction(() => document.querySelector('#catalog-results')?.dataset.catalogEnhanced === 'true');
+}
+
+async function visibleCatalogTitles(page) {
+  return page.locator('#catalog-results .project-result:not([hidden]) .project-summary-title').allTextContents();
+}
+
 run('scripts/verify-static-site.sh', []);
 run('docker', [...composeArgs, 'up', '--detach', '--force-recreate']);
 
@@ -80,6 +88,7 @@ try {
   await entityTitlePage.close();
 
   await page.goto(`${baseUrl}/projects/`);
+  await waitForCatalog(page);
   const expectedProjectTitles = catalog.projects.map((project) => project.title
     .replaceAll('&nbsp;', '\u00a0')
     .replaceAll('&amp;', '&'));
@@ -99,46 +108,109 @@ try {
 
   const noScriptContext = await browser.newContext({ javaScriptEnabled: false });
   const noScriptPage = await noScriptContext.newPage();
-  const noScriptResponse = await noScriptPage.goto(`${baseUrl}/projects/`);
+  const noScriptResponse = await noScriptPage.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
   assert.equal(noScriptResponse?.status(), 200);
   assert.deepEqual(await noScriptPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
   assert.equal(await noScriptPage.locator('.project-results .project-status').count(), 175);
   assert.equal(await noScriptPage.locator('.project-results .project-summary-url').count(), catalog.projectCount);
+  assert.equal(await noScriptPage.locator('.catalog-fallback-message').isVisible(), true);
   await noScriptContext.close();
 
   await page.goto(`${baseUrl}/projects/search`);
-  const search = page.getByRole('searchbox', { name: 'Search projects' });
+  await waitForCatalog(page);
+  const search = page.getByRole('searchbox', { name: 'Search' });
   await search.fill('dreamfactory');
   await search.press('Enter');
-  await page.waitForFunction(() => document.querySelector('#catalog-count')?.textContent === '1 project');
+  await waitForCatalog(page);
   assert.equal(await page.locator('#catalog-count').textContent(), '1 project');
   assert.equal(await search.inputValue(), 'dreamfactory');
-  assert.equal(await page.locator('#catalog-heading').textContent(), 'Projects containing “dreamfactory”');
+  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects containing search term: “dreamfactory”');
   assert.equal(await page.evaluate(() => document.activeElement?.id), 'catalog-results-heading');
+  assert.deepEqual(await visibleCatalogTitles(page), ['Dreamfactory']);
   await assertNoBlockingA11y(page, 'Search results page');
 
   await page.goto(`${baseUrl}/projects/search?searchterm=dreamfactory&filter.live=require`);
-  await page.waitForFunction(() => document.querySelector('#catalog-count')?.textContent !== 'Loading projects…');
+  await waitForCatalog(page);
+  assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.searchDreamfactoryLiveTitles);
+  assert.equal(await page.locator('[name="filter.live"]:checked').getAttribute('value'), 'require');
   assert.deepEqual(
-    await page.locator('#catalog-results .project-summary-title').allTextContents(),
-    catalog.oracle.searchDreamfactoryLiveTitles
+    await page.locator('#catalog-filter-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['searchterm', 'dreamfactory']]
+  );
+  assert.deepEqual(
+    await page.locator('#catalog-search-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['filter.live', 'require']]
   );
 
   await page.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
-  await page.waitForFunction(() => document.querySelector('#catalog-count')?.textContent !== 'Loading projects…');
+  await waitForCatalog(page);
+  assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.scalaLiveTitles);
+  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with technologies: scala');
+  assert.equal(await page.locator('#catalog-results .project-result:not([hidden]) .project-summary-url').count(), 4);
+  assert.ok(await page.locator('#catalog-results .project-result:not([hidden]) .project-status').count() > 0);
+  assert.equal(await page.locator('#catalog-related .related-section .chip').count(), 10);
   assert.deepEqual(
-    await page.locator('#catalog-results .project-summary-title').allTextContents(),
-    catalog.oracle.scalaLiveTitles
+    await page.locator('#catalog-related .related-section form').first().locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['technologies', 'scala'], ['tech', 'play'], ['filter.live', 'require']]
   );
-  assert.equal(await page.locator('#catalog-heading').textContent(), 'Projects with technology: scala');
 
-  await page.goto(`${baseUrl}/projects/characteristic/type/complexity/characteristic/easy`);
-  await page.waitForFunction(() => document.querySelector('#catalog-count')?.textContent !== 'Loading projects…');
+  await page.goto(`${baseUrl}/projects/tags?tags=mobile&tag=commercial`);
+  await waitForCatalog(page);
+  assert.deepEqual(await visibleCatalogTitles(page), ['TapIn']);
+  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with tags: commercial, mobile');
+  assert.equal(new URL(await page.locator('#catalog-filter-form').getAttribute('action'), baseUrl).pathname, '/projects/tags');
   assert.deepEqual(
-    await page.locator('#catalog-results .project-summary-title').allTextContents(),
-    catalog.oracle.easyComplexityTitles
+    await page.locator('#catalog-filter-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['tag', 'commercial'], ['tags', 'mobile']]
   );
-  assert.equal(await page.locator('#catalog-heading').textContent(), 'Projects with complexity: easy');
+
+  await page.goto(`${baseUrl}/projects/characteristic/type/complexity/characteristic/low`);
+  await waitForCatalog(page);
+  assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.easyComplexityTitles.map(title => title.replaceAll('&amp;', '&')));
+  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with characteristic: Complexity — Easy');
+  assert.equal(
+    new URL(await page.locator('#catalog-filter-form').getAttribute('action'), baseUrl).pathname,
+    '/projects/characteristic/type/complexity/characteristic/easy'
+  );
+  assert.equal(await page.evaluate(() => document.activeElement?.id), 'catalog-results-heading');
+  await assertNoBlockingA11y(page, 'Characteristic alias page');
+
+  await page.goto(`${baseUrl}/projects/search?searchterm=no-such-project`);
+  await waitForCatalog(page);
+  assert.deepEqual(await visibleCatalogTitles(page), []);
+  assert.equal(await page.locator('#catalog-count').textContent(), '0 projects');
+  assert.equal(await page.locator('#catalog-empty-results').isVisible(), true);
+  assert.equal(await page.locator('#catalog-related .related-section').count(), 0);
+  await assertNoBlockingA11y(page, 'Empty catalog results');
+
+  const hostileSearchTerm = '<img id="catalog-injected" src=x>';
+  await page.goto(`${baseUrl}/projects/search?searchterm=${encodeURIComponent(hostileSearchTerm)}`);
+  await waitForCatalog(page);
+  assert.equal(
+    await page.locator('#catalog-results-heading').textContent(),
+    `Projects containing search term: “${hostileSearchTerm}”`
+  );
+  assert.equal(await page.locator('#catalog-injected').count(), 0);
+  assert.equal(await page.locator('#catalog-search').inputValue(), hostileSearchTerm);
+
+  await page.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
+  await waitForCatalog(page);
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'networkidle' }),
+    page.getByRole('button', { name: 'Clear filters' }).click(),
+  ]);
+  await waitForCatalog(page);
+  assert.equal(page.url(), `${baseUrl}/projects/tech?tech=scala`);
+  assert.equal(await page.locator('.property-filter-any:checked').count(), 11);
+  assert.ok((await visibleCatalogTitles(page)).length > catalog.oracle.scalaLiveTitles.length);
+
+  const failedCatalogPage = await context.newPage();
+  await failedCatalogPage.route('**/data/projects.json', route => route.abort());
+  await failedCatalogPage.goto(`${baseUrl}/projects/tech?tech=scala`);
+  await failedCatalogPage.waitForFunction(() => document.querySelector('#catalog-results')?.dataset.catalogEnhanced === 'failed');
+  assert.deepEqual(await failedCatalogPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
+  assert.equal(await failedCatalogPage.locator('#catalog-count').textContent(), '72 projects — interactive filtering unavailable.');
+  await failedCatalogPage.close();
 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(`${baseUrl}/project/gatehouse`);

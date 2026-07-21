@@ -8,6 +8,12 @@ import { chromium } from 'playwright';
 const playBaseUrl = process.env.PLAY_BASE_URL || 'http://127.0.0.1:9000';
 const staticBaseUrl = process.env.STATIC_BASE_URL || 'http://127.0.0.1:4176';
 const threshold = Number(process.env.VISUAL_DIFF_THRESHOLD || '1');
+const scenarios = [
+  { name: 'all', path: '/projects/' },
+  { name: 'search-live', path: '/projects/search?searchterm=dreamfactory&filter.live=require' },
+  { name: 'technologies', path: '/projects/technologies?technologies=scala&tech=play' },
+  { name: 'characteristic-alias', path: '/projects/characteristic/type/status.development/characteristic/mothballed' },
+];
 const sizes = [
   { name: 'desktop', width: 1280, height: 900 },
   { name: 'mobile', width: 375, height: 900 },
@@ -31,21 +37,26 @@ function compareImages(playPath, staticPath) {
   return { differentPixels, percent: differentPixels * 100 / (playDimensions[0] * playDimensions[1]) };
 }
 
-async function capture(page, url, outputPath, desktop) {
+async function capture(page, url, outputPath, desktop, enhanced) {
   const response = await page.goto(url, { waitUntil: 'networkidle' });
   assert.equal(response?.status(), 200, `${url} did not return 200`);
-  await page.locator('.project-results .project-result').first().waitFor({ state: 'visible' });
+  if (enhanced) {
+    await page.waitForFunction(() => document.querySelector('#catalog-results')?.dataset.catalogEnhanced === 'true');
+  }
+  await page.locator('.project-results .project-result:visible').first().waitFor({ state: 'visible' });
   if (desktop) {
     await page.locator('#nautical-deck .newsbar-list:visible').waitFor({ state: 'visible' });
   } else {
     await page.locator('#nautical-deck .newsbar summary').waitFor({ state: 'visible' });
   }
-  await page.evaluate(() => {
+  await page.evaluate(async () => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     window.scrollTo(0, 0);
     for (const element of document.querySelectorAll('*')) {
       element.style.animation = 'none';
       element.style.transition = 'none';
     }
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
   await page.screenshot({ path: outputPath, type: 'png', fullPage: true });
 }
@@ -57,19 +68,21 @@ const browser = await chromium.launch({
 });
 
 try {
-  for (const size of sizes) {
-    const context = await browser.newContext({ viewport: { width: size.width, height: size.height }, deviceScaleFactor: 1 });
-    const page = await context.newPage();
-    const playPath = join(outputDirectory, `${size.name}-play.png`);
-    const staticPath = join(outputDirectory, `${size.name}-static.png`);
-    await capture(page, `${playBaseUrl}/projects/`, playPath, size.width > 1000);
-    await capture(page, `${staticBaseUrl}/projects/`, staticPath, size.width > 1000);
-    const result = compareImages(playPath, staticPath);
-    console.log(`${size.name}: ${result.differentPixels} pixels differ (${result.percent.toFixed(2)}%)`);
-    assert.ok(result.percent <= threshold, `${size.name} visual difference exceeds ${threshold}%`);
-    await context.close();
+  for (const scenario of scenarios) {
+    for (const size of sizes) {
+      const context = await browser.newContext({ viewport: { width: size.width, height: size.height }, deviceScaleFactor: 1 });
+      const page = await context.newPage();
+      const playPath = join(outputDirectory, `${scenario.name}-${size.name}-play.png`);
+      const staticPath = join(outputDirectory, `${scenario.name}-${size.name}-static.png`);
+      await capture(page, `${playBaseUrl}${scenario.path}`, playPath, size.width > 1000, false);
+      await capture(page, `${staticBaseUrl}${scenario.path}`, staticPath, size.width > 1000, true);
+      const result = compareImages(playPath, staticPath);
+      console.log(`${scenario.name} ${size.name}: ${result.differentPixels} pixels differ (${result.percent.toFixed(2)}%)`);
+      assert.ok(result.percent <= threshold, `${scenario.name} ${size.name} visual difference exceeds ${threshold}%`);
+      await context.close();
+    }
   }
-  console.log(`Project list is within ${threshold}% at desktop and mobile widths.`);
+  console.log(`All project-list scenarios are within ${threshold}% at desktop and mobile widths.`);
 } finally {
   await browser.close();
   rmSync(outputDirectory, { recursive: true, force: true });

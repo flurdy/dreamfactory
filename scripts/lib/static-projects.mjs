@@ -11,6 +11,79 @@ const browserDataPath = path.join(rootDirectory, 'static-site/static/data/projec
 const redirectsPath = path.join(rootDirectory, 'static-site/static/_redirects');
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
+export const catalogControls = {
+  properties: [
+    { name: 'popular', icon: 'far fa-star', label: 'Popular' },
+    { name: 'dead', icon: 'fas fa-cross', label: 'Mothballed or abandoned' },
+    { name: 'unlikely', icon: 'far fa-frown', label: 'Unlikely or unappealing' },
+    { name: 'recent', icon: 'fas fa-plus-circle', label: 'Recently added' },
+    { name: 'updated', icon: 'fas fa-seedling', label: 'Recently updated' },
+    { name: 'stale', icon: 'fas fa-hourglass-half', label: 'Stale' },
+    { name: 'live', icon: 'fas fa-heartbeat', label: 'Live' },
+    { name: 'idea', icon: 'far fa-lightbulb', label: 'Idea' },
+    { name: 'code', icon: 'fas fa-code', label: 'Code available' },
+    { name: 'mobile', icon: 'fas fa-mobile-alt', label: 'Mobile' },
+    { name: 'commercial', icon: 'fas fa-dollar-sign', label: 'Commercial' },
+  ],
+  characteristics: [
+    {
+      type: 'appeal', label: 'Appeal', field: 'appeal',
+      values: [
+        { name: 'low', label: 'Low', aliases: [] },
+        { name: 'maybe', label: 'Maybe', aliases: [] },
+        { name: 'none', label: 'None', aliases: [] },
+        { name: 'keen', label: 'Keen', aliases: [] },
+        { name: 'interested', label: 'Interested', aliases: ['good'] },
+      ],
+    },
+    {
+      type: 'complexity', label: 'Complexity', field: 'complexity',
+      values: [
+        { name: 'verydifficult', label: 'Very Difficult', aliases: ['veryhigh'] },
+        { name: 'difficult', label: 'Difficult', aliases: ['high', 'hard'] },
+        { name: 'medium', label: 'Medium', aliases: ['average'] },
+        { name: 'easy', label: 'Easy', aliases: ['low'] },
+      ],
+    },
+    {
+      type: 'likelihood', label: 'Likelihood', field: 'likelihood',
+      values: [
+        { name: 'high', label: 'High', aliases: [] },
+        { name: 'possibly', label: 'Possibly', aliases: ['maybe'] },
+        { name: 'unlikely', label: 'Unlikely', aliases: ['low', 'slight'] },
+        { name: 'never', label: 'Never', aliases: [] },
+      ],
+    },
+    {
+      type: 'status.development', label: 'Development status', field: 'development',
+      values: [
+        { name: 'abandoned', label: 'Abandoned', aliases: ['cancelled', 'mothballed'] },
+        { name: 'completed', label: 'Completed', aliases: [] },
+        { name: 'alpha', label: 'αlpha', aliases: [] },
+        { name: 'beta', label: 'βeta', aliases: [] },
+        { name: 'notstarted', label: 'Not started', aliases: [] },
+      ],
+    },
+    {
+      type: 'status.release', label: 'Release status', field: 'release',
+      values: [
+        { name: 'notreleased', label: 'Not released', aliases: [] },
+        { name: 'released', label: 'Released', aliases: [] },
+        { name: 'mature', label: 'Mature', aliases: [] },
+        { name: 'mothballed', label: 'Mothballed', aliases: [] },
+        { name: 'beta', label: 'βeta release', aliases: [] },
+      ],
+    },
+    {
+      type: 'status.deploy', label: 'Deploy status', field: 'deploy',
+      values: [
+        { name: 'live', label: 'Live', aliases: ['demo', 'online'] },
+        { name: 'offline', label: 'Offline', aliases: [] },
+      ],
+    },
+  ],
+};
+
 export function loadCanonicalProjects() {
   const source = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
   validateCanonicalData(source);
@@ -35,13 +108,14 @@ export function validateCanonicalData(source) {
 export function generateStaticData({ asOf = new Date().toISOString(), write = true } = {}) {
   const buildTime = parseBuildTime(asOf);
   const source = loadCanonicalProjects();
-  const projects = source.projects.map(project => renderProject(project, buildTime)).sort(compareRoute);
+  const projects = source.projects.map(project => renderProject(project, buildTime)).sort(compareProjectTitle);
   const home = buildHomeData(projects);
   const catalog = {
     schemaVersion: source.schemaVersion,
     asOf: buildTime.toISOString(),
     timeZone: 'UTC',
     projectCount: projects.length,
+    controls: catalogControls,
     home,
     browse: buildBrowseData(projects),
     oracle: buildOracle(projects),
@@ -374,6 +448,10 @@ function formatNewsDate(value) {
 
 function compareRoute(left, right) {
   return compareText(left.link ?? left.route, right.link ?? right.route);
+}
+
+function compareProjectTitle(left, right) {
+  return compareText(left.title, right.title);
 }
 
 function compareText(left, right) {

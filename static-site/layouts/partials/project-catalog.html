@@ -1,0 +1,29 @@
+{{ $projects := hugo.Data.projects.projects }}
+<section class="surface search-box" aria-labelledby="list-search-heading">
+  <h2 id="list-search-heading" class="sr-only">Search</h2>
+  <form id="catalog-search-form" action="/projects/search" method="get" class="search-form">
+    <label class="sr-only" for="catalog-search">Search</label>
+    <input id="catalog-search" name="searchterm" type="search" class="form-control" placeholder="search for projects" maxlength="200">
+    <span id="catalog-search-context" hidden></span>
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+</section>
+<section class="surface results-section" aria-labelledby="catalog-results-heading">
+  <div class="results-heading">
+    <h2 id="catalog-results-heading" tabindex="-1">All projects:</h2>
+    <span id="catalog-count" class="results-count" role="status" aria-live="polite">{{ len $projects }} projects</span>
+  </div>
+  <noscript><p class="catalog-fallback-message">Interactive filtering requires JavaScript; the complete project list is shown.</p></noscript>
+  <ul id="catalog-results" class="project-results">
+    {{ range $projects }}{{ partial "project-result.html" . }}{{ end }}
+  </ul>
+  <p id="catalog-empty-results" class="empty-results" hidden>No projects found</p>
+</section>
+{{ partial "properties-filter.html" . }}
+{{ if .showDiscovery }}
+  {{ partial "project-discovery.html" . }}
+{{ else }}
+  <div id="catalog-related"></div>
+{{ end }}
+<script src="/assets/javascript/filter.js"></script>
+<script type="module" src="/assets/javascript/catalog.js?v=parity-1"></script>

@@ -4,6 +4,7 @@ set -euo pipefail
 export DREAMFACTORY_AS_OF="${DREAMFACTORY_AS_OF:-2026-07-20T12:00:00Z}"
 
 npm run test:static-data
+npm run test:static-catalog
 scripts/build-static-site.sh
 
 snapshot_hash() {
@@ -34,7 +35,10 @@ test "$(find static-site/public/project -name index.html -not -path 'static-site
 test -f static-site/public/project/bad_usernames/index.html
 test -f static-site/public/project/shop_grid/help/index.html
 test -f static-site/public/projects/search/index.html
+test "$(find static-site/public/projects/characteristic -name index.html | wc -l)" -eq 38
 test -f static-site/public/projects/characteristic/type/complexity/characteristic/easy/index.html
+test -f static-site/public/projects/characteristic/type/complexity/characteristic/hard/index.html
+test -f static-site/public/projects/characteristic/type/status.development/characteristic/mothballed/index.html
 test -f static-site/public/data/projects.json
 
 grep -Fq '/project/Bad%20Usernames /project/bad_usernames 301' static-site/public/_redirects
