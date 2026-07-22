@@ -1,0 +1,19 @@
+name: Nightly static rebuild
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  trigger-pages-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages build
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          test -n "$DEPLOY_HOOK_URL"
+          curl --fail --silent --show-error --request POST "$DEPLOY_HOOK_URL"

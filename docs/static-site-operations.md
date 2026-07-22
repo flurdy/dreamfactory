@@ -94,9 +94,9 @@ The validated Node 22 preview deployment is `cfd10673.dreamfactory.pages.dev`. P
 
 ## Scheduled rebuilds
 
-Current derived labels change with time even when source data does not. There is currently no GitHub Actions workflow; Pages Git integration is the only deployment CI. Before production cutover, create a Pages deploy hook for branch `master` and store its URL as the GitHub Actions secret `CLOUDFLARE_PAGES_DEPLOY_HOOK`. Treat the URL as a credential and rotate it if exposed.
+Current derived labels change with time even when source data does not. Pages Git integration handles commit builds; `.github/workflows/nightly-static-rebuild.yml` triggers a time-based rebuild daily at `03:17 UTC` and supports manual dispatch.
 
-Add a scheduled workflow that POSTs the hook once daily, for example at `03:17 UTC`. The workflow must also support manual dispatch. A successful hook must create a production deployment from the current `master`; it must never commit generated data.
+Before production cutover, create a Pages deploy hook for branch `master` and store its URL as the GitHub Actions secret `CLOUDFLARE_PAGES_DEPLOY_HOOK`. Treat the URL as a credential and rotate it if exposed. The workflow POSTs this hook and fails if the secret is absent; it never commits generated data.
 
 Cutover is blocked until one scheduled rebuild has completed and passed the production route/cache smoke checks. Alert on a missed or failed daily build; do not silently retain stale derived statuses.
 
