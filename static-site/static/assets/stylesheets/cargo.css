@@ -12,6 +12,7 @@
    line-height: 1.2;
 }
 
+#nautical-cargo h1,
 #nautical-cargo h2 {
    font-size: 1.5rem;
 }
@@ -417,9 +418,9 @@
    margin: 0 0 var(--df-space-3);
 }
 
-.project-hero h2,
-.support-intro h2,
-.detail-section h3 {
+.project-hero h1,
+.support-intro h1,
+.detail-section h2 {
    margin: 0 0 var(--df-space-3);
 }
 

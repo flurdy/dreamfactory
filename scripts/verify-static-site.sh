@@ -51,7 +51,7 @@ grep -Eq 'random-projects\.[a-f0-9]+\.js' static-site/public/index.html
 ! grep -Fq 'href="/project/"' static-site/public/projects/index.html
 
 grep -Eq 'catalog\.[a-f0-9]+\.js' static-site/public/projects/search/index.html
-grep -Fq '<h3>News</h3>' static-site/public/project/gatehouse/index.html
+grep -Fq '<h2>News</h2>' static-site/public/project/gatehouse/index.html
 grep -Fq 'Help or Join' static-site/public/project/gatehouse/help/index.html
 grep -Fq 'paypal-form' static-site/public/project/gatehouse/sponsor/index.html
 grep -Fq 'Send a message' static-site/public/project/gatehouse/sponsor/index.html

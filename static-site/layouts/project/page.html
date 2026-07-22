@@ -3,13 +3,13 @@
   {{ $pathSegment := replace (urlquery $project.link) "+" "%20" }}
   {{ if eq .Params.pageKind "help" }}
     <section class="surface support-intro">
-      <h2>Help or Join</h2>
+      <h1>Help or Join</h1>
       <p>Assisting a project. If you can then any help will be appreciated. As a developer, artist, tester or just general feedback and ideas.</p>
       <p>If available, fork and have a look at the code. If live, try the site. And if you are serious please contact us for a chat on how you can help.</p>
       <p>Thank you for any assistance.</p>
     </section>
     <section class="surface detail-section">
-      <h3>Project details</h3><dl class="detail-list">
+      <h2>Project details</h2><dl class="detail-list">
         <div class="detail-row"><dt>Project</dt><dd><a href="/project/{{ $pathSegment | safeURL }}">{{ $project.title }}</a></dd></div>
         {{ with $project.license }}<div class="detail-row"><dt>License</dt><dd>{{ .name }}</dd></div>{{ end }}
         {{ with index $project.urls "project" }}<div class="detail-row"><dt>Code</dt><dd><a href="{{ . }}">{{ replaceRE "^https?://" "" . }}</a></dd></div>{{ end }}
@@ -18,12 +18,12 @@
       </dl>
     </section>
     <section class="surface detail-section">
-      <h3>Sponsor</h3><p>Alternatively you can sponsor the development.</p>
+      <h2>Sponsor</h2><p>Alternatively you can sponsor the development.</p>
       <ul class="action-list"><li><a href="/project/{{ $pathSegment | safeURL }}/sponsor" class="btn btn-info">sponsor</a></li></ul>
     </section>
   {{ else if eq .Params.pageKind "sponsor" }}
     <section class="surface support-intro">
-      <h2>Sponsor</h2>
+      <h1>Sponsor</h1>
       <p>Sponsorship and donations to the development of this project is very much appreciated.</p>
       <p>As a personal donation of a few quid, or corporate sponsorship, they are all welcome.</p>
       <p>Any contributor has the option of becoming an official backer of the project.</p>
@@ -31,7 +31,7 @@
       <p>Thank you for your contribution.</p>
     </section>
     <section class="surface detail-section">
-      <h3>Project details</h3><dl class="detail-list">
+      <h2>Project details</h2><dl class="detail-list">
         <div class="detail-row"><dt>Project</dt><dd><a href="/project/{{ $pathSegment | safeURL }}">{{ $project.title }}</a></dd></div>
         {{ with $project.license }}<div class="detail-row"><dt>License</dt><dd>{{ .name }}</dd></div>{{ end }}
         {{ with index $project.urls "project" }}<div class="detail-row"><dt>Code</dt><dd><a href="{{ . }}">{{ replaceRE "^https?://" "" . }}</a></dd></div>{{ end }}
@@ -40,7 +40,7 @@
       </dl>
     </section>
     <section id="sponsor-methods" class="surface detail-section">
-      <h3>Sponsor method</h3><dl class="detail-list sponsor-methods">
+      <h2>Sponsor method</h2><dl class="detail-list sponsor-methods">
         <div class="detail-row"><dt>Paypal</dt><dd><form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
           <input type="hidden" name="cmd" value="_donations"><input type="hidden" name="business" value="HZCUYKJFR3EQ"><input type="hidden" name="currency_code" value="GBP">
           <input class="paypal-button" type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" title="PayPal — the safer, easier way to pay online" alt="Donate with PayPal">
@@ -52,22 +52,22 @@
         <div class="detail-row"><dt>Other alternatives</dt><dd><a href="https://flurdy.com/contact">flurdy.com/contact</a></dd></div>
       </dl>
     </section>
-    <section class="surface detail-section"><h3>Send a message</h3><p>If you contribute, please also send a separate message to keep track (and thanks) of which contributor gave what. Don't be shy. Otherwise some contributions I have unforunately not noticed until much later, which I feel very embarrassed about.</p></section>
-    <section class="surface detail-section"><h3>Help or join</h3><p>If in addition or instead you want to assist the project directly then that is very appreciated as well.</p><ul class="action-list"><li><a href="/project/{{ $pathSegment | safeURL }}/help" class="btn btn-info">help/join</a></li></ul></section>
+    <section class="surface detail-section"><h2>Send a message</h2><p>If you contribute, please also send a separate message to keep track (and thanks) of which contributor gave what. Don't be shy. Otherwise some contributions I have unforunately not noticed until much later, which I feel very embarrassed about.</p></section>
+    <section class="surface detail-section"><h2>Help or join</h2><p>If in addition or instead you want to assist the project directly then that is very appreciated as well.</p><ul class="action-list"><li><a href="/project/{{ $pathSegment | safeURL }}/help" class="btn btn-info">help/join</a></li></ul></section>
   {{ else }}
     {{ $derived := $project.derived }}
     {{ $urlTitles := dict "project" "Project site" "live" "Live site" "website" "Website" "alternative" "Alternative" "tasks" "Tasks" "bugs" "Bugs" "wiki" "Wiki" "demo" "Demo application" "ci" "Continuous Integration" "build" "Build Server" "info" "Information" "binary" "Binary" "source" "Source" "other" "Other site" }}
     {{ $characteristicTitles := dict "appeal" "Appeal" "complexity" "Complexity" "likelihood" "Likelihood" "development" "Development status" "release" "Release status" "deploy" "Deploy status" }}
-    <section class="surface project-hero"><h2>{{ $project.title }}</h2>{{ with $project.description }}<p>{{ . | safeHTML }}</p>{{ end }}{{ partial "project-statuses.html" (dict "project" $project "compact" false) }}</section>
-    {{ if or (isset $project.urls "project") (isset $project.urls "live") }}<section class="surface detail-section"><h3>Links</h3><dl class="detail-list">{{ range $project.urlEntries }}<div class="detail-row"><dt>{{ index $urlTitles .key | default (.key | humanize) }}</dt><dd><a href="{{ .url }}">{{ replaceRE "^https?://" "" .url }}</a></dd></div>{{ end }}</dl></section>{{ end }}
-    {{ if or $project.dates.created $project.dates.updated }}<section class="surface detail-section"><h3>Dates</h3><dl class="detail-list">{{ with $project.dates.created }}<div class="detail-row"><dt>Created</dt><dd>{{ . }}</dd></div>{{ end }}{{ with $project.dates.updated }}<div class="detail-row"><dt>Updated</dt><dd>{{ . }}</dd></div>{{ end }}</dl></section>{{ end }}
-    {{ if or $project.versions.live $project.versions.dev }}<section class="surface detail-section"><h3>Versions</h3><dl class="detail-list">{{ with $project.versions.live }}<div class="detail-row"><dt>Live</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}{{ with $project.versions.dev }}<div class="detail-row"><dt>In development</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
-    {{ with $project.license }}<section class="surface detail-section"><h3>License</h3><dl class="detail-list"><div class="detail-row"><dt>Type</dt><dd><a href="{{ .link }}">{{ .name }}</a></dd></div></dl></section>{{ end }}
-    {{ if or $project.characteristics.appeal $project.characteristics.complexity $project.characteristics.likelihood $project.characteristics.development $project.characteristics.release $project.characteristics.deploy }}<section class="surface detail-section"><h3>Characteristics</h3><dl class="detail-list">{{ range slice "appeal" "complexity" "likelihood" "development" "release" "deploy" }}{{ $key := . }}{{ with index $project.characteristics $key }}{{ $value := . }}{{ $type := $key }}{{ if in (slice "development" "release" "deploy") $key }}{{ $type = printf "status.%s" $key }}{{ end }}{{ $label := $value | humanize }}{{ if and (eq $key "complexity") (eq $value "verydifficult") }}{{ $label = "Very Difficult" }}{{ end }}{{ if and (eq $key "development") (eq $value "notstarted") }}{{ $label = "Not started" }}{{ end }}{{ if and (eq $key "release") (eq $value "notreleased") }}{{ $label = "Not released" }}{{ end }}{{ if and (eq $key "development") (eq $value "alpha") }}{{ $label = "αlpha" }}{{ end }}{{ if and (eq $key "development") (eq $value "beta") }}{{ $label = "βeta" }}{{ end }}{{ if and (eq $key "release") (eq $value "beta") }}{{ $label = "βeta release" }}{{ end }}<div class="detail-row"><dt>{{ index $characteristicTitles $key }}</dt><dd><a href="/projects/characteristic/type/{{ $type }}/characteristic/{{ $value }}">{{ $label }}</a></dd></div>{{ end }}{{ end }}</dl></section>{{ end }}
-    {{ with $project.tags }}<section class="surface detail-section"><h3>Tags</h3><ul class="chip-list">{{ range . }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
-    {{ with $project.technologies }}<section class="surface detail-section"><h3>Technologies</h3><ul class="chip-list">{{ range . }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
-    {{ with $project.news }}<section class="surface detail-section"><h3>News</h3><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .description | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
-    {{ with $project.comments }}<section class="surface detail-section"><h3>Comments</h3><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .comment | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
-    <section class="surface detail-section"><h3>Contact</h3><ul class="action-list"><li><a href="/project/{{ $pathSegment | safeURL }}/help" class="btn btn-success">help/join</a></li><li><a href="/project/{{ $pathSegment | safeURL }}/sponsor" class="btn btn-info">sponsor</a></li><li><a href="https://flurdy.com/contact/" class="btn btn-default">inquire</a></li></ul></section>
+    <section class="surface project-hero"><h1>{{ $project.title }}</h1>{{ with $project.description }}<p>{{ . | safeHTML }}</p>{{ end }}{{ partial "project-statuses.html" (dict "project" $project "compact" false) }}</section>
+    {{ if or (isset $project.urls "project") (isset $project.urls "live") }}<section class="surface detail-section"><h2>Links</h2><dl class="detail-list">{{ range $project.urlEntries }}<div class="detail-row"><dt>{{ index $urlTitles .key | default (.key | humanize) }}</dt><dd><a href="{{ .url }}">{{ replaceRE "^https?://" "" .url }}</a></dd></div>{{ end }}</dl></section>{{ end }}
+    {{ if or $project.dates.created $project.dates.updated }}<section class="surface detail-section"><h2>Dates</h2><dl class="detail-list">{{ with $project.dates.created }}<div class="detail-row"><dt>Created</dt><dd>{{ . }}</dd></div>{{ end }}{{ with $project.dates.updated }}<div class="detail-row"><dt>Updated</dt><dd>{{ . }}</dd></div>{{ end }}</dl></section>{{ end }}
+    {{ if or $project.versions.live $project.versions.dev }}<section class="surface detail-section"><h2>Versions</h2><dl class="detail-list">{{ with $project.versions.live }}<div class="detail-row"><dt>Live</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}{{ with $project.versions.dev }}<div class="detail-row"><dt>In development</dt><dd>{{ . | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
+    {{ with $project.license }}<section class="surface detail-section"><h2>License</h2><dl class="detail-list"><div class="detail-row"><dt>Type</dt><dd><a href="{{ .link }}">{{ .name }}</a></dd></div></dl></section>{{ end }}
+    {{ if or $project.characteristics.appeal $project.characteristics.complexity $project.characteristics.likelihood $project.characteristics.development $project.characteristics.release $project.characteristics.deploy }}<section class="surface detail-section"><h2>Characteristics</h2><dl class="detail-list">{{ range slice "appeal" "complexity" "likelihood" "development" "release" "deploy" }}{{ $key := . }}{{ with index $project.characteristics $key }}{{ $value := . }}{{ $type := $key }}{{ if in (slice "development" "release" "deploy") $key }}{{ $type = printf "status.%s" $key }}{{ end }}{{ $label := $value | humanize }}{{ if and (eq $key "complexity") (eq $value "verydifficult") }}{{ $label = "Very Difficult" }}{{ end }}{{ if and (eq $key "development") (eq $value "notstarted") }}{{ $label = "Not started" }}{{ end }}{{ if and (eq $key "release") (eq $value "notreleased") }}{{ $label = "Not released" }}{{ end }}{{ if and (eq $key "development") (eq $value "alpha") }}{{ $label = "αlpha" }}{{ end }}{{ if and (eq $key "development") (eq $value "beta") }}{{ $label = "βeta" }}{{ end }}{{ if and (eq $key "release") (eq $value "beta") }}{{ $label = "βeta release" }}{{ end }}<div class="detail-row"><dt>{{ index $characteristicTitles $key }}</dt><dd><a href="/projects/characteristic/type/{{ $type }}/characteristic/{{ $value }}">{{ $label }}</a></dd></div>{{ end }}{{ end }}</dl></section>{{ end }}
+    {{ with $project.tags }}<section class="surface detail-section"><h2>Tags</h2><ul class="chip-list">{{ range . }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
+    {{ with $project.technologies }}<section class="surface detail-section"><h2>Technologies</h2><ul class="chip-list">{{ range . }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul></section>{{ end }}
+    {{ with $project.news }}<section class="surface detail-section"><h2>News</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .description | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
+    {{ with $project.comments }}<section class="surface detail-section"><h2>Comments</h2><dl class="detail-list timeline-list">{{ range . }}<div class="detail-row"><dt>{{ time.Format "2006-Jan-02" .date }}</dt><dd>{{ .comment | safeHTML }}</dd></div>{{ end }}</dl></section>{{ end }}
+    <section class="surface detail-section"><h2>Contact</h2><ul class="action-list"><li><a href="/project/{{ $pathSegment | safeURL }}/help" class="btn btn-success">help/join</a></li><li><a href="/project/{{ $pathSegment | safeURL }}/sponsor" class="btn btn-info">sponsor</a></li><li><a href="https://flurdy.com/contact/" class="btn btn-default">inquire</a></li></ul></section>
   {{ end }}
 {{ end }}

@@ -53,6 +53,13 @@ try {
   await page.goto(`${baseUrl}/`);
   await page.waitForFunction(() => document.querySelector('#random-projects')?.dataset.randomized === 'true');
   assert.equal(await page.locator('#nautical-lookout').count(), 0);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Projects by flurdy']);
+  assert.equal(await page.getByRole('link', { name: 'code @ flurdy' }).count(), 1);
+  assert.equal(await page.getByRole('contentinfo').count(), 1);
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement?.classList.contains('skip-link')), true);
+  await page.keyboard.press('Enter');
+  assert.equal(await page.evaluate(() => document.activeElement?.id), 'nautical-ballast');
   assert.equal(await page.locator('#home-search.form-control').count(), 1);
   assert.equal(await page.getByRole('button', { name: 'Mothballed or abandoned' }).count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Development status' }).count(), 1);
@@ -102,6 +109,8 @@ try {
 
   await page.goto(`${baseUrl}/projects/`);
   await waitForCatalog(page);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Projects']);
+  assert.equal(await page.locator('[aria-current="page"]').textContent(), 'projects');
   const expectedProjectTitles = catalog.projects.map((project) => project.title
     .replaceAll('&nbsp;', '\u00a0')
     .replaceAll('&amp;', '&'));
@@ -131,6 +140,8 @@ try {
 
   await page.goto(`${baseUrl}/projects/search`);
   await waitForCatalog(page);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Project search']);
+  assert.equal(await page.locator('[aria-current="page"]').textContent(), 'Project search');
   const search = page.getByRole('searchbox', { name: 'Search' });
   await search.fill('dreamfactory');
   await search.press('Enter');
@@ -228,7 +239,7 @@ try {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(`${baseUrl}/project/gatehouse`);
   await assert.doesNotReject(page.getByRole('heading', { name: 'News' }).waitFor());
-  assert.deepEqual(await page.locator('#nautical-cargo h2, #nautical-cargo h3').allTextContents(), [
+  assert.deepEqual(await page.locator('#nautical-cargo h1, #nautical-cargo h2, #nautical-cargo h3').allTextContents(), [
     'Gate House',
     'Dates',
     'Characteristics',
@@ -238,12 +249,17 @@ try {
     'Contact'
   ]);
   assert.equal(await page.getByRole('link', { name: 'Not started' }).textContent(), 'Not started');
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Gate House']);
+  assert.equal(await page.locator('[aria-current="page"]').textContent(), 'project');
   assert.equal(await page.locator('.timeline-list').first().locator('dt').first().textContent(), '2023-Mar-21');
   assert.equal(await page.locator('#nautical-deck .newsbar-list:visible').count(), 1);
   assert.equal(await page.locator('#nautical-deck .newsbar-list:visible > li').count(), 26);
   await assertNoBlockingA11y(page, 'Project detail page');
 
   await page.setViewportSize({ width: 375, height: 900 });
+  await page.reload();
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement?.classList.contains('skip-link')), true);
   const mobileNewsSummary = page.locator('#nautical-deck .newsbar--mobile summary');
   assert.equal(await mobileNewsSummary.isVisible(), true);
   assert.equal(await page.locator('#nautical-deck .newsbar-list:visible').count(), 0);
@@ -252,13 +268,15 @@ try {
   await assertNoBlockingA11y(page, 'Expanded mobile project news');
 
   await page.goto(`${baseUrl}/project/gatehouse/help`);
-  await assert.doesNotReject(page.getByRole('heading', { name: 'Help or Join' }).waitFor());
+  await assert.doesNotReject(page.getByRole('heading', { level: 1, name: 'Help or Join' }).waitFor());
+  assert.equal(await page.locator('h1').count(), 1);
   assert.equal(await page.locator('.detail-row a[href="/project/gatehouse"]').count(), 1);
   assert.equal(await page.getByRole('link', { name: 'sponsor' }).count(), 1);
   await assertNoBlockingA11y(page, 'Help page');
 
   await page.goto(`${baseUrl}/project/gatehouse/sponsor`);
-  await assert.doesNotReject(page.getByRole('heading', { name: 'Sponsor' }).first().waitFor());
+  await assert.doesNotReject(page.getByRole('heading', { level: 1, name: 'Sponsor' }).waitFor());
+  assert.equal(await page.locator('h1').count(), 1);
   assert.equal(await page.locator('#sponsor-methods .paypal-form').count(), 1);
   assert.equal(await page.locator('#sponsor-methods input[name="cmd"]').inputValue(), '_donations');
   assert.equal(await page.locator('#sponsor-methods input[name="business"]').inputValue(), 'HZCUYKJFR3EQ');

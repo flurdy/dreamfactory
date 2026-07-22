@@ -77,6 +77,24 @@ a:focus {
    color: var(--df-link-hover);
 }
 
+.skip-link {
+   position: fixed;
+   top: var(--df-space-2);
+   left: var(--df-space-2);
+   z-index: 1000;
+   padding: var(--df-space-2) var(--df-space-3);
+   color: var(--df-ink);
+   background: var(--df-surface);
+   border: 2px solid var(--df-focus);
+   border-radius: var(--df-radius);
+   transform: translateY(calc(-100% - 2rem));
+}
+
+.skip-link:focus {
+   color: var(--df-ink);
+   transform: translateY(0);
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,

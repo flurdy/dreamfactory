@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/fontawesome.css" integrity="sha384-+pqJl+lfXqeZZHwVRNTbv2+eicpo+1TR/AEzHYYDKfAits/WRK21xLOwzOxZzJEZ" crossorigin="anonymous">
   </head>
   <body>
+    <a class="skip-link" href="#nautical-ballast">Skip to main content</a>
     <div id="nautical-ocean" class="nautical-structure">
       <div id="nautical-fleet" class="nautical-structure">
         <div id="nautical-regatta" class="nautical-structure">
@@ -32,28 +33,28 @@
             <div id="nautical-hull" class="nautical-structure">
               <div id="nautical-vaka" class="nautical-structure">
                 <div id="nautical-bow" class="nautical-compartment">
-                  <header class="branded"><h1 class="sr-only">code @ flurdy</h1><a href="/"><img src="{{ $brand.RelPermalink }}" alt="code @ flurdy"></a><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button></header>
+                  <header class="branded"><a href="/"><img src="{{ $brand.RelPermalink }}" alt="code @ flurdy"></a><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button></header>
                 </div>
                 {{ if ne .RelPermalink "/" }}<nav id="nautical-lookout" class="nautical-compartment" aria-label="Breadcrumb">
-                  {{ if eq .Section "project" }}<div class="container-fluid">{{ end }}<ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/projects/">projects</a></li>{{ if eq .Section "project" }}{{ with .Params.pageKind }}{{ with $.Params.project }}<li><a href="/project/{{ replace (urlquery .link) "+" "%20" | safeURL }}">project</a></li>{{ end }}<li class="active">{{ . }}</li>{{ else }}<li class="active">project</li>{{ end }}{{ end }}</ol>{{ if eq .Section "project" }}</div>{{ end }}
+                  {{ if eq .Section "project" }}<div class="container-fluid">{{ end }}<ol class="breadcrumb"><li><a href="/">Home</a></li>{{ if eq .RelPermalink "/projects/" }}<li class="active" aria-current="page">projects</li>{{ else }}<li><a href="/projects/">projects</a></li>{{ if eq .Section "projects" }}<li class="active" aria-current="page">{{ .Title }}</li>{{ end }}{{ end }}{{ if and (ne .Section "project") (ne .Section "projects") }}<li class="active" aria-current="page">{{ .Title }}</li>{{ end }}{{ if eq .Section "project" }}{{ with .Params.pageKind }}{{ with $.Params.project }}<li><a href="/project/{{ replace (urlquery .link) "+" "%20" | safeURL }}">project</a></li>{{ end }}<li class="active" aria-current="page">{{ . }}</li>{{ else }}<li class="active" aria-current="page">project</li>{{ end }}{{ end }}</ol>{{ if eq .Section "project" }}</div>{{ end }}
                 </nav>{{ end }}
                 <div id="nautical-keel" class="nautical-structure">
                   <div id="nautical-innerhull" class="nautical-structure">
                     <div id="nautical-bulkhead" class="nautical-structure">
-                      <main id="nautical-ballast" class="nautical-structure"><div id="nautical-cargo" class="nautical-compartment">{{ block "main" . }}{{ end }}</div></main>
+                      <main id="nautical-ballast" class="nautical-structure" tabindex="-1"><div id="nautical-cargo" class="nautical-compartment">{{ block "main" . }}{{ end }}</div></main>
                       <aside id="nautical-deck" class="nautical-compartment" aria-label="Latest project updates">
                         <div class="newsbar newsbar--desktop">{{ partial "latest-news-list.html" . }}</div>
                         <details class="newsbar newsbar--mobile"><summary>Latest updates</summary>{{ partial "latest-news-list.html" . }}</details>
                       </aside>
                     </div>
-                    <footer id="nautical-bridge" class="nautical-compartment">
+                    <div id="nautical-bridge" class="nautical-compartment">
                       <nav class="bridge-links" aria-label="Site links"><ul>
                         <li class="flurdy-logo"><a href="https://flurdy.com"><img alt="flurdy.com" src="{{ $flurdy.RelPermalink }}"></a></li>
                         <li class="eray-logo"><a href="https://eray.uk"><img alt="eray" src="{{ $eray.RelPermalink }}"></a></li>
                         <li class="patreon-button"><a href="https://patreon.com/flurdy"><img alt="Become a patron" src="{{ $patreon.RelPermalink }}"></a></li>
                         <li><a href="https://flurdy.com/contact/">Contact</a></li>
                       </ul></nav>
-                    </footer>
+                    </div>
                   </div>
                 </div>
               </div>

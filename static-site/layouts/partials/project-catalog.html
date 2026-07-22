@@ -4,6 +4,7 @@
 {{ $catalogCore := resources.Get "assets/javascript/catalog-core.js" | fingerprint }}
 {{ $catalogTemplate := resources.Get "assets/javascript/catalog.js" }}
 {{ $catalogScript := $catalogTemplate | resources.ExecuteAsTemplate "assets/javascript/catalog.js" (dict "CatalogCore" $catalogCore) | fingerprint }}
+<h1 class="sr-only">{{ .title | default "Projects" }}</h1>
 <section class="surface search-box" aria-labelledby="list-search-heading">
   <h2 id="list-search-heading" class="sr-only">Search</h2>
   <form id="catalog-search-form" action="/projects/search" method="get" class="search-form">
