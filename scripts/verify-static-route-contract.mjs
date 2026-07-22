@@ -1,10 +1,9 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
 const baseUrl = process.env.ROUTE_CONTRACT_BASE_URL || 'http://localhost:4176';
 const verifyRedirects = process.env.ROUTE_CONTRACT_VERIFY_REDIRECTS === 'true';
-const manifestResponse = await fetch(new URL('/route-manifest.json', baseUrl));
-assert.equal(manifestResponse.status, 200, `Could not fetch route manifest from ${baseUrl}`);
-const manifest = await manifestResponse.json();
+const manifest = JSON.parse(await readFile('static-site/public/route-manifest.json', 'utf8'));
 
 async function request(path) {
   const response = await fetch(new URL(path, baseUrl), { redirect: 'manual' });

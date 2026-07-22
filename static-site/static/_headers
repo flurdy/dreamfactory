@@ -1,16 +1,4 @@
-/
-  Cache-Control: public, max-age=0, must-revalidate
-
-/project
-  Cache-Control: public, max-age=0, must-revalidate
-
-/project/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/projects
-  Cache-Control: public, max-age=0, must-revalidate
-
-/projects/*
+/*
   Cache-Control: public, max-age=0, must-revalidate
 
 /assets/*
