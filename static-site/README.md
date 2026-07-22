@@ -69,7 +69,7 @@ npm run capture:play-catalog-oracle
 
 The Git-connected `dreamfactory` Pages project uses the repository root with:
 
-- **Production branch:** `master`, with production deployments disabled during migration
+- **Production branch:** `master`; canonical deployment `06e972db` is validated, but no custom domain is attached
 - **Preview branch:** `pages-preview`, available at `https://pages-preview.dreamfactory.pages.dev`
 - **Build command:** `npm ci && scripts/build-static-site.sh`
 - **Build output directory:** `static-site/public`
@@ -77,7 +77,7 @@ The Git-connected `dreamfactory` Pages project uses the repository root with:
 - **Functions:** none
 - **Custom domains:** none until cutover approval
 
-Use only the branch alias during migration. The project has no canonical production deployment; `dreamfactory.pages.dev` currently resolves to unrelated pre-existing content and must not be used as migration evidence or a cutover target.
+Use immutable deployment URLs for acceptance evidence. `dreamfactory.pages.dev` now serves the validated canonical Hugo deployment; `code.flurdy.com` remains on Play until the separately approved DNS cutover.
 
 Preview rollback is rehearsed by pushing a new commit whose tree matches the selected prior preview release, then pushing a forward-restore commit. Pages' rollback API only accepts successful production deployments, so it is intentionally not used while production deployments are disabled.
 

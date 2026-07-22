@@ -6,7 +6,7 @@
 
 ## Scope decision
 
-This began as the approved two-developer-day, non-production proof from `docs/static-site-generator-evaluation.md` and now includes a real non-production Cloudflare Pages preview. The Pages project has production deployments disabled, no custom domain, no Functions, and no production traffic.
+This began as the approved two-developer-day, non-production proof from `docs/static-site-generator-evaluation.md` and now includes real Cloudflare Pages preview and canonical production artifacts. The Pages project has no custom domain, no Functions, and no production traffic; `code.flurdy.com` remains on Play.
 
 ## Implemented local proof
 
@@ -55,7 +55,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
 | Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.17% to 0.53%, below the 1% gate. |
 | Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, Gift Registry, Gate House help, and Gate House sponsor at 1280 px and 375 px. Differences range from 0.08% to 0.40%, below the 1% gate. |
 | Existing application tests | `sbt test` passes: 6 tests, 0 failures. |
-| Cloudflare Pages preview | Git-connected `dreamfactory` builds with Node 22.22.2 and Hugo 0.164.0 on Pages V3. `https://pages-preview.dreamfactory.pages.dev` passes 293 canonical routes, 216 redirects, two expected 404s, Pages `308` trailing-slash normalization, and cache checks for revalidated HTML plus 10 referenced immutable fingerprinted resources. Production deployments remain disabled and no custom domain is attached. |
+| Cloudflare Pages deployment | Git-connected `dreamfactory` builds with Node 22.22.2 and Hugo 0.164.0 on Pages V3. Preview alias `https://pages-preview.dreamfactory.pages.dev` and immutable production deployment `https://06e972db.dreamfactory.pages.dev` pass 293 canonical routes, 216 redirects, two expected 404s, Pages `308` trailing-slash normalization, and cache checks for revalidated HTML plus 10 referenced immutable fingerprinted resources. Canonical `dreamfactory.pages.dev` serves the Hugo release; no custom domain is attached. |
 | Preview rollback rehearsal | The branch alias moved from corrected deployment `bafadac7` to prior-policy deployment `56cca894` via an audited tree-restore commit, while both immutable deployment URLs retained distinct catalog fingerprints. A forward-restore created `06dae2a2`; final Node 22 deployment `cfd10673` passes both contracts. The production-only Pages rollback API was not invoked. |
 | Manual browser checks | Side-by-side local inspection confirmed the representative Hugo project page closely matches Play. Docker Compose/nginx and the Pages preview verify extensionless/trailing-slash paths and 404 behavior. |
 
@@ -72,7 +72,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
 
 The canonical-data, page-family, catalog-interaction, route, cache, and Pages-preview follow-ups resolve the local and non-production deployment gates. Remaining migration gaps are:
 
-1. Custom-domain attachment, DNS/origin restoration, production deployment, and production rollback remain intentionally untested until cutover approval. The project has no canonical deployment, and `dreamfactory.pages.dev` currently serves unrelated pre-existing content; only the verified `pages-preview.dreamfactory.pages.dev` branch alias is valid migration evidence.
+1. Custom-domain attachment, DNS restoration timing, traffic cutover, and production rollback remain intentionally untested until cutover approval. Before canonical deployment, `dreamfactory.pages.dev` served unrelated pre-existing content; production deployment `06e972db` replaced it with the expected Hugo release. Immutable deployment URLs remain the acceptance evidence.
 2. The Hugo-only compatibility boundary supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing; malformed tag/technology URLs render an empty 200 shell instead of Play's 400. Normal site forms never produce either shape. Exact parity would require an edge function, which remains intentionally out of scope.
 
 ## Revised full-migration estimate

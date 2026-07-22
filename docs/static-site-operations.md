@@ -6,7 +6,7 @@
 - **Pages project:** `dreamfactory`
 - **Validated preview:** `https://pages-preview.dreamfactory.pages.dev`
 
-Production deployments, the custom domain, and legacy cleanup remain disabled until `dreamfactory-cvc` is explicitly approved.
+A production Pages deployment now exists, but the `code.flurdy.com` custom domain, DNS cutover, and legacy cleanup remain pending explicit approval under `dreamfactory-cvc`.
 
 ## Contributor workflow
 
@@ -56,7 +56,7 @@ The Git-connected project uses:
 | Setting | Value |
 |---|---|
 | Production branch | `master` |
-| Production deployments | Disabled during migration |
+| Production deployments | Enabled; canonical deployment `06e972db` from `master` |
 | Preview deployments | All non-production branches |
 | Build image | Pages V3 |
 | Build command | `npm ci && scripts/build-static-site.sh` |
@@ -66,7 +66,7 @@ The Git-connected project uses:
 | Pages Functions | None |
 | Custom domains | None before cutover |
 
-`dreamfactory.pages.dev` currently serves unrelated pre-existing content and is not a valid test target. Use the branch alias or an immutable deployment URL.
+Before the first canonical deployment, `dreamfactory.pages.dev` served unrelated pre-existing content despite the project having no canonical deployment. Creating production deployment `06e972db` established the expected Hugo site there. Prefer immutable deployment URLs for evidence and treat any future namespace mismatch as a release blocker.
 
 Validate a deployed preview with:
 
@@ -90,7 +90,7 @@ For every candidate deployment, record:
 
 Cloudflare build logs are the source of truth for clone, tool installation, build, upload, and deploy failures. A successful local build does not override a failed Pages stage.
 
-The validated Node 22 deployment is `cfd10673.dreamfactory.pages.dev`. Preview evidence and the rollback rehearsal are recorded in `docs/static-site-proof-report.md`.
+The validated Node 22 preview deployment is `cfd10673.dreamfactory.pages.dev`. Production deployment `06e972db.dreamfactory.pages.dev` and canonical `dreamfactory.pages.dev` serve commit `8184ca4`; the immutable URL passes the route and cache contracts. Preview evidence and the rollback rehearsal are recorded in `docs/static-site-proof-report.md`.
 
 ## Scheduled rebuilds
 
@@ -131,14 +131,24 @@ Every deployment, DNS mutation, and remote Git action requires fresh owner appro
 | TTL | Cloudflare Auto (`1` in API) |
 | Legacy runtime owner | Ivar Abrahamsen |
 
-The local `paperboy` Kubernetes context is stale and its DigitalOcean cluster no longer resolves. Before cutover, the owner must refresh access and record the live Dreamfactory Deployment, Service, Ingress, image, replica count, and direct health check. Do not infer that the Play runtime is removable from the stale context.
+The saved `paperboy` context is stale, but the live origin was inventoried read-only on 2026-07-22 using DigitalOcean cluster `flurdynet-syndicate-01` (`7540eef4-6779-4899-b38e-2839cc1fa968`, AMS3):
+
+- Namespace `apps`, Deployment `codeflurdycom-app-deployment`: 2/2 available, image `gcr.io/flurdynet/github.com/flurdy/dreamfactory:1.5.154`, port 9000.
+- Deployment `codeflurdycom-nginx-deployment`: 2/2 available, image `nginx:1.16.1-alpine`, port 80.
+- Services `codeflurdycom-app-service` and `codeflurdycom-nginx-service`.
+- Ingress `codeflurdycom-ingress`: host `code.flurdy.com`, IPv4 `143.198.251.239`, IPv6 `2a03:b0c0:2:f0::871e:4001`; `/assets` targets the app service and `/` targets nginx.
+- Flux source `ssh://git@github.com/flurdy/flurdynet-syndicate`, Kustomization path `./apps/overlays/syndicate`, applied revision `master@sha1:c04359154e9b4d4dd4259ffed1985e8f86b11602`.
+- Manifest source is `apps/base/code.flurdy.com/` in that repository. The local checkout is dirty/behind and must not be used for mutation without separate reconciliation.
+- Direct rollback check succeeds over HTTP with `Host: code.flurdy.com` at `143.198.251.239`, returning the Play title and fingerprinted assets. TLS terminates at Cloudflare; direct origin HTTPS does not present a matching certificate.
+
+Neither Deployment defines readiness or liveness probes. Keep the replica/pod and direct HTTP checks in the observation monitor; do not infer health from Deployment availability alone.
 
 ### Cutover procedure
 
 1. Confirm `master` is clean, pushed, and locally verified.
 2. Refresh and record the live Play/Kubernetes inventory and direct health check.
 3. Capture the current Cloudflare DNS record and Play response headers/content again.
-4. Enable Pages production deployments and build the approved `master` commit without attaching a custom domain.
+4. Confirm the existing canonical production deployment still matches the approved `master` commit; rebuild it if necessary without attaching a custom domain.
 5. Validate its immutable production URL with route, cache, browser, and accessibility checks.
 6. Confirm the scheduled rebuild hook and monitoring are active.
 7. Obtain explicit owner approval for the custom-domain/DNS change.
