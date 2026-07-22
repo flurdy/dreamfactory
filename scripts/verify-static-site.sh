@@ -46,11 +46,11 @@ test -f static-site/public/data/projects.json
 
 grep -Fq '/project/Bad%20Usernames /project/bad_usernames 301' static-site/public/_redirects
 
-grep -Fq 'random-projects.js' static-site/public/index.html
+grep -Eq 'random-projects\.[a-f0-9]+\.js' static-site/public/index.html
 ! grep -Fq 'href="/project/"' static-site/public/index.html
 ! grep -Fq 'href="/project/"' static-site/public/projects/index.html
 
-grep -Fq 'catalog.js' static-site/public/projects/search/index.html
+grep -Eq 'catalog\.[a-f0-9]+\.js' static-site/public/projects/search/index.html
 grep -Fq '<h3>News</h3>' static-site/public/project/gatehouse/index.html
 grep -Fq 'Help or Join' static-site/public/project/gatehouse/help/index.html
 grep -Fq 'paypal-form' static-site/public/project/gatehouse/sponsor/index.html

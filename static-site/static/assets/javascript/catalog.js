@@ -6,7 +6,7 @@ import {
   propertyFormContext,
   relatedSections,
   selectProjects,
-} from './catalog-core.js?v=parity-1';
+} from '{{ .CatalogCore.RelPermalink }}';
 
 function hiddenInput(name, value) {
   const input = document.createElement('input');
@@ -138,7 +138,7 @@ async function enhanceCatalog() {
 
   const query = new URLSearchParams(window.location.search);
   try {
-    const response = await fetch('/data/projects.json');
+    const response = await fetch(results.dataset.catalog);
     if (!response.ok) throw new Error(`Catalog request returned ${response.status}`);
     const catalog = await response.json();
     const context = parseCatalogContext(window.location.pathname, query, catalog.controls);

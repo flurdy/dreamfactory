@@ -51,13 +51,12 @@ def main() -> None:
     if not ROOT.is_dir():
         raise SystemExit(f"Missing generated site at {ROOT}")
 
-    routes = sorted(
-        {
-            route_for(file)
-            for file in ROOT.rglob("*")
-            if file.is_file() and file.name not in {"404.html", "_redirects", "route-manifest.json"}
-        }
-    )
+    route_files = {
+        route_for(file): file
+        for file in ROOT.rglob("*")
+        if file.is_file() and file.name not in {"404.html", "_headers", "_redirects", "route-manifest.json"}
+    }
+    routes = sorted(route_files)
     canonical = set(routes)
     redirects = redirect_entries()
     sources = [entry["from"] for entry in redirects]
@@ -75,7 +74,14 @@ def main() -> None:
 
     manifest = {
         "schemaVersion": 1,
-        "canonicalRoutes": [{"path": route, "category": category(route)} for route in routes],
+        "canonicalRoutes": [
+            {
+                "path": route,
+                "category": category(route),
+                "trailingSlash": route != "/" and route_files[route].name == "index.html",
+            }
+            for route in routes
+        ],
         "redirects": redirects,
         "expectedNotFound": ["/project/DOES-NOT-EXIST", "/project/Gatehouse"],
     }

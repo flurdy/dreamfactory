@@ -1,6 +1,7 @@
 baseURL = "https://code.flurdy.com/"
 locale = "en"
 title = "Code @ flurdy"
+assetDir = "static"
 disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 [params]

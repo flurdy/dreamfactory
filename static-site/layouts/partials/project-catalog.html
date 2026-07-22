@@ -1,4 +1,9 @@
 {{ $projects := hugo.Data.projects.projects }}
+{{ $catalog := resources.Get "data/projects.json" | fingerprint }}
+{{ $filterScript := resources.Get "assets/javascript/filter.js" | fingerprint }}
+{{ $catalogCore := resources.Get "assets/javascript/catalog-core.js" | fingerprint }}
+{{ $catalogTemplate := resources.Get "assets/javascript/catalog.js" }}
+{{ $catalogScript := $catalogTemplate | resources.ExecuteAsTemplate "assets/javascript/catalog.js" (dict "CatalogCore" $catalogCore) | fingerprint }}
 <section class="surface search-box" aria-labelledby="list-search-heading">
   <h2 id="list-search-heading" class="sr-only">Search</h2>
   <form id="catalog-search-form" action="/projects/search" method="get" class="search-form">
@@ -14,7 +19,7 @@
     <span id="catalog-count" class="results-count" role="status" aria-live="polite">{{ len $projects }} projects</span>
   </div>
   <noscript><p class="catalog-fallback-message">Interactive filtering requires JavaScript; the complete project list is shown.</p></noscript>
-  <ul id="catalog-results" class="project-results">
+  <ul id="catalog-results" class="project-results" data-catalog="{{ $catalog.RelPermalink }}">
     {{ range $projects }}{{ partial "project-result.html" . }}{{ end }}
   </ul>
   <p id="catalog-empty-results" class="empty-results" hidden>No projects found</p>
@@ -25,5 +30,5 @@
 {{ else }}
   <div id="catalog-related"></div>
 {{ end }}
-<script src="/assets/javascript/filter.js"></script>
-<script type="module" src="/assets/javascript/catalog.js?v=parity-1"></script>
+<script src="{{ $filterScript.RelPermalink }}" integrity="{{ $filterScript.Data.Integrity }}"></script>
+<script type="module" src="{{ $catalogScript.RelPermalink }}" integrity="{{ $catalogScript.Data.Integrity }}"></script>
