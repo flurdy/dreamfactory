@@ -67,7 +67,7 @@ try {
     const context = await browser.newContext({ viewport: { width: size.width, height: size.height }, deviceScaleFactor: 1 });
     const playPage = await context.newPage();
     const staticPage = await context.newPage();
-    await staticPage.route('**/random-projects.js*', route => route.abort());
+    await staticPage.route('**/random-projects*.js*', route => route.abort());
     const playPath = join(outputDirectory, `homepage-${size.name}-play.png`);
     const staticPath = join(outputDirectory, `homepage-${size.name}-static.png`);
     const playTitles = await capture(playPage, `${playBaseUrl}/`, playPath, size.width > 1000);

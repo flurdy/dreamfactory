@@ -56,5 +56,6 @@
     </div>
   </details>
 
-  <script src="/assets/javascript/random-projects.js?v=proof-1"></script>
+  {{ $randomScript := resources.Get "assets/javascript/random-projects.js" | fingerprint }}
+  <script src="{{ $randomScript.RelPermalink }}" integrity="{{ $randomScript.Data.Integrity }}"></script>
 {{ end }}

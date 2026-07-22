@@ -1,10 +1,11 @@
 {{ $title := .title }}
 {{ $projects := .projects }}
 {{ $random := .random }}
+{{ $catalog := resources.Get "data/projects.json" | fingerprint }}
 {{ if $projects }}
 <section class="project-list-box surface">
   <h2>{{ $title }}</h2>
-  <ul{{ if $random }} id="random-projects" data-catalog="/data/projects.json" data-schema-version="1"{{ end }} class="project-collection">
+  <ul{{ if $random }} id="random-projects" data-catalog="{{ $catalog.RelPermalink }}" data-schema-version="1"{{ end }} class="project-collection">
     {{ range $projects }}
       {{ $pathSegment := replace (urlquery .link) "+" "%20" }}
       <li class="project-summary{{ if or .derived.dead .derived.stale .derived.unlikely }} project-summary--muted{{ end }}">

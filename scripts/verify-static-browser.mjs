@@ -63,7 +63,8 @@ try {
   const firstRandom = await page.locator('#random-projects .project-summary-title').allTextContents();
   assert.equal(firstRandom.length, 10);
   const randomState = await page.evaluate(async () => {
-    const catalog = await (await fetch('/data/projects.json')).json();
+    const catalogUrl = document.querySelector('#random-projects').dataset.catalog;
+    const catalog = await (await fetch(catalogUrl)).json();
     const selected = Array.from(document.querySelectorAll('#random-projects .project-summary-title')).map((node) => node.textContent);
     const selectedProjects = catalog.projects.filter((project) => selected.includes(project.title));
     return {
@@ -206,7 +207,7 @@ try {
   assert.ok((await visibleCatalogTitles(page)).length > catalog.oracle.scalaLiveTitles.length);
 
   const failedCatalogPage = await context.newPage();
-  await failedCatalogPage.route('**/data/projects.json', route => route.abort());
+  await failedCatalogPage.route('**/data/projects*.json', route => route.abort());
   await failedCatalogPage.goto(`${baseUrl}/projects/tech?tech=scala`);
   await failedCatalogPage.waitForFunction(() => document.querySelector('#catalog-results')?.dataset.catalogEnhanced === 'failed');
   assert.deepEqual(await failedCatalogPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);

@@ -17,7 +17,20 @@ async function request(path) {
 const failures = [];
 for (const route of manifest.canonicalRoutes) {
   const response = await request(route.path);
-  if (response.status !== 200) failures.push(`${route.path}: expected 200, got ${response.status}`);
+  if (route.trailingSlash && response.status === 308) {
+    const destination = response.location && new URL(response.location, baseUrl).pathname;
+    const expectedDestination = `${route.path}/`;
+    if (!destination || decodeURIComponent(destination) !== decodeURIComponent(expectedDestination)) {
+      failures.push(`${route.path}: expected 308 -> ${expectedDestination}, got 308 -> ${response.location}`);
+      continue;
+    }
+    const canonicalResponse = await request(expectedDestination);
+    if (canonicalResponse.status !== 200) {
+      failures.push(`${expectedDestination}: expected 200 after trailing-slash normalization, got ${canonicalResponse.status}`);
+    }
+  } else if (response.status !== 200) {
+    failures.push(`${route.path}: expected 200, got ${response.status}`);
+  }
 }
 for (const path of manifest.expectedNotFound) {
   const response = await request(path);
