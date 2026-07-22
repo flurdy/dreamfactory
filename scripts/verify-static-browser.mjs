@@ -71,6 +71,8 @@ try {
   assert.equal(await page.getByRole('button', { name: 'Mothballed or abandoned' }).count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Development status' }).count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Not started' }).count(), 1);
+  assert.equal(await page.locator('.home-discovery').count(), 3);
+  assert.equal(await page.locator('.home-discovery').evaluateAll(sections => sections.every(section => section.open)), true);
   assert.equal(await page.locator('.dashboard-grid .project-summary-url').count(), 34);
   assert.ok(await page.locator('.dashboard-grid .project-statuses').count() > 0);
   await assertNoBlockingA11y(page, 'Home page');
@@ -113,6 +115,25 @@ try {
   assert.ok(entityTitles.includes('Baby\u00a0Crowd\u00a0Monitor'));
   assert.ok(entityTitles.every((title) => !title.includes('&nbsp;')));
   await entityTitlePage.close();
+
+  const mobileHomeContext = await browser.newContext({ viewport: { width: 390, height: 900 } });
+  const mobileHomePage = await mobileHomeContext.newPage();
+  await mobileHomePage.goto(`${baseUrl}/`);
+  await mobileHomePage.waitForFunction(() => document.querySelector('#random-projects')?.dataset.randomized === 'true');
+  assert.deepEqual(await mobileHomePage.locator('.project-list-box h2').allTextContents(), ['Popular', 'Updated recently', 'Added recently', 'Random']);
+  assert.equal(await mobileHomePage.locator('.home-discovery').evaluateAll(sections => sections.every(section => !section.open)), true);
+  assert.equal(await mobileHomePage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  assert.ok(await mobileHomePage.evaluate(() => document.documentElement.scrollHeight) < 6000);
+  const tagsSummary = mobileHomePage.locator('.home-discovery summary').first();
+  await tagsSummary.focus();
+  await tagsSummary.press('Enter');
+  assert.equal(await mobileHomePage.locator('.home-discovery').first().getAttribute('open'), '');
+  await assertNoBlockingA11y(mobileHomePage, 'Expanded mobile home discovery');
+  await mobileHomePage.setViewportSize({ width: 1280, height: 900 });
+  assert.equal(await mobileHomePage.locator('.home-discovery').evaluateAll(sections => sections.every(section => section.open)), true);
+  await mobileHomePage.setViewportSize({ width: 390, height: 900 });
+  assert.equal(await mobileHomePage.locator('.home-discovery').evaluateAll(sections => sections.every(section => !section.open)), true);
+  await mobileHomeContext.close();
 
   await page.goto(`${baseUrl}/projects/`);
   await waitForCatalog(page);

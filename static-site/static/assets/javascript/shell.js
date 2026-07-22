@@ -3,7 +3,9 @@
    var root = document.documentElement;
    var toggle = document.querySelector('[data-theme-toggle]');
    var mobileNews = window.matchMedia('(max-width: 1000px)');
-   var newsbar = document.querySelector('#nautical-deck .newsbar');
+   var desktopDiscovery = window.matchMedia('(min-width: 701px)');
+   var newsbar = document.querySelector('#nautical-deck .newsbar--mobile');
+   var homeDiscovery = document.querySelectorAll('.home-discovery');
 
    function themeLabel(theme) {
       return theme === 'dark' ? 'Light mode' : 'Dark mode';
@@ -24,6 +26,18 @@
       }
    }
 
+   function setHomeDiscoveryState(mediaQuery) {
+      homeDiscovery.forEach(function (section) {
+         section.open = mediaQuery.matches;
+      });
+   }
+
+   function setNewsbarState(mediaQuery) {
+      if (newsbar) {
+         newsbar.open = !mediaQuery.matches;
+      }
+   }
+
    if (toggle) {
       setTheme(root.dataset.theme || 'light', false);
       toggle.addEventListener('click', function () {
@@ -31,19 +45,14 @@
       });
    }
 
-   if (!newsbar) {
-      return;
-   }
-
-   function setNewsbarState(mediaQuery) {
-      newsbar.open = !mediaQuery.matches;
-   }
-
+   setHomeDiscoveryState(desktopDiscovery);
    setNewsbarState(mobileNews);
 
-   if (mobileNews.addEventListener) {
+   if (desktopDiscovery.addEventListener) {
+      desktopDiscovery.addEventListener('change', setHomeDiscoveryState);
       mobileNews.addEventListener('change', setNewsbarState);
    } else {
+      desktopDiscovery.addListener(setHomeDiscoveryState);
       mobileNews.addListener(setNewsbarState);
    }
 })();

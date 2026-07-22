@@ -31,17 +31,17 @@
     </ul>
   </details>
 
-  <details class="surface discovery-section" open>
+  <details class="surface discovery-section home-discovery">
     <summary>Tags</summary>
     <ul class="chip-list">{{ range $home.tags }}<li><form action="/projects/tag" method="get"><input type="hidden" name="tag" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul>
   </details>
 
-  <details class="surface discovery-section" open>
+  <details class="surface discovery-section home-discovery">
     <summary>Technologies</summary>
     <ul class="chip-list">{{ range $home.technologies }}<li><form action="/projects/tech" method="get"><input type="hidden" name="tech" value="{{ . }}"><button class="chip" type="submit">{{ . }}</button></form></li>{{ end }}</ul>
   </details>
 
-  <details class="surface discovery-section" open>
+  <details class="surface discovery-section home-discovery">
     <summary>Characteristics</summary>
     <div class="characteristic-groups">
       {{ range slice
