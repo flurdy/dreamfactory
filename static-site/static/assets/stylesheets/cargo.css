@@ -430,6 +430,53 @@
    max-width: 70rem;
 }
 
+.project-hero-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   margin: var(--df-space-3) 0;
+   padding: 0;
+   list-style: none;
+}
+
+.project-hero-actions .btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   min-height: 2.75rem;
+}
+
+.project-hero-state {
+   display: grid;
+   grid-template-columns: repeat(3, minmax(0, 1fr));
+   gap: var(--df-space-2);
+   margin: var(--df-space-3) 0;
+}
+
+.project-hero-state > div {
+   min-width: 0;
+   padding: var(--df-space-2);
+   background: var(--df-control);
+   border: 1px solid var(--df-border);
+   border-radius: 0.35rem;
+}
+
+.project-hero-state dt {
+   color: var(--df-muted);
+   font-size: 0.75rem;
+   font-weight: 600;
+   text-transform: uppercase;
+}
+
+.project-hero-state dd {
+   margin: 0.2rem 0 0;
+   overflow-wrap: anywhere;
+}
+
+.project-hero-state .project-hero-latest {
+   grid-column: 1 / -1;
+}
+
 .project-hero .project-statuses {
    margin-top: var(--df-space-3);
 }
@@ -717,6 +764,15 @@
    .results-count {
       display: block;
       margin-top: var(--df-space-1);
+   }
+
+   .project-hero-actions li,
+   .project-hero-actions .btn {
+      width: 100%;
+   }
+
+   .project-hero-state {
+      grid-template-columns: minmax(0, 1fr);
    }
 
    .detail-row {

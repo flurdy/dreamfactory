@@ -25,6 +25,13 @@ async function visibleCatalogTitles(page) {
   return page.locator('#catalog-results .project-result:not([hidden]) .project-summary-title').allTextContents();
 }
 
+async function projectHeroState(page) {
+  return page.locator('.project-hero-state > div').evaluateAll(items => Object.fromEntries(items.map(item => [
+    item.querySelector('dt').textContent,
+    item.querySelector('dd').textContent.trim()
+  ])));
+}
+
 run('scripts/verify-static-site.sh', []);
 run('docker', [...composeArgs, 'up', '--detach', '--force-recreate']);
 
@@ -237,6 +244,41 @@ try {
   await failedCatalogPage.close();
 
   await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/project/bad_usernames`);
+  assert.deepEqual(await page.locator('.project-hero-actions a').allTextContents(), ['Visit live site', 'View source']);
+  assert.deepEqual(await projectHeroState(page), {
+    Development: 'Alpha',
+    Release: 'Released',
+    Deployment: 'Live',
+    'Latest update': '2026-Jul-09 — badusernames.flurdy.io is live'
+  });
+  assert.equal(await page.getByRole('heading', { name: 'Links' }).count(), 1);
+  assert.equal(await page.getByRole('heading', { name: 'Links' }).locator('xpath=following-sibling::dl').locator('a').count(), 2);
+  await assertNoBlockingA11y(page, 'Live project hero');
+
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  assert.equal(await page.locator('.project-hero-actions .btn').evaluateAll(buttons => buttons.every(button => button.getBoundingClientRect().width > 250)), true);
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/project/Cargo`);
+  assert.deepEqual(await page.locator('.project-hero-actions a').allTextContents(), ['View source']);
+  assert.deepEqual(await projectHeroState(page), {
+    Development: 'Alpha',
+    Release: 'Not released',
+    Deployment: 'Offline',
+    'Latest update': '2017-Oct-13 — Create github repo'
+  });
+
+  await page.goto(`${baseUrl}/project/expire`);
+  assert.deepEqual(await page.locator('.project-hero-actions a').allTextContents(), ['View project site']);
+  assert.equal(await page.locator('.project-hero-actions a').getAttribute('href'), 'https://apps.flurdy.io/expire');
+
+  await page.goto(`${baseUrl}/project/depositor`);
+  assert.equal(await page.locator('.project-hero-actions').count(), 0);
+  assert.equal(await page.locator('.project-hero-state').count(), 0);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['depositor']);
+
   await page.goto(`${baseUrl}/project/gatehouse`);
   await assert.doesNotReject(page.getByRole('heading', { name: 'News' }).waitFor());
   assert.deepEqual(await page.locator('#nautical-cargo h1, #nautical-cargo h2, #nautical-cargo h3').allTextContents(), [
@@ -250,6 +292,13 @@ try {
   ]);
   assert.equal(await page.getByRole('link', { name: 'Not started' }).textContent(), 'Not started');
   assert.deepEqual(await page.locator('h1').allTextContents(), ['Gate House']);
+  assert.equal(await page.locator('.project-hero-actions').count(), 0);
+  assert.deepEqual(await projectHeroState(page), {
+    Development: 'Not started',
+    Release: 'Not released',
+    Deployment: 'Offline',
+    'Latest update': '2023-Mar-21 — Renamed Sluice to Gate House'
+  });
   assert.equal(await page.locator('[aria-current="page"]').textContent(), 'project');
   assert.equal(await page.locator('.timeline-list').first().locator('dt').first().textContent(), '2023-Mar-21');
   assert.equal(await page.locator('#nautical-deck .newsbar-list:visible').count(), 1);

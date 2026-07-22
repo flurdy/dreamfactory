@@ -1,0 +1,27 @@
+{{- $project := . -}}
+{{- $labels := dict "notstarted" "Not started" "notreleased" "Not released" "alpha" "Alpha" "beta" "Beta" "completed" "Completed" "abandoned" "Abandoned" "mothballed" "Mothballed" "released" "Released" "mature" "Mature" "live" "Live" "online" "Online" "offline" "Offline" -}}
+{{- $liveUrl := index $project.urls "live" -}}
+{{- $projectUrl := index $project.urls "project" -}}
+<section class="surface project-hero">
+  <h1>{{ $project.title | safeHTML }}</h1>
+  {{ with $project.description }}<p>{{ . | safeHTML }}</p>{{ end }}
+  {{ if or $liveUrl $projectUrl }}
+    <ul class="project-hero-actions" aria-label="Primary project links">
+      {{ with $liveUrl }}<li><a class="btn btn-primary" href="{{ . }}">Visit live site</a></li>{{ end }}
+      {{ with $projectUrl }}
+        {{ $action := "View project site" }}
+        {{ if or (in . "github.com") (in . "gitlab.com") (in . "bitbucket.org") }}{{ $action = "View source" }}{{ end }}
+        <li><a class="btn btn-default" href="{{ . }}">{{ $action }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
+  {{ if or $project.characteristics.development $project.characteristics.release $project.characteristics.deploy $project.news }}
+    <dl class="project-hero-state" aria-label="Current project state">
+      {{ with $project.characteristics.development }}{{ $label := . | humanize }}{{ with index $labels . }}{{ $label = . }}{{ end }}<div><dt>Development</dt><dd>{{ $label }}</dd></div>{{ end }}
+      {{ with $project.characteristics.release }}{{ $label := . | humanize }}{{ with index $labels . }}{{ $label = . }}{{ end }}<div><dt>Release</dt><dd>{{ $label }}</dd></div>{{ end }}
+      {{ with $project.characteristics.deploy }}{{ $label := . | humanize }}{{ with index $labels . }}{{ $label = . }}{{ end }}<div><dt>Deployment</dt><dd>{{ $label }}</dd></div>{{ end }}
+      {{ with $project.news }}{{ $latest := index . 0 }}<div class="project-hero-latest"><dt>Latest update</dt><dd><time datetime="{{ time.Format "2006-01-02" $latest.date }}">{{ time.Format "2006-Jan-02" $latest.date }}</time> — {{ $latest.description | safeHTML }}</dd></div>{{ end }}
+    </dl>
+  {{ end }}
+  {{ partial "project-statuses.html" (dict "project" $project "compact" false) }}
+</section>
