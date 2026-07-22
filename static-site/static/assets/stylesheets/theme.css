@@ -1,0 +1,46 @@
+/* Theme-specific overrides for Bootstrap-era controls and legacy literals. */
+html[data-theme="dark"] {
+   --df-shadow: 0.65rem 0.65rem 1.25rem -0.45rem rgba(0, 0, 0, 0.8);
+}
+
+html[data-theme="dark"] a {
+   text-decoration: underline;
+}
+
+html[data-theme="dark"] .detail-row:nth-child(even),
+html[data-theme="dark"] .project-summary:nth-child(even) {
+   background: var(--df-surface);
+}
+
+html[data-theme="dark"] #nautical-cargo input,
+html[data-theme="dark"] #nautical-cargo select,
+html[data-theme="dark"] #nautical-cargo textarea,
+html[data-theme="dark"] #nautical-cargo .form-control,
+html[data-theme="dark"] #nautical-cargo .btn-default {
+   color: var(--df-ink);
+   background-color: var(--df-control);
+   border-color: var(--df-control-border);
+}
+
+html[data-theme="dark"] #nautical-cargo .btn-default:hover,
+html[data-theme="dark"] #nautical-cargo .btn-default:focus {
+   color: var(--df-ink);
+   background-color: var(--df-surface);
+   border-color: var(--df-link);
+}
+
+html[data-theme="dark"] #nautical-cargo .project-status i,
+html[data-theme="dark"] #nautical-cargo .project-properties i {
+   color: var(--df-muted);
+}
+
+html[data-theme="dark"] #nautical-cargo .btn-success,
+html[data-theme="dark"] #nautical-cargo .btn-info {
+   color: #fff;
+}
+
+@media (max-width: 700px) {
+   #nautical-bow header {
+      flex-wrap: wrap;
+   }
+}

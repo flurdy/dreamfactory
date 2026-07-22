@@ -60,6 +60,17 @@ try {
   assert.equal(await page.locator('.dashboard-grid .project-summary-url').count(), 34);
   assert.ok(await page.locator('.dashboard-grid .project-statuses').count() > 0);
   await assertNoBlockingA11y(page, 'Home page');
+  const themeToggle = page.getByRole('button', { name: 'Dark mode' });
+  assert.equal(await themeToggle.count(), 1);
+  assert.equal(await themeToggle.getAttribute('aria-pressed'), 'false');
+  await themeToggle.click();
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+  assert.equal(await page.getByRole('button', { name: 'Light mode' }).getAttribute('aria-pressed'), 'true');
+  await assertNoBlockingA11y(page, 'Home page in dark theme');
+  await page.reload();
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+  await page.getByRole('button', { name: 'Light mode' }).click();
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
   const firstRandom = await page.locator('#random-projects .project-summary-title').allTextContents();
   assert.equal(firstRandom.length, 10);
   const randomState = await page.evaluate(async () => {

@@ -43,7 +43,7 @@
 
 #nautical-cargo .table > tbody > tr > td,
 #nautical-cargo .table > tbody > tr > th {
-   border-color: #dddddd;
+   border-color: var(--df-border);
    overflow-wrap: anywhere;
 }
 
@@ -80,12 +80,12 @@
 }
 
 #nautical-lookout .breadcrumb > .active {
-   color: #666666;
+   color: var(--df-muted);
 }
 
 #nautical-lookout .breadcrumb > li + li.pull-right:before {
    padding: 0 5px;
-   color: #cccccc;
+   color: var(--df-border);
    content: "|\00a0";
 }
 
@@ -146,11 +146,11 @@
    align-items: start;
    min-width: 0;
    padding: 0.55rem 0.35rem;
-   border-top: 1px solid #dddddd;
+   border-top: 1px solid var(--df-border);
 }
 
 .project-summary:nth-child(even) {
-   background: rgba(255, 255, 255, 0.5);
+   background: var(--df-row);
 }
 
 .project-summary-title,
@@ -168,7 +168,7 @@
 .project-summary--muted .project-summary-title,
 .link-notlive,
 .link-notlive:visited {
-   color: #6f6f6f;
+   color: var(--df-muted);
 }
 
 .project-statuses {
@@ -187,11 +187,11 @@
    align-items: center;
    min-height: 1.75rem;
    padding: 0.15rem 0.45rem;
-   color: #555555;
+   color: var(--df-ink);
    font-size: 0.75rem;
    line-height: 1.2;
-   background: #eeeeee;
-   border: 1px solid #d0d0d0;
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
    border-radius: 999px;
 }
 

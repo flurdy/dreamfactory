@@ -11,7 +11,12 @@
    --df-link: #2673b4;
    --df-link-hover: #155a96;
    --df-focus: #0d6fb8;
-   --df-radius: 0.5rem;
+   --df-control: #ffffff;
+   --df-control-border: #bdbdbd;
+   --df-row: rgba(255, 255, 255, 0.5);
+   --df-code: #eeeeee;
+   --df-anchor: #333333;
+   --df-anchor-link: #0f3b61;
    --df-shadow: 0.65rem 0.65rem 1.25rem -0.45rem rgba(0, 0, 0, 0.55);
    --df-space-1: 0.5rem;
    --df-space-2: 0.75rem;
@@ -22,6 +27,28 @@
 html {
    min-height: 100%;
    font-size: 16px;
+   color-scheme: light;
+}
+
+html[data-theme="dark"] {
+   --df-ocean: #17212b;
+   --df-hull: #202b36;
+   --df-surface: #293744;
+   --df-ink: #edf2f7;
+   --df-muted: #b5c0ca;
+   --df-border: #526170;
+   --df-hull-border-dark: #0d141b;
+   --df-hull-border-light: #718294;
+   --df-link: #b6ddff;
+   --df-link-hover: #d4edff;
+   --df-focus: #79c9ff;
+   --df-control: #263441;
+   --df-control-border: #6c7e8d;
+   --df-row: rgba(255, 255, 255, 0.045);
+   --df-code: #17212b;
+   --df-anchor: #c7d1da;
+   --df-anchor-link: #a8d8ff;
+   color-scheme: dark;
 }
 
 body {
@@ -99,7 +126,28 @@ summary:focus-visible,
 }
 
 #nautical-bow header {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: var(--df-space-3);
    margin: 0;
+}
+
+.theme-toggle {
+   display: inline-flex;
+   gap: 0.4rem;
+   align-items: center;
+   min-height: 2.75rem;
+   padding: 0.45rem 0.75rem;
+   color: var(--df-ink);
+   background: var(--df-surface);
+   border: 1px solid var(--df-border);
+   border-radius: 999px;
+   cursor: pointer;
+}
+
+.theme-toggle:hover {
+   background: var(--df-control);
 }
 
 #nautical-bow header h1 {
@@ -139,18 +187,18 @@ summary:focus-visible,
 
 #nautical-anchor {
    padding: 0 var(--df-space-4) var(--df-space-3);
-   color: #333333;
+   color: var(--df-anchor);
    font-size: 0.8125rem;
    text-align: right;
 }
 
 #nautical-anchor a {
-   color: #0f3b61;
+   color: var(--df-anchor-link);
 }
 
 #nautical-anchor a:hover,
 #nautical-anchor a:focus {
-   color: #082b47;
+   color: var(--df-anchor-link);
 }
 
 #nautical-lighthouse,

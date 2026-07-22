@@ -2,6 +2,7 @@
 {{- $bootstrap := resources.Get "assets/vendor/bootstrap-3.3.6.min.css" | fingerprint -}}
 {{- $nautical := resources.Get "assets/stylesheets/nautical.css" | fingerprint -}}
 {{- $cargo := resources.Get "assets/stylesheets/cargo.css" | fingerprint -}}
+{{- $theme := resources.Get "assets/stylesheets/theme.css" | fingerprint -}}
 {{- $brand := resources.Get "assets/images/codeatflurdy.png" | fingerprint -}}
 {{- $flurdy := resources.Get "assets/images/flurdy-small.png" | fingerprint -}}
 {{- $eray := resources.Get "assets/images/ray-wings-eray-black-small.png" | fingerprint -}}
@@ -12,11 +13,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Projects, ideas, and applications by flurdy.">
+    <script>!function(){try{var t=localStorage.getItem('df-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t}catch(e){}}();</script>
     <title>{{ .Title }} | Code @ flurdy</title>
     <link rel="icon" href="{{ $favicon.RelPermalink }}" integrity="{{ $favicon.Data.Integrity }}">
     <link rel="stylesheet" href="{{ $bootstrap.RelPermalink }}" integrity="{{ $bootstrap.Data.Integrity }}">
     <link rel="stylesheet" href="{{ $nautical.RelPermalink }}" integrity="{{ $nautical.Data.Integrity }}">
     <link rel="stylesheet" href="{{ $cargo.RelPermalink }}" integrity="{{ $cargo.Data.Integrity }}">
+    <link rel="stylesheet" href="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/solid.css" integrity="sha384-doPVn+s3XZuxfJLS7K1E+sUl25XMZtTVb3O46RyV3JDU2ehfc0Aks4z0ufFpA2WC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/regular.css" integrity="sha384-zgXo5aJZxI4cJSgWSRtbv7q4JB6PzrmOTAWiZt2CqN25ifeKsCuQZ/pUNoPgjcTb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/fontawesome.css" integrity="sha384-+pqJl+lfXqeZZHwVRNTbv2+eicpo+1TR/AEzHYYDKfAits/WRK21xLOwzOxZzJEZ" crossorigin="anonymous">
@@ -29,7 +32,7 @@
             <div id="nautical-hull" class="nautical-structure">
               <div id="nautical-vaka" class="nautical-structure">
                 <div id="nautical-bow" class="nautical-compartment">
-                  <header class="branded"><h1 class="sr-only">code @ flurdy</h1><a href="/"><img src="{{ $brand.RelPermalink }}" alt="code @ flurdy"></a></header>
+                  <header class="branded"><h1 class="sr-only">code @ flurdy</h1><a href="/"><img src="{{ $brand.RelPermalink }}" alt="code @ flurdy"></a><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button></header>
                 </div>
                 {{ if ne .RelPermalink "/" }}<nav id="nautical-lookout" class="nautical-compartment" aria-label="Breadcrumb">
                   {{ if eq .Section "project" }}<div class="container-fluid">{{ end }}<ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/projects/">projects</a></li>{{ if eq .Section "project" }}{{ with .Params.pageKind }}{{ with $.Params.project }}<li><a href="/project/{{ replace (urlquery .link) "+" "%20" | safeURL }}">project</a></li>{{ end }}<li class="active">{{ . }}</li>{{ else }}<li class="active">project</li>{{ end }}{{ end }}</ol>{{ if eq .Section "project" }}</div>{{ end }}
@@ -60,5 +63,6 @@
         </div>
       </div>
     </div>
+    <script src="/assets/javascript/shell.js" defer></script>
   </body>
 </html>
