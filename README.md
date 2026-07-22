@@ -18,6 +18,10 @@ You can host this for your own project dreams.
 
 will launch the application.
 
+## Static-site migration
+
+The canonical Hugo contributor workflow and Cloudflare Pages operations are documented in [docs/static-site-operations.md](docs/static-site-operations.md). Production remains on Play until the recorded cutover gate is approved.
+
 ### Docker
 
 Also includes a Dockerfile to build and run using Docker.

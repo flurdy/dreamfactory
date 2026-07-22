@@ -1,11 +1,11 @@
 # Static site
 
-This directory contains the Hugo/Cloudflare Pages migration. Canonical authored project data lives in `source/projects.json`; Hugo data, the browser catalog, and redirects are generated from it.
+This directory contains the Hugo/Cloudflare Pages migration. Canonical authored project data lives in `source/projects.json`; Hugo data, the browser catalog, and redirects are generated from it. See `docs/static-site-operations.md` for contributor, deployment, cutover, rollback, and retirement procedures.
 
 ## Local verification
 
 ```bash
-scripts/verify-static-site.sh
+make static-artifact-verify
 ```
 
 The command requires Node `22.22.2` and Hugo `0.164.0`. It validates canonical data, generates timestamp-derived state, then builds Hugo into `static-site/public/` without Scala or SBT.
@@ -15,7 +15,7 @@ Run the committed browser proof (build, Docker Compose/nginx, the complete Play 
 ```bash
 nvm use
 npm install --ignore-scripts
-npm run test:static-browser
+make static-verify
 # Set PLAYWRIGHT_CHROME_PATH if Chrome is not /usr/bin/google-chrome.
 ```
 
@@ -24,22 +24,16 @@ npm run test:static-browser
 Run the production-shaped local static server manually after a build:
 
 ```bash
-docker compose -f static-site/docker-compose.yml up --detach
+make static-preview-up
 # browse http://localhost:4176/
-# Restart the container after rebuilding because the build replaces public/.
-docker compose -f static-site/docker-compose.yml restart static-site
-docker compose -f static-site/docker-compose.yml down
+make static-preview-down
 ```
 
 To reuse the deployment's own manifest against Cloudflare Pages, set its URL. Set `ROUTE_CONTRACT_VERIFY_REDIRECTS=true` only for Pages: local nginx intentionally does not implement the `_redirects` file. The cache check requires HTML revalidation and immutable fingerprinted assets/catalog data.
 
 ```bash
-ROUTE_CONTRACT_BASE_URL=https://pages-preview.dreamfactory.pages.dev \
-  ROUTE_CONTRACT_VERIFY_REDIRECTS=true \
-  npm run test:static-route-contract
-
 PAGES_PREVIEW_BASE_URL=https://pages-preview.dreamfactory.pages.dev \
-  npm run test:pages-preview
+  make pages-preview-verify
 ```
 
 With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick. Start Play with `DREAMFACTORY_DETERMINISTIC_HOMEPAGE=true sbt run` for the homepage comparison. The list comparison covers the unfiltered list plus representative search, plural-technology, and characteristic-alias results:
