@@ -8,7 +8,7 @@ This directory contains the Hugo/Cloudflare Pages migration. Canonical authored 
 scripts/verify-static-site.sh
 ```
 
-The command requires Node 20 and Hugo `0.164.0`. It validates canonical data, generates timestamp-derived state, then builds Hugo into `static-site/public/` without Scala or SBT.
+The command requires Node `22.22.2` and Hugo `0.164.0`. It validates canonical data, generates timestamp-derived state, then builds Hugo into `static-site/public/` without Scala or SBT.
 
 Run the committed browser proof (build, Docker Compose/nginx, the complete Play catalog contract, no-JavaScript fallback, keyboard focus, accessibility, and 404):
 
@@ -31,12 +31,15 @@ docker compose -f static-site/docker-compose.yml restart static-site
 docker compose -f static-site/docker-compose.yml down
 ```
 
-To reuse the manifest against a Cloudflare Pages preview, leave the server running and set its URL. Set `ROUTE_CONTRACT_VERIFY_REDIRECTS=true` only for Pages: local nginx intentionally does not implement the `_redirects` file.
+To reuse the deployment's own manifest against Cloudflare Pages, set its URL. Set `ROUTE_CONTRACT_VERIFY_REDIRECTS=true` only for Pages: local nginx intentionally does not implement the `_redirects` file. The cache check requires HTML revalidation and immutable fingerprinted assets/catalog data.
 
 ```bash
-ROUTE_CONTRACT_BASE_URL=https://preview.example.pages.dev \
+ROUTE_CONTRACT_BASE_URL=https://pages-preview.dreamfactory.pages.dev \
   ROUTE_CONTRACT_VERIFY_REDIRECTS=true \
   npm run test:static-route-contract
+
+PAGES_PREVIEW_BASE_URL=https://pages-preview.dreamfactory.pages.dev \
+  npm run test:pages-preview
 ```
 
 With Play running on port 9000 and the static server on port 4176, compare full-page screenshots at fixed desktop and mobile widths using Playwright and ImageMagick. Start Play with `DREAMFACTORY_DETERMINISTIC_HOMEPAGE=true sbt run` for the homepage comparison. The list comparison covers the unfiltered list plus representative search, plural-technology, and characteristic-alias results:
@@ -70,13 +73,18 @@ npm run capture:play-catalog-oracle
 
 ## Cloudflare Pages preview configuration
 
-When credentials and a non-production Pages project are available, configure the repository root as the build root with:
+The Git-connected `dreamfactory` Pages project uses the repository root with:
 
+- **Production branch:** `master`, with production deployments disabled during migration
+- **Preview branch:** `pages-preview`, available at `https://pages-preview.dreamfactory.pages.dev`
 - **Build command:** `npm ci && scripts/build-static-site.sh`
 - **Build output directory:** `static-site/public`
-- **Environment variables:** `HUGO_VERSION=0.164.0`, `NODE_VERSION=20`
+- **Environment variables:** `HUGO_VERSION=0.164.0`, `NODE_VERSION=22.22.2`
 - **Functions:** none
+- **Custom domains:** none until cutover approval
 
-Use a preview deployment only. Do not attach the production custom domain or alter the Kubernetes/Play deployment during this proof.
+Use only the branch alias during migration. The project has no canonical production deployment; `dreamfactory.pages.dev` currently resolves to unrelated pre-existing content and must not be used as migration evidence or a cutover target.
+
+Preview rollback is rehearsed by pushing a new commit whose tree matches the selected prior preview release, then pushing a forward-restore commit. Pages' rollback API only accepts successful production deployments, so it is intentionally not used while production deployments are disabled.
 
 The Hugo-only route boundary generates canonical characteristic paths and every declared lowercase Play alias. It does not reproduce arbitrary path casing or Play's 400 response for manually malformed tag/technology URLs; doing so would require a Pages Function or Worker. All generated site forms use supported canonical routes.
