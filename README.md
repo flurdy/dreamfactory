@@ -20,7 +20,7 @@ will launch the application.
 
 ## Static-site migration
 
-The canonical Hugo contributor workflow and Cloudflare Pages operations are documented in [docs/static-site-operations.md](docs/static-site-operations.md). Production remains on Play until the recorded cutover gate is approved.
+The canonical Hugo contributor workflow and Cloudflare Pages operations are documented in [docs/static-site-operations.md](docs/static-site-operations.md). Production moved to Pages on 2026-07-22; Play remains the rollback origin through the observation window.
 
 ### Docker
 

@@ -6,7 +6,7 @@
 - **Pages project:** `dreamfactory`
 - **Validated preview:** `https://pages-preview.dreamfactory.pages.dev`
 
-A production Pages deployment now exists, but the `code.flurdy.com` custom domain, DNS cutover, and legacy cleanup remain pending explicit approval under `dreamfactory-cvc`.
+`code.flurdy.com` moved to Pages on 2026-07-22. Play/Kubernetes remains the rollback origin and legacy cleanup is blocked through the observation window under `dreamfactory-cvc`.
 
 ## Contributor workflow
 
@@ -64,7 +64,7 @@ The Git-connected project uses:
 | `NODE_VERSION` | `22.22.2` |
 | `HUGO_VERSION` | `0.164.0` |
 | Pages Functions | None |
-| Custom domains | None before cutover |
+| Custom domain | `code.flurdy.com`, active |
 
 Before the first canonical deployment, `dreamfactory.pages.dev` served unrelated pre-existing content despite the project having no canonical deployment. Creating production deployment `06e972db` established the expected Hugo site there. Prefer immutable deployment URLs for evidence and treat any future namespace mismatch as a release blocker.
 
@@ -118,7 +118,7 @@ Rollback immediately for a persistent critical route/asset/catalog failure, mixe
 
 Every deployment, DNS mutation, and remote Git action requires fresh owner approval immediately before execution.
 
-### Recorded baseline
+### Pre-cutover baseline
 
 | Item | Current value |
 |---|---|
@@ -143,6 +143,16 @@ The saved `paperboy` context is stale, but the live origin was inventoried read-
 
 Neither Deployment defines readiness or liveness probes. Keep the replica/pod and direct HTTP checks in the observation monitor; do not infer health from Deployment availability alone.
 
+### Cutover evidence
+
+- Pages domain attached at `2026-07-22T21:47:26Z`.
+- CNAME record `278db87299ccaf790501f66d48cfbefe` changed at `2026-07-22T21:48:11Z` to `dreamfactory.pages.dev`, proxied, TTL Auto.
+- The custom domain returned transient 522 responses during activation, then served Hugo within roughly 75 seconds of the DNS change.
+- Pages reported domain, HTTP validation, and ownership verification active by `2026-07-22T21:51:36Z`—about 3 minutes 25 seconds after DNS mutation.
+- `make pages-preview-verify PAGES_PREVIEW_BASE_URL=https://code.flurdy.com` passed 293 canonical routes, 216 redirects, two expected 404s, HTML revalidation, and 10 immutable fingerprinted resources.
+- Browser search for `dreamfactory` returned one enhanced result through the production domain.
+- Observation window: `2026-07-22T21:51:36Z` through `2026-07-29T21:51:36Z`.
+
 ### Cutover procedure
 
 1. Confirm `master` is clean, pushed, and locally verified.
@@ -154,7 +164,7 @@ Neither Deployment defines readiness or liveness probes. Keep the replica/pod an
 7. Obtain explicit owner approval for the custom-domain/DNS change.
 8. Attach `code.flurdy.com` to the Pages project and follow Cloudflare's ownership/DNS flow. Do not alter unrelated zone records.
 9. Verify TLS, route/cache contracts, browser smoke tests, and the expected 404 through `https://code.flurdy.com`.
-10. Record actual propagation time and start a seven-day observation window.
+10. Record actual propagation time and start a seven-day observation window. Completed; see evidence above.
 
 Because the record is proxied with Auto TTL, do not claim zero propagation. Allow up to 15 minutes before declaring the cutover failed, while monitoring both the custom domain and immutable deployment URL.
 
