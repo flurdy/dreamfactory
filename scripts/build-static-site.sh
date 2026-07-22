@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-required_node_major="20"
+required_node_major="22"
 installed_node_major="$(node -p 'process.versions.node.split(".")[0]')"
 if [[ "$installed_node_major" != "$required_node_major" ]]; then
   echo "Node $required_node_major is required; found ${installed_node_major:-none}." >&2
