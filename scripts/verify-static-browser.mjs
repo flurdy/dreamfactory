@@ -144,8 +144,10 @@ try {
   assert.equal(await mobileHomePage.locator('.home-discovery').first().getAttribute('open'), '');
   await assertNoBlockingA11y(mobileHomePage, 'Expanded mobile home discovery');
   await mobileHomePage.setViewportSize({ width: 1280, height: 900 });
+  await mobileHomePage.waitForFunction(() => Array.from(document.querySelectorAll('.home-discovery')).every(section => section.open));
   assert.equal(await mobileHomePage.locator('.home-discovery').evaluateAll(sections => sections.every(section => section.open)), true);
   await mobileHomePage.setViewportSize({ width: 390, height: 900 });
+  await mobileHomePage.waitForFunction(() => Array.from(document.querySelectorAll('.home-discovery')).every(section => !section.open));
   assert.equal(await mobileHomePage.locator('.home-discovery').evaluateAll(sections => sections.every(section => !section.open)), true);
   await mobileHomeContext.close();
 
