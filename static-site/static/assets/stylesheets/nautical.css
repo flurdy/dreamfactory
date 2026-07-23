@@ -144,20 +144,26 @@ summary:focus-visible,
 }
 
 #nautical-bow header {
+   position: relative;
    display: flex;
    align-items: center;
    justify-content: center;
-   gap: var(--df-space-3);
+   width: 100%;
    margin: 0;
 }
 
 .theme-toggle {
+   position: absolute;
+   top: 50%;
+   right: 0;
    display: inline-flex;
-   gap: 0.4rem;
    align-items: center;
-   min-height: 2.75rem;
-   padding: 0.45rem 0.75rem;
+   justify-content: center;
+   width: 2.75rem;
+   height: 2.75rem;
+   padding: 0;
    color: var(--df-ink);
+   transform: translateY(-50%);
    background: var(--df-surface);
    border: 1px solid var(--df-border);
    border-radius: 999px;
@@ -166,6 +172,16 @@ summary:focus-visible,
 
 .theme-toggle:hover {
    background: var(--df-control);
+}
+
+.theme-toggle-icon::before {
+   font-size: 1.35rem;
+   line-height: 1;
+   content: "\263e";
+}
+
+html[data-theme="dark"] .theme-toggle-icon::before {
+   content: "\2600";
 }
 
 #nautical-bow header h1 {
@@ -254,6 +270,10 @@ summary:focus-visible,
 
    #nautical-hull {
       border-width: 3px;
+   }
+
+   #nautical-bow header {
+      padding-right: 3.25rem;
    }
 
    #nautical-lookout,

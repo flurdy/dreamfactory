@@ -21,8 +21,10 @@
          }
       }
       if (toggle) {
+         var label = themeLabel(theme);
          toggle.setAttribute('aria-pressed', String(theme === 'dark'));
-         toggle.querySelector('[data-theme-label]').textContent = themeLabel(theme);
+         toggle.setAttribute('title', label);
+         toggle.querySelector('[data-theme-label]').textContent = label;
       }
    }
 

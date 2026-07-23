@@ -38,9 +38,3 @@ html[data-theme="dark"] #nautical-cargo .btn-success,
 html[data-theme="dark"] #nautical-cargo .btn-info {
    color: #fff;
 }
-
-@media (max-width: 700px) {
-   #nautical-bow header {
-      flex-wrap: wrap;
-   }
-}

@@ -79,9 +79,12 @@ try {
   const themeToggle = page.getByRole('button', { name: 'Dark mode' });
   assert.equal(await themeToggle.count(), 1);
   assert.equal(await themeToggle.getAttribute('aria-pressed'), 'false');
+  assert.deepEqual(await themeToggle.evaluate(button => ({ width: button.offsetWidth, height: button.offsetHeight })), { width: 44, height: 44 });
+  assert.equal(await themeToggle.locator('[data-theme-label]').getAttribute('class'), 'sr-only');
   await themeToggle.click();
   assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
   assert.equal(await page.getByRole('button', { name: 'Light mode' }).getAttribute('aria-pressed'), 'true');
+  assert.equal(await page.getByRole('button', { name: 'Light mode' }).getAttribute('title'), 'Light mode');
   await assertNoBlockingA11y(page, 'Home page in dark theme');
   await page.reload();
   assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
