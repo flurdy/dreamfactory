@@ -230,6 +230,13 @@ try {
   assert.equal(await noScriptPage.locator('.project-results .project-status').count(), 175);
   assert.equal(await noScriptPage.locator('.project-results .project-summary-url').count(), catalog.projectCount);
   assert.equal(await noScriptPage.locator('.catalog-fallback-message').isVisible(), true);
+  const noScriptCombinedResponse = await noScriptPage.goto(
+    `${baseUrl}/projects/?tags=mobile,commercial&technologies=react-native&filter.code=require`
+  );
+  assert.equal(noScriptCombinedResponse?.status(), 200);
+  assert.deepEqual(await noScriptPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
+  assert.equal(await noScriptPage.locator('#catalog-discovery').isVisible(), true);
+  assert.equal(await noScriptPage.locator('#catalog-related').textContent(), '');
   await noScriptContext.close();
 
   await page.goto(`${baseUrl}/projects/search`);
@@ -267,10 +274,17 @@ try {
   assert.equal(await page.getByRole('link', { name: 'Remove technology scala' }).getAttribute('href'), '/projects/?filter.live=require');
   assert.equal(await page.locator('#catalog-results .project-result:not([hidden]) .project-summary-url').count(), 4);
   assert.ok(await page.locator('#catalog-results .project-result:not([hidden]) .project-status').count() > 0);
-  assert.equal(await page.locator('#catalog-related .related-section .chip').count(), 10);
+  const technologySection = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Technologies' }) });
+  const tagSection = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Tags' }) });
+  assert.equal(await technologySection.locator('.chip').count(), 10);
+  assert.ok(await tagSection.locator('.chip').count() > 0);
   assert.deepEqual(
-    await page.locator('#catalog-related .related-section form').first().locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    await technologySection.locator('form').first().locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
     [['technologies', 'scala'], ['tech', 'play'], ['filter.live', 'require']]
+  );
+  assert.deepEqual(
+    await tagSection.locator('form').first().locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['tags', 'commercial'], ['technologies', 'scala'], ['filter.live', 'require']]
   );
 
   await page.goto(`${baseUrl}/projects/tags?tags=mobile&tag=commercial&filter.code=require`);
@@ -285,6 +299,16 @@ try {
     await page.locator('#catalog-filter-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
     [['tag', 'commercial'], ['tags', 'mobile']]
   );
+  const relatedTags = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Tags' }) });
+  const relatedTechnologies = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Technologies' }) });
+  assert.ok(await relatedTags.locator('.chip').count() > 0);
+  assert.ok(await relatedTechnologies.locator('.chip').count() > 0);
+  const addAndroidForm = relatedTechnologies.locator('form').filter({ has: page.getByRole('button', { name: 'android', exact: true }) });
+  assert.equal(new URL(await addAndroidForm.getAttribute('action'), baseUrl).pathname, '/projects/');
+  assert.deepEqual(
+    await addAndroidForm.locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['tags', 'commercial,mobile'], ['technologies', 'android'], ['filter.code', 'require']]
+  );
   await page.setViewportSize({ width: 375, height: 900 });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
   assert.equal(await page.locator('.selected-facet').evaluateAll(facets => facets.every(facet => facet.getBoundingClientRect().height >= 44)), true);
@@ -292,7 +316,43 @@ try {
   await page.setViewportSize({ width: 1280, height: 900 });
   await Promise.all([
     page.waitForNavigation({ waitUntil: 'networkidle' }),
-    removeCommercial.click(),
+    addAndroidForm.getByRole('button', { name: 'android', exact: true }).click(),
+  ]);
+  await waitForCatalog(page);
+  const combinedUrl = new URL(page.url());
+  assert.equal(combinedUrl.pathname, '/projects/');
+  assert.equal(combinedUrl.searchParams.get('tags'), 'commercial,mobile');
+  assert.equal(combinedUrl.searchParams.get('technologies'), 'android');
+  assert.equal(combinedUrl.searchParams.get('filter.code'), 'require');
+  assert.deepEqual(await visibleCatalogTitles(page), ['TapIn']);
+  assert.equal(await page.locator('.results-heading-label').textContent(), 'Projects with tags and technologies:');
+  assert.equal(await page.getByRole('link', { name: 'Remove tag commercial' }).count(), 1);
+  assert.equal(await page.getByRole('link', { name: 'Remove tag mobile' }).count(), 1);
+  const removeAndroid = page.getByRole('link', { name: 'Remove technology android' });
+  assert.equal(await removeAndroid.getAttribute('href'), '/projects/tags?tag=commercial&tags=mobile&filter.code=require');
+  assert.deepEqual(
+    await page.locator('#catalog-filter-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['tags', 'commercial,mobile'], ['technologies', 'android']]
+  );
+  assert.equal(await page.locator('[name="filter.code"]:checked').getAttribute('value'), 'require');
+  assert.equal(await page.locator('#catalog-related .related-section').count(), 2);
+  assert.equal(await page.locator('#catalog-discovery').isHidden(), true);
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await assertNoBlockingA11y(page, 'Combined tag and technology facets at mobile width');
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'networkidle' }),
+    removeAndroid.click(),
+  ]);
+  await waitForCatalog(page);
+  assert.equal(new URL(page.url()).pathname, '/projects/tags');
+  assert.equal(new URL(page.url()).searchParams.get('tag'), 'commercial');
+  assert.equal(new URL(page.url()).searchParams.get('tags'), 'mobile');
+  assert.equal(new URL(page.url()).searchParams.get('filter.code'), 'require');
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'networkidle' }),
+    page.getByRole('link', { name: 'Remove tag commercial' }).click(),
   ]);
   await waitForCatalog(page);
   assert.equal(new URL(page.url()).pathname, '/projects/tag');

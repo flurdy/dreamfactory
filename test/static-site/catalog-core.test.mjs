@@ -5,6 +5,8 @@ import test from 'node:test';
 import { generateStaticData } from '../../scripts/lib/static-projects.mjs';
 import {
   activePropertyFilters,
+  addFacetFormContext,
+  hasCatalogQuery,
   headingForContext,
   parseCatalogContext,
   propertyFormContext,
@@ -60,7 +62,13 @@ function evaluate(path) {
 test('catalog query engine matches the rendered Play contract matrix', () => {
   assert.equal(oracle.cases.length, 47);
   oracle.cases.forEach(({ name, path, ...expected }) => {
-    assert.deepEqual(evaluate(path), expected, name);
+    const actual = evaluate(path);
+    const { context } = catalogContext(path);
+    if (context.kind === 'tags') actual.related = actual.related.filter(section => section.heading === 'Tags');
+    if (context.kind === 'technologies') {
+      actual.related = actual.related.filter(section => section.heading === 'Technologies');
+    }
+    assert.deepEqual(actual, expected, name);
   });
 });
 
@@ -85,6 +93,70 @@ test('every characteristic alias resolves to its canonical result set and form a
       });
     });
   });
+});
+
+test('combined tag and technology context intersects results without new static routes', () => {
+  const path = '/projects/?tags=mobile,commercial&technologies=react-native&filter.code=require';
+  const url = new URL(path, 'https://code.flurdy.com');
+  const result = evaluate(path);
+  const { context, filters } = catalogContext(path);
+
+  assert.deepEqual(context, {
+    kind: 'facets',
+    tags: ['mobile', 'commercial'],
+    technologies: ['react-native'],
+  });
+  assert.equal(result.heading, 'Projects with tags and technologies: mobile, commercial, react-native');
+  assert.deepEqual(result.titles, ['TapIn']);
+  assert.deepEqual(result.propertyForm, {
+    action: '/projects/',
+    context: [['tags', 'mobile,commercial'], ['technologies', 'react-native']],
+    selected: catalog.controls.properties.map(property => [
+      `filter.${property.name}`,
+      property.name === 'code' ? 'require' : '',
+    ]),
+  });
+  assert.deepEqual(result.related, [
+    { heading: 'Tags', terms: ['sms', 'whatsapp'] },
+    { heading: 'Technologies', terms: ['android', 'cordova', 'expo', 'ios', 'javascript', 'typescript'] },
+  ]);
+  assert.deepEqual(selectedFacets(context, filters), [
+    {
+      label: 'mobile',
+      removeLabel: 'Remove tag mobile',
+      href: '/projects/?tags=commercial&technologies=react-native&filter.code=require',
+    },
+    {
+      label: 'commercial',
+      removeLabel: 'Remove tag commercial',
+      href: '/projects/?tags=mobile&technologies=react-native&filter.code=require',
+    },
+    {
+      label: 'react-native',
+      removeLabel: 'Remove technology react-native',
+      href: '/projects/tags?tag=mobile&tags=commercial&filter.code=require',
+    },
+  ]);
+  assert.equal(hasCatalogQuery(url.pathname, url.searchParams, catalog.controls), true);
+});
+
+test('related facet forms preserve same-kind routes and combine cross-kind context on the projects route', () => {
+  assert.deepEqual(
+    addFacetFormContext(catalogContext('/projects/tag?tag=mobile').context, 'tags', 'commercial'),
+    { action: '/projects/tags', fields: [['tags', 'mobile'], ['tag', 'commercial']] }
+  );
+  assert.deepEqual(
+    addFacetFormContext(catalogContext('/projects/tech?tech=scala').context, 'technologies', 'play'),
+    { action: '/projects/technologies', fields: [['technologies', 'scala'], ['tech', 'play']] }
+  );
+  assert.deepEqual(
+    addFacetFormContext(catalogContext('/projects/tag?tag=mobile').context, 'technologies', 'react-native'),
+    { action: '/projects/', fields: [['tags', 'mobile'], ['technologies', 'react-native']] }
+  );
+  assert.deepEqual(
+    addFacetFormContext(catalogContext('/projects/tech?tech=scala').context, 'tags', 'api'),
+    { action: '/projects/', fields: [['tags', 'api'], ['technologies', 'scala']] }
+  );
 });
 
 test('selected tag and technology facets remove one value while preserving context and property filters', () => {

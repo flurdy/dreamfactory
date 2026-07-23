@@ -1,5 +1,6 @@
 import {
   activePropertyFilters,
+  addFacetFormContext,
   hasCatalogQuery,
   headingForContext,
   parseCatalogContext,
@@ -53,6 +54,7 @@ function updateResultsHeading(context, filters) {
   label.className = 'results-heading-label';
   if (context.kind === 'tags') label.textContent = 'Projects with tags:';
   if (context.kind === 'technologies') label.textContent = 'Projects with technologies:';
+  if (context.kind === 'facets') label.textContent = 'Projects with tags and technologies:';
   if (context.kind === 'characteristic') label.textContent = 'Projects with characteristic:';
   const facetGroup = document.createElement('span');
   facetGroup.className = 'selected-facets';
@@ -60,20 +62,12 @@ function updateResultsHeading(context, filters) {
   heading.replaceChildren(label, facetGroup);
 }
 
-function relatedForm(kind, term, selectedTerms, filters) {
+function relatedForm(kind, term, context, filters) {
   const form = document.createElement('form');
   form.method = 'get';
-  const fields = [];
-  if (kind === 'tags') {
-    form.action = selectedTerms.length ? '/projects/tags' : '/projects/tag';
-    if (selectedTerms.length) fields.push(['tags', selectedTerms.join(',')]);
-    fields.push(['tag', term]);
-  } else {
-    form.action = selectedTerms.length ? '/projects/technologies' : '/projects/tech';
-    if (selectedTerms.length) fields.push(['technologies', selectedTerms.join(',')]);
-    fields.push(['tech', term]);
-  }
-  fields.push(...filterFields(filters));
+  const formContext = addFacetFormContext(context, kind, term);
+  form.action = formContext.action;
+  const fields = [...formContext.fields, ...filterFields(filters)];
   fields.forEach(([name, value]) => form.append(hiddenInput(name, value)));
   const button = document.createElement('button');
   button.className = 'chip';
@@ -91,10 +85,9 @@ function relatedSection(related, context, filters) {
   section.append(heading);
   const list = document.createElement('ul');
   list.className = 'chip-list';
-  const selectedTerms = context.kind === related.kind ? context.terms : [];
   related.terms.forEach(term => {
     const item = document.createElement('li');
-    item.append(relatedForm(related.kind, term, selectedTerms, filters));
+    item.append(relatedForm(related.kind, term, context, filters));
     list.append(item);
   });
   section.append(list);
@@ -103,7 +96,11 @@ function relatedSection(related, context, filters) {
 
 function updateRelatedControls(projects, context, filters) {
   const sections = relatedSections(projects, context).filter(section => section.terms.length);
+  const container = document.getElementById('catalog-related');
+  const discovery = document.getElementById('catalog-discovery');
   if (context.kind === 'all') {
+    if (container) container.replaceChildren();
+    if (discovery) discovery.hidden = false;
     const section = document.getElementById('catalog-related-tags');
     const list = document.getElementById('catalog-related-tags-list');
     if (!section || !list) return;
@@ -114,12 +111,12 @@ function updateRelatedControls(projects, context, filters) {
     }
     list.replaceChildren(...related.terms.map(term => {
       const item = document.createElement('li');
-      item.append(relatedForm('tags', term, [], filters));
+      item.append(relatedForm('tags', term, context, filters));
       return item;
     }));
     return;
   }
-  const container = document.getElementById('catalog-related');
+  if (discovery) discovery.hidden = true;
   if (container) {
     container.replaceChildren(...sections.map(section => relatedSection(section, context, filters)));
   }

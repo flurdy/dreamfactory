@@ -26,10 +26,9 @@
   <p id="catalog-empty-results" class="empty-results" hidden>No projects found</p>
 </section>
 {{ partial "properties-filter.html" . }}
+<div id="catalog-related"></div>
 {{ if .showDiscovery }}
-  {{ partial "project-discovery.html" . }}
-{{ else }}
-  <div id="catalog-related"></div>
+  <div id="catalog-discovery">{{ partial "project-discovery.html" . }}</div>
 {{ end }}
 <script src="{{ $filterScript.RelPermalink }}" integrity="{{ $filterScript.Data.Integrity }}"></script>
 <script type="module" src="{{ $catalogScript.RelPermalink }}" integrity="{{ $catalogScript.Data.Integrity }}"></script>

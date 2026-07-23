@@ -26,6 +26,11 @@ export function parseCatalogContext(pathname, query, controls) {
   if (path === '/projects/search') {
     return { kind: 'search', searchTerm: query.get('searchterm') ?? '' };
   }
+  if (path === '/projects') {
+    const tags = (query.get('tags') ?? '').split(',').filter(Boolean);
+    const technologies = (query.get('technologies') ?? '').split(',').filter(Boolean);
+    if (tags.length || technologies.length) return { kind: 'facets', tags, technologies };
+  }
   if (path === '/projects/tag') {
     const tag = query.get('tag');
     return tag ? { kind: 'tags', route: 'tag', terms: [tag] } : { kind: 'invalid' };
@@ -85,6 +90,10 @@ function matchesContext(project, context) {
     }
     return context.terms.every(technology => project.technologies.includes(technology));
   }
+  if (context.kind === 'facets') {
+    return context.tags.every(tag => project.tags.includes(tag))
+      && context.technologies.every(technology => project.technologies.includes(technology));
+  }
   if (context.kind === 'characteristic') {
     return project.characteristics[context.characteristic.field] === context.characteristic.name;
   }
@@ -107,6 +116,9 @@ export function selectProjects(projects, context, query, controls) {
 export function headingForContext(context) {
   if (context.kind === 'tags') return `Projects with tags: ${context.terms.join(', ')}`;
   if (context.kind === 'technologies') return `Projects with technologies: ${context.terms.join(', ')}`;
+  if (context.kind === 'facets') {
+    return `Projects with tags and technologies: ${[...context.tags, ...context.technologies].join(', ')}`;
+  }
   if (context.kind === 'search' && context.searchTerm.trim()) {
     return `Projects containing search term: “${context.searchTerm}”`;
   }
@@ -140,19 +152,64 @@ function contextForTerms(kind, terms) {
   };
 }
 
-export function selectedFacets(context, filters) {
-  if (context.kind === 'tags' || context.kind === 'technologies') {
-    const facetType = context.kind === 'tags' ? 'tag' : 'technology';
-    return context.terms.map((term, index) => {
-      const remainingTerms = context.terms.filter((_, termIndex) => termIndex !== index);
-      const remainingContext = contextForTerms(context.kind, remainingTerms);
-      return {
-        label: term,
-        removeLabel: `Remove ${facetType} ${term}`,
-        href: catalogHref(remainingContext.action, remainingContext.fields, filters),
-      };
-    });
+function facetSelections(context) {
+  if (context.kind === 'tags') return { tags: context.terms, technologies: [] };
+  if (context.kind === 'technologies') return { tags: [], technologies: context.terms };
+  if (context.kind === 'facets') return { tags: context.tags, technologies: context.technologies };
+  return { tags: [], technologies: [] };
+}
+
+function contextForFacets(tags, technologies) {
+  if (tags.length && technologies.length) {
+    return {
+      action: '/projects/',
+      fields: [['tags', tags.join(',')], ['technologies', technologies.join(',')]],
+    };
   }
+  if (tags.length) return contextForTerms('tags', tags);
+  if (technologies.length) return contextForTerms('technologies', technologies);
+  return { action: '/projects/', fields: [] };
+}
+
+export function addFacetFormContext(context, kind, term) {
+  if (context.kind === kind) {
+    const tag = kind === 'tags';
+    return {
+      action: tag ? '/projects/tags' : '/projects/technologies',
+      fields: [[tag ? 'tags' : 'technologies', context.terms.join(',')], [tag ? 'tag' : 'tech', term]],
+    };
+  }
+  const selections = facetSelections(context);
+  const tags = kind === 'tags' ? [term, ...selections.tags] : selections.tags;
+  const technologies = kind === 'technologies' ? [term, ...selections.technologies] : selections.technologies;
+  return contextForFacets(tags, technologies);
+}
+
+export function selectedFacets(context, filters) {
+  const selections = facetSelections(context);
+  const tagFacets = selections.tags.map((term, index) => {
+    const remainingContext = contextForFacets(
+      selections.tags.filter((_, termIndex) => termIndex !== index),
+      selections.technologies
+    );
+    return {
+      label: term,
+      removeLabel: `Remove tag ${term}`,
+      href: catalogHref(remainingContext.action, remainingContext.fields, filters),
+    };
+  });
+  const technologyFacets = selections.technologies.map((term, index) => {
+    const remainingContext = contextForFacets(
+      selections.tags,
+      selections.technologies.filter((_, termIndex) => termIndex !== index)
+    );
+    return {
+      label: term,
+      removeLabel: `Remove technology ${term}`,
+      href: catalogHref(remainingContext.action, remainingContext.fields, filters),
+    };
+  });
+  if (tagFacets.length || technologyFacets.length) return [...tagFacets, ...technologyFacets];
   if (context.kind === 'characteristic') {
     const label = `${context.characteristic.typeLabel}: ${context.characteristic.label}`;
     return [{
@@ -170,6 +227,9 @@ export function propertyFormContext(context) {
   }
   if (context.kind === 'tags' || context.kind === 'technologies') {
     return contextForTerms(context.kind, context.terms);
+  }
+  if (context.kind === 'facets') {
+    return contextForFacets(context.tags, context.technologies);
   }
   if (context.kind === 'characteristic') {
     const characteristic = context.characteristic;
@@ -205,21 +265,21 @@ export function relatedSections(projects, context) {
   if (context.kind === 'all') {
     return [{ kind: 'tags', terms: rankedTerms(projects, 'tags', 50, ['idea', 'live', 'popular']) }];
   }
-  if (context.kind === 'tags') {
-    return [{
+  if (context.kind === 'tags' || context.kind === 'technologies' || context.kind === 'facets') {
+    const selections = facetSelections(context);
+    const tags = {
       kind: 'tags',
       terms: rankedTerms(projects, 'tags', 50, ['idea', 'live', 'popular'])
-        .filter(term => !context.terms.includes(term)),
-    }];
-  }
-  if (context.kind === 'technologies') {
-    const size = context.terms.length === 1 ? 11 : 30;
-    return [{
+        .filter(term => !selections.tags.includes(term)),
+    };
+    const technologySize = selections.technologies.length === 1 ? 11 : 30;
+    const technologies = {
       kind: 'technologies',
-      terms: rankedTerms(projects, 'technologies', size)
-        .filter(term => !context.terms.includes(term))
+      terms: rankedTerms(projects, 'technologies', technologySize)
+        .filter(term => !selections.technologies.includes(term))
         .slice(0, 10),
-    }];
+    };
+    return context.kind === 'technologies' ? [technologies, tags] : [tags, technologies];
   }
   if (context.kind === 'characteristic') {
     return [
@@ -232,5 +292,7 @@ export function relatedSections(projects, context) {
 
 export function hasCatalogQuery(pathname, query, controls) {
   return normalizedPath(pathname) !== '/projects'
+    || Boolean(query.get('tags'))
+    || Boolean(query.get('technologies'))
     || activePropertyFilters(query, controls).some(filter => filter.value === 'require' || filter.value === 'exclude');
 }
