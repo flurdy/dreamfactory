@@ -68,7 +68,18 @@ try {
   await page.keyboard.press('Enter');
   assert.equal(await page.evaluate(() => document.activeElement?.id), 'nautical-ballast');
   assert.equal(await page.locator('#home-search.form-control').count(), 1);
-  assert.equal(await page.getByRole('button', { name: 'Mothballed or abandoned' }).count(), 1);
+  const mothballedShortcut = page.getByRole('button', { name: 'Mothballed', exact: true });
+  const unlikelyShortcut = page.getByRole('button', { name: 'Unlikely', exact: true });
+  assert.equal(await mothballedShortcut.count(), 1);
+  assert.equal(await unlikelyShortcut.count(), 1);
+  assert.deepEqual(
+    await mothballedShortcut.locator('xpath=ancestor::form/input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['filter.dead', 'require']]
+  );
+  assert.deepEqual(
+    await unlikelyShortcut.locator('xpath=ancestor::form/input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
+    [['filter.unlikely', 'require']]
+  );
   assert.equal(await page.getByRole('heading', { name: 'Development status' }).count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Not started' }).count(), 1);
   assert.equal(await page.locator('.home-discovery').count(), 3);

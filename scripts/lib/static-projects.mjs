@@ -14,8 +14,8 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 export const catalogControls = {
   properties: [
     { name: 'popular', icon: 'far fa-star', label: 'Popular' },
-    { name: 'dead', icon: 'fas fa-cross', label: 'Mothballed or abandoned' },
-    { name: 'unlikely', icon: 'far fa-frown', label: 'Unlikely or unappealing' },
+    { name: 'dead', icon: 'fas fa-cross', label: 'Mothballed' },
+    { name: 'unlikely', icon: 'far fa-frown', label: 'Unlikely' },
     { name: 'recent', icon: 'fas fa-plus-circle', label: 'Recently added' },
     { name: 'updated', icon: 'fas fa-seedling', label: 'Recently updated' },
     { name: 'stale', icon: 'fas fa-hourglass-half', label: 'Stale' },
