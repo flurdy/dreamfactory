@@ -5,6 +5,7 @@ import {
   parseCatalogContext,
   propertyFormContext,
   relatedSections,
+  selectedFacets,
   selectProjects,
 } from '{{ .CatalogCore.RelPermalink }}';
 
@@ -23,6 +24,40 @@ function replaceHiddenFields(container, fields) {
 
 function filterFields(filters) {
   return filters.map(filter => [`filter.${filter.name}`, filter.value]);
+}
+
+function selectedFacetLink(facet) {
+  const link = document.createElement('a');
+  link.className = 'chip selected-facet';
+  link.href = facet.href;
+  link.setAttribute('aria-label', facet.removeLabel);
+  const label = document.createElement('span');
+  label.textContent = facet.label;
+  const remove = document.createElement('span');
+  remove.className = 'selected-facet-remove';
+  remove.setAttribute('aria-hidden', 'true');
+  remove.textContent = '×';
+  link.append(label, remove);
+  return link;
+}
+
+function updateResultsHeading(context, filters) {
+  const heading = document.getElementById('catalog-results-heading');
+  const facets = selectedFacets(context, filters);
+  if (facets.length === 0) {
+    heading.textContent = headingForContext(context);
+    return;
+  }
+
+  const label = document.createElement('span');
+  label.className = 'results-heading-label';
+  if (context.kind === 'tags') label.textContent = 'Projects with tags:';
+  if (context.kind === 'technologies') label.textContent = 'Projects with technologies:';
+  if (context.kind === 'characteristic') label.textContent = 'Projects with characteristic:';
+  const facetGroup = document.createElement('span');
+  facetGroup.className = 'selected-facets';
+  facetGroup.append(...facets.map(selectedFacetLink));
+  heading.replaceChildren(label, facetGroup);
 }
 
 function relatedForm(kind, term, selectedTerms, filters) {
@@ -112,7 +147,7 @@ function updateSearchForm(context, filters) {
   replaceHiddenFields(document.getElementById('catalog-search-context'), filterFields(filters));
 }
 
-function updateResults(projects, context, pathname, query, controls) {
+function updateResults(projects, context, pathname, query, controls, filters) {
   const selectedLinks = new Set(projects.map(project => project.link));
   const rows = document.querySelectorAll('#catalog-results .project-result');
   rows.forEach(row => {
@@ -123,7 +158,7 @@ function updateResults(projects, context, pathname, query, controls) {
   const empty = document.getElementById('catalog-empty-results');
   results.hidden = projects.length === 0;
   empty.hidden = projects.length !== 0;
-  document.getElementById('catalog-results-heading').textContent = headingForContext(context);
+  updateResultsHeading(context, filters);
   document.getElementById('catalog-count').textContent = `${projects.length} ${projects.length === 1 ? 'project' : 'projects'}`;
 
   if (hasCatalogQuery(pathname, query, controls)) {
@@ -147,7 +182,7 @@ async function enhanceCatalog() {
 
     updateSearchForm(context, filters);
     updatePropertyForm(context, query, catalog.controls);
-    updateResults(projects, context, window.location.pathname, query, catalog.controls);
+    updateResults(projects, context, window.location.pathname, query, catalog.controls, filters);
     updateRelatedControls(projects, context, filters);
     results.dataset.catalogEnhanced = 'true';
   } catch {

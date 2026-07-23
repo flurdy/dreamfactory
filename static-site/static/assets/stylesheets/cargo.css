@@ -301,7 +301,28 @@
 }
 
 .results-heading h2 {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+   align-items: center;
    margin: 0;
+}
+
+.selected-facets {
+   display: inline-flex;
+   flex-wrap: wrap;
+   gap: var(--df-space-2);
+}
+
+.selected-facet {
+   padding: 0.35rem 0.65rem;
+   font-size: 0.875rem;
+   font-weight: 400;
+}
+
+.selected-facet-remove {
+   font-size: 1.125rem;
+   line-height: 1;
 }
 
 .results-count {

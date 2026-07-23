@@ -116,23 +116,60 @@ export function headingForContext(context) {
   return 'All projects:';
 }
 
+function catalogHref(action, fields, filters) {
+  const query = new URLSearchParams([
+    ...fields,
+    ...filters.map(filter => [`filter.${filter.name}`, filter.value]),
+  ]);
+  const search = query.toString();
+  return search ? `${action}?${search}` : action;
+}
+
+function contextForTerms(kind, terms) {
+  if (terms.length === 0) return { action: '/projects/', fields: [] };
+  const tag = kind === 'tags';
+  if (terms.length === 1) {
+    return { action: tag ? '/projects/tag' : '/projects/tech', fields: [[tag ? 'tag' : 'tech', terms[0]]] };
+  }
+  return {
+    action: tag ? '/projects/tags' : '/projects/technologies',
+    fields: [
+      [tag ? 'tag' : 'tech', terms[0]],
+      [tag ? 'tags' : 'technologies', terms.slice(1).join(',')],
+    ],
+  };
+}
+
+export function selectedFacets(context, filters) {
+  if (context.kind === 'tags' || context.kind === 'technologies') {
+    const facetType = context.kind === 'tags' ? 'tag' : 'technology';
+    return context.terms.map((term, index) => {
+      const remainingTerms = context.terms.filter((_, termIndex) => termIndex !== index);
+      const remainingContext = contextForTerms(context.kind, remainingTerms);
+      return {
+        label: term,
+        removeLabel: `Remove ${facetType} ${term}`,
+        href: catalogHref(remainingContext.action, remainingContext.fields, filters),
+      };
+    });
+  }
+  if (context.kind === 'characteristic') {
+    const label = `${context.characteristic.typeLabel}: ${context.characteristic.label}`;
+    return [{
+      label,
+      removeLabel: `Remove characteristic ${label}`,
+      href: catalogHref('/projects/', [], filters),
+    }];
+  }
+  return [];
+}
+
 export function propertyFormContext(context) {
   if (context.kind === 'search' && context.searchTerm.trim()) {
     return { action: '/projects/search', fields: [['searchterm', context.searchTerm]] };
   }
-  if (context.kind === 'tags') {
-    if (context.terms.length === 1) return { action: '/projects/tag', fields: [['tag', context.terms[0]]] };
-    return {
-      action: '/projects/tags',
-      fields: [['tag', context.terms[0]], ['tags', context.terms.slice(1).join(',')]],
-    };
-  }
-  if (context.kind === 'technologies') {
-    if (context.terms.length === 1) return { action: '/projects/tech', fields: [['tech', context.terms[0]]] };
-    return {
-      action: '/projects/technologies',
-      fields: [['tech', context.terms[0]], ['technologies', context.terms.slice(1).join(',')]],
-    };
+  if (context.kind === 'tags' || context.kind === 'technologies') {
+    return contextForTerms(context.kind, context.terms);
   }
   if (context.kind === 'characteristic') {
     const characteristic = context.characteristic;

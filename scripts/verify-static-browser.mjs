@@ -213,7 +213,8 @@ try {
   await page.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
   await waitForCatalog(page);
   assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.scalaLiveTitles);
-  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with technologies: scala');
+  assert.equal(await page.locator('.results-heading-label').textContent(), 'Projects with technologies:');
+  assert.equal(await page.getByRole('link', { name: 'Remove technology scala' }).getAttribute('href'), '/projects/?filter.live=require');
   assert.equal(await page.locator('#catalog-results .project-result:not([hidden]) .project-summary-url').count(), 4);
   assert.ok(await page.locator('#catalog-results .project-result:not([hidden]) .project-status').count() > 0);
   assert.equal(await page.locator('#catalog-related .related-section .chip').count(), 10);
@@ -222,26 +223,61 @@ try {
     [['technologies', 'scala'], ['tech', 'play'], ['filter.live', 'require']]
   );
 
-  await page.goto(`${baseUrl}/projects/tags?tags=mobile&tag=commercial`);
+  await page.goto(`${baseUrl}/projects/tags?tags=mobile&tag=commercial&filter.code=require`);
   await waitForCatalog(page);
   assert.deepEqual(await visibleCatalogTitles(page), ['TapIn']);
-  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with tags: commercial, mobile');
+  assert.equal(await page.locator('.results-heading-label').textContent(), 'Projects with tags:');
+  const removeCommercial = page.getByRole('link', { name: 'Remove tag commercial' });
+  assert.equal(await removeCommercial.getAttribute('href'), '/projects/tag?tag=mobile&filter.code=require');
+  assert.equal(await page.getByRole('link', { name: 'Remove tag mobile' }).getAttribute('href'), '/projects/tag?tag=commercial&filter.code=require');
   assert.equal(new URL(await page.locator('#catalog-filter-form').getAttribute('action'), baseUrl).pathname, '/projects/tags');
   assert.deepEqual(
     await page.locator('#catalog-filter-context input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
     [['tag', 'commercial'], ['tags', 'mobile']]
   );
-
-  await page.goto(`${baseUrl}/projects/characteristic/type/complexity/characteristic/low`);
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  assert.equal(await page.locator('.selected-facet').evaluateAll(facets => facets.every(facet => facet.getBoundingClientRect().height >= 44)), true);
+  await assertNoBlockingA11y(page, 'Selected facets at mobile width');
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'networkidle' }),
+    removeCommercial.click(),
+  ]);
   await waitForCatalog(page);
-  assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.easyComplexityTitles.map(title => title.replaceAll('&amp;', '&')));
-  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'Projects with characteristic: Complexity — Easy');
+  assert.equal(new URL(page.url()).pathname, '/projects/tag');
+  assert.equal(new URL(page.url()).searchParams.get('tag'), 'mobile');
+  assert.equal(new URL(page.url()).searchParams.get('filter.code'), 'require');
+  assert.ok((await visibleCatalogTitles(page)).length > 1);
+  assert.equal(await page.getByRole('link', { name: 'Remove tag mobile' }).count(), 1);
+  assert.equal(await page.locator('[name="filter.code"]:checked').getAttribute('value'), 'require');
+
+  await page.goto(`${baseUrl}/projects/characteristic/type/complexity/characteristic/low?filter.code=require`);
+  await waitForCatalog(page);
+  assert.deepEqual(
+    await visibleCatalogTitles(page),
+    catalog.projects
+      .filter(project => project.characteristics.complexity === 'easy' && project.derived.code)
+      .map(project => project.title.replaceAll('&nbsp;', '\u00a0').replaceAll('&amp;', '&'))
+  );
+  assert.equal(await page.locator('.results-heading-label').textContent(), 'Projects with characteristic:');
+  const removeCharacteristic = page.getByRole('link', { name: 'Remove characteristic Complexity: Easy' });
+  assert.equal(await removeCharacteristic.getAttribute('href'), '/projects/?filter.code=require');
   assert.equal(
     new URL(await page.locator('#catalog-filter-form').getAttribute('action'), baseUrl).pathname,
     '/projects/characteristic/type/complexity/characteristic/easy'
   );
   assert.equal(await page.evaluate(() => document.activeElement?.id), 'catalog-results-heading');
   await assertNoBlockingA11y(page, 'Characteristic alias page');
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'networkidle' }),
+    removeCharacteristic.click(),
+  ]);
+  await waitForCatalog(page);
+  assert.equal(new URL(page.url()).pathname, '/projects/');
+  assert.equal(new URL(page.url()).searchParams.get('filter.code'), 'require');
+  assert.equal(await page.locator('[name="filter.code"]:checked').getAttribute('value'), 'require');
+  assert.equal(await page.locator('#catalog-results-heading').textContent(), 'All projects:');
 
   await page.goto(`${baseUrl}/projects/search?searchterm=no-such-project`);
   await waitForCatalog(page);
