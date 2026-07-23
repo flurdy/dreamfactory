@@ -7,6 +7,11 @@ html[data-theme="dark"] a {
    text-decoration: underline;
 }
 
+html[data-theme="dark"] #nautical-bow header img {
+   filter: invert(1);
+   mix-blend-mode: screen;
+}
+
 html[data-theme="dark"] .detail-row:nth-child(even),
 html[data-theme="dark"] .project-summary:nth-child(even) {
    background: var(--df-surface);
@@ -27,6 +32,32 @@ html[data-theme="dark"] #nautical-cargo .btn-default:focus {
    color: var(--df-ink);
    background-color: var(--df-surface);
    border-color: var(--df-link);
+}
+
+html[data-theme="dark"] #nautical-cargo .property-filter {
+   border-color: var(--df-border);
+}
+
+html[data-theme="dark"] #nautical-cargo .property-filter legend {
+   color: var(--df-ink);
+}
+
+html[data-theme="dark"] #nautical-cargo .property-filter-options label {
+   color: var(--df-ink);
+   background: var(--df-control);
+   border-color: var(--df-control-border);
+}
+
+html[data-theme="dark"] #nautical-cargo .property-filter-any:checked + label {
+   color: var(--df-ink);
+   background: var(--df-border);
+   border-color: var(--df-hull-border-light);
+}
+
+html[data-theme="dark"] #nautical-cargo .property-filter-include:checked + label {
+   color: var(--df-ocean);
+   background: var(--df-link);
+   border-color: var(--df-link-hover);
 }
 
 html[data-theme="dark"] #nautical-cargo .project-status i,

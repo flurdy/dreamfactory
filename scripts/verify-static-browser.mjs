@@ -172,6 +172,56 @@ try {
   }), true);
   await assertNoBlockingA11y(page, 'Projects list page');
 
+  await page.getByRole('button', { name: 'Dark mode' }).click();
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+  assert.deepEqual(await page.locator('#nautical-bow header img').evaluate(image => ({
+    filter: getComputedStyle(image).filter,
+    blendMode: getComputedStyle(image).mixBlendMode,
+  })), { filter: 'invert(1)', blendMode: 'screen' });
+  assert.deepEqual(await page.locator('.property-filter').first().evaluate(filter => {
+    const anyLabel = filter.querySelector('.property-filter-any + label');
+    const includeLabel = filter.querySelector('.property-filter-include + label');
+    const legend = filter.querySelector('legend');
+    return {
+      border: getComputedStyle(filter).borderColor,
+      legend: getComputedStyle(legend).color,
+      any: [getComputedStyle(anyLabel).color, getComputedStyle(anyLabel).backgroundColor, getComputedStyle(anyLabel).borderColor],
+      include: [getComputedStyle(includeLabel).color, getComputedStyle(includeLabel).backgroundColor, getComputedStyle(includeLabel).borderColor],
+    };
+  }), {
+    border: 'rgb(82, 97, 112)',
+    legend: 'rgb(237, 242, 247)',
+    any: ['rgb(237, 242, 247)', 'rgb(82, 97, 112)', 'rgb(113, 130, 148)'],
+    include: ['rgb(237, 242, 247)', 'rgb(38, 52, 65)', 'rgb(108, 126, 141)'],
+  });
+  const firstAny = page.locator('.property-filter-any').first();
+  const firstInclude = page.locator('.property-filter-include').first();
+  const firstIncludeLabel = page.locator('.property-filter-include + label').first();
+  await firstAny.focus();
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await firstInclude.isChecked(), true);
+  assert.deepEqual(await firstIncludeLabel.evaluate(label => ({
+    style: getComputedStyle(label).outlineStyle,
+    width: getComputedStyle(label).outlineWidth,
+    color: getComputedStyle(label).outlineColor,
+  })), { style: 'solid', width: '3px', color: 'rgb(121, 201, 255)' });
+  assert.deepEqual(await firstIncludeLabel.evaluate(label => [
+    getComputedStyle(label).color,
+    getComputedStyle(label).backgroundColor,
+    getComputedStyle(label).borderColor,
+  ]), ['rgb(23, 33, 43)', 'rgb(182, 221, 255)', 'rgb(212, 237, 255)']);
+  await page.locator('.property-filter-any + label').first().click();
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await assertNoBlockingA11y(page, 'Projects list page in dark theme at mobile width');
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.getByRole('button', { name: 'Light mode' }).click();
+  assert.deepEqual(await page.locator('#nautical-bow header img').evaluate(image => ({
+    filter: getComputedStyle(image).filter,
+    blendMode: getComputedStyle(image).mixBlendMode,
+  })), { filter: 'none', blendMode: 'normal' });
+  assert.equal(await page.locator('.property-filter-any + label').first().evaluate(label => getComputedStyle(label).backgroundColor), 'rgb(229, 229, 229)');
+
   const noScriptContext = await browser.newContext({ javaScriptEnabled: false });
   const noScriptPage = await noScriptContext.newPage();
   const noScriptResponse = await noScriptPage.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
