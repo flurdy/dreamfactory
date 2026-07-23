@@ -283,6 +283,16 @@ try {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(`${baseUrl}/project/bad_usernames`);
   assert.deepEqual(await page.locator('.project-hero-actions a').allTextContents(), ['Visit live site', 'View source']);
+  assert.equal(await page.locator('.project-hero-actions').getAttribute('aria-label'), 'Project links');
+  assert.equal(await page.locator('.project-hero').evaluate(hero => {
+    const statuses = hero.querySelector('.project-statuses');
+    const actions = hero.querySelector('.project-hero-actions');
+    return Boolean(statuses && actions && statuses.compareDocumentPosition(actions) & Node.DOCUMENT_POSITION_FOLLOWING);
+  }), true);
+  assert.equal(await page.locator('.project-hero-actions').evaluate(actions => {
+    const state = actions.closest('.project-hero').querySelector('.project-hero-state').getBoundingClientRect();
+    return Math.abs(actions.getBoundingClientRect().right - state.right) < 1;
+  }), true);
   assert.deepEqual(await projectHeroState(page), {
     Development: 'Alpha',
     Release: 'Released',

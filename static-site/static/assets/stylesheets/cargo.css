@@ -433,8 +433,9 @@
 .project-hero-actions {
    display: flex;
    flex-wrap: wrap;
+   justify-content: flex-end;
    gap: var(--df-space-2);
-   margin: var(--df-space-3) 0;
+   margin: var(--df-space-3) 0 0;
    padding: 0;
    list-style: none;
 }

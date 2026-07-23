@@ -5,16 +5,6 @@
 <section class="surface project-hero">
   <h1>{{ $project.title | safeHTML }}</h1>
   {{ with $project.description }}<p>{{ . | safeHTML }}</p>{{ end }}
-  {{ if or $liveUrl $projectUrl }}
-    <ul class="project-hero-actions" aria-label="Primary project links">
-      {{ with $liveUrl }}<li><a class="btn btn-primary" href="{{ . }}">Visit live site</a></li>{{ end }}
-      {{ with $projectUrl }}
-        {{ $action := "View project site" }}
-        {{ if or (in . "github.com") (in . "gitlab.com") (in . "bitbucket.org") }}{{ $action = "View source" }}{{ end }}
-        <li><a class="btn btn-default" href="{{ . }}">{{ $action }}</a></li>
-      {{ end }}
-    </ul>
-  {{ end }}
   {{ if or $project.characteristics.development $project.characteristics.release $project.characteristics.deploy $project.news }}
     <dl class="project-hero-state" aria-label="Current project state">
       {{ with $project.characteristics.development }}{{ $label := . | humanize }}{{ with index $labels . }}{{ $label = . }}{{ end }}<div><dt>Development</dt><dd>{{ $label }}</dd></div>{{ end }}
@@ -24,4 +14,14 @@
     </dl>
   {{ end }}
   {{ partial "project-statuses.html" (dict "project" $project "compact" false) }}
+  {{ if or $liveUrl $projectUrl }}
+    <ul class="project-hero-actions" aria-label="Project links">
+      {{ with $liveUrl }}<li><a class="btn btn-primary" href="{{ . }}">Visit live site</a></li>{{ end }}
+      {{ with $projectUrl }}
+        {{ $action := "View project site" }}
+        {{ if or (in . "github.com") (in . "gitlab.com") (in . "bitbucket.org") }}{{ $action = "View source" }}{{ end }}
+        <li><a class="btn btn-default" href="{{ . }}">{{ $action }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
 </section>
