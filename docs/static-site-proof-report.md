@@ -1,12 +1,12 @@
 # Hugo / Cloudflare Pages proof report
 
 **Bead:** `dreamfactory-lu1`
-**Status:** Pages production cutover complete; seven-day observation and Play retirement remain open
-**Date:** 2026-07-22
+**Status:** Pages production; Play/Kubernetes retired
+**Date:** 2026-07-24
 
 ## Scope decision
 
-This began as the approved two-developer-day, non-production proof from `docs/static-site-generator-evaluation.md` and now includes Pages preview, canonical production, scheduled rebuild, and custom-domain evidence. `code.flurdy.com` moved to Pages on 2026-07-22 with no Functions or always-on service; Play/Kubernetes remains available for rollback through observation.
+This began as the approved two-developer-day, non-production proof from `docs/static-site-generator-evaluation.md` and now includes Pages preview, canonical production, scheduled rebuild, custom-domain, and legacy-retirement evidence. `code.flurdy.com` moved to Pages on 2026-07-22 with no Functions or always-on service. The owner ended the Play rollback period and approved runtime/source retirement on 2026-07-24.
 
 ## Implemented local proof
 
@@ -28,7 +28,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
   - Every query route renders the complete rich project list before enhancement, so users retain a semantic no-JavaScript or fetch-failure fallback.
   - Homepage JavaScript replaces the rendered no-JavaScript fallback on each load and preserves the current 10-item, seven-healthy-item selection shape while excluding the generated new/updated/popular sets.
   - Arbitrary-case project aliases remain intentionally unsupported; canonical and explicit title aliases are the static compatibility boundary.
-- Added reproducible local commands:
+- Migration acceptance recorded reproducible local commands:
   - `scripts/build-static-site.sh`
   - `scripts/verify-static-site.sh`
   - `docker compose -f static-site/docker-compose.yml up --detach` for a production-shaped local nginx server.
@@ -38,6 +38,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
   - `npm run test:homepage-visual-parity` for an opt-in deterministic Play homepage fixture compared with Hugo's no-JavaScript Random fallback.
   - `npm run test:static-route-contract` to crawl each deployment's generated route manifest; Pages mode also verifies every `_redirects` response and trailing-slash normalization.
   - `npm run test:pages-preview` to require revalidated HTML and immutable Hugo-fingerprinted CSS, JavaScript, images, and catalog data.
+  - Live Play capture and visual-parity commands were removed after retirement; their dated results and fixtures remain as historical evidence.
 
 ## Evidence
 
@@ -54,7 +55,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
 | Homepage visual parity | `npm run test:homepage-visual-parity` passes full-page deterministic Play comparisons at 1280 px and 375 px. Differences are 0.77% and 0.75%, below the 1% gate. The fixture is opt-in; normal Play shuffling and Hugo's enhanced reload randomization remain unchanged. |
 | Project-list visual parity | `npm run test:list-visual-parity` passes full-page Play comparisons for the unfiltered list, filtered search, plural technologies, and a characteristic alias at 1280 px and 375 px. Differences range from 0.17% to 0.53%, below the 1% gate. |
 | Project-page visual parity | `npm run test:visual-parity` passes full-page comparisons for Gate House, Bad Usernames, Gift Registry, Gate House help, and Gate House sponsor at 1280 px and 375 px. Differences range from 0.08% to 0.40%, below the 1% gate. |
-| Existing application tests | `sbt test` passes: 6 tests, 0 failures. |
+| Migration baseline application tests | Before retirement, `sbt test` passed: 6 tests, 0 failures. |
 | Cloudflare Pages deployment | Git-connected `dreamfactory` builds with Node 22.22.2 and Hugo 0.164.0 on Pages V3. Preview, immutable production, deploy-hook production, and `https://code.flurdy.com` pass 293 canonical routes, 216 redirects, two expected 404s, Pages `308` trailing-slash normalization, and cache checks for revalidated HTML plus 10 referenced immutable fingerprinted resources. |
 | Production cutover | GitHub Actions run `29950485572` successfully triggered deploy-hook release `fff86ae6`. Pages custom domain and CNAME switched on 2026-07-22; transient 522s cleared in roughly 75 seconds, full Pages activation completed in about 3 minutes 25 seconds, and production route/cache/browser smoke checks passed. |
 | Preview rollback rehearsal | The branch alias moved from corrected deployment `bafadac7` to prior-policy deployment `56cca894` via an audited tree-restore commit, while both immutable deployment URLs retained distinct catalog fingerprints. A forward-restore created `06dae2a2`; final Node 22 deployment `cfd10673` passes both contracts. The production-only Pages rollback API was not invoked. |
@@ -69,24 +70,12 @@ This began as the approved two-developer-day, non-production proof from `docs/st
 - Static tested command: `/usr/bin/time -f 'wall=%e max_rss=%M' env PATH=/home/ivar/.nvm/versions/node/v20.20.2/bin:$PATH npm run test:static-browser`.
 - Build-only references used `scripts/build-static-site.sh` and `hugo --source static-site --destination public --minify`, respectively. The tested command is the acceptance comparison because it includes the proof's verification and browser checks.
 
-## Known gaps and decision impact
+## Accepted compatibility boundaries
 
-The canonical-data, page-family, catalog-interaction, route, cache, and Pages-preview follow-ups resolve the local and non-production deployment gates. Remaining migration gaps are:
+The Hugo-only site supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing. Malformed tag/technology URLs render an empty 200 shell instead of Play's former 400 response. Generated forms never produce either shape, and exact parity would require an intentionally out-of-scope edge function.
 
-1. Production rollback to Play remains available but has not been executed after the live switch. The pre-cutover origin and DNS target were verified, and the seven-day observation window ends `2026-07-29T21:51:36Z`. Before canonical deployment, `dreamfactory.pages.dev` served unrelated pre-existing content; the first production deployment replaced it with the expected Hugo release.
-2. The Hugo-only compatibility boundary supports canonical characteristic paths and every declared lowercase Play alias, but not arbitrary path casing; malformed tag/technology URLs render an empty 200 shell instead of Play's 400. Normal site forms never produce either shape. Exact parity would require an edge function, which remains intentionally out of scope.
+The owner accepted ending the planned observation period early on 2026-07-24 and explicitly approved retirement. GitOps commit `66aaaf08f0693a06925fe51a34695aa2f61052f1` removed the Dream Factory Kubernetes workload and image automation. Flux applied the revision, all named resources were absent afterward, and the production route contract still passed against `https://code.flurdy.com`.
 
-## Revised full-migration estimate
+## Outcome
 
-Estimate **1–2 developer days** for the remaining migration:
-
-- 0.5–1 day: contributor/runbook documentation and custom-domain cutover/rollback rehearsal.
-- Up to 1 contingency day for DNS, origin restoration, or production-only differences.
-
-This estimate excludes production observation time and assumes no Pages Function/Worker.
-
-## Recommendation
-
-The local mechanics evidence supports continuing with **Hugo on Cloudflare Pages Free** as the provisional direction: the generated artifact is small, the Hugo-only build is materially faster/lighter, and the current static constraints are understood.
-
-The candidate passes canonical-data, reproducibility, benchmark, route, cache, page-family visual, browser, accessibility, scheduled rebuild, and Cloudflare Pages production gates. Do not retire Play/Kubernetes until the observation window completes, rollback remains healthy, and separate cleanup approval is given.
+Hugo on Cloudflare Pages is the production architecture. The repository retains canonical data, static build tooling, dated migration fixtures, decision records, and Git history. The Play/SBT/HOCON source, JVM container build, live parity tooling, and Kubernetes runtime have been retired.

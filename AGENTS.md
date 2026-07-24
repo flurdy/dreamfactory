@@ -1,286 +1,101 @@
-# Dream Factory - Agent Extension Guide
+# Dream Factory Agent Guide
 
-This guide helps AI agents and developers understand and extend the Dream Factory application - a project idea management system built with Scala and Play Framework.
+Dream Factory is a Hugo static site for cataloging project ideas. Production is hosted on Cloudflare Pages at [code.flurdy.com](https://code.flurdy.com).
 
-## 🏗️ Application Overview
+## Stack
 
-Dream Factory is a web application for cataloging and organizing project ideas, from initial concept to release. It's currently running live at [code.flurdy.com](https://code.flurdy.com).
+- Hugo Extended `0.164.0`
+- Node.js `22.22.2`
+- Vanilla JavaScript and Bootstrap-compatible CSS
+- Playwright and axe-core for browser/accessibility checks
+- Docker Compose with nginx for production-shaped local verification
+- Cloudflare Pages for deployment
 
-### Tech Stack
+The former Scala Play application and Kubernetes runtime were retired on 2026-07-24. They remain available only through Git history and dated migration fixtures.
 
-- **Backend**: Scala 2.13, Play Framework
-- **Frontend**: Bootstrap 3, jQuery, HTML/CSS
-- **Configuration**: HOCON format
-- **Build Tool**: SBT
-- **Deployment**: Docker support
-
-## 📁 Project Structure
+## Repository structure
 
 ```text
 dreamfactory/
-├── app/
-│   ├── controllers/          # HTTP request handlers
-│   ├── models/               # Data models and business logic
-│   └── views/                # HTML templates (Scala templates)
-├── conf/
-│   ├── application.conf      # Main app configuration
-│   ├── routes               # URL routing
-│   └── dreams.d/            # Individual project configurations
-├── public/                  # Static assets (CSS, JS, images)
-└── project/                 # SBT build configuration
+├── static-site/
+│   ├── source/projects.json       # Canonical authored project data
+│   ├── schema/                    # Canonical JSON Schema
+│   ├── content/                   # Hugo content adapters and page shells
+│   ├── layouts/                   # Hugo templates and partials
+│   ├── static/                    # Static assets and Pages headers
+│   ├── hugo.toml                  # Hugo configuration
+│   └── docker-compose.yml         # Local nginx preview
+├── scripts/
+│   ├── lib/static-projects.mjs    # Validation and derived catalog model
+│   ├── build-static-site.sh       # Production build
+│   └── verify-*                   # Artifact, route, browser, and Pages checks
+├── test/
+│   ├── static-site/               # Node contract tests
+│   └── fixtures/static-site/      # Immutable migration baselines
+├── docs/                          # Operations and migration evidence
+├── .github/workflows/             # Scheduled Pages rebuild trigger
+├── Makefile                       # Canonical local commands
+└── package.json                   # Node scripts and pinned dependencies
 ```
 
-## 🧩 Core Components
+## Canonical data
 
-### 1. Data Models (`app/models/`)
+`static-site/source/projects.json` is the only authored project dataset. Do not edit generated files under:
 
-#### Project (`Project.scala`)
+- `static-site/data/`
+- `static-site/static/data/`
+- `static-site/public/`
+- `static-site/static/_redirects`
 
-The main entity representing a project idea:
+Project routes are compatibility-sensitive. Preserve explicit `route` and `aliases` values unless a route migration is deliberately designed and verified. Follow `static-site/schema/projects.schema.json` and the decisions in `docs/static-data-migration-decisions.md`.
 
-```scala
-case class Project(
-  title: String,
-  encoded: Option[String],         // URL-safe slug
-  description: Option[String],
-  urls: Urls,                     // Live/project URLs
-  dates: ProjectDates,            // Created/updated dates
-  versions: Versions,             // Development/live versions
-  news: List[News],               // Project updates
-  comments: List[Comment],        // Additional notes
-  tags: Set[Tag],                 // Categorization tags
-  tech: Set[Technology],          // Technology stack
-  license: Option[License],       // Software license
-  characteristics: ProjectCharacteristics  // Project metadata
-)
-```
+The Play-named fixtures under `test/fixtures/static-site/` are immutable historical contract evidence still consumed by Node tests. Do not delete or casually regenerate them.
 
-#### ProjectCharacteristics (`ProjectCharacteristics.scala`)
+## Development workflow
 
-Defines project metadata with enums:
-
-```scala
-case class ProjectCharacteristics(
-  appeal: Option[Appeal],           // keen, interested, maybe, low
-  complexity: Option[Complexity],   // low, medium, high
-  likelihood: Option[Likelihood],   // high, maybe, possibly, unlikely, low
-  developmentStatus: Option[DevelopmentStatus],  // alpha, beta, completed, abandoned, etc.
-  releaseStatus: Option[ReleaseStatus],         // released, mature, notreleased, mothballed
-  deployStatus: Option[DeployStatus]            // live, online, offline
-)
-```
-
-### 2. Controllers (`app/controllers/`)
-
-#### ProjectController (`ProjectController.scala`)
-
-- **`showProject(projectName)`** - Display individual project details
-- **`findAllProjects()`** - List all projects with filtering
-- **`findProjectsByCharacteristic(type, value)`** - Filter by characteristics
-- **`findProjectsByTag(tag)`** - Filter by tags
-- **`findProjectsByTech(tech)`** - Filter by technology
-
-#### HomeController (`HomeController.scala`)
-
-- **`index()`** - Main dashboard with project categories
-
-### 3. Configuration System (`conf/dreams.d/`)
-
-Projects are defined in HOCON files with this structure:
-
-```hocon
-dreams {
-    projects = [
-        {
-            title = "Project Name"
-            encoded = "project-slug"
-            description = "Project description..."
-            dates = {
-                created = "2021-06"
-                updated = "2021-06"
-            }
-            characteristics = {
-                appeal = interested
-                complexity = low
-                likelihood = maybe
-                status {
-                    development = alpha
-                    release = notreleased
-                    deploy = offline
-                }
-            }
-            tags = ["tag1", "tag2", "idea"]
-            tech = ["scala", "javascript", "docker"]
-            urls = {
-                live = "https://example.com"
-                project = "https://github.com/user/repo"
-            }
-            news = [
-                {
-                    date = "2021-06-08"
-                    description = "Project milestone"
-                }
-            ]
-        }
-    ]
-}
-```
-
-## 🎯 Common Extension Patterns
-
-### Adding New Projects
-
-1. **Create new configuration file**: `conf/dreams.d/newproject.conf`
-2. **Follow the HOCON structure** above
-3. **Use valid enum values** for characteristics (see lists below)
-4. **Restart application** to load new configuration
-
-### Adding New Characteristics
-
-1. **Extend enums** in `ProjectCharacteristics.scala`:
-
-   ```scala
-   sealed abstract class NewCharacteristic(val name: String) extends Characteristic
-   case object NewValue extends NewCharacteristic("newvalue")
-   ```
-
-2. **Update case class**:
-
-   ```scala
-   case class ProjectCharacteristics(
-     // ... existing fields ...
-     newCharacteristic: Option[NewCharacteristic]
-   )
-   ```
-
-3. **Add message keys** in `conf/messages`:
-
-   ```properties
-   project.characteristics.newcharacteristic=New Characteristic
-   project.characteristics.newcharacteristic.newvalue=New Value
-   ```
-
-### Adding New Views
-
-1. **Create template** in `app/views/project/` (Scala templates)
-2. **Add controller method** in `ProjectController`
-3. **Update routes** in `conf/routes`
-
-## 📊 Valid Enum Values
-
-### Appeal
-
-- `keen`, `interested`, `maybe`, `somewhat`, `low`, `high`
-
-### Complexity
-
-- `low`, `medium`, `high`
-
-### Likelihood
-
-- `high`, `maybe`, `possibly`, `unlikely`, `low`
-
-### Development Status
-
-- `alpha`, `beta`, `completed`, `abandoned`, `notstarted`, `mothballed`
-
-### Release Status
-
-- `released`, `mature`, `notreleased`, `mothballed`
-
-### Deploy Status
-
-- `live`, `online`, `offline`
-
-### Common Tags
-
-- `idea`, `popular`, `commercial`, `mobile`, `API`, `service`, etc.
-
-### Technology Examples
-
-- **Languages**: `scala`, `javascript`, `rust`, `go`, `java`, `kotlin`, `haskell`
-- **Frameworks**: `play`, `spring`, `akka`, `NestJS`, `HTMX`, `react`
-- **Infrastructure**: `docker`, `kubernetes`, `heroku`, `postgres`, `mongodb`
-
-## 🔧 Development Workflow
-
-### Local Development
+Install/select the pinned tools, then run:
 
 ```bash
-# Start application
-sbt run
-
-# Access at http://localhost:9000
-
-# Auto-reload on changes (Play Framework feature)
-# No restart needed for view/controller changes
-# Restart needed for model changes or new config files
+nvm use
+npm ci --ignore-scripts
+make static-verify
 ```
 
-### Docker Development
+Useful targets:
 
 ```bash
-# Build image
-docker build -t dreamfactory .
-
-# Run container
-docker run -ti --rm -p 9000:9000 dreamfactory
+make static-build             # Generate data and build Hugo
+make static-artifact-verify   # Determinism, schema, route, and link checks
+make static-verify            # Complete browser/accessibility contract
+make static-preview-up        # Serve at http://localhost:4176/
+make static-preview-down
+make static-route-contract
+PAGES_PREVIEW_BASE_URL=https://<deployment>.dreamfactory.pages.dev make pages-preview-verify
 ```
 
-## 🎨 Customization Points
+Use Makefile targets for repeated/core operations. Do not add a second build path when an existing target can be extended.
 
-### Branding
+## Implementation guidance
 
-- **Main layout**: `app/views/main.scala.html`
-- **Navigation**: `app/views/bridge.scala.html`
-- **Footer**: `app/views/bow.scala.html`
-- **Styles**: `public/stylesheets/`
+- Keep canonical validation in `scripts/lib/static-projects.mjs` and schema constraints in `static-site/schema/projects.schema.json`.
+- Keep shared markup in Hugo partials rather than duplicating page-family templates.
+- Preserve the complete no-JavaScript project list and progressively enhance it in browser code.
+- Keep generated routes, aliases, redirects, and route-manifest checks synchronized.
+- Preserve fingerprinted immutable assets and revalidated HTML cache behavior.
+- Use vendored static assets; avoid adding runtime CDNs or Pages Functions without an explicit architecture decision.
+- Use concise comments only where intent cannot be expressed through names or template structure.
 
-### Messages & Labels
+## Deployment and operations
 
-- **Internationalization**: `conf/messages`
-- **All UI text** can be customized here
+The Git-connected Cloudflare Pages project builds `master` with:
 
-### Filtering & Search
+```text
+npm ci && scripts/build-static-site.sh
+```
 
-- **Project filtering**: `ProjectController.filterProject()`
-- **Characteristics filtering**: Built-in support
-- **Custom filters**: Extend `ProjectFilters` case class
+Output is `static-site/public`. Production, preview verification, scheduled rebuilds, monitoring, and Pages-only rollback are documented in `docs/static-site-operations.md`.
 
-## 🔍 Key Files for Agents
-
-When extending the application, focus on these files:
-
-1. **`app/models/Project.scala`** - Main data model
-2. **`app/models/ProjectCharacteristics.scala`** - Metadata enums
-3. **`app/models/ProjectLookup.scala`** - Configuration loading
-4. **`app/controllers/ProjectController.scala`** - Request handling
-5. **`conf/dreams.d/*.conf`** - Project data
-6. **`conf/routes`** - URL routing
-7. **`conf/messages`** - UI text
-
-## 🚀 Extension Ideas
-
-- **REST API**: Add JSON endpoints for project data
-- **Import/Export**: Bulk project management
-- **Search**: Full-text search across projects
-- **Analytics**: Project statistics and trends
-- **Collaboration**: Multi-user support
-- **Integration**: GitHub/GitLab project sync
-- **Mobile**: Responsive design improvements
-- **Database**: Replace file-based config with database
-
-## 📝 Notes for AI Agents
-
-- **Configuration changes** require application restart
-- **View/controller changes** hot-reload automatically
-- **Use consistent naming** for encoded project slugs
-- **Follow HOCON syntax** exactly in config files
-- **Enum values are case-sensitive**
-- **File-based approach** makes bulk operations via scripts feasible
-- **Bootstrap 3 classes** for styling consistency
-
-This application is designed to be extended and customized. The clear separation between configuration (HOCON files) and code (Scala/Play) makes it easy to add new projects or modify existing ones programmatically.
+Use immutable deployment URLs for acceptance evidence. Every production deployment, DNS mutation, rollback, and remote Git action requires fresh owner approval immediately before execution.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker

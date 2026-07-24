@@ -1,6 +1,8 @@
 # Static-site generator evaluation
 
-**Status:** Proof approved; full migration is not yet approved
+> Historical decision record dated 2026-07-20. Its rollout gates and Play rollback instructions describe the pre-cutover plan, not current operations. Cloudflare Pages became production on 2026-07-22, and the owner approved retirement of the Play/Kubernetes runtime on 2026-07-24. See `docs/static-site-operations.md` for the current runbook.
+
+**Historical status:** Proof approved; full migration was not yet approved
 **Date:** 2026-07-19
 **Bead:** `dreamfactory-4mb`
 
@@ -168,7 +170,7 @@ Each slice remains reviewable and reversible; implementation tracking should be 
 
 ## Decision and acceptance criteria
 
-**Decision (2026-07-20):** the bounded proof was reviewed and closed with its failed/deferred gates documented. The owner then approved the staged full-migration backlog and canonical-data implementation. Production cutover remains gated on complete parity, Cloudflare Pages preview evidence, and rehearsed rollback.
+**Decision (2026-07-20):** the bounded proof was reviewed and closed with its failed/deferred gates documented. The owner then approved the staged full-migration backlog and canonical-data implementation. Those gates subsequently passed, production moved to Cloudflare Pages on 2026-07-22, and the former runtime was retired on 2026-07-24.
 
 After proof approval, the full migration is accepted only when:
 

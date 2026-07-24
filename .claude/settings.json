@@ -1,8 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(sbt compile)",
-      "Bash(sbt clean compile)",
       "Bash(bd dolt commit)",
       "Bash(bd dolt status)"
     ]

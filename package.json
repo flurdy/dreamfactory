@@ -1,5 +1,5 @@
 {
-  "name": "dreamfactory-static-proof",
+  "name": "dreamfactory-static-site",
   "private": true,
   "type": "module",
   "engines": {
@@ -7,15 +7,11 @@
   },
   "scripts": {
     "build:static-data": "node scripts/generate-static-data.mjs",
-    "capture:play-catalog-oracle": "node scripts/capture-play-catalog-oracle.mjs",
     "test:static-data": "node --test test/static-site/static-data.test.mjs",
     "test:static-catalog": "node --test test/static-site/catalog-core.test.mjs",
     "test:static-browser": "node scripts/verify-static-browser.mjs",
     "test:static-route-contract": "node scripts/verify-static-route-contract.mjs",
-    "test:pages-preview": "node scripts/verify-pages-preview.mjs",
-    "test:list-visual-parity": "node scripts/compare-project-list.mjs",
-    "test:visual-parity": "node scripts/compare-project-pages.mjs",
-    "test:homepage-visual-parity": "node scripts/compare-homepage.mjs"
+    "test:pages-preview": "node scripts/verify-pages-preview.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
