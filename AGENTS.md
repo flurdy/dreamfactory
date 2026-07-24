@@ -18,7 +18,7 @@ The former Scala Play application and Kubernetes runtime were retired on 2026-07
 ```text
 dreamfactory/
 ├── static-site/
-│   ├── source/projects.json       # Canonical authored project data
+│   ├── source/projects/           # One canonical JSON file per project
 │   ├── schema/                    # Canonical JSON Schema
 │   ├── content/                   # Hugo content adapters and page shells
 │   ├── layouts/                   # Hugo templates and partials
@@ -40,7 +40,7 @@ dreamfactory/
 
 ## Canonical data
 
-`static-site/source/projects.json` is the only authored project dataset. Do not edit generated files under:
+`static-site/source/projects/` is the only authored project dataset. Each JSON file contains exactly one project object; add a project by adding one descriptively named file. Do not edit generated files under:
 
 - `static-site/data/`
 - `static-site/static/data/`

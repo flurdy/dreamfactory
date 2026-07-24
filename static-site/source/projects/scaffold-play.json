@@ -1,0 +1,20 @@
+{
+  "route": "Scaffold-Play",
+  "title": "Scaffold-Play",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "development": "abandoned",
+    "release": "mothballed"
+  },
+  "news": [
+    {
+      "date": "2013-05-25",
+      "description": "Set up <b>Scaffold-Play</b> at  <a href=\"http://github.com/flurdy/scaffold-play\">github.com</a>"
+    }
+  ],
+  "comments": []
+}

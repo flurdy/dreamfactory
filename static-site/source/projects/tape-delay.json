@@ -1,0 +1,24 @@
+{
+  "route": "Tape Delay",
+  "title": "Tape Delay",
+  "description": "A Twitter tape delayed feed reader. Whilst watching live events that you have paused/recorded, ie as if it was tape delayed, you generally can not read twitter feeds as they might be full of spoilers. With Tape Delay you can set how far behind time you are and only read tweets up to that time. The solution will probably be an app calling a service that proxies twitter feeds and filters out too new tweets. Some caching might also be needed.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "possibly"
+  },
+  "news": [
+    {
+      "date": "2014-12-15",
+      "description": "Added <b>Tape&nbsp;Delay</b> to <a href=\"/projects/?filter.idea=require\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

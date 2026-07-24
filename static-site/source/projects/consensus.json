@@ -1,0 +1,36 @@
+{
+  "route": "consensus",
+  "title": "Consensus",
+  "encoded": "consensus",
+  "description": "Simple polling web app for estimations un e.g. a planning poker session. Fibonacci, t-shirt sizes, etc.",
+  "urls": {},
+  "dates": {
+    "created": "2021-06",
+    "updated": "2021-06"
+  },
+  "versions": {},
+  "tags": [
+    "estimation",
+    "idea",
+    "planning",
+    "poker",
+    "productivity",
+    "scrum"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "easy",
+    "likelihood": "possibly",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2021-06-21",
+      "description": "Added consensus to code.flurdy.com"
+    }
+  ],
+  "comments": []
+}

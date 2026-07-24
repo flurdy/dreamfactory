@@ -1,0 +1,22 @@
+{
+  "route": "grid",
+  "title": "grid",
+  "description": "application framework",
+  "urls": {
+    "website": "http://grid.flurdy.com"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "likelihood": "unlikely",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "website"
+  ]
+}

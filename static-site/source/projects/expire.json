@@ -1,0 +1,62 @@
+{
+  "route": "expire",
+  "title": "Expire",
+  "encoded": "expire",
+  "description": "Simple list of what produce you have in your fridge and pantry, and when they expire. Helps with meal plans and shopping lists",
+  "urls": {
+    "project": "https://apps.flurdy.io/expire"
+  },
+  "dates": {
+    "created": "2020-04-10",
+    "updated": "2026-02-18"
+  },
+  "versions": {},
+  "tags": [
+    "list",
+    "mobile",
+    "popular",
+    "shopping"
+  ],
+  "technologies": [
+    "android",
+    "ios",
+    "javascript",
+    "react-native"
+  ],
+  "license": {
+    "name": "Proprietary",
+    "link": "https://eray.uk"
+  },
+  "keywords": [
+    "Expire",
+    "shopping",
+    "pantry",
+    "fridge",
+    "food",
+    "groceries",
+    "produce",
+    "bestby"
+  ],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "possibly",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2026-02-01",
+      "description": "Started development on Expire"
+    },
+    {
+      "date": "2020-07-12",
+      "description": "Added Expire"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

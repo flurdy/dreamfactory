@@ -1,0 +1,26 @@
+{
+  "route": "Snapper",
+  "title": "Snapper",
+  "description": "A one page site. Consisting of photos only. Think if <a href=\"http://en.wikipedia.org/wiki/The_Million_Dollar_Homepage\">the million dollar homepage</a> merged with <a href=\"http://twitter.com\">Twitter</a>. The huge canvas would be zoomable so that you can eventually make out what the photo(s) are of. Photos could only be posted via mms and maybe webcam tools, so more personal and recent. Could possibly be 3d (not <a href=\"http://en.wikipedia.org/wiki/Stereoscopy\">stereoscopic</a>) but <a href=\"http://en.wikipedia.org/wiki/Z-order\">z layered</a>with more recent on top. Some clever algorithm to place related photos closer together. <a href=\"http://google.com\">Google</a> <a href=\"http://maps.google.com\">maps</a>/<a href=\"http://earth.google.com\">earth</a> -esque on demand loading of the photos and gradully more details. Revenue model is trickier. :0 Maybe small ads in the corner of every photo that can only be seen once very close to the photo. UI &amp; UX need to be slick, clean and do one thing well. Technology: probably html5, jquery/coffeescript, json on the client site. And whatever chosen on the server side, probably play, nosql, heroku.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "difficult",
+    "likelihood": "possibly",
+    "development": "abandoned",
+    "release": "notreleased"
+  },
+  "news": [
+    {
+      "date": "2012-01-26",
+      "description": "Added Snapper to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

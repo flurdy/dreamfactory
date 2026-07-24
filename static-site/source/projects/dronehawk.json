@@ -1,0 +1,25 @@
+{
+  "route": "dronehawk",
+  "title": "Drone Hawk",
+  "encoded": "dronehawk",
+  "description": "<p>The anti drone defence. A business venture of software and hardware.</p><ul><li>Detect drone</li><li>Identity and tag drones</li><li>Track drones</li><li>Jam drones</li><li>Patrol zones</li><li>Intercept drones</li><li>Down and capture drones</li><li>Destroy drones</li></ul><ul><li>Assist border patrol</li><li>Prevent illegal smuggling across borders, prisons, industrial espionage</li><li>Protect events</li><li>Protect people</li><li>Protect property</li><li>Protect the peace</li></ul><p>Surface to air launchers of paint, projectiles or efficient nets</p><p>Air to air launches</p><p>Air based fans for unaggressive deterrent</p><p>Nets with parachutes to capture and down drones</p><p>Detection with scanners for visual and transition signals. As well as air based drone mesh to act as detection perimeter cages.</p>",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "difficult",
+    "likelihood": "possibly"
+  },
+  "news": [
+    {
+      "date": "2015-02-25",
+      "description": "Added <b>Drone&nbsp;Hawk</b> to <a href=\"/projects/?filter.idea=require\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

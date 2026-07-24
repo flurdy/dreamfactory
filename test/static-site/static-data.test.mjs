@@ -7,11 +7,13 @@ import {
   loadCanonicalProjects,
   subtractYearsClamped,
   validateCanonicalData,
+  validateCanonicalProjectFilename,
 } from '../../scripts/lib/static-projects.mjs';
 
 const asOf = '2026-07-20T12:00:00Z';
 const oracle = JSON.parse(fs.readFileSync('test/fixtures/static-site/play-oracle-2026-07-20/projects.json', 'utf8'));
 const source = loadCanonicalProjects();
+const canonicalProjectFiles = fs.readdirSync('static-site/source/projects').sort();
 const approvedCharacteristics = new Map([
   ['baby_crowd_monitor', { development: 'notstarted' }],
   ['bad_usernames', { appeal: 'keen' }],
@@ -59,10 +61,28 @@ test('canonical data validates with explicit stable route identity', () => {
   assert.doesNotMatch(JSON.stringify(source), /@routes|https:\/github/);
 });
 
+test('canonical source stores exactly one project per JSON file', () => {
+  const entries = fs.readdirSync('static-site/source/projects', { withFileTypes: true });
+  assert.equal(entries.length, 72);
+  assert.ok(entries.every(entry => entry.isFile() && validateCanonicalProjectFilename(entry.name)));
+  assert.throws(() => validateCanonicalProjectFilename('Bad_Name.json'), /must be kebab-case JSON/);
+  assert.throws(() => validateCanonicalProjectFilename('bad-name.txt'), /must be kebab-case JSON/);
+
+  const projects = entries
+    .map(entry => entry.name)
+    .sort()
+    .map(filename => JSON.parse(fs.readFileSync(`static-site/source/projects/${filename}`, 'utf8')));
+  assert.ok(projects.every(project => project && typeof project === 'object' && !Array.isArray(project)));
+  assert.deepEqual(projects.map(project => project.route), source.projects.map(project => project.route));
+});
+
 test('schema and semantic validation reject lossy or ambiguous source data', () => {
   const unknownField = structuredClone(source);
   unknownField.projects[0].unexpected = true;
-  assert.throws(() => validateCanonicalData(unknownField), /additional properties/);
+  assert.throws(
+    () => validateCanonicalData(unknownField, canonicalProjectFiles),
+    /baby-crowd-monitor\.json.*additional properties/,
+  );
 
   const unsupportedValue = structuredClone(source);
   unsupportedValue.projects[0].characteristics.appeal = 'high';
@@ -70,11 +90,17 @@ test('schema and semantic validation reject lossy or ambiguous source data', () 
 
   const invalidDate = structuredClone(source);
   invalidDate.projects[0].dates.created = '2026-02-30';
-  assert.throws(() => validateCanonicalData(invalidDate), /Invalid calendar date/);
+  assert.throws(
+    () => validateCanonicalData(invalidDate, canonicalProjectFiles),
+    /baby-crowd-monitor\.json: Invalid calendar date/,
+  );
 
   const duplicateRoute = structuredClone(source);
   duplicateRoute.projects[1].route = duplicateRoute.projects[0].route;
-  assert.throws(() => validateCanonicalData(duplicateRoute), /Duplicate case-insensitive route/);
+  assert.throws(
+    () => validateCanonicalData(duplicateRoute, canonicalProjectFiles),
+    /Duplicate case-insensitive route.*baby-crowd-monitor\.json.*bad-usernames\.json/,
+  );
 
   const caseDuplicateRoute = structuredClone(source);
   caseDuplicateRoute.projects[1].route = caseDuplicateRoute.projects[0].route.toUpperCase();

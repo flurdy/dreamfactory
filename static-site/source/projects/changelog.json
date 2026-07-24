@@ -1,0 +1,30 @@
+{
+  "route": "Changelog",
+  "title": "Changelog",
+  "description": "A changelog service to independently host projects changelogs. Will include services to list and link to release tags, bugs, binaries, etc.",
+  "urls": {},
+  "dates": {
+    "created": "2018-10-25",
+    "updated": "2018-10-25"
+  },
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "possibly",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2019-01-24",
+      "description": "Added Changelog"
+    }
+  ],
+  "comments": []
+}

@@ -1,0 +1,25 @@
+{
+  "route": "Bookmarks",
+  "title": "Bookmarks",
+  "description": "A bookmarking tool. A del.icio.us that works, without all the extras. A startpage. ",
+  "urls": {
+    "alternative": "https://myfav.es"
+  },
+  "dates": {
+    "created": "2012-02-18"
+  },
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "medium",
+    "likelihood": "unlikely",
+    "development": "notstarted"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "alternative"
+  ]
+}

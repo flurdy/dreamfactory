@@ -1,0 +1,24 @@
+{
+  "route": "Joke",
+  "title": "Joke",
+  "description": "joke repository / forge. publish jokes by forwarding email, online forms, photos, links, etc.",
+  "urls": {
+    "demo": "http://grid.flurdy.com/joke"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "medium",
+    "likelihood": "possibly"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "demo"
+  ]
+}

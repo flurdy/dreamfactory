@@ -1,0 +1,24 @@
+{
+  "route": "housegrid",
+  "title": "housegrid",
+  "description": "smart house interface. using mrHouse or similar, integrating/ mashup of other services. or a House tips database.",
+  "urls": {
+    "live": "http://www.bionichouse.com"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "medium",
+    "likelihood": "possibly"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "live"
+  ]
+}

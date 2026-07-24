@@ -1,0 +1,33 @@
+{
+  "route": "LavaFlow",
+  "title": "LavaFlow",
+  "description": "Feature toggle sunsetting build plugin tool. Set dates for when a feature toggle is expected to be removed, as in no longer needing toggle. Can be date or semver version. Warn or fail build",
+  "urls": {},
+  "dates": {
+    "created": "2021-02",
+    "updated": "2021-02"
+  },
+  "versions": {},
+  "tags": [
+    "build",
+    "ci",
+    "feature",
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "medium",
+    "likelihood": "possibly",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2021-02-12",
+      "description": "Added LavaFlow to code.flurdy.com"
+    }
+  ],
+  "comments": []
+}

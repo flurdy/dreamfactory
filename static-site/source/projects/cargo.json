@@ -1,0 +1,50 @@
+{
+  "route": "Cargo",
+  "title": "Cargo",
+  "description": "Cargo transport management game. Think Euro Truck Simulator 2 without all the driving, i.e. without 95% of the game. Or Transport Fever without the trains and passengers, i.e. 90% of that game... Basically manage a Trucking company that transports cargo around. Emphasis on economy, hire and fire staff, training, supply and demand. Not on whole value chain supply like the Fever and Tycoon games. May eventually include vanity such as logos, truck design etc.",
+  "urls": {
+    "project": "https://github.com/flurdy/cargo"
+  },
+  "dates": {
+    "created": "2017-01",
+    "updated": "2017-09"
+  },
+  "versions": {},
+  "tags": [
+    "browserbased",
+    "game"
+  ],
+  "technologies": [
+    "go",
+    "javascript",
+    "play",
+    "rust",
+    "scala"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "difficult",
+    "likelihood": "possibly",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2017-10-13",
+      "description": "Create github repo"
+    },
+    {
+      "date": "2017-10-10",
+      "description": "Started Cargo scaffold"
+    },
+    {
+      "date": "2017-01-21",
+      "description": "Added Cargo to code.flurdy.com"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "route": "BuyNow",
+  "title": "BuyNow",
+  "description": "(Or SnapUp) Use Kelko, Froogle, PriceRunner, Amazon etc to find prices for a product. Customers set the max price they would buy the product for. If price goes under said amount then buy it. <p> E.g if iPad 2 64bit Wifi costs at least &pound;549 according to price matchers, the customer might say if goes under &pound;400 he would buy it. </p> Initially price update searches (while registered users are low) can by manual job at days interval, even outsourced. Then eventual automated and more instant. By \"buy it\" initially it can be just an email notification. In time it could be actual reservation. Allows tie ins with 3rd party shops and price matchers.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "difficult",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2012-01-10",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

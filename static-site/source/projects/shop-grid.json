@@ -1,0 +1,46 @@
+{
+  "route": "shop_grid",
+  "title": "Shop Grid",
+  "encoded": "shop_grid",
+  "description": "A shopping list assistant. Desktop &amp; mobile web site for handy in store lists. Potentially auto generate frequent purchases.",
+  "urls": {
+    "project": "http://github.com/flurdy/shoppinglist",
+    "demo": "http://grid.flurdy.com/shop",
+    "live": "http://shop.flurdy.io"
+  },
+  "dates": {
+    "created": "2012",
+    "updated": "2015"
+  },
+  "versions": {
+    "dev": "0.0.3&alpha;",
+    "live": "0.0.1&alpha;"
+  },
+  "tags": [],
+  "technologies": [
+    "play",
+    "scala"
+  ],
+  "characteristics": {
+    "complexity": "medium",
+    "development": "abandoned",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2015-01-01",
+      "description": "Switch to work on Cordova based mobile only app, <a href=\"/project/Shop%20Mobile\">Shop Mobile</a>"
+    },
+    {
+      "date": "2012-01-01",
+      "description": "<a href=\"http://shop.flurdy.com\">shop.flurdy.com</a> is live"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live",
+    "demo"
+  ]
+}

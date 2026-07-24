@@ -1,0 +1,29 @@
+{
+  "route": "Mailer",
+  "title": "Mailer",
+  "description": "A common mail sender for my apps and websites. api with channel and page authentication, and common spam detections",
+  "urls": {
+    "project": "http://github.com/flurdy/Mailer"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "email"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2010-10-04",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

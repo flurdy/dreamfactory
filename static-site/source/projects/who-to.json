@@ -1,0 +1,62 @@
+{
+  "route": "who_to",
+  "title": "Who To",
+  "encoded": "who_to",
+  "description": "Who are your friends' spouses and kids? What is the name of your friends' wives, boyfriends, children, parents? How do you spell those again? <hr/> This app is here to help you remember people's spouses', exes', etc names. You will never be embarrassed when meeting them again or writing birthday cards.",
+  "urls": {
+    "project": "http://bitbucket.org/flurdy/who-to",
+    "live": "https://whoto.flurdy.io"
+  },
+  "dates": {
+    "created": "2013",
+    "updated": "2025-11"
+  },
+  "versions": {
+    "live": "1.0"
+  },
+  "tags": [
+    "live",
+    "popular"
+  ],
+  "technologies": [
+    "circleci",
+    "heroku",
+    "jenkins",
+    "play",
+    "sbt",
+    "scala"
+  ],
+  "characteristics": {
+    "complexity": "easy",
+    "development": "beta",
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2025-11-05",
+      "description": "Started new UI styling update"
+    },
+    {
+      "date": "2025-10-05",
+      "description": "Migrated away from heroku to kubernetes/upstash"
+    },
+    {
+      "date": "2016-02-01",
+      "description": "Live url change to https://whoto.flurdy.io"
+    },
+    {
+      "date": "2013-07-28",
+      "description": "v1.0 deployed to <a href=\"http://whoto.flurdy.com\">whoto.flurdy.com</a>"
+    },
+    {
+      "date": "2013-05-24",
+      "description": "Started <b>WhoTo</b> at <a href=\"https://bitbucket.org/flurdy/who-to\">bitbucket.org</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "route": "tabsearch",
+  "title": "tabsearch",
+  "description": "cross multi search engines tool",
+  "urls": {
+    "project": "http://sourceforge.net/project/t/tabsearch",
+    "live": "http://tabsearch.sourceforge.net"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "likelihood": "never",
+    "development": "abandoned",
+    "release": "mothballed",
+    "deploy": "live"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

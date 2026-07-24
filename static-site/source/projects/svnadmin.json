@@ -1,0 +1,23 @@
+{
+  "route": "svnadmin",
+  "title": "svnadmin",
+  "description": "staging and deployment tool.",
+  "urls": {
+    "project": "https://svn.flurdy.com/code/java/flurdysvn/trunk"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "likelihood": "never",
+    "development": "abandoned",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "route": "golfgrid",
+  "title": "golfgrid",
+  "description": "statistics of golf rounds, am i still crap or getting better etc....",
+  "urls": {
+    "demo": "http://grid.flurdy.com/golf"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "demo"
+  ]
+}

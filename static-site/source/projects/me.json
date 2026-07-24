@@ -1,0 +1,24 @@
+{
+  "route": "Me",
+  "title": "Me",
+  "description": "An avatar photo service. A URL something like me.flurdy.io/myusername/me.jpg. Upload several photos of yourself, and random one is returned, with size and shape options. May also return GIF animation , morphs etc. Will need some porn filters. Or not.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "medium",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2015-10-04",
+      "description": "Added Me to <a href=\"http://code.flurdy.com/\">code.flurdy.com</a>"
+    }
+  ],
+  "comments": []
+}

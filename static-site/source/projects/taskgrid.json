@@ -1,0 +1,17 @@
+{
+  "route": "taskgrid",
+  "title": "taskgrid",
+  "description": "Integrate todo lists e.g. <a href=\"http://rmilk.com\">rmilk.com</a>, bug / tasks e.g. Jira, calendars, e.g. google calendar, timesheets ....",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "difficult",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": []
+}

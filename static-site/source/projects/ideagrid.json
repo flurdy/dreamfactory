@@ -1,0 +1,24 @@
+{
+  "route": "ideagrid",
+  "title": "ideagrid",
+  "description": "Idea and innovation forum and database",
+  "urls": {
+    "alternative": "http://www.ideatorrent.org"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "possibly"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "alternative"
+  ]
+}

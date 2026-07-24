@@ -1,0 +1,38 @@
+{
+  "route": "Scala Soup",
+  "title": "Scala Soup",
+  "aliases": [
+    "Scala-Soup"
+  ],
+  "description": "Scala test library for testing html responses. Wrapper around JSoup",
+  "urls": {
+    "binary": "https://bintray.com/flurdy/maven/scalasoup",
+    "alternative": "https://jsoup.org",
+    "project": "https://github.com/flurdy/scala-soup"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "testing"
+  ],
+  "technologies": [
+    "bintray",
+    "github",
+    "html",
+    "maven",
+    "scala",
+    "selenium"
+  ],
+  "characteristics": {
+    "development": "beta",
+    "release": "beta",
+    "deploy": "live"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "binary",
+    "alternative"
+  ]
+}

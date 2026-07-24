@@ -1,0 +1,24 @@
+{
+  "route": "Twalker",
+  "title": "Twalker",
+  "description": "A twitter stalker. Follow people on twitter without them knowing. Aggregate Twitter RSS into a standalone web app.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2010-10-04",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

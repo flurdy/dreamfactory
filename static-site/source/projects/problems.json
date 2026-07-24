@@ -1,0 +1,26 @@
+{
+  "route": "Problems",
+  "title": "Problems",
+  "description": "A known problems page stand alone service",
+  "urls": {},
+  "dates": {
+    "created": "2018-05"
+  },
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "possibly"
+  },
+  "news": [
+    {
+      "date": "2018-05-15",
+      "description": "Added Problems to code.flurdy.com"
+    }
+  ],
+  "comments": []
+}

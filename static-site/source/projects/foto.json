@@ -1,0 +1,25 @@
+{
+  "route": "Foto",
+  "title": "Foto",
+  "description": "online photo album and photo backup. superseded by coppermine, then flickr then picasa.",
+  "urls": {
+    "live": "http://foto.flurdy.com",
+    "info": "http://www.ivar.co.uk/fotos.html"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "complexity": "medium",
+    "likelihood": "possibly",
+    "development": "abandoned",
+    "deploy": "offline"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "live",
+    "info"
+  ]
+}

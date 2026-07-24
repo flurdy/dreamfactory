@@ -1,18 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://code.flurdy.com/schemas/projects.schema.json",
-  "title": "Dream Factory canonical project data",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["schemaVersion", "projects"],
-  "properties": {
-    "schemaVersion": { "const": 1 },
-    "projects": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/project" }
-    }
-  },
+  "title": "Dream Factory canonical project",
+  "$ref": "#/$defs/project",
   "$defs": {
     "date": {
       "type": "string",

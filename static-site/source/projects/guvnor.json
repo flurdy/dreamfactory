@@ -1,0 +1,44 @@
+{
+  "route": "Guvnor",
+  "title": "Guvnor",
+  "description": "A CI server and build management system. Sitting on top of Hudson, Jenkins, TeamCity, Travis etc. But with a focus on ease of use and configuration. Using cloud9 ide as the main interface for configuration and monitoring..",
+  "urls": {
+    "project": "http://github.com/flurdy/guvnor"
+  },
+  "dates": {
+    "created": "2015-11-01",
+    "updated": "2016-04-01"
+  },
+  "versions": {},
+  "tags": [
+    "ci",
+    "cloud9"
+  ],
+  "technologies": [
+    "cloud9",
+    "javascript",
+    "node.js"
+  ],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "verydifficult",
+    "likelihood": "possibly",
+    "development": "abandoned",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2016-01-03",
+      "description": "Made <b>Guvnor</b> public at <a href=\"http://github.com/flurdy/guvnor\">github.com</a>"
+    },
+    {
+      "date": "2010-12-08",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

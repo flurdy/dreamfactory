@@ -10,7 +10,7 @@ This began as the approved two-developer-day, non-production proof from `docs/st
 
 ## Implemented local proof
 
-- Established `static-site/source/projects.json` as the canonical authored dataset.
+- Established canonical authored JSON project data, now maintained as one file per project under `static-site/source/projects/`.
   - A strict JSON Schema and Ajv validation reject unknown fields, unsupported values, invalid dates, route collisions, and URL-order drift.
   - The 16 raw HOCON discrepancies have explicit decisions in `docs/static-data-migration-decisions.md`; owners, keywords, and typo aliases are preserved rather than silently dropped.
   - A fixed-clock Play oracle records `2026-07-20T12:00:00Z` in UTC. Node generation matches its project fields and derived flags except the approved data corrections and deterministic tie ordering; separate homepage/list summary fields preserve each Play template's URL behavior.

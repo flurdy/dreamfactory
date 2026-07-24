@@ -24,11 +24,7 @@ jq -e '
   ([.home.noJavaScriptRandomProjects[] | select(.link as $link | ($catalog.home.randomExcludedLinks | index($link)))] | length == 0) and
   ([.home.noJavaScriptRandomProjects[] | select((.derived.dead or .derived.unlikely or .derived.stale) | not)] | length >= 7)
 ' static-site/data/projects.json >/dev/null
-jq -e '
-  .schemaVersion == 1 and
-  (.projects | length == 72) and
-  ([.projects[].route | ascii_downcase] | length == ([.[]] | unique | length))
-' static-site/source/projects.json >/dev/null
+test "$(find static-site/source/projects -maxdepth 1 -type f -name '*.json' | wc -l)" -eq 72
 
 test -f static-site/public/404.html
 test "$(find static-site/public/project -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 72

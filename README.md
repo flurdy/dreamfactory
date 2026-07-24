@@ -4,7 +4,7 @@ Dream Factory catalogs project ideas from initial thought through release. The p
 
 ## Project data
 
-Canonical project data lives in [`static-site/source/projects.json`](static-site/source/projects.json). Generated files under `static-site/data`, `static-site/static/data`, and `static-site/public` must not be edited directly.
+Canonical project data lives in [`static-site/source/projects/`](static-site/source/projects/), with one JSON file per project. Generated files under `static-site/data`, `static-site/static/data`, and `static-site/public` must not be edited directly.
 
 ## Local development
 

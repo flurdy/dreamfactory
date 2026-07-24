@@ -1,6 +1,10 @@
 # Static site
 
-This directory contains the production Hugo/Cloudflare Pages site. Canonical authored project data lives in `source/projects.json`; the build generates Hugo data, the browser catalog, and redirects. See [`../docs/static-site-operations.md`](../docs/static-site-operations.md) for contributor and deployment operations.
+This directory contains the production Hugo/Cloudflare Pages site. Canonical authored data lives under `source/projects/`, with exactly one project object per JSON file. The build validates and combines those files to generate Hugo data, the browser catalog, and redirects. See [`../docs/static-site-operations.md`](../docs/static-site-operations.md) for contributor and deployment operations.
+
+## Adding a project
+
+Copy a similar file under `source/projects/` to a unique, descriptive kebab-case filename, then edit its project object. The filename is organizational; the explicit `route` remains the stable public identity. Run `make static-verify` before committing.
 
 ## Local verification
 

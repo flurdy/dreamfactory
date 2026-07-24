@@ -1,0 +1,34 @@
+{
+  "route": "Spring-boot-logging-json",
+  "title": "Spring-boot-logging-json",
+  "aliases": [
+    "spring-boot-logging-json"
+  ],
+  "urls": {
+    "binary": "https://bintray.com/flurdy/maven/spring-boot-logging-json",
+    "project": "https://github.com/flurdy/spring-boot-logging-json"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "bintray",
+    "logging",
+    "popular"
+  ],
+  "technologies": [
+    "bintray",
+    "maven",
+    "spring",
+    "spring-boot"
+  ],
+  "characteristics": {
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "binary"
+  ]
+}

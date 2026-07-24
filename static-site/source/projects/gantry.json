@@ -1,0 +1,31 @@
+{
+  "route": "Gantry",
+  "title": "Gantry",
+  "description": "A <a href=\"http://docker.com\">Docker</a> registry for container images.",
+  "urls": {
+    "project": "http://github.com/flurdy/gantry"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "docker"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "difficult",
+    "likelihood": "unlikely",
+    "development": "abandoned",
+    "release": "notreleased"
+  },
+  "news": [
+    {
+      "date": "2014-10-10",
+      "description": "Started <b>Gantry</b> at <a href=\"http://github.com/flurdy/gantry\">github.com</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

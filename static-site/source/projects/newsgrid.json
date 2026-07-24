@@ -1,0 +1,19 @@
+{
+  "route": "newsgrid",
+  "title": "newsgrid",
+  "description": "A news aggregation webapp. Probably RSS and tailored per person. May use 3rd party tool. google news, RSS feeds etc have made this redundant.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "easy",
+    "likelihood": "never"
+  },
+  "news": [],
+  "comments": []
+}

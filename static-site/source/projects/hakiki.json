@@ -1,0 +1,50 @@
+{
+  "route": "Hakiki",
+  "title": "Hakiki",
+  "description": "A log of products reviewed per person. Not the other way round. Offer reviews and may offer ability to link to reviews on other sites. Hakiki is Swahili and means to prove",
+  "urls": {
+    "project": "https://github.com/flurdy/hakiki",
+    "live": "https://hakiki.flurdy.io"
+  },
+  "dates": {
+    "created": "2017-03",
+    "updated": "2025-03"
+  },
+  "versions": {},
+  "tags": [
+    "consumer"
+  ],
+  "technologies": [
+    "go",
+    "html",
+    "hugo",
+    "kubernetes"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "easy",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2020-09-24",
+      "description": "Deployed mock up to <a href='http://hakiki.flurdy.io'>hakiki.flurdy.io</a>"
+    },
+    {
+      "date": "2020-09-15",
+      "description": "Renamed Reviewer to Hakiki"
+    },
+    {
+      "date": "2017-03-10",
+      "description": "Added Reviewer to code.flurdy.com"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

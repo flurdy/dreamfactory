@@ -1,0 +1,20 @@
+{
+  "route": "Grapemine",
+  "title": "Grapemine",
+  "description": "Collect social networking sites in one place. See friends/contacts network, Diary of changes etc",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "difficult",
+    "likelihood": "unlikely",
+    "development": "notstarted"
+  },
+  "news": [],
+  "comments": []
+}

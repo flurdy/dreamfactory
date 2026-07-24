@@ -1,0 +1,21 @@
+{
+  "route": "Nexus",
+  "title": "Nexus",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "development": "abandoned",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2010-04-02",
+      "description": "Maven repository, <a href=\"http://code.flurdy.com/nexus\">code.flurdy.com/nexus</a>, now live"
+    }
+  ],
+  "comments": []
+}

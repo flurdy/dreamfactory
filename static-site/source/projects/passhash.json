@@ -1,0 +1,38 @@
+{
+  "route": "passhash",
+  "title": "passhash",
+  "description": "online password encryption and retrieval.",
+  "urls": {
+    "alternative": "http://crypto.stanford.edu/PwdHash/",
+    "project": "https://svn.flurdy.com/code/java/passhash/trunk",
+    "source": "https://code.flurdy.com/hg/grid/passhash/EllisIsland"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "security"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "likelihood": "unlikely",
+    "development": "abandoned",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2009-08-10",
+      "description": "v2.0&alpha; deployed on <a href=\"http://grid.flurdy.com/passhash\">grid.flurdy.com/passhash</a>"
+    },
+    {
+      "date": "2009-08-10",
+      "description": "v2.0&alpha;-m1 tagged"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "alternative",
+    "source"
+  ]
+}

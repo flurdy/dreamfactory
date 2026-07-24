@@ -1,0 +1,24 @@
+{
+  "route": "MyPVR",
+  "title": "MyPVR",
+  "description": "a pvr orientated web site, based upon my own pvr, based on mythtv.",
+  "urls": {
+    "alternative": "http://freedvr.org",
+    "live": "http://mypvr.org"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": [],
+  "urlOrder": [
+    "live",
+    "alternative"
+  ]
+}

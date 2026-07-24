@@ -1,0 +1,53 @@
+{
+  "route": "Lucid",
+  "title": "Lucid",
+  "description": "Support pages for Flurdy mobile apps. Privacy policies, terms of service, and support information.",
+  "urls": {
+    "project": "https://github.com/flurdy/lucid",
+    "live": "https://apps.flurdy.io"
+  },
+  "dates": {
+    "created": "2026-02-24",
+    "updated": "2026-02-24"
+  },
+  "versions": {},
+  "tags": [
+    "infrastructure",
+    "support"
+  ],
+  "technologies": [
+    "cloudflare pages",
+    "docker",
+    "go",
+    "hugo"
+  ],
+  "license": {
+    "name": "Proprietary",
+    "link": "https://eray.uk"
+  },
+  "owners": [
+    {
+      "name": "Eray by Flurdy",
+      "link": "https://eray.uk"
+    }
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "easy",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2026-02-24",
+      "description": "Created Lucid to host app support pages on apps.flurdy.io"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

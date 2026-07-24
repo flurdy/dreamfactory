@@ -1,0 +1,39 @@
+{
+  "route": "UpTo",
+  "title": "UpTo",
+  "description": "<a href=\"http://github.com/flurdy/up4\">A github project</a>.<br/> collaborate and organising event ideas.<br/> find out quickly who is up for: <ul> <li>a beer this friday specifically or most fridays in general</li> <li>a round of golf this month</li> </ul> tell people you are <ul> <li>watching the footy match tonite at a specific pub</li> <li>off to the beach tomorrow</li> <li>having a party on friday</li> </ul>",
+  "urls": {
+    "project": "https://code.flurdy.com/hg/grid/upto/EllisIsland"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "verydifficult",
+    "likelihood": "possibly",
+    "development": "abandoned",
+    "release": "notreleased"
+  },
+  "news": [
+    {
+      "date": "2010-07-04",
+      "description": "v0.0.1&alpha; deployed"
+    },
+    {
+      "date": "2009-09-17",
+      "description": "v0.1&alpha; deployed on <a href=\"http://grid.flurdy.com/upto\">grid.flurdy.com/upto</a>"
+    },
+    {
+      "date": "2009-04-01",
+      "description": "Blog entry: <a href=\"http://blog.flurdy.com/2009/04/what-i-would-like-to-do-if-others-are.html\">what I would like to do if others are up for it</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "route": "GpsAlarm",
+  "title": "GpsAlarm",
+  "description": "Simple mobile app that sound an alarm when you are in an area. E.g. to wake you up when you are about to pull into your train/tube/subway station. Probably Android/iPhone app initially with Rhodes/Ruby/CouchDB.",
+  "urls": {
+    "project": "https://bitbucket.org/flurdy/gpsalarm"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "easy",
+    "likelihood": "possibly",
+    "development": "abandoned"
+  },
+  "news": [
+    {
+      "date": "2010-12-08",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

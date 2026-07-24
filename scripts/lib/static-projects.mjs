@@ -4,12 +4,13 @@ import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 const rootDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const sourcePath = path.join(rootDirectory, 'static-site/source/projects.json');
+const sourceDirectory = path.join(rootDirectory, 'static-site/source/projects');
 const schemaPath = path.join(rootDirectory, 'static-site/schema/projects.schema.json');
 const generatedDataPath = path.join(rootDirectory, 'static-site/data/projects.json');
 const browserDataPath = path.join(rootDirectory, 'static-site/static/data/projects.json');
 const redirectsPath = path.join(rootDirectory, 'static-site/static/_redirects');
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+const projectFilenamePattern = /^[a-z0-9]+(?:-[a-z0-9]+)*\.json$/;
 
 export const catalogControls = {
   properties: [
@@ -84,23 +85,59 @@ export const catalogControls = {
   ],
 };
 
+export function validateCanonicalProjectFilename(filename) {
+  if (!projectFilenamePattern.test(filename)) {
+    throw new Error(`Canonical project filename must be kebab-case JSON: ${filename}`);
+  }
+  return filename;
+}
+
 export function loadCanonicalProjects() {
-  const source = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
-  validateCanonicalData(source);
+  const entries = fs.readdirSync(sourceDirectory, { withFileTypes: true });
+  const unexpectedEntries = entries.filter(entry => !entry.isFile());
+  if (unexpectedEntries.length) {
+    throw new Error(`Canonical project directory contains unexpected entries: ${unexpectedEntries.map(entry => entry.name).sort().join(', ')}`);
+  }
+
+  const projectFiles = entries.map(entry => validateCanonicalProjectFilename(entry.name)).sort();
+  if (!projectFiles.length) throw new Error('Canonical project directory contains no project files');
+
+  const projects = projectFiles.map(filename => {
+    try {
+      return JSON.parse(fs.readFileSync(path.join(sourceDirectory, filename), 'utf8'));
+    } catch (error) {
+      throw new Error(`Invalid canonical project JSON in ${filename}: ${error.message}`);
+    }
+  });
+  const source = { schemaVersion: 1, projects };
+  validateCanonicalData(source, projectFiles);
   return source;
 }
 
-export function validateCanonicalData(source) {
+export function validateCanonicalData(source, projectFiles = []) {
+  if (source?.schemaVersion !== 1 || !Array.isArray(source.projects) || !source.projects.length) {
+    throw new Error('Canonical project data must contain schemaVersion 1 and at least one project');
+  }
+
   const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
   const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
-  if (!validate(source)) {
-    const errors = validate.errors.map(error => `${error.instancePath || '/'} ${error.message}`).join('\n');
-    throw new Error(`Canonical project data failed schema validation:\n${errors}`);
+  const errors = source.projects.flatMap((project, index) => {
+    if (validate(project)) return [];
+    const location = projectFiles[index] ?? `/projects/${index}`;
+    return validate.errors.map(error => `${location}${error.instancePath || '/'} ${error.message}`);
+  });
+  if (errors.length) {
+    throw new Error(`Canonical project data failed schema validation:\n${errors.join('\n')}`);
   }
-  validateProjectIdentity(source.projects);
-  source.projects.forEach(project => {
-    validateProjectDates(project);
-    validateProjectUrls(project);
+  validateProjectIdentity(source.projects, projectFiles);
+  source.projects.forEach((project, index) => {
+    try {
+      validateProjectDates(project);
+      validateProjectUrls(project);
+    } catch (error) {
+      if (!projectFiles[index]) throw error;
+      throw new Error(`${projectFiles[index]}: ${error.message}`, { cause: error });
+    }
   });
   return source;
 }
@@ -133,34 +170,40 @@ export function generateStaticData({ asOf = new Date().toISOString(), write = tr
   return { catalog, redirects };
 }
 
-function validateProjectIdentity(projects) {
+function validateProjectIdentity(projects, projectFiles = []) {
   const routes = new Map();
   const aliases = new Map();
-  for (const project of projects) {
+  projects.forEach((project, index) => {
+    const owner = { route: project.route, filename: projectFiles[index] };
     const normalizedRoute = project.route.toLowerCase();
-    if (routes.has(normalizedRoute)) {
-      throw new Error(`Duplicate case-insensitive route ${project.route}`);
+    const existingRoute = routes.get(normalizedRoute);
+    if (existingRoute) {
+      throw new Error(`Duplicate case-insensitive route ${describeOwner(existingRoute)} and ${describeOwner(owner)}`);
     }
-    routes.set(normalizedRoute, project.route);
+    routes.set(normalizedRoute, owner);
     for (const alias of identityAliases(project)) {
-      addIdentity(aliases, alias, project.route, 'alias');
+      addIdentity(aliases, alias, owner, 'alias');
     }
-  }
-  for (const [identity, route] of aliases) {
+  });
+  for (const [identity, owner] of aliases) {
     const routeOwner = routes.get(identity);
-    if (routeOwner && routeOwner !== route) {
-      throw new Error(`Alias ${identity} for ${route} conflicts with route ${routeOwner}`);
+    if (routeOwner && routeOwner.route !== owner.route) {
+      throw new Error(`Alias ${identity} for ${describeOwner(owner)} conflicts with route ${describeOwner(routeOwner)}`);
     }
   }
 }
 
-function addIdentity(identities, value, route, kind) {
+function addIdentity(identities, value, owner, kind) {
   const normalized = value.toLowerCase();
   const existing = identities.get(normalized);
-  if (existing && existing !== route) {
-    throw new Error(`Duplicate case-insensitive ${kind} ${value} for ${existing} and ${route}`);
+  if (existing && existing.route !== owner.route) {
+    throw new Error(`Duplicate case-insensitive ${kind} ${value} for ${describeOwner(existing)} and ${describeOwner(owner)}`);
   }
-  identities.set(normalized, route);
+  identities.set(normalized, owner);
+}
+
+function describeOwner(owner) {
+  return owner.filename ? `${owner.route} (${owner.filename})` : owner.route;
 }
 
 function identityAliases(project) {

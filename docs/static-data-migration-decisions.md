@@ -3,7 +3,7 @@
 **Bead:** `dreamfactory-bws`
 **Decision date:** 2026-07-20
 
-`static-site/source/projects.json` is the canonical authored dataset. Every project has an explicit `route`; corrected titles, encoded values, and aliases must not change that route implicitly.
+`static-site/source/projects/` is the canonical authored dataset, with one JSON object per project file. Every project has an explicit `route`; corrected titles, encoded values, filenames, and aliases must not change that route implicitly.
 
 ## Raw HOCON discrepancy decisions
 

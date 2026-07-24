@@ -1,0 +1,43 @@
+{
+  "route": "gatehouse",
+  "title": "Gate House",
+  "encoded": "gatehouse",
+  "description": "An API gateway. An experiment management tool. A Blue/Green, Canary and rollout tool. An A/B testing tool. Can be chained. Combined with <a href=\"/project/sluice\">Sluice</a> for Feature Toggles.",
+  "urls": {},
+  "dates": {
+    "created": "2021-02",
+    "updated": "2023-03-20"
+  },
+  "versions": {},
+  "tags": [
+    "api",
+    "featuretoggle",
+    "idea",
+    "management"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "medium",
+    "likelihood": "unlikely",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2023-03-21",
+      "description": "Renamed Sluice to Gate House"
+    },
+    {
+      "date": "2021-02-12",
+      "description": "Added Sluice to code.flurdy.com"
+    }
+  ],
+  "comments": [
+    {
+      "date": "2023-03-21",
+      "comment": "Split into 2 projects: Gate House for API gateway, <a href=\"/project/sluice\">Sluice</a> for Feature Toggles"
+    }
+  ]
+}

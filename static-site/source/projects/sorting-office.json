@@ -1,0 +1,64 @@
+{
+  "route": "sorting_office",
+  "title": "Sorting Office",
+  "encoded": "sorting_office",
+  "description": "Manager your mail servers' databases. Based on my postfix howto: <a href=\"http://flurdy.com/docs/postfix/\">flurdy.com/docs/postfix/</a>",
+  "urls": {
+    "project": "http://github.com/flurdy/sortingoffice"
+  },
+  "dates": {
+    "created": "2014",
+    "updated": "2025-07-08"
+  },
+  "versions": {
+    "dev": "3.1&beta;",
+    "live": "3.0;"
+  },
+  "tags": [
+    "email",
+    "popular"
+  ],
+  "technologies": [
+    "axum",
+    "docker",
+    "heroku",
+    "htmx",
+    "mysql",
+    "play framework",
+    "postfix",
+    "rust",
+    "scala",
+    "tailwind css",
+    "testcontainers"
+  ],
+  "characteristics": {
+    "appeal": "interested",
+    "complexity": "medium",
+    "development": "beta",
+    "release": "released",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2025-07-08",
+      "description": "v3.0 released. New Rust, Axum, HTMX based version"
+    },
+    {
+      "date": "2014-08-21",
+      "description": "v1.0&alpha; deployed to <a href=\"http://sortingoffice-demo.herokuapp.com\">sortingoffice-demo.herokuapp.com</a>"
+    }
+  ],
+  "comments": [
+    {
+      "date": "2025-07-08",
+      "comment": "Version 3 is a complete rewrite in Rust, using Axum and HTMX."
+    },
+    {
+      "date": "2014-08-21",
+      "comment": "The original version was built with Scala and Play Framework"
+    }
+  ],
+  "urlOrder": [
+    "project"
+  ]
+}

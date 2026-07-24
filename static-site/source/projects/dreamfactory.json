@@ -1,0 +1,45 @@
+{
+  "route": "Dreamfactory",
+  "title": "Dreamfactory",
+  "description": "Generic project ideas application. Powers code.flurdy.com",
+  "urls": {
+    "project": "http://github.com/flurdy/dreamfactory",
+    "live": "http://code.flurdy.com"
+  },
+  "dates": {
+    "created": "2016-06",
+    "updated": "2021-02"
+  },
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "license": {
+    "name": "Apache 2.0",
+    "link": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  "characteristics": {
+    "complexity": "easy",
+    "development": "completed",
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2019-10-17",
+      "description": "Added help and sponsor"
+    },
+    {
+      "date": "2016-07-24",
+      "description": "Made Dreamfactory public"
+    },
+    {
+      "date": "2016-07-24",
+      "description": "Launched Dreamfactory on code.flurdy.com"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

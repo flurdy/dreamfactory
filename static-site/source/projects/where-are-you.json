@@ -1,0 +1,29 @@
+{
+  "route": "Where are you",
+  "title": "Where are you",
+  "description": "A mashup of different location services. Extracting data from Latitude, FourSquare, Gowalla, Flickr, Twitter location, etc. Then display a list of your friends possible current location.",
+  "urls": {
+    "project": "http://github.com/flurdy/WRU"
+  },
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "difficult",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2010-10-04",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

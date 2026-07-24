@@ -1,0 +1,27 @@
+{
+  "route": "feedtimer",
+  "title": "Feed Timer",
+  "encoded": "feedtimer",
+  "description": "App to timer to record breast feeding. We are now on kid number two and both times I really wanted to write this app. I observed my partners struggle to remember/record for how long and on which side the babies was fed.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea",
+    "mobile"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "easy",
+    "likelihood": "high",
+    "development": "notstarted"
+  },
+  "news": [
+    {
+      "date": "2014-12-15",
+      "description": "Added <b>Feed&nbsp;Timer</b> to <a href=\"/projects/?filter.idea=require\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

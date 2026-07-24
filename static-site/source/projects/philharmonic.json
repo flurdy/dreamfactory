@@ -1,0 +1,56 @@
+{
+  "route": "Philharmonic",
+  "title": "Philharmonic",
+  "description": "Microservices orchestration. Based on being frustrated with https://github.com/hmrc/service-manager",
+  "urls": {
+    "project": "https://github.com/flurdy/philharmonic"
+  },
+  "dates": {
+    "created": "2016-08",
+    "updated": "2019-11"
+  },
+  "versions": {},
+  "tags": [
+    "microservices",
+    "testing"
+  ],
+  "technologies": [
+    "akka",
+    "docker",
+    "kubernetes"
+  ],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "medium",
+    "likelihood": "possibly",
+    "development": "abandoned",
+    "release": "notreleased"
+  },
+  "news": [
+    {
+      "date": "2016-10-01",
+      "description": "Conductor &alpha;lpha"
+    },
+    {
+      "date": "2016-08-01",
+      "description": "Started on Philharmonic"
+    }
+  ],
+  "comments": [
+    {
+      "date": "2019-11-01",
+      "comment": "Considering reviving Philharmonic. May use Flux's multi tenancy to create short lived Kubernetes clusters for local development."
+    },
+    {
+      "date": "2017-10-01",
+      "comment": "Dropped current development. Scala/Java Docker library was a bit immature. And a Kubernetes architecture seems more appropriate."
+    },
+    {
+      "date": "2016-08-01",
+      "comment": "Architecture split across several apps. Started with an Akka actor setup."
+    }
+  ],
+  "urlOrder": [
+    "project"
+  ]
+}

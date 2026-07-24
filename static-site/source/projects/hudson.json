@@ -1,0 +1,20 @@
+{
+  "route": "Hudson",
+  "title": "Hudson",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2010-01-12",
+      "description": "CI server, <a href=\"http://code.flurdy.com/hudson\">code.flurdy.com/hudson</a>, now live"
+    }
+  ],
+  "comments": []
+}

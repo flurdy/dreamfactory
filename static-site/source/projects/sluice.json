@@ -1,0 +1,37 @@
+{
+  "route": "sluice",
+  "title": "Sluice",
+  "encoded": "sluice",
+  "description": "A Feature Toggle management tool. An experiment management tool. Can be combined with <a href=\"/project/gatehouse\">Gate House</a> to provide a complete experience management across the architecture.",
+  "urls": {},
+  "dates": {
+    "created": "2023-03-21",
+    "updated": "2023-03-21"
+  },
+  "versions": {},
+  "tags": [
+    "featuretoggle",
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2023-03-22",
+      "description": "Spun out of <a href=\"/project/gatehouse\">Gate House</a>"
+    }
+  ],
+  "comments": [
+    {
+      "date": "2023-03-21",
+      "comment": "Split into 2 projects: <a href=\"/project/gatehouse\">Gate House</a> for API gateway, Sluice for Feature Toggles"
+    }
+  ]
+}

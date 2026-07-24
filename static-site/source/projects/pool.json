@@ -1,0 +1,21 @@
+{
+  "route": "Pool",
+  "title": "Pool",
+  "description": "Carpooling framework, for subscription service to quick rent of cars, ala Oslo bilkollektiv etc.",
+  "urls": {},
+  "dates": {
+    "created": "2007"
+  },
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "difficult",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": []
+}

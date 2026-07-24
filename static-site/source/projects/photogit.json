@@ -1,0 +1,28 @@
+{
+  "route": "PhotoGit",
+  "title": "PhotoGit",
+  "description": "Photo sharing using git repositories to push photos, albums etc to share",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "difficult",
+    "likelihood": "unlikely"
+  },
+  "news": [
+    {
+      "date": "2013-05-20",
+      "description": "Started <b>Photo Git</b>"
+    },
+    {
+      "date": "2011-11-12",
+      "description": "Added to <a href=\"http://code.flurdy.com/ideas.html\">ideas</a>"
+    }
+  ],
+  "comments": []
+}

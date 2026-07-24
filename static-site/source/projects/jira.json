@@ -1,0 +1,20 @@
+{
+  "route": "Jira",
+  "title": "Jira",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [],
+  "technologies": [],
+  "characteristics": {
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2010-01-22",
+      "description": "Issue tracker, <a href=\"http://code.flurdy.com/jira\">code.flurdy.com/jira</a>, now live"
+    }
+  ],
+  "comments": []
+}

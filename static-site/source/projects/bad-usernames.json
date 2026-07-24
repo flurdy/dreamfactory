@@ -1,0 +1,65 @@
+{
+  "route": "bad_usernames",
+  "title": "Bad Usernames",
+  "encoded": "bad_usernames",
+  "description": "API service that checks whether a username should be blocked, reserved, or treated as unsafe. Based on the bad_usernames list, with an English-first scope and selected multilingual reserved words where they are likely to matter.",
+  "urls": {
+    "project": "https://github.com/flurdy/bad_usernames_api",
+    "live": "https://badusernames.flurdy.io"
+  },
+  "dates": {
+    "created": "2019-08",
+    "updated": "2026-07-09"
+  },
+  "versions": {
+    "dev": "v0.0.1&alpha;"
+  },
+  "tags": [
+    "api",
+    "multilingual",
+    "security",
+    "service",
+    "username",
+    "validation"
+  ],
+  "technologies": [
+    "http4s",
+    "json"
+  ],
+  "license": {
+    "name": "Proprietary",
+    "link": "https://eray.uk"
+  },
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "easy",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "released",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2026-07-09",
+      "description": "badusernames.flurdy.io is live"
+    },
+    {
+      "date": "2019-08-30",
+      "description": "Added Badusernames to code.flurdy.com"
+    }
+  ],
+  "comments": [
+    {
+      "date": "2026-06-30",
+      "comment": "Scope should be multilingual where it is practical and high-value, such as common reserved/system words like admin or support in major languages, but intentionally English-first to avoid an unbounded language-maintenance problem."
+    },
+    {
+      "date": "2026-06-30",
+      "comment": "Keep the public project and service name as Bad Usernames for now: it is direct, searchable, and matches the existing bad_usernames repository. A more distinctive branded name can be revisited later if the service grows beyond username blocklist checks."
+    }
+  ],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

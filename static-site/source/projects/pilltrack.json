@@ -1,0 +1,40 @@
+{
+  "route": "pilltrack",
+  "title": "PillTrack",
+  "encoded": "pilltrack",
+  "description": "PillTrack is a mobile app for recording daily medicines with a clear taken, missed, or unknown history. Persistent reminders help when an initial alarm is snoozed or missed, while pack and prescription tracking warns early enough to request a refill from the GP before medicine runs out.",
+  "urls": {},
+  "dates": {
+    "created": "2026-07-18",
+    "updated": "2026-07-18"
+  },
+  "versions": {},
+  "tags": [
+    "health",
+    "idea",
+    "medicine",
+    "mobile",
+    "prescription",
+    "reminders"
+  ],
+  "technologies": [
+    "ios",
+    "react-native",
+    "typescript"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "possibly",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2026-07-18",
+      "description": "Added PillTrack"
+    }
+  ],
+  "comments": []
+}

@@ -11,7 +11,7 @@
 
 ## Contributor workflow
 
-Canonical project data lives in `static-site/source/projects.json`. Do not edit generated files under `static-site/data`, `static-site/static/data`, or `static-site/public`.
+Canonical project data lives under `static-site/source/projects/`, with exactly one project object per JSON file. Do not edit generated files under `static-site/data`, `static-site/static/data`, or `static-site/public`.
 
 1. Install Node `22.22.2`, Hugo Extended `0.164.0`, Docker, and Chrome.
 2. Select Node and install dependencies:
@@ -21,7 +21,7 @@ Canonical project data lives in `static-site/source/projects.json`. Do not edit 
    npm ci --ignore-scripts
    ```
 
-3. Edit `static-site/source/projects.json`.
+3. Edit the relevant file under `static-site/source/projects/`, or add one descriptively named `.json` file for a new project.
 4. Run the complete local contract:
 
    ```bash

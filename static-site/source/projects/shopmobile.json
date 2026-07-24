@@ -1,0 +1,44 @@
+{
+  "route": "shopmobile",
+  "title": "Shop Mobile",
+  "encoded": "shopmobile",
+  "description": "A shopping list assistant. Mobile app for handy in store lists. Shared list generation between family members etc",
+  "urls": {
+    "project": "http://github.com/flurdy/shop-mobile"
+  },
+  "dates": {
+    "created": "2015",
+    "updated": "2016"
+  },
+  "versions": {
+    "dev": "0.0.5&beta;"
+  },
+  "tags": [
+    "mobile"
+  ],
+  "technologies": [
+    "cordova"
+  ],
+  "license": {
+    "name": "MIT",
+    "link": "https://opensource.org/licenses/MIT"
+  },
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "possibly",
+    "development": "beta",
+    "release": "mothballed",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2016-01-01",
+      "description": "Usable &alpha;lpha released"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project"
+  ]
+}

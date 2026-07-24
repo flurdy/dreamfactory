@@ -1,0 +1,19 @@
+{
+  "route": "peoplegrid",
+  "title": "peoplegrid",
+  "description": "online address db with e.g. link to postfix tables. birthday register, etc. todays plaxo, facebook, linkedin etc make it less appealing, however I still loose people's real post addresses.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "low",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": []
+}

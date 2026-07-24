@@ -1,0 +1,37 @@
+{
+  "route": "Handshake",
+  "title": "Handshake",
+  "description": "An API versioning assistant. Specify versions in your request and responses. Test contracts like in Pact. Specify EOL of older versions, manually or automatically. Announce new versions, and EOL versions. Include version support as part of a build process",
+  "urls": {},
+  "dates": {
+    "created": "2020-09",
+    "updated": "2020-09"
+  },
+  "versions": {},
+  "tags": [
+    "api",
+    "idea",
+    "integration"
+  ],
+  "technologies": [
+    "go",
+    "java",
+    "rest",
+    "scala"
+  ],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "difficult",
+    "likelihood": "possibly",
+    "development": "notstarted",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2020-09-28",
+      "description": "Added Handshake to code.flurdy.com"
+    }
+  ],
+  "comments": []
+}

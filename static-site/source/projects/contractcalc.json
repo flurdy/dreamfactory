@@ -1,0 +1,37 @@
+{
+  "route": "ContractCalc",
+  "title": "ContractCalc",
+  "description": "A simple calculator to calculate what rates a self-employed contractor should set compared to permanent salaries. Also includes a calculator to work out how many invoiceable hours a contractor may have per year.",
+  "urls": {
+    "project": "https://github.com/flurdy/ContractCalc",
+    "live": "https://contract-calc.flurdy.io"
+  },
+  "dates": {
+    "created": "2012",
+    "updated": "2016"
+  },
+  "versions": {
+    "dev": "0.2&alpha;"
+  },
+  "tags": [
+    "popular"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "complexity": "medium",
+    "development": "completed",
+    "release": "mature",
+    "deploy": "live"
+  },
+  "news": [
+    {
+      "date": "2012-01-24",
+      "description": "v1.0&beta; deployed"
+    }
+  ],
+  "comments": [],
+  "urlOrder": [
+    "project",
+    "live"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "route": "Snips",
+  "title": "Snips",
+  "description": "A self hosted internal repository of text and code snippets and ideas. Basically a cut down wiki using markdown to store: code snippets ala the github's gists, small wiki like tips, lists of things, etc. Small and lightweight so not to replace full wikis ala Confluence.",
+  "urls": {},
+  "dates": {},
+  "versions": {},
+  "tags": [
+    "idea"
+  ],
+  "technologies": [],
+  "characteristics": {
+    "appeal": "maybe",
+    "complexity": "easy",
+    "likelihood": "unlikely"
+  },
+  "news": [],
+  "comments": []
+}
