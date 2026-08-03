@@ -1,0 +1,38 @@
+{
+  "route": "Foyer",
+  "title": "Foyer",
+  "description": "A private browser start page with large icon tiles and compact bookmark rows. The hosted dashboard is backed by an authenticated Cloudflare Worker, with a planned self-contained HTML export that works offline from any machine.",
+  "urls": {},
+  "dates": {
+    "created": "2026-08-03",
+    "updated": "2026-08-03"
+  },
+  "versions": {},
+  "tags": [
+    "dashboard",
+    "offline",
+    "startpage"
+  ],
+  "technologies": [
+    "cloudflare workers",
+    "d1",
+    "r2",
+    "typescript",
+    "hono"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "difficult",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2026-08-03",
+      "description": "Started Foyer as a private replacement for a personal Flame start page"
+    }
+  ],
+  "comments": []
+}

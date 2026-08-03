@@ -31,10 +31,10 @@ function catalogContext(path) {
   };
 }
 
-function evaluate(path) {
+function evaluate(path, projects = catalog.projects) {
   const url = new URL(path, 'https://code.flurdy.com');
   const context = parseCatalogContext(url.pathname, url.searchParams, catalog.controls);
-  const projects = selectProjects(catalog.projects, context, url.searchParams, catalog.controls);
+  const selectedProjects = selectProjects(projects, context, url.searchParams, catalog.controls);
   const filters = activePropertyFilters(url.searchParams, catalog.controls);
   const selected = catalog.controls.properties.flatMap(property => {
     const value = url.searchParams.get(`filter.${property.name}`);
@@ -45,9 +45,9 @@ function evaluate(path) {
   });
   return {
     heading: headingForContext(context),
-    count: `${projects.length} ${projects.length === 1 ? 'project' : 'projects'}`,
-    titles: projects.map(project => renderedTitle(project.title)),
-    related: relatedSections(projects, context)
+    count: `${selectedProjects.length} ${selectedProjects.length === 1 ? 'project' : 'projects'}`,
+    titles: selectedProjects.map(project => renderedTitle(project.title)),
+    related: relatedSections(selectedProjects, context)
       .filter(section => section.terms.length)
       .map(section => ({ heading: section.kind === 'tags' ? 'Tags' : 'Technologies', terms: section.terms })),
     propertyForm: {
@@ -61,8 +61,9 @@ function evaluate(path) {
 
 test('catalog query engine matches the rendered Play contract matrix', () => {
   assert.equal(oracle.cases.length, 47);
+  const historicalProjects = catalog.projects.filter(project => project.link !== 'Foyer');
   oracle.cases.forEach(({ name, path, ...expected }) => {
-    const actual = evaluate(path);
+    const actual = evaluate(path, historicalProjects);
     const { context } = catalogContext(path);
     if (context.kind === 'tags') actual.related = actual.related.filter(section => section.heading === 'Tags');
     if (context.kind === 'technologies') {

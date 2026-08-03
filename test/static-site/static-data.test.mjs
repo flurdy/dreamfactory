@@ -48,8 +48,8 @@ function fixKnownLinks(value) {
 }
 
 test('canonical data validates with explicit stable route identity', () => {
-  assert.equal(source.projects.length, 72);
-  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 72);
+  assert.equal(source.projects.length, 73);
+  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 73);
   assert.equal(source.projects.find(project => project.route === 'Scala Soup').aliases[0], 'Scala-Soup');
   assert.equal(source.projects.find(project => project.route === 'Spring-boot-logging-json').aliases[0], 'spring-boot-logging-json');
   assert.deepEqual(source.projects.find(project => project.route === 'expire').keywords, [
@@ -63,7 +63,7 @@ test('canonical data validates with explicit stable route identity', () => {
 
 test('canonical source stores exactly one project per JSON file', () => {
   const entries = fs.readdirSync('static-site/source/projects', { withFileTypes: true });
-  assert.equal(entries.length, 72);
+  assert.equal(entries.length, 73);
   assert.ok(entries.every(entry => entry.isFile() && validateCanonicalProjectFilename(entry.name)));
   assert.throws(() => validateCanonicalProjectFilename('Bad_Name.json'), /must be kebab-case JSON/);
   assert.throws(() => validateCanonicalProjectFilename('bad-name.txt'), /must be kebab-case JSON/);
@@ -170,7 +170,15 @@ test('fixed-time output matches the Play oracle except approved source decisions
   const { catalog, redirects } = generateStaticData({ asOf, write: false });
   const actualProjects = byRoute(catalog.projects);
   const oracleProjects = byRoute(oracle.projects);
-  assert.deepEqual(sorted(actualProjects.keys()), sorted(oracleProjects.keys()));
+  const supplementalRoutes = sorted([...actualProjects.keys()].filter(route => !oracleProjects.has(route)));
+  assert.deepEqual(supplementalRoutes, ['Foyer']);
+  assert.deepEqual(sorted([...oracleProjects.keys()].filter(route => !actualProjects.has(route))), []);
+
+  const foyer = actualProjects.get('Foyer');
+  assert.equal(foyer.title, 'Foyer');
+  assert.equal(foyer.characteristics.development, 'alpha');
+  assert.equal(foyer.characteristics.release, 'notreleased');
+  assert.equal(foyer.characteristics.deploy, 'offline');
 
   for (const [route, expected] of oracleProjects) {
     const actual = actualProjects.get(route);
@@ -203,16 +211,25 @@ test('fixed-time output matches the Play oracle except approved source decisions
     assert.ok(actual.aliases.includes(expected.title), `${route} title alias`);
   }
 
-  assert.deepEqual(catalog.home.newLinks, oracle.home.newLinks);
-  assert.deepEqual(new Set(catalog.home.updatedLinks), new Set(oracle.home.updatedLinks));
+  assert.deepEqual(catalog.home.newLinks, ['Foyer', ...oracle.home.newLinks.slice(0, 9)]);
+  assert.deepEqual(new Set(catalog.home.updatedLinks), new Set([
+    ...oracle.home.updatedLinks.filter(link => link !== 'who_to'),
+    'Foyer',
+  ]));
   assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
-  assert.equal(catalog.browse.tags.length, 49);
+  assert.equal(catalog.browse.tags.length, 50);
   assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'commercial', 'email', 'productivity']);
   assert.ok(catalog.browse.tags.every(tag => !['idea', 'live', 'popular'].includes(tag)));
   assert.equal(catalog.browse.technologies.length, 30);
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'go', 'javascript']);
-  assert.deepEqual(catalog.home.latestNews, oracle.home.latestNews);
-  assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted(oracle.home.randomExcludedLinks));
+  assert.deepEqual(catalog.home.latestNews, [
+    { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer as a private replacement for a personal Flame start page' },
+    ...oracle.home.latestNews.slice(0, 25),
+  ]);
+  assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
+    ...oracle.home.randomExcludedLinks.filter(link => link !== 'who_to'),
+    'Foyer',
+  ]));
   assert.deepEqual(
     catalog.home.noJavaScriptRandomProjects.map(project => project.link),
     oracle.home.noJavaScriptRandomProjects.map(project => project.link),
