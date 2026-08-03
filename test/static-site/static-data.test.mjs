@@ -223,7 +223,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(catalog.browse.technologies.length, 30);
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'go', 'javascript']);
   assert.deepEqual(catalog.home.latestNews, [
-    { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer as a private replacement for a personal Flame start page' },
+    { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
     ...oracle.home.latestNews.slice(0, 25),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([

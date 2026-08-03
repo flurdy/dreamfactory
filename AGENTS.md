@@ -51,6 +51,8 @@ Project routes are compatibility-sensitive. Preserve explicit `route` and `alias
 
 The Play-named fixtures under `test/fixtures/static-site/` are immutable historical contract evidence still consumed by Node tests. Do not delete or casually regenerate them.
 
+Project news appears in a narrow sidebar. Keep each `news[].description` to a short phrase; put explanatory context in the project description or comments.
+
 ## Development workflow
 
 Install/select the pinned tools, then run:
