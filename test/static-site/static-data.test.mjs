@@ -177,9 +177,10 @@ test('fixed-time output matches the Play oracle except approved source decisions
 
   const foyer = actualProjects.get('Foyer');
   assert.equal(foyer.title, 'Foyer');
+  assert.equal(foyer.urls.live, 'https://foyer.flurdy.io');
   assert.equal(foyer.characteristics.development, 'alpha');
-  assert.equal(foyer.characteristics.release, 'notreleased');
-  assert.equal(foyer.characteristics.deploy, 'offline');
+  assert.equal(foyer.characteristics.release, 'released');
+  assert.equal(foyer.characteristics.deploy, 'live');
 
   const thoughtbox = actualProjects.get('thoughtbox');
   assert.equal(thoughtbox.title, 'Thoughtbox');
@@ -231,8 +232,13 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'typescript', 'go']);
   assert.deepEqual(catalog.home.latestNews, [
     { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
+    {
+      date: '2026-Aug-06',
+      project: 'Foyer',
+      description: 'Deployed to <a href="https://foyer.flurdy.io">foyer.flurdy.io</a>',
+    },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 24),
+    ...oracle.home.latestNews.slice(0, 23),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
     ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake'].includes(link)),

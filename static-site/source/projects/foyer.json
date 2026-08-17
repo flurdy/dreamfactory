@@ -1,11 +1,13 @@
 {
   "route": "Foyer",
   "title": "Foyer",
-  "description": "A private browser start page with large icon tiles and compact bookmark rows. The hosted dashboard is backed by an authenticated Cloudflare Worker, with a planned self-contained HTML export that works offline from any machine.",
-  "urls": {},
+  "description": "A private browser start page with large icon tiles and compact bookmark rows. The authenticated Cloudflare Worker provides revision-safe editing, D1/R2 storage, backup/restore, opt-in private usage statistics, and a self-contained HTML export that works offline from any machine.",
+  "urls": {
+    "live": "https://foyer.flurdy.io"
+  },
   "dates": {
     "created": "2026-08-03",
-    "updated": "2026-08-03"
+    "updated": "2026-08-09"
   },
   "versions": {},
   "tags": [
@@ -14,6 +16,7 @@
     "startpage"
   ],
   "technologies": [
+    "cloudflare access",
     "cloudflare workers",
     "d1",
     "r2",
@@ -25,10 +28,14 @@
     "complexity": "difficult",
     "likelihood": "high",
     "development": "alpha",
-    "release": "notreleased",
-    "deploy": "offline"
+    "release": "released",
+    "deploy": "live"
   },
   "news": [
+    {
+      "date": "2026-08-06",
+      "description": "Deployed to <a href=\"https://foyer.flurdy.io\">foyer.flurdy.io</a>"
+    },
     {
       "date": "2026-08-03",
       "description": "Started Foyer"
