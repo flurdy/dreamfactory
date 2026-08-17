@@ -1,0 +1,41 @@
+{
+  "route": "thoughtbox",
+  "title": "Thoughtbox",
+  "description": "Capture rough development thoughts on mobile and retrieve them safely in the correct local repository for agent-assisted triage.",
+  "urls": {},
+  "dates": {
+    "created": "2026-08-07",
+    "updated": "2026-08-17"
+  },
+  "versions": {
+    "dev": "0.1.0"
+  },
+  "tags": [
+    "idea",
+    "productivity"
+  ],
+  "technologies": [
+    "node.js",
+    "trello",
+    "typescript"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2026-08-10",
+      "description": "Completed Trello-backed CLI MVP"
+    },
+    {
+      "date": "2026-08-07",
+      "description": "Started Thoughtbox"
+    }
+  ],
+  "comments": []
+}

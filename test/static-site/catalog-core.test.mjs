@@ -61,7 +61,8 @@ function evaluate(path, projects = catalog.projects) {
 
 test('catalog query engine matches the rendered Play contract matrix', () => {
   assert.equal(oracle.cases.length, 47);
-  const historicalProjects = catalog.projects.filter(project => project.link !== 'Foyer');
+  const supplementalRoutes = new Set(['Foyer', 'thoughtbox']);
+  const historicalProjects = catalog.projects.filter(project => !supplementalRoutes.has(project.link));
   oracle.cases.forEach(({ name, path, ...expected }) => {
     const actual = evaluate(path, historicalProjects);
     const { context } = catalogContext(path);

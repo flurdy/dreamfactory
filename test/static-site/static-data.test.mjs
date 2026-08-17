@@ -48,8 +48,8 @@ function fixKnownLinks(value) {
 }
 
 test('canonical data validates with explicit stable route identity', () => {
-  assert.equal(source.projects.length, 73);
-  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 73);
+  assert.equal(source.projects.length, 74);
+  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 74);
   assert.equal(source.projects.find(project => project.route === 'Scala Soup').aliases[0], 'Scala-Soup');
   assert.equal(source.projects.find(project => project.route === 'Spring-boot-logging-json').aliases[0], 'spring-boot-logging-json');
   assert.deepEqual(source.projects.find(project => project.route === 'expire').keywords, [
@@ -63,7 +63,7 @@ test('canonical data validates with explicit stable route identity', () => {
 
 test('canonical source stores exactly one project per JSON file', () => {
   const entries = fs.readdirSync('static-site/source/projects', { withFileTypes: true });
-  assert.equal(entries.length, 73);
+  assert.equal(entries.length, 74);
   assert.ok(entries.every(entry => entry.isFile() && validateCanonicalProjectFilename(entry.name)));
   assert.throws(() => validateCanonicalProjectFilename('Bad_Name.json'), /must be kebab-case JSON/);
   assert.throws(() => validateCanonicalProjectFilename('bad-name.txt'), /must be kebab-case JSON/);
@@ -171,7 +171,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
   const actualProjects = byRoute(catalog.projects);
   const oracleProjects = byRoute(oracle.projects);
   const supplementalRoutes = sorted([...actualProjects.keys()].filter(route => !oracleProjects.has(route)));
-  assert.deepEqual(supplementalRoutes, ['Foyer']);
+  assert.deepEqual(supplementalRoutes, ['Foyer', 'thoughtbox']);
   assert.deepEqual(sorted([...oracleProjects.keys()].filter(route => !actualProjects.has(route))), []);
 
   const foyer = actualProjects.get('Foyer');
@@ -179,6 +179,12 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(foyer.characteristics.development, 'alpha');
   assert.equal(foyer.characteristics.release, 'notreleased');
   assert.equal(foyer.characteristics.deploy, 'offline');
+
+  const thoughtbox = actualProjects.get('thoughtbox');
+  assert.equal(thoughtbox.title, 'Thoughtbox');
+  assert.equal(thoughtbox.characteristics.development, 'alpha');
+  assert.equal(thoughtbox.characteristics.release, 'notreleased');
+  assert.equal(thoughtbox.characteristics.deploy, 'offline');
 
   for (const [route, expected] of oracleProjects) {
     const actual = actualProjects.get(route);
@@ -211,28 +217,35 @@ test('fixed-time output matches the Play oracle except approved source decisions
     assert.ok(actual.aliases.includes(expected.title), `${route} title alias`);
   }
 
-  assert.deepEqual(catalog.home.newLinks, ['Foyer', ...oracle.home.newLinks.slice(0, 9)]);
+  assert.deepEqual(catalog.home.newLinks, ['thoughtbox', 'Foyer', ...oracle.home.newLinks.slice(0, 8)]);
   assert.deepEqual(new Set(catalog.home.updatedLinks), new Set([
     ...oracle.home.updatedLinks.filter(link => link !== 'who_to'),
     'Foyer',
   ]));
   assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
   assert.equal(catalog.browse.tags.length, 50);
-  assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'commercial', 'email', 'productivity']);
+  assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'productivity', 'commercial', 'email']);
   assert.ok(catalog.browse.tags.every(tag => !['idea', 'live', 'popular'].includes(tag)));
   assert.equal(catalog.browse.technologies.length, 30);
-  assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'go', 'javascript']);
+  assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'typescript', 'go']);
   assert.deepEqual(catalog.home.latestNews, [
+    { date: '2026-Aug-10', project: 'Thoughtbox', description: 'Completed Trello-backed CLI MVP' },
+    { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 25),
+    ...oracle.home.latestNews.slice(0, 23),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
-    ...oracle.home.randomExcludedLinks.filter(link => link !== 'who_to'),
+    ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake'].includes(link)),
     'Foyer',
+    'thoughtbox',
   ]));
   assert.deepEqual(
     catalog.home.noJavaScriptRandomProjects.map(project => project.link),
-    oracle.home.noJavaScriptRandomProjects.map(project => project.link),
+    [
+      ...oracle.home.noJavaScriptRandomProjects.slice(0, 4).map(project => project.link),
+      'Handshake',
+      ...oracle.home.noJavaScriptRandomProjects.slice(4).map(project => project.link).filter(link => link !== 'Valuta'),
+    ],
   );
   assert.deepEqual(catalog.oracle.searchDreamfactoryLiveTitles, oracle.oracle.searchDreamfactoryLiveTitles);
   assert.deepEqual(catalog.oracle.scalaLiveTitles, oracle.oracle.scalaLiveTitles);
