@@ -48,8 +48,10 @@ function fixKnownLinks(value) {
 }
 
 test('canonical data validates with explicit stable route identity', () => {
-  assert.equal(source.projects.length, 74);
-  assert.equal(new Set(source.projects.map(project => project.route.toLowerCase())).size, 74);
+  assert.equal(
+    new Set(source.projects.map(project => project.route.toLowerCase())).size,
+    source.projects.length,
+  );
   assert.equal(source.projects.find(project => project.route === 'Scala Soup').aliases[0], 'Scala-Soup');
   assert.equal(source.projects.find(project => project.route === 'Spring-boot-logging-json').aliases[0], 'spring-boot-logging-json');
   assert.deepEqual(source.projects.find(project => project.route === 'expire').keywords, [
@@ -63,7 +65,6 @@ test('canonical data validates with explicit stable route identity', () => {
 
 test('canonical source stores exactly one project per JSON file', () => {
   const entries = fs.readdirSync('static-site/source/projects', { withFileTypes: true });
-  assert.equal(entries.length, 74);
   assert.ok(entries.every(entry => entry.isFile() && validateCanonicalProjectFilename(entry.name)));
   assert.throws(() => validateCanonicalProjectFilename('Bad_Name.json'), /must be kebab-case JSON/);
   assert.throws(() => validateCanonicalProjectFilename('bad-name.txt'), /must be kebab-case JSON/);

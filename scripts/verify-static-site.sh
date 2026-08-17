@@ -18,18 +18,19 @@ test "$first_snapshot_hash" = "$second_snapshot_hash"
 
 jq -e '
   . as $catalog |
-  .projectCount == 74 and
+  .projectCount == (.projects | length) and
   ([.projects[].link] | length == ([.[]] | unique | length)) and
   (.home.noJavaScriptRandomProjects | length == 10) and
   ([.home.noJavaScriptRandomProjects[] | select(.link as $link | ($catalog.home.randomExcludedLinks | index($link)))] | length == 0) and
   ([.home.noJavaScriptRandomProjects[] | select((.derived.dead or .derived.unlikely or .derived.stale) | not)] | length >= 7)
 ' static-site/data/projects.json >/dev/null
-test "$(find static-site/source/projects -maxdepth 1 -type f -name '*.json' | wc -l)" -eq 74
+project_count="$(jq -r '.projectCount' static-site/data/projects.json)"
+test "$(find static-site/source/projects -maxdepth 1 -type f -name '*.json' | wc -l)" -eq "$project_count"
 
 test -f static-site/public/404.html
-test "$(find static-site/public/project -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 74
-test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/help' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 74
-test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/sponsor' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq 74
+test "$(find static-site/public/project -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq "$project_count"
+test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/help' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq "$project_count"
+test "$(find static-site/public/project -mindepth 2 -maxdepth 2 -path '*/sponsor' -type d -exec test -f '{}/index.html' \; -print | wc -l)" -eq "$project_count"
 test -f static-site/public/project/bad_usernames/index.html
 test -f static-site/public/project/thoughtbox/index.html
 test -f static-site/public/project/shop_grid/help/index.html

@@ -49,6 +49,10 @@ try {
   const context = await browser.newContext();
   const page = await context.newPage();
   const catalog = await (await fetch(`${baseUrl}/data/projects.json`)).json();
+  const expectedProjectStatusCount = catalog.projects.reduce(
+    (count, project) => count + catalog.controls.properties.filter(property => project.derived[property.name]).length,
+    0,
+  );
   await page.addInitScript(() => {
     window.__dreamFactoryRandom = () => {
       const next = Number(sessionStorage.getItem('rngCalls') || '0') + 1;
@@ -160,7 +164,7 @@ try {
     .replaceAll('&amp;', '&'));
   assert.deepEqual(await page.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
   assert.equal(await page.locator('.project-results .project-summary-url').count(), catalog.projectCount);
-  assert.equal(await page.locator('.project-results .project-status').count(), 178);
+  assert.equal(await page.locator('.project-results .project-status').count(), expectedProjectStatusCount);
   assert.equal(await page.locator('.property-filter').count(), 11);
   assert.equal(await page.locator('.property-filter-any:checked').count(), 11);
   assert.equal(await page.locator('.related-section .chip').count(), catalog.browse.tags.length);
@@ -227,7 +231,7 @@ try {
   const noScriptResponse = await noScriptPage.goto(`${baseUrl}/projects/tech?tech=scala&filter.live=require`);
   assert.equal(noScriptResponse?.status(), 200);
   assert.deepEqual(await noScriptPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
-  assert.equal(await noScriptPage.locator('.project-results .project-status').count(), 178);
+  assert.equal(await noScriptPage.locator('.project-results .project-status').count(), expectedProjectStatusCount);
   assert.equal(await noScriptPage.locator('.project-results .project-summary-url').count(), catalog.projectCount);
   assert.equal(await noScriptPage.locator('.catalog-fallback-message').isVisible(), true);
   const noScriptCombinedResponse = await noScriptPage.goto(
@@ -423,7 +427,10 @@ try {
   await failedCatalogPage.goto(`${baseUrl}/projects/tech?tech=scala`);
   await failedCatalogPage.waitForFunction(() => document.querySelector('#catalog-results')?.dataset.catalogEnhanced === 'failed');
   assert.deepEqual(await failedCatalogPage.locator('.project-results .project-summary-title').allTextContents(), expectedProjectTitles);
-  assert.equal(await failedCatalogPage.locator('#catalog-count').textContent(), '74 projects — interactive filtering unavailable.');
+  assert.equal(
+    await failedCatalogPage.locator('#catalog-count').textContent(),
+    `${catalog.projectCount} projects — interactive filtering unavailable.`,
+  );
   await failedCatalogPage.close();
 
   await page.setViewportSize({ width: 1280, height: 900 });
