@@ -229,10 +229,9 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(catalog.browse.technologies.length, 30);
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'typescript', 'go']);
   assert.deepEqual(catalog.home.latestNews, [
-    { date: '2026-Aug-10', project: 'Thoughtbox', description: 'Completed Trello-backed CLI MVP' },
     { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 23),
+    ...oracle.home.latestNews.slice(0, 24),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
     ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake'].includes(link)),

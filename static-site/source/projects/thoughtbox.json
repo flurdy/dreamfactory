@@ -29,10 +29,6 @@
   },
   "news": [
     {
-      "date": "2026-08-10",
-      "description": "Completed Trello-backed CLI MVP"
-    },
-    {
       "date": "2026-08-07",
       "description": "Started Thoughtbox"
     }
