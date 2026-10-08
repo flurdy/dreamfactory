@@ -172,7 +172,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
   const actualProjects = byRoute(catalog.projects);
   const oracleProjects = byRoute(oracle.projects);
   const supplementalRoutes = sorted([...actualProjects.keys()].filter(route => !oracleProjects.has(route)));
-  assert.deepEqual(supplementalRoutes, ['Foyer', 'thoughtbox']);
+  assert.deepEqual(supplementalRoutes, ['Foyer', 'thoughtbox', 'wrap']);
   assert.deepEqual(sorted([...oracleProjects.keys()].filter(route => !actualProjects.has(route))), []);
 
   const foyer = actualProjects.get('Foyer');
@@ -188,13 +188,25 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(thoughtbox.characteristics.release, 'notreleased');
   assert.equal(thoughtbox.characteristics.deploy, 'offline');
 
+  const wrap = actualProjects.get('wrap');
+  assert.equal(wrap.title, 'Wrap');
+  assert.deepEqual(wrap.urls, {});
+  assert.equal(wrap.characteristics.development, 'alpha');
+  assert.equal(wrap.characteristics.release, 'notreleased');
+  assert.equal(wrap.characteristics.deploy, 'offline');
+  assert.match(wrap.description, /href="\/project\/Gift%20Registry"/);
+  assert.match(wrap.description, /href="\/project\/Wish"/);
+
   for (const [route, expected] of oracleProjects) {
     const actual = actualProjects.get(route);
     for (const key of [
       'title', 'encoded', 'link', 'pathSegment', 'description', 'urls', 'urlEntries', 'dates',
       'versions', 'tags', 'technologies', 'license', 'comments', 'derived',
     ]) {
-      assert.deepEqual(actual[key], expected[key], `${route} ${key}`);
+      const expectedValue = route === 'Gift Registry' && key === 'description'
+        ? `${expected.description}<p>Continued as <a href="/project/wrap">Wrap</a>, focused on planning outgoing gifts, joint presents and gift history.</p>`
+        : expected[key];
+      assert.deepEqual(actual[key], expectedValue, `${route} ${key}`);
     }
 
     const expectedNews = fixKnownLinks(expected.news);
@@ -219,11 +231,10 @@ test('fixed-time output matches the Play oracle except approved source decisions
     assert.ok(actual.aliases.includes(expected.title), `${route} title alias`);
   }
 
-  assert.deepEqual(catalog.home.newLinks, ['thoughtbox', 'Foyer', ...oracle.home.newLinks.slice(0, 8)]);
-  assert.deepEqual(new Set(catalog.home.updatedLinks), new Set([
-    ...oracle.home.updatedLinks.filter(link => link !== 'who_to'),
-    'Foyer',
-  ]));
+  assert.deepEqual(catalog.home.newLinks, ['wrap', 'thoughtbox', 'Foyer', ...oracle.home.newLinks.slice(0, 7)]);
+  assert.deepEqual(catalog.home.updatedLinks, [
+    'wrap', 'Foyer', 'bad_usernames', 'Lucid', 'TapIn', 'expire', 'gauge',
+  ]);
   assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
   assert.equal(catalog.browse.tags.length, 50);
   assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'productivity', 'commercial', 'email']);
@@ -231,6 +242,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(catalog.browse.technologies.length, 30);
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'typescript', 'go']);
   assert.deepEqual(catalog.home.latestNews, [
+    { date: '2026-Oct-06', project: 'Wrap', description: 'Started Wrap' },
     { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
     {
       date: '2026-Aug-06',
@@ -238,19 +250,19 @@ test('fixed-time output matches the Play oracle except approved source decisions
       description: 'Deployed to <a href="https://foyer.flurdy.io">foyer.flurdy.io</a>',
     },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 23),
+    ...oracle.home.latestNews.slice(0, 22),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
-    ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake'].includes(link)),
+    ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake', 'LavaFlow'].includes(link)),
     'Foyer',
     'thoughtbox',
+    'wrap',
   ]));
   assert.deepEqual(
     catalog.home.noJavaScriptRandomProjects.map(project => project.link),
     [
-      ...oracle.home.noJavaScriptRandomProjects.slice(0, 4).map(project => project.link),
-      'Handshake',
-      ...oracle.home.noJavaScriptRandomProjects.slice(4).map(project => project.link).filter(link => link !== 'Valuta'),
+      'Cargo', 'Changelog', 'Dreamfactory', 'Hakiki', 'Handshake', 'LavaFlow',
+      'Scala Soup', 'baby_crowd_monitor', 'Bookmarks', 'BuyNow',
     ],
   );
   assert.deepEqual(catalog.oracle.searchDreamfactoryLiveTitles, oracle.oracle.searchDreamfactoryLiveTitles);
@@ -265,4 +277,5 @@ test('fixed-time output matches the Play oracle except approved source decisions
   const newRedirects = new Set(redirects.split('\n').filter(Boolean));
   oldRedirects.forEach(redirect => assert.ok(newRedirects.has(redirect), `missing redirect: ${redirect}`));
   assert.ok(newRedirects.has('/project/Scala-Soup /project/Scala%20Soup 301'));
+  assert.ok(newRedirects.has('/project/Wrap /project/wrap 301'));
 });

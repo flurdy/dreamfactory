@@ -6,6 +6,7 @@ logs/
 .envrc.local
 
 node_modules/
+.artifacts/
 
 # Beads / Dolt files (added by bd init)
 .dolt/

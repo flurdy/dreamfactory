@@ -434,6 +434,28 @@ try {
   await failedCatalogPage.close();
 
   await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/project/wrap`);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Wrap']);
+  assert.equal(await page.locator('.project-hero-actions').count(), 0);
+  assert.deepEqual(await projectHeroState(page), {
+    Development: 'Alpha',
+    Release: 'Not released',
+    Deployment: 'Offline',
+    'Latest update': '2026-Oct-06 — Started Wrap'
+  });
+  assert.equal(await page.locator('.project-hero a[href="/project/Gift%20Registry"]').count(), 1);
+  assert.equal(await page.locator('.project-hero a[href="/project/Wish"]').count(), 1);
+  await assertNoBlockingA11y(page, 'Wrap project detail page');
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await assertNoBlockingA11y(page, 'Wrap project detail page at mobile width');
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/project/Gift%20Registry`);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Gift Registry']);
+  assert.equal(await page.locator('.project-hero a[href="/project/wrap"]').count(), 1);
+  await page.goto(`${baseUrl}/project/Wish`);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Wish']);
+
   await page.goto(`${baseUrl}/project/bad_usernames`);
   assert.deepEqual(await page.locator('.project-hero-actions a').allTextContents(), ['Visit live site', 'View source']);
   assert.equal(await page.locator('.project-hero-actions').getAttribute('aria-label'), 'Project links');

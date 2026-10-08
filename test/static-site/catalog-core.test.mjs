@@ -61,7 +61,7 @@ function evaluate(path, projects = catalog.projects) {
 
 test('catalog query engine matches the rendered Play contract matrix', () => {
   assert.equal(oracle.cases.length, 47);
-  const supplementalRoutes = new Set(['Foyer', 'thoughtbox']);
+  const supplementalRoutes = new Set(['Foyer', 'thoughtbox', 'wrap']);
   const historicalProjects = catalog.projects.filter(project => !supplementalRoutes.has(project.link));
   oracle.cases.forEach(({ name, path, ...expected }) => {
     const actual = evaluate(path, historicalProjects);
@@ -72,6 +72,13 @@ test('catalog query engine matches the rendered Play contract matrix', () => {
     }
     assert.deepEqual(actual, expected, name);
   });
+});
+
+test('Wrap is searchable as an unreleased offline project', () => {
+  const titles = ['Gift Registry', 'Scala Soup', 'Wrap'];
+  assert.deepEqual(evaluate('/projects/search?searchterm=wrap').titles, titles);
+  assert.deepEqual(evaluate('/projects/search?searchterm=wrap&filter.live=require').titles, []);
+  assert.deepEqual(evaluate('/projects/search?searchterm=wrap&filter.live=exclude').titles, titles);
 });
 
 test('Play contract matrix covers require and exclude for every property', () => {

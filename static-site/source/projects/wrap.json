@@ -1,0 +1,36 @@
+{
+  "route": "wrap",
+  "title": "Wrap",
+  "description": "<p>Gift planning, joint presents and outgoing-gift history. Wish is what you'd love to receive; Wrap is what you'd love to give.</p><p>The successor to <a href=\"/project/Gift%20Registry\">Gift Registry</a>. <a href=\"/project/Wish\">Wish</a> remains a separate wishlist application.</p>",
+  "urls": {},
+  "dates": {
+    "created": "2026-10-06",
+    "updated": "2026-10-08"
+  },
+  "versions": {
+    "dev": "0.1.0-SNAPSHOT"
+  },
+  "tags": [],
+  "technologies": [
+    "htmx",
+    "mongodb",
+    "scala",
+    "tailwind css",
+    "zio"
+  ],
+  "characteristics": {
+    "appeal": "keen",
+    "complexity": "medium",
+    "likelihood": "high",
+    "development": "alpha",
+    "release": "notreleased",
+    "deploy": "offline"
+  },
+  "news": [
+    {
+      "date": "2026-10-06",
+      "description": "Started Wrap"
+    }
+  ],
+  "comments": []
+}

@@ -1,7 +1,7 @@
 {
   "route": "Gift Registry",
   "title": "Gift Registry",
-  "description": "<p>Extension of wishlist project.</p> <p>Plan your presents you need to buy or have bought for upcomming event, e.g. Christmas.</p> <p>Register which presents you gave for future reference.</p> <p>Register which presents you received from whom, so you can remember to thank the right people.</p>",
+  "description": "<p>Extension of wishlist project.</p> <p>Plan your presents you need to buy or have bought for upcomming event, e.g. Christmas.</p> <p>Register which presents you gave for future reference.</p> <p>Register which presents you received from whom, so you can remember to thank the right people.</p><p>Continued as <a href=\"/project/wrap\">Wrap</a>, focused on planning outgoing gifts, joint presents and gift history.</p>",
   "urls": {
     "project": "http://github.com/flurdy/giftregistry",
     "demo": "http://grid.flurdy.com/giftregistry"
