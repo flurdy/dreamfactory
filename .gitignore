@@ -21,3 +21,4 @@ node_modules/
 /static-site/static/data/projects.json
 /static-site/static/_redirects
 .pi-subagents/
+.beads.gate.lock*
