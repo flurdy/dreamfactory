@@ -8,7 +8,8 @@ logs/
 node_modules/
 .artifacts/
 
-# Beads / Dolt files (added by bd init)
+# Private Beads store and local Dolt files
+/.beads/
 .dolt/
 *.db
 .beads-credential-key
