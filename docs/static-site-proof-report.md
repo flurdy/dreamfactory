@@ -1,6 +1,5 @@
 # Hugo / Cloudflare Pages proof report
 
-**Bead:** `dreamfactory-lu1`
 **Status:** Pages production; Play/Kubernetes retired
 **Date:** 2026-07-24
 

@@ -1,6 +1,5 @@
 # Static project data migration decisions
 
-**Bead:** `dreamfactory-bws`
 **Decision date:** 2026-07-20
 
 `static-site/source/projects/` is the canonical authored dataset, with one JSON object per project file. Every project has an explicit `route`; corrected titles, encoded values, filenames, and aliases must not change that route implicitly.

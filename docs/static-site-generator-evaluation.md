@@ -4,7 +4,6 @@
 
 **Historical status:** Proof approved; full migration was not yet approved
 **Date:** 2026-07-19
-**Bead:** `dreamfactory-4mb`
 
 ## Recommendation
 
@@ -189,4 +188,4 @@ If the proof fails exact URL or interaction parity, retain Play and limit modern
 - Confirm that JavaScript-enabled query filtering is acceptable; otherwise retain Play.
 - Treat homepage random boxes as changing on every page load when JavaScript is enabled; build-time selection is the no-JavaScript fallback.
 - **Decided (2026-07-19):** use canonical URLs plus known encoded/title aliases. Intentionally return 404 for arbitrary-case detail/help/sponsor URLs, keeping the migration on free static Pages without a Function/Worker.
-- **Decided (2026-07-20):** the proof report was reviewed, `dreamfactory-lu1` was closed, and the staged full-migration beads were approved.
+- **Decided (2026-07-20):** the proof report was reviewed and closed, and the staged full migration was approved.
