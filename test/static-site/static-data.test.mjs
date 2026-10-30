@@ -205,6 +205,12 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(thoughtbox.derived.idea, false);
   assert.deepEqual(thoughtbox.technologies, ['expo', 'ios', 'node.js', 'react-native', 'trello', 'typescript']);
   assert.match(thoughtbox.description, /native outbox acceptance remains pending/);
+  assert.deepEqual(thoughtbox.comments, [
+    { date: '2026-10-30T00:00:00.000Z', comment: 'QR setup and encrypted outbox' },
+  ]);
+  assert.deepEqual(thoughtbox.news, [
+    { date: '2026-08-07T00:00:00.000Z', description: 'Started Thoughtbox' },
+  ]);
 
   const wrap = actualProjects.get('wrap');
   assert.equal(wrap.title, 'Wrap');
@@ -215,6 +221,12 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.match(wrap.description, /href="\/project\/Gift%20Registry"/);
   assert.match(wrap.description, /href="\/project\/Wish"/);
   assert.match(wrap.description, /Hosted acceptance and deployment remain pending/);
+  assert.deepEqual(wrap.comments, [
+    { date: '2026-10-30T00:00:00.000Z', comment: 'Local gift planner implemented' },
+  ]);
+  assert.deepEqual(wrap.news, [
+    { date: '2026-10-06T00:00:00.000Z', description: 'Started Wrap' },
+  ]);
 
   const pilltrackBaseline = oracleProjects.get('pilltrack');
   const usernamesBaseline = oracleProjects.get('bad_usernames');
@@ -301,8 +313,6 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.deepEqual(catalog.home.latestNews, [
     { date: '2026-Oct-30', project: 'Bad Usernames', description: 'API and dataset clarified' },
     { date: '2026-Oct-30', project: 'Baton', description: 'Added Baton' },
-    { date: '2026-Oct-30', project: 'Thoughtbox', description: 'QR setup and encrypted outbox' },
-    { date: '2026-Oct-30', project: 'Wrap', description: 'Local gift planner implemented' },
     { date: '2026-Oct-06', project: 'Wrap', description: 'Started Wrap' },
     { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
     {
@@ -311,7 +321,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
       description: 'Deployed to <a href="https://foyer.flurdy.io">foyer.flurdy.io</a>',
     },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 18),
+    ...oracle.home.latestNews.slice(0, 20),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
     ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake', 'LavaFlow', 'gatehouse'].includes(link)),

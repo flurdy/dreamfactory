@@ -441,8 +441,10 @@ try {
     Development: 'Alpha',
     Release: 'Not released',
     Deployment: 'Offline',
-    'Latest update': '2026-Oct-30 — Local gift planner implemented'
+    'Latest update': '2026-Oct-06 — Started Wrap'
   });
+  assert.equal(await page.getByRole('heading', { name: 'Comments', exact: true }).count(), 1);
+  assert.equal(await page.getByText('Local gift planner implemented', { exact: true }).count(), 1);
   assert.equal(await page.locator('.project-hero a[href="/project/Gift%20Registry"]').count(), 1);
   assert.equal(await page.locator('.project-hero a[href="/project/Wish"]').count(), 1);
   await assertNoBlockingA11y(page, 'Wrap project detail page');

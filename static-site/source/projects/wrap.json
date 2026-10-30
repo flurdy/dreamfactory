@@ -28,13 +28,14 @@
   },
   "news": [
     {
-      "date": "2026-10-30",
-      "description": "Local gift planner implemented"
-    },
-    {
       "date": "2026-10-06",
       "description": "Started Wrap"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "date": "2026-10-30",
+      "comment": "Local gift planner implemented"
+    }
+  ]
 }
