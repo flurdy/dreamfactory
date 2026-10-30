@@ -470,6 +470,9 @@ try {
   assert.equal(pilltrackState.Development, 'Alpha');
   assert.equal(pilltrackState.Release, 'Not released');
   assert.equal(pilltrackState.Deployment, 'Offline');
+  assert.equal(pilltrackState['Latest update'], '2026-Jul-18 — Added PillTrack');
+  assert.equal(await page.getByRole('heading', { name: 'Comments', exact: true }).count(), 1);
+  assert.equal(await page.getByText('Household medicine tracking', { exact: true }).count(), 1);
   assert.equal(await page.locator('.project-hero-actions a[href="https://apps.flurdy.io/pilltrack/"]').count(), 1);
 
   await page.goto(`${baseUrl}/project/Gift%20Registry`);

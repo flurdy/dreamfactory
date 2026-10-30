@@ -36,13 +36,14 @@
   },
   "news": [
     {
-      "date": "2026-10-30",
-      "description": "Household medicine tracking"
-    },
-    {
       "date": "2026-07-18",
       "description": "Added PillTrack"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "date": "2026-10-30",
+      "comment": "Household medicine tracking"
+    }
+  ]
 }

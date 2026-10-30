@@ -231,9 +231,8 @@ test('fixed-time output matches the Play oracle except approved source decisions
       tags: ['health', 'medicine', 'mobile', 'prescription', 'reminders'],
       technologies: ['expo', 'ios', 'react-native', 'typescript'],
       derived: { ...pilltrackBaseline.derived, idea: false, code: true },
-      news: [
-        { date: '2026-10-30T00:00:00.000Z', description: 'Household medicine tracking' },
-        ...pilltrackBaseline.news,
+      comments: [
+        { date: '2026-10-30T00:00:00.000Z', comment: 'Household medicine tracking' },
       ],
     }],
     ['bad_usernames', {
@@ -302,7 +301,6 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.deepEqual(catalog.home.latestNews, [
     { date: '2026-Oct-30', project: 'Bad Usernames', description: 'API and dataset clarified' },
     { date: '2026-Oct-30', project: 'Baton', description: 'Added Baton' },
-    { date: '2026-Oct-30', project: 'PillTrack', description: 'Household medicine tracking' },
     { date: '2026-Oct-30', project: 'Thoughtbox', description: 'QR setup and encrypted outbox' },
     { date: '2026-Oct-30', project: 'Wrap', description: 'Local gift planner implemented' },
     { date: '2026-Oct-06', project: 'Wrap', description: 'Started Wrap' },
@@ -313,7 +311,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
       description: 'Deployed to <a href="https://foyer.flurdy.io">foyer.flurdy.io</a>',
     },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 17),
+    ...oracle.home.latestNews.slice(0, 18),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
     ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake', 'LavaFlow', 'gatehouse'].includes(link)),
