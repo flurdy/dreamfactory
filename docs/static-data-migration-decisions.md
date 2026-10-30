@@ -25,6 +25,20 @@ The raw inventory reports no unresolved fields or values after these decisions.
 - Replaced stale `@routes.ProjectController.ideas()` fragments with `/projects/?filter.idea=require`.
 - Corrected four `https:/github.com/...` links to `https://github.com/...`.
 
+## Later catalog updates
+
+The 2026-10-30 catalog refresh records PillTrack as an implemented alpha with an
+iPhone support page rather than an unstarted idea. Bad Usernames remains API-focused: its Apache-2.0 service wraps the
+separate MIT-licensed JSON dataset. Thoughtbox and Wrap gained progress updates;
+Baton was added without a private source link or a public-release claim. Foyer's
+private hosted status was reviewed and retained.
+
+The immutable Play fixtures still describe July 2026. Static-data tests retain
+explicit approved field changes for refreshed historical entries; the 47-case query
+matrix uses those entries' original snapshots. Separate current-catalog tests cover
+their changed filters, links and release boundaries. Do not regenerate the fixtures
+to match new project content.
+
 ## Behavior boundaries
 
 - Generated derived state uses an explicit instant and UTC. Production defaults to the build instant; tests use `2026-07-20T12:00:00Z`.

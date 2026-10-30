@@ -22,6 +22,7 @@ const approvedCharacteristics = new Map([
   ['gauge', { appeal: 'keen' }],
   ['Grapemine', { development: 'notstarted' }],
   ['Guvnor', { complexity: 'verydifficult' }],
+  ['pilltrack', { development: 'alpha' }],
   ['Problems', { complexity: 'easy' }],
   ['shopmobile', { release: 'mothballed' }],
 ]);
@@ -172,7 +173,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
   const actualProjects = byRoute(catalog.projects);
   const oracleProjects = byRoute(oracle.projects);
   const supplementalRoutes = sorted([...actualProjects.keys()].filter(route => !oracleProjects.has(route)));
-  assert.deepEqual(supplementalRoutes, ['Foyer', 'thoughtbox', 'wrap']);
+  assert.deepEqual(supplementalRoutes, ['Foyer', 'baton', 'thoughtbox', 'wrap']);
   assert.deepEqual(sorted([...oracleProjects.keys()].filter(route => !actualProjects.has(route))), []);
 
   const foyer = actualProjects.get('Foyer');
@@ -182,11 +183,28 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(foyer.characteristics.release, 'released');
   assert.equal(foyer.characteristics.deploy, 'live');
 
+  const baton = actualProjects.get('baton');
+  assert.equal(baton.title, 'Baton');
+  assert.deepEqual(baton.urls, {});
+  assert.deepEqual(baton.versions, { dev: null, live: null });
+  assert.equal(baton.characteristics.development, 'alpha');
+  assert.equal(baton.characteristics.release, 'notreleased');
+  assert.equal(baton.characteristics.deploy, 'offline');
+  assert.deepEqual(baton.technologies, ['bash', 'git', 'ssh', 'yaml']);
+  assert.equal(baton.license.name, 'MIT');
+  assert.match(baton.description, /source is currently private/);
+  assert.equal(baton.derived.live, false);
+  assert.equal(baton.derived.code, false);
+
   const thoughtbox = actualProjects.get('thoughtbox');
   assert.equal(thoughtbox.title, 'Thoughtbox');
   assert.equal(thoughtbox.characteristics.development, 'alpha');
   assert.equal(thoughtbox.characteristics.release, 'notreleased');
   assert.equal(thoughtbox.characteristics.deploy, 'offline');
+  assert.equal(thoughtbox.derived.mobile, true);
+  assert.equal(thoughtbox.derived.idea, false);
+  assert.deepEqual(thoughtbox.technologies, ['expo', 'ios', 'node.js', 'react-native', 'trello', 'typescript']);
+  assert.match(thoughtbox.description, /native outbox acceptance remains pending/);
 
   const wrap = actualProjects.get('wrap');
   assert.equal(wrap.title, 'Wrap');
@@ -196,8 +214,48 @@ test('fixed-time output matches the Play oracle except approved source decisions
   assert.equal(wrap.characteristics.deploy, 'offline');
   assert.match(wrap.description, /href="\/project\/Gift%20Registry"/);
   assert.match(wrap.description, /href="\/project\/Wish"/);
+  assert.match(wrap.description, /Hosted acceptance and deployment remain pending/);
 
-  for (const [route, expected] of oracleProjects) {
+  const pilltrackBaseline = oracleProjects.get('pilltrack');
+  const usernamesBaseline = oracleProjects.get('bad_usernames');
+  const pilltrackUrl = 'https://apps.flurdy.io/pilltrack/';
+  const pilltrackSummary = { kind: 'project', href: pilltrackUrl, text: 'apps.flurdy.io/pilltrack/' };
+  const approvedUpdates = new Map([
+    ['pilltrack', {
+      description: 'A local-first iPhone app for recording daily medicines with a clear taken, skipped, missed, or unknown history. Supports optional local reminders, supply and refill tracking, as-needed medicines, and several people in one household on one device. In active development; not yet publicly released.',
+      urls: { project: pilltrackUrl },
+      urlEntries: [{ key: 'project', url: pilltrackUrl }],
+      summaryUrl: pilltrackSummary,
+      dates: { ...pilltrackBaseline.dates, updated: '2026-10-30' },
+      versions: { dev: '0.1.0', live: null },
+      tags: ['health', 'medicine', 'mobile', 'prescription', 'reminders'],
+      technologies: ['expo', 'ios', 'react-native', 'typescript'],
+      derived: { ...pilltrackBaseline.derived, idea: false, code: true },
+      news: [
+        { date: '2026-10-30T00:00:00.000Z', description: 'Household medicine tracking' },
+        ...pilltrackBaseline.news,
+      ],
+    }],
+    ['bad_usernames', {
+      description: '<p>API service that checks whether a username should be blocked, reserved, or treated as unsafe. English-first, with selected multilingual reserved words. Exact matches block a username; substring matches are advisory.</p><p>Two related projects: the API service is Apache-2.0 licensed, while the separate <a href="https://github.com/flurdy/bad_usernames">bad_usernames JSON dataset</a> has an <a href="https://github.com/flurdy/bad_usernames/blob/master/LICENSE">MIT license</a>. Dataset contributions reach the hosted API when its snapshot is refreshed.</p>',
+      urls: { ...usernamesBaseline.urls, dataset: 'https://github.com/flurdy/bad_usernames' },
+      urlEntries: [
+        ...usernamesBaseline.urlEntries,
+        { key: 'dataset', url: 'https://github.com/flurdy/bad_usernames' },
+      ],
+      dates: { ...usernamesBaseline.dates, updated: '2026-10-30' },
+      versions: { dev: '0.1.0-SNAPSHOT', live: '0.1.0-SNAPSHOT' },
+      technologies: ['http4s', 'json', 'scala'],
+      license: { name: 'Apache 2.0 (API)', link: 'https://www.apache.org/licenses/LICENSE-2.0' },
+      news: [
+        { date: '2026-10-30T00:00:00.000Z', description: 'API and dataset clarified' },
+        ...usernamesBaseline.news,
+      ],
+    }],
+  ]);
+
+  for (const [route, historical] of oracleProjects) {
+    const expected = { ...historical, ...approvedUpdates.get(route) };
     const actual = actualProjects.get(route);
     for (const key of [
       'title', 'encoded', 'link', 'pathSegment', 'description', 'urls', 'urlEntries', 'dates',
@@ -231,17 +289,22 @@ test('fixed-time output matches the Play oracle except approved source decisions
     assert.ok(actual.aliases.includes(expected.title), `${route} title alias`);
   }
 
-  assert.deepEqual(catalog.home.newLinks, ['wrap', 'thoughtbox', 'Foyer', ...oracle.home.newLinks.slice(0, 7)]);
+  assert.deepEqual(catalog.home.newLinks, ['baton', 'wrap', 'thoughtbox', 'Foyer', ...oracle.home.newLinks.slice(0, 6)]);
   assert.deepEqual(catalog.home.updatedLinks, [
-    'wrap', 'Foyer', 'bad_usernames', 'Lucid', 'TapIn', 'expire', 'gauge',
+    'bad_usernames', 'baton', 'pilltrack', 'thoughtbox', 'wrap', 'Foyer', 'Lucid',
   ]);
   assert.deepEqual(catalog.home.popularLinks, oracle.home.popularLinks);
   assert.equal(catalog.browse.tags.length, 50);
-  assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'api', 'productivity', 'commercial', 'email']);
+  assert.deepEqual(catalog.browse.tags.slice(0, 5), ['mobile', 'productivity', 'api', 'commercial', 'email']);
   assert.ok(catalog.browse.tags.every(tag => !['idea', 'live', 'popular'].includes(tag)));
   assert.equal(catalog.browse.technologies.length, 30);
   assert.deepEqual(catalog.browse.technologies.slice(0, 5), ['scala', 'play', 'docker', 'typescript', 'go']);
   assert.deepEqual(catalog.home.latestNews, [
+    { date: '2026-Oct-30', project: 'Bad Usernames', description: 'API and dataset clarified' },
+    { date: '2026-Oct-30', project: 'Baton', description: 'Added Baton' },
+    { date: '2026-Oct-30', project: 'PillTrack', description: 'Household medicine tracking' },
+    { date: '2026-Oct-30', project: 'Thoughtbox', description: 'QR setup and encrypted outbox' },
+    { date: '2026-Oct-30', project: 'Wrap', description: 'Local gift planner implemented' },
     { date: '2026-Oct-06', project: 'Wrap', description: 'Started Wrap' },
     { date: '2026-Aug-07', project: 'Thoughtbox', description: 'Started Thoughtbox' },
     {
@@ -250,11 +313,12 @@ test('fixed-time output matches the Play oracle except approved source decisions
       description: 'Deployed to <a href="https://foyer.flurdy.io">foyer.flurdy.io</a>',
     },
     { date: '2026-Aug-03', project: 'Foyer', description: 'Started Foyer' },
-    ...oracle.home.latestNews.slice(0, 22),
+    ...oracle.home.latestNews.slice(0, 17),
   ]);
   assert.deepEqual(sorted(catalog.home.randomExcludedLinks), sorted([
-    ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake', 'LavaFlow'].includes(link)),
+    ...oracle.home.randomExcludedLinks.filter(link => !['who_to', 'Handshake', 'LavaFlow', 'gatehouse'].includes(link)),
     'Foyer',
+    'baton',
     'thoughtbox',
     'wrap',
   ]));
@@ -266,7 +330,7 @@ test('fixed-time output matches the Play oracle except approved source decisions
     ],
   );
   assert.deepEqual(catalog.oracle.searchDreamfactoryLiveTitles, oracle.oracle.searchDreamfactoryLiveTitles);
-  assert.deepEqual(catalog.oracle.scalaLiveTitles, oracle.oracle.scalaLiveTitles);
+  assert.deepEqual(catalog.oracle.scalaLiveTitles, ['Bad Usernames', ...oracle.oracle.scalaLiveTitles]);
   assert.deepEqual(
     catalog.oracle.easyComplexityTitles,
     [...oracle.oracle.easyComplexityTitles, 'Problems'].sort((left, right) => left.toLowerCase().localeCompare(right.toLowerCase())),
@@ -278,4 +342,5 @@ test('fixed-time output matches the Play oracle except approved source decisions
   oldRedirects.forEach(redirect => assert.ok(newRedirects.has(redirect), `missing redirect: ${redirect}`));
   assert.ok(newRedirects.has('/project/Scala-Soup /project/Scala%20Soup 301'));
   assert.ok(newRedirects.has('/project/Wrap /project/wrap 301'));
+  assert.ok(newRedirects.has('/project/Baton /project/baton 301'));
 });

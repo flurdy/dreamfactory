@@ -61,8 +61,14 @@ function evaluate(path, projects = catalog.projects) {
 
 test('catalog query engine matches the rendered Play contract matrix', () => {
   assert.equal(oracle.cases.length, 47);
-  const supplementalRoutes = new Set(['Foyer', 'thoughtbox', 'wrap']);
-  const historicalProjects = catalog.projects.filter(project => !supplementalRoutes.has(project.link));
+  const supplementalRoutes = new Set(['Foyer', 'baton', 'thoughtbox', 'wrap']);
+  const historicalSnapshot = JSON.parse(fs.readFileSync('test/fixtures/static-site/play-oracle-2026-07-20/projects.json', 'utf8'));
+  const refreshedRoutes = new Set(['bad_usernames', 'pilltrack']);
+  const historicalProjects = catalog.projects
+    .filter(project => !supplementalRoutes.has(project.link))
+    .map(project => refreshedRoutes.has(project.link)
+      ? historicalSnapshot.projects.find(historical => historical.link === project.link)
+      : project);
   oracle.cases.forEach(({ name, path, ...expected }) => {
     const actual = evaluate(path, historicalProjects);
     const { context } = catalogContext(path);
@@ -79,6 +85,19 @@ test('Wrap is searchable as an unreleased offline project', () => {
   assert.deepEqual(evaluate('/projects/search?searchterm=wrap').titles, titles);
   assert.deepEqual(evaluate('/projects/search?searchterm=wrap&filter.live=require').titles, []);
   assert.deepEqual(evaluate('/projects/search?searchterm=wrap&filter.live=exclude').titles, titles);
+});
+
+test('refreshed projects retain accurate discovery and release boundaries', () => {
+  for (const [term, title] of [['pilltrack', 'PillTrack'], ['thoughtbox', 'Thoughtbox']]) {
+    assert.deepEqual(evaluate(`/projects/search?searchterm=${term}&filter.mobile=require&filter.idea=exclude`).titles, [title]);
+    assert.deepEqual(evaluate(`/projects/search?searchterm=${term}&filter.idea=require`).titles, []);
+    assert.deepEqual(evaluate(`/projects/search?searchterm=${term}&filter.live=require`).titles, []);
+  }
+  assert.deepEqual(evaluate('/projects/search?searchterm=baton').titles, ['Baton']);
+  assert.deepEqual(evaluate('/projects/search?searchterm=baton&filter.live=require').titles, []);
+  assert.deepEqual(evaluate('/projects/search?searchterm=baton&filter.code=require').titles, []);
+  assert.deepEqual(evaluate('/projects/technologies?tech=bash&technologies=ssh').titles, ['Baton']);
+  assert.deepEqual(evaluate('/projects/technologies?tech=http4s&technologies=scala&filter.live=require').titles, ['Bad Usernames', 'Letterbox']);
 });
 
 test('Play contract matrix covers require and exclude for every property', () => {

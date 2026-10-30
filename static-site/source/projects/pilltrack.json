@@ -2,22 +2,26 @@
   "route": "pilltrack",
   "title": "PillTrack",
   "encoded": "pilltrack",
-  "description": "PillTrack is a mobile app for recording daily medicines with a clear taken, missed, or unknown history. Persistent reminders help when an initial alarm is snoozed or missed, while pack and prescription tracking warns early enough to request a refill from the GP before medicine runs out.",
-  "urls": {},
+  "description": "A local-first iPhone app for recording daily medicines with a clear taken, skipped, missed, or unknown history. Supports optional local reminders, supply and refill tracking, as-needed medicines, and several people in one household on one device. In active development; not yet publicly released.",
+  "urls": {
+    "project": "https://apps.flurdy.io/pilltrack/"
+  },
   "dates": {
     "created": "2026-07-18",
-    "updated": "2026-07-18"
+    "updated": "2026-10-30"
   },
-  "versions": {},
+  "versions": {
+    "dev": "0.1.0"
+  },
   "tags": [
     "health",
-    "idea",
     "medicine",
     "mobile",
     "prescription",
     "reminders"
   ],
   "technologies": [
+    "expo",
     "ios",
     "react-native",
     "typescript"
@@ -26,11 +30,15 @@
     "appeal": "keen",
     "complexity": "medium",
     "likelihood": "possibly",
-    "development": "notstarted",
+    "development": "alpha",
     "release": "notreleased",
     "deploy": "offline"
   },
   "news": [
+    {
+      "date": "2026-10-30",
+      "description": "Household medicine tracking"
+    },
     {
       "date": "2026-07-18",
       "description": "Added PillTrack"

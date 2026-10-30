@@ -1,21 +1,24 @@
 {
   "route": "thoughtbox",
   "title": "Thoughtbox",
-  "description": "Capture rough development thoughts on mobile and retrieve them safely in the correct local repository for agent-assisted triage.",
+  "description": "Capture rough development thoughts on an Expo iPhone app and retrieve them through a desktop CLI in the correct local repository for agent-assisted triage. Uses Trello for delivery, desktop QR setup, and an encrypted local outbox with retry and reconciliation. In active development; native outbox acceptance remains pending.",
   "urls": {},
   "dates": {
     "created": "2026-08-07",
-    "updated": "2026-08-17"
+    "updated": "2026-10-30"
   },
   "versions": {
     "dev": "0.1.0"
   },
   "tags": [
-    "idea",
+    "mobile",
     "productivity"
   ],
   "technologies": [
+    "expo",
+    "ios",
     "node.js",
+    "react-native",
     "trello",
     "typescript"
   ],
@@ -28,6 +31,10 @@
     "deploy": "offline"
   },
   "news": [
+    {
+      "date": "2026-10-30",
+      "description": "QR setup and encrypted outbox"
+    },
     {
       "date": "2026-08-07",
       "description": "Started Thoughtbox"

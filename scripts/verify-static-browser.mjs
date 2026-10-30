@@ -276,7 +276,7 @@ try {
   assert.deepEqual(await visibleCatalogTitles(page), catalog.oracle.scalaLiveTitles);
   assert.equal(await page.locator('.results-heading-label').textContent(), 'Projects with technologies:');
   assert.equal(await page.getByRole('link', { name: 'Remove technology scala' }).getAttribute('href'), '/projects/?filter.live=require');
-  assert.equal(await page.locator('#catalog-results .project-result:not([hidden]) .project-summary-url').count(), 4);
+  assert.equal(await page.locator('#catalog-results .project-result:not([hidden]) .project-summary-url').count(), 5);
   assert.ok(await page.locator('#catalog-results .project-result:not([hidden]) .project-status').count() > 0);
   const technologySection = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Technologies' }) });
   const tagSection = page.locator('#catalog-related .related-section').filter({ has: page.getByRole('heading', { name: 'Tags' }) });
@@ -288,7 +288,7 @@ try {
   );
   assert.deepEqual(
     await tagSection.locator('form').first().locator('input').evaluateAll(inputs => inputs.map(input => [input.name, input.value])),
-    [['tags', 'commercial'], ['technologies', 'scala'], ['filter.live', 'require']]
+    [['tags', 'api'], ['technologies', 'scala'], ['filter.live', 'require']]
   );
 
   await page.goto(`${baseUrl}/projects/tags?tags=mobile&tag=commercial&filter.code=require`);
@@ -441,7 +441,7 @@ try {
     Development: 'Alpha',
     Release: 'Not released',
     Deployment: 'Offline',
-    'Latest update': '2026-Oct-06 — Started Wrap'
+    'Latest update': '2026-Oct-30 — Local gift planner implemented'
   });
   assert.equal(await page.locator('.project-hero a[href="/project/Gift%20Registry"]').count(), 1);
   assert.equal(await page.locator('.project-hero a[href="/project/Wish"]').count(), 1);
@@ -450,6 +450,28 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
   await assertNoBlockingA11y(page, 'Wrap project detail page at mobile width');
   await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/project/baton`);
+  assert.deepEqual(await page.locator('h1').allTextContents(), ['Baton']);
+  assert.equal(await page.locator('.project-hero-actions').count(), 0);
+  assert.deepEqual(await projectHeroState(page), {
+    Development: 'Alpha',
+    Release: 'Not released',
+    Deployment: 'Offline',
+    'Latest update': '2026-Oct-30 — Added Baton'
+  });
+  await assertNoBlockingA11y(page, 'Baton project detail page');
+  await page.setViewportSize({ width: 375, height: 900 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await assertNoBlockingA11y(page, 'Baton project detail page at mobile width');
+  await page.setViewportSize({ width: 1280, height: 900 });
+
+  await page.goto(`${baseUrl}/project/pilltrack`);
+  const pilltrackState = await projectHeroState(page);
+  assert.equal(pilltrackState.Development, 'Alpha');
+  assert.equal(pilltrackState.Release, 'Not released');
+  assert.equal(pilltrackState.Deployment, 'Offline');
+  assert.equal(await page.locator('.project-hero-actions a[href="https://apps.flurdy.io/pilltrack/"]').count(), 1);
+
   await page.goto(`${baseUrl}/project/Gift%20Registry`);
   assert.deepEqual(await page.locator('h1').allTextContents(), ['Gift Registry']);
   assert.equal(await page.locator('.project-hero a[href="/project/wrap"]').count(), 1);
@@ -472,10 +494,12 @@ try {
     Development: 'Alpha',
     Release: 'Released',
     Deployment: 'Live',
-    'Latest update': '2026-Jul-09 — badusernames.flurdy.io is live'
+    'Latest update': '2026-Oct-30 — API and dataset clarified'
   });
+  assert.equal(await page.locator('.project-hero a[href="https://github.com/flurdy/bad_usernames"]').count(), 1);
+  assert.equal(await page.locator('.project-hero a[href="https://github.com/flurdy/bad_usernames/blob/master/LICENSE"]').count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Links' }).count(), 1);
-  assert.equal(await page.getByRole('heading', { name: 'Links' }).locator('xpath=following-sibling::dl').locator('a').count(), 2);
+  assert.equal(await page.getByRole('heading', { name: 'Links' }).locator('xpath=following-sibling::dl').locator('a').count(), 3);
   await assertNoBlockingA11y(page, 'Live project hero');
 
   await page.setViewportSize({ width: 375, height: 900 });
