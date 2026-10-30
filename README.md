@@ -24,4 +24,4 @@ make static-preview-up
 make static-preview-down
 ```
 
-See [operations](docs/static-site-operations.md) for development, deployment and rollback, and [catalog compatibility](docs/static-data-migration-decisions.md) for data, route and historical-fixture rules.
+See [Pages operations](docs/static-site-operations.md) for deployment and rollback, and [compatibility contracts](docs/static-data-migration-decisions.md) for behavior and historical-fixture rules.
