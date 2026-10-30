@@ -1,34 +1,30 @@
-# Static-site contributor and operations runbook
+# Static-site operations
 
-- **Owner:** Ivar Abrahamsen / Flurdy
-- **Repository:** `flurdy/dreamfactory`
-- **Cloudflare account:** `Flurdy`
-- **Pages project:** `dreamfactory`
-- **Production:** `https://code.flurdy.com`
-- **Preview alias:** `https://pages-preview.dreamfactory.pages.dev`
+Dream Factory is a Hugo static site hosted by Cloudflare Pages at
+[code.flurdy.com](https://code.flurdy.com). There are no Pages Functions or
+always-on application services. Play/Kubernetes was retired in July 2026 and is
+not a rollback target; the legacy Cloud Build trigger is disabled.
 
-`code.flurdy.com` moved to Cloudflare Pages on 2026-07-22. The former Play/Kubernetes runtime was retired with explicit owner approval on 2026-07-24; it is no longer a rollback target.
+## Develop and verify
 
-## Contributor workflow
+Use Node `22.22.2`, Hugo Extended `0.164.0`, Docker Compose, and Chrome. From the
+repository root:
 
-Canonical project data lives under `static-site/source/projects/`, with exactly one project object per JSON file. Do not edit generated files under `static-site/data`, `static-site/static/data`, or `static-site/public`.
+```bash
+nvm use
+npm ci --ignore-scripts
+make static-verify
+```
 
-1. Install Node `22.22.2`, Hugo Extended `0.164.0`, Docker, and Chrome.
-2. Select Node and install dependencies:
+Edit one JSON file per project under `static-site/source/projects/`. Do not edit
+generated data, redirects, or `static-site/public/`. Follow the schema and
+[catalog compatibility rules](static-data-migration-decisions.md).
 
-   ```bash
-   nvm use
-   npm ci --ignore-scripts
-   ```
-
-3. Edit the relevant file under `static-site/source/projects/`, or add one descriptively named `.json` file for a new project.
-4. Run the complete local contract:
-
-   ```bash
-   make static-verify
-   ```
-
-This validates the JSON Schema and semantic invariants, regenerates derived data, builds Hugo, audits links/routes, starts the production-shaped nginx container, and runs browser/accessibility checks. It leaves no server running.
+`make static-verify` runs data and catalog tests, builds Hugo, checks deterministic
+artifacts and links, then verifies routes, browser behavior and accessibility
+against local nginx. It removes its preview container afterward. For focused
+artifact checks use `make static-artifact-verify`; for a build use
+`make static-build`.
 
 For manual preview:
 
@@ -38,106 +34,71 @@ make static-preview-up
 make static-preview-down
 ```
 
-Set `DREAMFACTORY_AS_OF` to a timezone-qualified ISO timestamp when byte-reproducible output is required. Tests use `2026-07-20T12:00:00Z`; deployments derive current status at build time.
+For reproducible output, set `DREAMFACTORY_AS_OF` to an ISO timestamp with an
+explicit timezone. Tests use `2026-07-20T12:00:00Z`; normal builds use build time.
 
-### Validation failures
+## Deploy and accept
 
-- **Schema/Ajv error:** fix the named unknown field, invalid enum/date/URL, or missing field in the canonical JSON.
-- **Semantic validation error:** resolve route/alias collisions, URL ordering, or unsupported rich content rather than weakening validation.
-- **Generated snapshot mismatch:** rerun with the documented fixed clock and review the canonical source decision.
-- **Broken internal route:** fix the source link or add a reviewed alias; do not mask it in the crawler.
-- **Browser/a11y failure:** reproduce against `http://localhost:4176` while preserving the no-JavaScript fallback.
-- **Fresh deployment `404`/`522`:** confirm the Pages deployment succeeded, then allow brief propagation before treating a persistent failure as a release issue.
-
-## Cloudflare Pages configuration
-
-| Setting | Value |
+| Pages setting | Value |
 |---|---|
+| Project | `dreamfactory` in the Flurdy account |
 | Production branch | `master` |
-| Preview deployments | All non-production branches |
+| Preview branches | All non-production branches |
 | Build image | Pages V3 |
 | Build command | `npm ci && scripts/build-static-site.sh` |
 | Output directory | `static-site/public` |
-| `NODE_VERSION` | `22.22.2` |
-| `HUGO_VERSION` | `0.164.0` |
-| Pages Functions | None |
+| Environment | `NODE_VERSION=22.22.2`, `HUGO_VERSION=0.164.0` |
 | Custom domain | `code.flurdy.com` |
 
-Validate a deployed candidate using its immutable URL where possible:
+Every remote Git action, production deployment, DNS mutation, and rollback needs
+fresh owner approval immediately before execution. A push to `master` triggers a
+production build; a local commit does not authorize that push.
+
+Verify the exact deployment with its immutable URL:
 
 ```bash
 PAGES_PREVIEW_BASE_URL=https://<deployment>.dreamfactory.pages.dev \
   make pages-preview-verify
 ```
 
-The route check consumes the deployment's generated manifest. The cache check requires revalidated HTML and one-year immutable caching for every referenced fingerprinted CSS, JavaScript, image, and catalog resource.
+The target checks the deployment's route manifest, aliases, expected 404s and
+trailing-slash normalization. It also requires immediately revalidated HTML and
+one-year immutable caching for referenced fingerprinted assets and catalog data.
+Check the production domain after rollout as well.
 
-## Deployment evidence
+Record the Git revision, immutable deployment URL, detected Node/Hugo versions,
+build and verification results, artifact file/byte totals and largest file, and
+any propagation errors. Pages build logs are authoritative; local tests do not
+prove deployment success. Browser smoke checks should cover search, filtering,
+random selection, representative detail/help/sponsor pages and console errors.
 
-For every candidate deployment, record:
+## Rebuild and monitor
 
-- Git commit and branch.
-- Immutable Pages deployment URL and branch alias.
-- Build-stage result and detected Node/Hugo versions.
-- Route-contract and cache-contract output.
-- Artifact file count, total bytes, and largest file.
-- Any transient propagation errors and their duration.
+Date-derived labels need regular rebuilds. Git integration handles commits;
+[the nightly workflow](../.github/workflows/nightly-static-rebuild.yml) triggers a
+build at `03:17 UTC` and supports manual dispatch. Its
+`CLOUDFLARE_PAGES_DEPLOY_HOOK` Actions secret is a credential: never publish the
+hook URL and rotate it if exposed. Investigate failed or missed builds.
 
-Cloudflare build logs are authoritative for clone, tool installation, build, upload, and deploy failures. A successful local build does not override a failed Pages stage.
+Monitor route/redirect failures, missing or mixed-version assets/catalogs,
+Cloudflare 5xx responses, browser errors and critical/serious accessibility issues.
+Allow brief propagation after a successful deployment, but persistent failures
+must block acceptance or trigger rollback.
 
-## Scheduled rebuilds
+## Troubleshoot and roll back
 
-Time-derived labels change even when source data does not. Pages Git integration handles commit builds; `.github/workflows/nightly-static-rebuild.yml` triggers a rebuild daily at `03:17 UTC` and supports manual dispatch.
+- **Schema or semantic validation:** fix the named canonical field, date, URL or
+  route collision; do not weaken validation.
+- **Snapshot mismatch:** use the fixed clock and review the approved content
+  change; do not regenerate historical fixtures.
+- **Link or browser failure:** reproduce locally and fix the source or a reviewed
+  alias without hiding crawler errors or removing the no-JavaScript fallback.
+- **Deployment failure:** inspect Pages logs before assuming the local result
+  applies to production.
 
-The workflow uses the `CLOUDFLARE_PAGES_DEPLOY_HOOK` GitHub Actions secret. Treat the hook URL as a credential and rotate it if exposed. Alert on a missed or failed daily build rather than silently retaining stale derived statuses.
-
-## Monitoring
-
-Check:
-
-- Pages deployment status and immutable URL.
-- `/`, `/projects/`, representative detail/help/sponsor pages, and an expected 404.
-- Generated route-manifest statuses and redirects.
-- Fingerprinted asset/catalog availability and cache headers.
-- Browser search/filter/random behavior and console errors.
-- Critical/serious accessibility results.
-- Cloudflare 5xx responses and unexpected redirect loops.
-
-A persistent critical route, asset, catalog, or mixed-release failure should block or roll back the deployment. A single propagation response immediately after a successful deployment should be rechecked, not ignored.
-
-## Pages rollback
-
-Every production deployment, DNS mutation, rollback, and remote Git action requires fresh owner approval immediately before execution.
-
-1. Identify a known-good Git revision or successful Pages production deployment.
-2. Record the current failing deployment and diagnostics.
-3. Restore the known-good revision through the normal Git/Pages path or use the Pages production rollback control.
-4. Verify production with `PAGES_PREVIEW_BASE_URL=https://code.flurdy.com make pages-preview-verify` and the browser smoke checks.
-5. Keep the failed deployment immutable for diagnosis and record restoration timing.
-
-The former CNAME target `syndicate.kube.flurdy.net` and Kubernetes origin must not be used: those resources have been removed.
-
-## Historical cutover and retirement evidence
-
-Historical identifiers retained for diagnosis and audit—not as rollback instructions:
-
-| Item | Recorded value |
-|---|---|
-| Cloudflare zone | `flurdy.com` (`d5f7c2bf6345ef27abec861f245d5bff`) |
-| CNAME record | `code.flurdy.com` (`278db87299ccaf790501f66d48cfbefe`), proxied, Auto TTL |
-| Cutover | `syndicate.kube.flurdy.net` → `dreamfactory.pages.dev` at `2026-07-22T21:48:11Z` |
-| Pages activation | Domain attached `2026-07-22T21:47:26Z`; validation active `2026-07-22T21:51:36Z` |
-| Former cluster | DigitalOcean `flurdynet-syndicate-01` (`7540eef4-6779-4899-b38e-2839cc1fa968`), namespace `apps` |
-| Former ingress | `143.198.251.239`, `2a03:b0c0:2:f0::871e:4001` |
-| Retirement inventory | App and nginx Deployments 2/2 available; app image `gcr.io/flurdynet/github.com/flurdy/dreamfactory:1.5.180` |
-| Pre-retirement GitOps revision | `269cc3d7627ca6371f196e2f1359e5ccb06d0412` |
-| Retirement GitOps revision | `66aaaf08f0693a06925fe51a34695aa2f61052f1` |
-
-Detailed migration benchmarks, compatibility decisions, deployment evidence, and fixtures also remain in:
-
-- `docs/static-site-proof-report.md`
-- `docs/static-site-generator-evaluation.md`
-- `docs/static-data-migration-decisions.md`
-- `test/fixtures/static-site/`
-
-The owner explicitly ended the planned Play rollback period early on 2026-07-24. GitOps commit `66aaaf08f0693a06925fe51a34695aa2f61052f1` removed the Dream Factory deployments, services, ingress, nginx ConfigMap, image policy, and image repository from `flurdy/flurdynet-syndicate`. Flux applied that revision, all named resources were absent afterward, and the production route contract continued to pass against Cloudflare Pages.
+For rollback, identify a known-good Git revision or successful Pages production
+deployment and record the failing revision. After separate approval, restore
+through the normal Git/Pages path or select the known-good Pages deployment.
+Re-run `make pages-preview-verify` against `https://code.flurdy.com` and the browser
+smoke checks. Keep the failed deployment immutable for diagnosis. Never restore
+the former Kubernetes origin.

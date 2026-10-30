@@ -32,7 +32,7 @@ dreamfactory/
 ├── test/
 │   ├── static-site/               # Node contract tests
 │   └── fixtures/static-site/      # Immutable migration baselines
-├── docs/                          # Operations and migration evidence
+├── docs/                          # Operations and catalog compatibility
 ├── .github/workflows/             # Scheduled Pages rebuild trigger
 ├── Makefile                       # Canonical local commands
 └── package.json                   # Node scripts and pinned dependencies
@@ -51,7 +51,7 @@ Project routes are compatibility-sensitive. Preserve explicit `route` and `alias
 
 The Play-named fixtures under `test/fixtures/static-site/` are immutable historical contract evidence still consumed by Node tests. Do not delete or casually regenerate them.
 
-Project news appears in a narrow sidebar. Keep each `news[].description` to a short phrase; put explanatory context in the project description or comments.
+Project news appears in a narrow sidebar. Reserve `news` for site-wide announcements and keep each `news[].description` to a short phrase. Put routine development updates in `comments` and explanatory context in the project description.
 
 ## Development workflow
 

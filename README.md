@@ -24,4 +24,4 @@ make static-preview-up
 make static-preview-down
 ```
 
-Contributor and Cloudflare Pages operations are documented in [`docs/static-site-operations.md`](docs/static-site-operations.md). Migration decisions and dated Play compatibility evidence remain under [`docs/`](docs/) and [`test/fixtures/static-site/`](test/fixtures/static-site/).
+See [operations](docs/static-site-operations.md) for development, deployment and rollback, and [catalog compatibility](docs/static-data-migration-decisions.md) for data, route and historical-fixture rules.

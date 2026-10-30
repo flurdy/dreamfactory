@@ -1,49 +1,65 @@
-# Static project data migration decisions
+# Catalog data and compatibility
 
-**Decision date:** 2026-07-20
+## Authored data
 
-`static-site/source/projects/` is the canonical authored dataset, with one JSON object per project file. Every project has an explicit `route`; corrected titles, encoded values, filenames, and aliases must not change that route implicitly.
+`static-site/source/projects/` is the only authored dataset: one project per
+kebab-case JSON filename, validated by
+[the schema](../static-site/schema/projects.schema.json) and
+[the shared model](../scripts/lib/static-projects.mjs). Filenames organize files;
+explicit `route` and `aliases` values define public identity. Never change routes
+as a side effect of renaming a title or source file.
 
-## Raw HOCON discrepancy decisions
+Preserve structured owners and keywords, ordered links, and reviewed rich HTML.
+Raw HTML is trusted repository content, not an untrusted-input rendering API.
+Reserve `news` for short site-wide announcements; put routine development notes
+in `comments` and explanatory context in the description. Do not publish private
+source links or imply unreleased/local functionality is deployed.
 
-| Source | Field | Previous value | Canonical decision |
-|---|---|---|---|
-| Bad Usernames, Gauge | `characteristics.appeal` | `high` | `keen` |
-| Consensus | `characteristics.appeal` | `somewhat` | `maybe` |
-| Baby Crowd Monitor, Bookmarks, Grapemine | development status | `not started` | `notstarted` |
-| Guvnor | complexity | `very high` | `verydifficult` |
-| Problems | `comlexity` | `low` | Correct field name; `complexity=easy` after model normalization |
-| Scala Soup, Spring Boot Logging JSON | `encode` | legacy slug | Preserve current title route; retain value as an explicit alias |
-| Expire | `keywords` | comma-separated string | Preserve as a structured keyword list |
-| Letterbox, Lucid, TapIn, Tulipan | `owner` | structured owner | Preserve as structured owner metadata |
-| Shop Mobile | release status | `abandoned` | `mothballed` |
+## Routes and browser behavior
 
-The raw inventory reports no unresolved fields or values after these decisions.
+- Preserve project detail, help and sponsor routes, canonical characteristic
+  paths, and declared title/encoded aliases. Generate aliases and redirects from
+  the same data and validate them with the route manifest.
+- Arbitrary path casing is intentionally unsupported. Unknown project routes
+  return 404; malformed tag/technology queries yield an empty 200 shell rather
+  than the former application's 400 response. Generated forms use supported URLs.
+- Render the complete project list without JavaScript. Search, tag/technology
+  intersections and all eleven Include/Exclude property filters progressively
+  enhance it; failed catalog fetches must retain the HTML fallback.
+- Preserve form/query context, related facets, characteristic aliases, result
+  counts, keyboard focus and accessibility announcements. Search lowercases
+  stored title/description text but not the submitted term; changing that
+  historical behavior requires an explicit, tested decision.
+- Homepage Random reshuffles on each JavaScript-enabled load. Keep ten projects,
+  at least seven healthy choices, and exclude the new/updated/popular selections.
+  The no-JavaScript fallback is deterministic.
+- Homepage and list summary URLs intentionally differ for abandoned projects:
+  homepage source links remain active, while list links are marked not-live.
+- Publish HTML, assets and the versioned catalog atomically. Fingerprint assets
+  and catalog data; revalidate HTML. Keep assets vendored rather than adding
+  runtime CDNs or edge functions without an architecture decision.
 
-## Existing content defects
+## Dates and deterministic output
 
-- Replaced stale `@routes.ProjectController.ideas()` fragments with `/projects/?filter.idea=require`.
-- Corrected four `https:/github.com/...` links to `https://github.com/...`.
+Store raw dates, not derived status flags. Production derives status at build time
+in UTC; tests inject `2026-07-20T12:00:00Z`. Keep partial authored-date precision:
+a missing month/day means January/the first day for calculations. Three-year
+recent and eight-year stale comparisons are strict; year subtraction clamps leap
+days to the last valid day of February. Equal dates/frequencies use deterministic
+route/name ordering rather than filesystem order.
 
-## Later catalog updates
+## Historical regression evidence
 
-The 2026-10-30 catalog refresh records PillTrack as an implemented alpha with an
-iPhone support page rather than an unstarted idea. Bad Usernames remains API-focused: its Apache-2.0 service wraps the
-separate MIT-licensed JSON dataset. Thoughtbox and Wrap gained progress updates;
-Baton was added without a private source link or a public-release claim. Foyer's
-private hosted status was reviewed and retained.
+The immutable files under [test/fixtures/static-site/](../test/fixtures/static-site/)
+record the accepted July 2026 Play baseline, including a 47-case rendered query
+matrix. Keep them even though the former runtime and migration reports are gone.
+Old source, conversion decisions and benchmarks remain available in Git history.
 
-The immutable Play fixtures still describe July 2026. Static-data tests retain
-explicit approved field changes for refreshed historical entries; the 47-case query
-matrix uses those entries' original snapshots. Separate current-catalog tests cover
-their changed filters, links and release boundaries. Do not regenerate the fixtures
-to match new project content.
+Do not regenerate the fixtures to match current project content. Static-data
+tests record explicit approved field changes; historical query tests use original
+snapshots for refreshed entries and exclude later additions. Separate current
+catalog/browser tests must cover new entries and changed filters, links and
+release boundaries. Preserve old aliases while adding new routes.
 
-## Behavior boundaries
-
-- Generated derived state uses an explicit instant and UTC. Production defaults to the build instant; tests use `2026-07-20T12:00:00Z`.
-- Partial authored dates retain their original precision. Derivation interprets missing month/day components as January/first day, matching the existing Joda behavior used by Play.
-- Three-year recent and eight-year stale comparisons remain strict; leap-day year subtraction clamps to the final valid day of February.
-- The fixed-clock Play oracle is under `test/fixtures/static-site/play-oracle-2026-07-20/`. It was generated from the pre-migration HOCON at the recorded instant in UTC.
-- Equal-date and equal-frequency homepage ties now use deterministic route/name ordering instead of filesystem/Scala collection iteration order.
-- Homepage and projects-list summary URLs intentionally differ in Play. Generated projects carry both behaviors: homepage source URLs remain active, while list-page abandoned-project URLs are marked not-live.
+See [operations](static-site-operations.md) for verification, deployment and
+Pages-only rollback.
